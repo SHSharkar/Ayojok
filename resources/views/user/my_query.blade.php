@@ -482,10 +482,10 @@
         <!-- Masthead -->
 <header class="pagehead" style="background-image: url({{asset('img/backgrounds/page_header.png')}});">
     <div class="container">
-        <div class="row">
+        <div class="row ">
 
             <div class="col-sm-2 mt">
-                <button class="btn btn_myqueries">My Queries</button>
+                <button class="btn btn_myqueries" onclick="filter_showAll()">My Queries</button>
             </div>
             <div class="col-sm-2 mt">
                 <button class="btn btn_events">My Events</button>
@@ -493,27 +493,23 @@
             <div class="col-sm-8 mt">
 
 
-                <div class="dropdown">
+                <div class="dropdown" style="float: right">
 
                     <button class="add_event add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>Filter</span>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" onclick="filter('Query_Submitted')">Query Submitted</a>
-                        <a class="dropdown-item" href="#" onclick="filter('Available')">Available</a>
-                        <a class="dropdown-item" href="#" onclick="filter('Not_Available')">Not Available</a>
-                        <a class="dropdown-item" href="#" onclick="filter('Booked')">Booked</a>
-                        <a class="dropdown-item" href="#" onclick="filter('Time_Out')">Time Out</a>
-                        <a class="dropdown-item" href="#" onclick="filter('All')">All</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Query_Submitted')">Query Submitted</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available')">Available</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Not_Available')">Not Available</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Booked')">Booked</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Time_Out')">Time Out</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll()">All</a>
 
                     </div>
                 </div>
             </div>
-
-            {{--<div class="col-12 my-auto text-center text-white">
-                <img class="pagehead-img img-responsive mb-3" src="{{asset('img/logo_final.png')}}" alt="">
-            </div>--}}
         </div>
     </div>
 </header>
@@ -698,6 +694,8 @@
                         $query_ids = array();
                         //print_r($query_ids);
                         $status = $vendor['display_status'];
+                        $className = str_replace(' ', '_', $status);
+
 
                         if (strtolower($status) == "query submitted") {
                             $circle_background_color = "#47DBC3";
@@ -1091,11 +1089,14 @@
     }
 
     function filter(status) {
-
-        alert(status);
+        //alert(status);
         $('.hideAll').hide();
         $('.' + status + '').show();
     }
+    function filter_showAll() {
+        $('.hideAll').show();
+    }
+
 
 
 </script>
