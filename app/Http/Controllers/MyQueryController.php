@@ -358,17 +358,27 @@ class MyQueryController extends Controller
     public function addEven2Query($event_id,$query_ids){
 
 
-        //return $event_id."<br>".$query_ids;
+       // return $event_id."<br>".$query_ids;
 
         $query_ids = explode(',',$query_ids);
         // return $query_ids;
 
+        if($event_id == 0){
+            foreach($query_ids as $v_query_id){
+                $query = Query::find($v_query_id);
+                $query->tag_id = null;
+                $query->save();
+            }
 
-        foreach($query_ids as $v_query_id){
-            $query = Query::find($v_query_id);
-            $query->tag_id = $event_id;
-            $query->save();
+        }else{
+            foreach($query_ids as $v_query_id){
+                $query = Query::find($v_query_id);
+                $query->tag_id = $event_id;
+                $query->save();
+            }
+
         }
+
 
         //return $event_id."<br>".$query_ids;
 
