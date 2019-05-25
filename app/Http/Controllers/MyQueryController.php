@@ -219,6 +219,7 @@ class MyQueryController extends Controller
     }
 
     public function addToCart($query_ids){
+        $user_id=Auth::user()->id;
         $query_ids = explode(',',$query_ids);
         //return $query_ids;
 
@@ -228,8 +229,99 @@ class MyQueryController extends Controller
             $query->save();
         }
 
-        $cart_query = Query::where('in_cart',1)->get();
-        //return $cart_query;
+        /*$vendors = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
+        $vendor_arr=array();
+        $service_arr=array();
+        $query_arr=array();
+        $query_arr1=array();
+
+        foreach ($vendors as $vendor)
+        {
+            $q=array(
+                "query_id" => $vendor->id,
+                "event_date" => $vendor->event_date,
+                "total_payment" => $vendor->total,
+                "advance_payment" => $vendor->advance,
+                "discount" => $vendor->discount,
+                "total_paid" => $vendor->payment,
+            );
+            array_push($query_arr,$q);
+
+            if($vendor->queue_id==0)
+            {
+                $v=array(
+                    "category_name" => $vendor->catagory->name,
+                    "vendor_name" => $vendor->vendors->title,
+                    "query_details" => $query_arr
+                );
+                array_push($vendor_arr,$v);
+                $query_arr=array();
+            }
+        }
+
+        foreach ($services as $service)
+        {
+            $q=array(
+                "query_id" => $service->id,
+                "event_date" => $service->event_date,
+                "total_payment" => $service->total,
+                "advance_payment" => $service->advance,
+                "discount" => $service->discount,
+                "total_paid" => $service->payment,
+            );
+            array_push($query_arr1,$q);
+
+            if($service->queue_id==0)
+            {
+                $v=array(
+                    "category_name" => $service->catagory->name,
+                    "vendor_name" => $service->product->title,
+                    "query_details" => $query_arr1
+                );
+                array_push($service_arr,$v);
+                $query_arr1=array();
+            }
+        }
+        //print_r($service_arr);
+        //return $service_arr;
+
+        return view('user.extra.cart',compact('vendor_arr','service_arr'));*/
+
+        $vendors = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
+        $vendor_arr=array();
+
+        foreach ($vendors as $vendor)
+        {
+            $v=array(
+                "query_id" => $vendor->id,
+                "event_date" => $vendor->event_date,
+                "category_name" => $vendor->catagory->name,
+                "vendor_name" => $vendor->vendors->title,
+                "total_payment" => $vendor->total,
+                "advance_payment" => $vendor->advance,
+                "discount" => $vendor->discount,
+                "total_paid" => $vendor->payment
+            );
+            array_push($vendor_arr,$v);
+        }
+
+        foreach ($services as $service)
+        {
+            $s=array(
+                "query_id" => $service->id,
+                "event_date" => $service->event_date,
+                "category_name" => $service->catagory->name,
+                "vendor_name" => $service->product->title,
+                "total_payment" => $service->total,
+                "advance_payment" => $service->advance,
+                "discount" => $service->discount,
+                "total_paid" => $service->payment
+            );
+            array_push($vendor_arr,$s);
+        }
+        return view('user.extra.cart',compact('vendor_arr'));
     }
 
     public function add_new_event(Request $request,$tag_id){

@@ -279,21 +279,13 @@
         z-index: 1;
         top: 5%;
         right: 0;
-        background-color: #f2f2f2;
+        background-color: #ffffff;
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 2%;
-        -moz-box-shadow: -3px 0 20px 0 #999;
+        -moz-box-shadow:    -3px 0 20px 0 #999;
         -webkit-box-shadow: -3px 0 20px 0 #999;
-        box-shadow: -3px 0 20px 0 #999;
-    }
-
-    .sidebar p {
-        padding: 8px 8px 8px 32px;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
+        box-shadow:         -3px 0 20px 0 #999;
     }
 
     .sidebar .closebtn {
@@ -303,21 +295,25 @@
         right: 20px;
         font-size: x-large;
         font-weight: bolder;
-
     }
-
     .cart-head {
         font-family: "Helvetica Neue", sans-serif;
         font-size: 110%;
         font-weight: bolder;
     }
-
+    .cart-subhead{
+        font-family: "Helvetica Neue", sans-serif;
+        font-size: 110%;
+        font-weight: bolder;
+        margin-left: 70%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
     .cart-type {
         font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
         font-size: 90%;
         margin-bottom: 0;
     }
-
     .cart-name {
         font-family: "Helvetica Neue", sans-serif;
         font-size: 95%;
@@ -325,7 +321,7 @@
     }
 
     .cart-addon {
-        padding: .5rem .75rem;
+        /*padding: .5rem .75rem;*/
         margin-bottom: 0;
         font-size: 1rem;
         font-weight: normal;
@@ -348,7 +344,60 @@
     }
 
     .cart-td {
-        padding-bottom: 10%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+    .cart-title-td{
+        padding-left: 5%;
+
+    }
+
+    .cart-line{
+        width: 90%;
+        margin-top: 5%;
+        margin-left: 5%;
+        color: #F0F0F0;
+        border-bottom: 1px solid black;
+        position: absolute;
+    }
+    .cart-total{
+        margin-top: 10%;
+        margin-left: 5%;
+        color: #676767;
+        font-family: "Helvetica Neue", sans-serif;
+        font-weight: bolder;
+        font-size: 110%;
+        position: absolute;
+    }
+    .cart-total-value{
+        width: 40%;
+        margin-left: 55%;
+        text-align: center;
+    }
+
+    .cart-paybtn {
+        width: 90%;
+        margin-top: 20%;
+        margin-left: 5%;
+        padding: 5px;
+        background-color: #E2AD5B;
+        border: 1px solid #DFA449;
+        color: #F2F2F2;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 10px;
+    }
+
+    .cart-paybtn-shadow {
+        box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
+    }
+    .cart-delete-btn{
+        background-color: #FFFFFF;
+        border: 0px;
     }
 </style>
 
@@ -832,58 +881,41 @@
             </table>
         </div>
         <div id="mySidebar" class="sidebar">
-
-
             <div class="row" style="padding-left: 30%">
-                <label class="cart-head"><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a
-                        href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <label class="cart-head" ><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             </div>
-            <div class="row" style="float: right; padding-right: 25%; padding-top: 5%; padding-bottom: 5%;">
-                <label class="cart-head">Amount</label>
+            <div class="row">
+                <label class="cart-subhead">Amount</label>
             </div>
-            <table class="row container">
-                <tbody>
-                <tr>
-                    <td class="cart-td" width="60%">
-                        <label class="cart-type">Venue</label><br>
-                        <label class="cart-name">Pubali Resort Club</label><br>
-                        <label class="cart-type">Date : Jun 21,22,23</label>
-                    </td>
-                    <td class="cart-td" width="40%">
-                        <div class="input-group">
-                            <span class="input-group-addon cart-addon">BDT</span>
-                            <input id="msg" type="text" class="form-control-sm cart-form-control" name="msg">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cart-td" width="60%">
-                        <label class="cart-type">Venue</label><br>
-                        <label class="cart-name">Pubali Resort Club</label><br>
-                        <label class="cart-type">Date : Jun 21,22,23</label>
-                    </td>
-                    <td class="cart-td" width="40%">
-                        <div class="input-group">
-                            <span class="input-group-addon cart-addon">BDT</span>
-                            <input id="msg" type="text" class="form-control-sm cart-form-control" name="msg">
-                        </div>
-                    </td>
-                </tr>
-                <hr>
+            <div id="div-cart">
 
-                </tbody>
-            </table>
+            </div>
+            <div class="cart-line"></div>
+            <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label></div>
+            <button class="cart-paybtn cart-paybtn-shadow">Payment</button>
         </div>
 
         <script>
             function openNav() {
-                document.getElementById("mySidebar").style.width = "25%";
-                document.getElementById("main1").className = "col-sm-9";
+                document.getElementById("mySidebar").style.width = "20%";
+                document.getElementById("main1").className = "col-sm-10";
             }
 
             function closeNav() {
                 document.getElementById("mySidebar").style.width = "0";
                 document.getElementById("main1").className = "col-sm-12";
+            }
+
+            function addTotal($len)
+            {
+                //alert($len);
+                var i=0; var total=0;
+                for(i=0; i< $len; i++)
+                {
+                    //alert(document.getElementById(i).value);
+                    total=total+parseInt(document.getElementById(i).value);
+                }
+                document.getElementById('total').innerHTML="BDT "+total;
             }
         </script>
     </div>
@@ -992,7 +1024,7 @@
             type: 'GET',
             success: function (data) {
                 console.log(' message: ' + data);
-                //$('body').html(data);
+                $('#div-cart').html(data);
             },
             error: function (xhr, status, error) {
                 // check status && error
