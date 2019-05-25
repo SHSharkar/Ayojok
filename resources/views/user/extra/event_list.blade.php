@@ -20,9 +20,11 @@
             <a href="javascript:void(0)" style="float: right" onclick="remove_event_from_query('{{$event->id}}')">&times;</a>
         </label>
     @endforeach
-        <label class="radio_container">Not Set
+        {{--<label class="radio_container">Not Set
             <input type="radio" id="0" name="radio" value="{{null}}" onclick="add_event_to_query({{0}})" >
-            <span class="checkmark"></span>
-        </label>
+            <span class="checkmark" ></span>
+        </label>--}}
+
+    <button class="btn btn-default btn-reset-event" onclick="add_event_to_query({{0}})" >Reset</button>
 </div>
 

@@ -23,15 +23,13 @@ class MyQueryController extends Controller
     }
 
 
-
-
     public function go()
     {
         $datas = User::all();
         $v = array();
 
 
-        $i =0;
+        $i = 0;
         foreach ($datas as $data) {
             $v[$i] = [
                 "name" => $data->name,
@@ -41,37 +39,34 @@ class MyQueryController extends Controller
         return $v;
     }
 
-    public function index(){
-        $user=Auth::user()->id;
+    public function index()
+    {
+        $user = Auth::user()->id;
         $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
         $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
-        $vendor_arr=array();
-        $service_arr=array();
-        $query_arr=array();
-        $query_arr1=array();
-        $status="";
-        $status1="";
+        $vendor_arr = array();
+        $service_arr = array();
+        $query_arr = array();
+        $query_arr1 = array();
+        $status = "";
+        $status1 = "";
 
-        foreach ($vendors as $vendor)
-        {
+        foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
-            if($vendor->tag_id != null){
+            if ($vendor->tag_id != null) {
                 $tag_title = $vendor->tag->title;
                 $tag_id = $vendor->tag_id;
-            }else{
+            } else {
                 $tag_title = null;
                 $tag_id = null;
             }
-            if(strtolower($vendor->status)=="booked")
-            {
-                $status="Booked";
-            }
-            else if($status!="Booked" && strtolower($vendor->status)=="available")
-            {
-                $status="available";
+            if (strtolower($vendor->status) == "booked") {
+                $status = "Booked";
+            } else if ($status != "Booked" && strtolower($vendor->status) == "available") {
+                $status = "available";
             }
 
-            $q=array(
+            $q = array(
                 "query_id" => $vendor->id,
                 "query_tag" => $tag_title,
                 "query_tag_id" => $tag_id,
@@ -84,27 +79,21 @@ class MyQueryController extends Controller
                 "status" => $vendor->status,
                 "in_cart" => $vendor->in_cart
             );
-            array_push($query_arr,$q);
+            array_push($query_arr, $q);
 
-            if($vendor->queue_id==0)
-            {
+            if ($vendor->queue_id == 0) {
 
-                if($status=="Booked")
-                {
-                    $status="Booked";
-                }
-                else if($status=="available")
-                {
+                if ($status == "Booked") {
+                    $status = "Booked";
+                } else if ($status == "available") {
                     //echo $status;
-                    $status="Available";
-                }
-                else
-                {
+                    $status = "Available";
+                } else {
 
-                    $status=$vendor->status;
+                    $status = $vendor->status;
                 }
 
-                $v=array(
+                $v = array(
                     "category_id" => $vendor->catagory->id,
                     "category_name" => $vendor->catagory->name,
                     "vendor_id" => $vendor->vendors->id,
@@ -113,11 +102,12 @@ class MyQueryController extends Controller
                     "expiry_date" => $vendor->expiry_date,
                     "expiry_time" => $vendor->expiry_time,
                     "display_status" => $status,
-                    "query_details" => $query_arr
+                    "query_details" => $query_arr,
+                    "query_tag" => $tag_title,
                 );
-                array_push($vendor_arr,$v);
-                $query_arr=array();
-                $status="";
+                array_push($vendor_arr, $v);
+                $query_arr = array();
+                $status = "";
             }
         }
         /*echo "<pre>";
@@ -127,29 +117,25 @@ class MyQueryController extends Controller
         //return $vendor_arr[0]['query_details'];
         //print_r($vendor_arr);
 
-        foreach ($services as $service)
-        {
-            if($service->tag_id != null){
+        foreach ($services as $service) {
+            if ($service->tag_id != null) {
                 $tag_title = $service->tag->title;
                 $tag_id = $service->tag_id;
 
-            }else{
+            } else {
                 $tag_title = null;
                 $tag_id = null;
 
             }
 
 
-            if($service->status=="Booked")
-            {
-                $status1="Booked";
-            }
-            else if($status1!="Booked" && $service->status=="Available")
-            {
-                $status1="Available";
+            if ($service->status == "Booked") {
+                $status1 = "Booked";
+            } else if ($status1 != "Booked" && $service->status == "Available") {
+                $status1 = "Available";
             }
 
-            $q=array(
+            $q = array(
                 "query_id" => $service->id,
                 "query_tag" => $tag_title,
                 "query_tag_id" => $tag_id,
@@ -162,24 +148,18 @@ class MyQueryController extends Controller
                 "status" => $service->status,
                 "in_cart" => $service->in_cart
             );
-            array_push($query_arr1,$q);
+            array_push($query_arr1, $q);
 
-            if($service->queue_id==0)
-            {
-                if($status1=="Booked")
-                {
-                    $status1="Booked";
-                }
-                else if($status1=="Available")
-                {
-                    $status1="Available";
-                }
-                else
-                {
-                    $status1=$service->status;
+            if ($service->queue_id == 0) {
+                if ($status1 == "Booked") {
+                    $status1 = "Booked";
+                } else if ($status1 == "Available") {
+                    $status1 = "Available";
+                } else {
+                    $status1 = $service->status;
                 }
 
-                $v=array(
+                $v = array(
                     "category_id" => $service->catagory->id,
                     "category_name" => $service->catagory->name,
                     "vendor_id" => $service->product->id,
@@ -188,10 +168,12 @@ class MyQueryController extends Controller
                     "expiry_date" => $service->expiry_date,
                     "expiry_time" => $service->expiry_time,
                     "display_status" => $status1,
-                    "query_details" => $query_arr1
+                    "query_details" => $query_arr1,
+                    "query_tag" => $tag_title,
+
                 );
-                array_push($service_arr,$v);
-                $query_arr1=array();
+                array_push($service_arr, $v);
+                $query_arr1 = array();
             }
         }
         //print_r($service_arr);
@@ -199,18 +181,19 @@ class MyQueryController extends Controller
 
         $user_id = Auth::user()->id;
         /*Event list as user specific*/
-        $events = Tag::where('user_id',$user_id)->get();
+        $events = Tag::where('user_id', $user_id)->get();
 
-        return view('user.my_query',compact('vendor_arr', 'service_arr','events'));
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events'));
     }
 
 
-    public function delete($query_ids){
+    public function delete($query_ids)
+    {
 
-        $query_ids = explode(',',$query_ids);
+        $query_ids = explode(',', $query_ids);
         //return $query_ids;
 
-        foreach($query_ids as $id){
+        foreach ($query_ids as $id) {
             $query = Query::find($id);
             $query->delete();
         }
@@ -218,12 +201,13 @@ class MyQueryController extends Controller
         return "Delete SuccessFully";
     }
 
-    public function addToCart($query_ids){
-        $user_id=Auth::user()->id;
-        $query_ids = explode(',',$query_ids);
+    public function addToCart($query_ids)
+    {
+        $user_id = Auth::user()->id;
+        $query_ids = explode(',', $query_ids);
         //return $query_ids;
 
-        foreach($query_ids as $id){
+        foreach ($query_ids as $id) {
             $query = Query::find($id);
             $query->in_cart = 1;
             $query->save();
@@ -288,13 +272,12 @@ class MyQueryController extends Controller
 
         return view('user.extra.cart',compact('vendor_arr','service_arr'));*/
 
-        $vendors = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
-        $services = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
-        $vendor_arr=array();
+        $vendors = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
+        $vendor_arr = array();
 
-        foreach ($vendors as $vendor)
-        {
-            $v=array(
+        foreach ($vendors as $vendor) {
+            $v = array(
                 "query_id" => $vendor->id,
                 "event_date" => $vendor->event_date,
                 "category_name" => $vendor->catagory->name,
@@ -304,12 +287,11 @@ class MyQueryController extends Controller
                 "discount" => $vendor->discount,
                 "total_paid" => $vendor->payment
             );
-            array_push($vendor_arr,$v);
+            array_push($vendor_arr, $v);
         }
 
-        foreach ($services as $service)
-        {
-            $s=array(
+        foreach ($services as $service) {
+            $s = array(
                 "query_id" => $service->id,
                 "event_date" => $service->event_date,
                 "category_name" => $service->catagory->name,
@@ -319,12 +301,13 @@ class MyQueryController extends Controller
                 "discount" => $service->discount,
                 "total_paid" => $service->payment
             );
-            array_push($vendor_arr,$s);
+            array_push($vendor_arr, $s);
         }
-        return view('user.extra.cart',compact('vendor_arr'));
+        return view('user.extra.cart', compact('vendor_arr'));
     }
 
-    public function add_new_event(Request $request,$tag_id){
+    public function add_new_event(Request $request, $tag_id)
+    {
         //return $request->event_name;
         //return $tag_id;
 
@@ -336,42 +319,44 @@ class MyQueryController extends Controller
         $tag->title = $event_name;
         $tag->save();
 
-        $events = Tag::where('user_id',$user_id)->get();
+        $events = Tag::where('user_id', $user_id)->get();
 
 
-        return view('user.extra.event_list')->with('events',$events)->with('tag_id',$tag_id);
+        return view('user.extra.event_list')->with('events', $events)->with('tag_id', $tag_id);
     }
 
 
-    public function load_event($event_tag_id){
+    public function load_event($event_tag_id)
+    {
 
         //return $event_tag_id;
 
         $user_id = Auth::user()->id;
-        $events = Tag::where('user_id',$user_id)->get();
+        $events = Tag::where('user_id', $user_id)->get();
         return view('user.extra.event_list')
-            ->with('events',$events)
-            ->with('tag_id',$event_tag_id);
+            ->with('events', $events)
+            ->with('tag_id', $event_tag_id);
         //return $event_tag_id;
     }
 
-    public function addEven2Query($event_id,$query_ids){
+    public function addEven2Query($event_id, $query_ids)
+    {
 
 
-       // return $event_id."<br>".$query_ids;
+        // return $event_id."<br>".$query_ids;
 
-        $query_ids = explode(',',$query_ids);
+        $query_ids = explode(',', $query_ids);
         // return $query_ids;
 
-        if($event_id == 0){
-            foreach($query_ids as $v_query_id){
+        if ($event_id == 0) {
+            foreach ($query_ids as $v_query_id) {
                 $query = Query::find($v_query_id);
                 $query->tag_id = null;
                 $query->save();
             }
 
-        }else{
-            foreach($query_ids as $v_query_id){
+        } else {
+            foreach ($query_ids as $v_query_id) {
                 $query = Query::find($v_query_id);
                 $query->tag_id = $event_id;
                 $query->save();
@@ -385,17 +370,19 @@ class MyQueryController extends Controller
         //return Redirect::to('/my-query');
 
     }
-    public function removeEvent4mQuery($event_id,$query_ids,$tag_id){
+
+    public function removeEvent4mQuery($event_id, $query_ids, $tag_id)
+    {
 
         $user_id = Auth::user()->id;
 
         //return $event_id."<br>".$query_ids;
 
-        $query_ids = explode(',',$query_ids);
+        $query_ids = explode(',', $query_ids);
         // return $query_ids;
-        $queries = Query::where('tag_id',$event_id)->get();
+        $queries = Query::where('tag_id', $event_id)->get();
 
-        foreach($queries as $query){
+        foreach ($queries as $query) {
             $query->tag_id = null;
             $query->save();
         }
@@ -403,10 +390,10 @@ class MyQueryController extends Controller
         $tag = Tag::find($event_id);
         $tag->delete();
 
-        $events = Tag::where('user_id',$user_id)->get();
+        $events = Tag::where('user_id', $user_id)->get();
 
 
-        return view('user.extra.event_list')->with('events',$events)->with('events',$events)->with('tag_id',$tag_id);
+        return view('user.extra.event_list')->with('events', $events)->with('events', $events)->with('tag_id', $tag_id);
 
         //return $event_id."<br>".$query_ids;
 

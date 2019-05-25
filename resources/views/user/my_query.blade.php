@@ -25,8 +25,8 @@
         /*background-color: #89CB3E;*/
         text-align: center;
         color: #fff;
-        font-size: 28px;
-        font-weight: bolder;
+        font-size: 24px;
+        font-weight: 500;
     }
 
     td:first-child {
@@ -452,7 +452,7 @@
 
     /* When the radio button is checked, add a blue background */
     .radio_container input:checked ~ .checkmark {
-        background-color: #FFC107;
+        background-color: #fff;
     }
 
     /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -469,12 +469,12 @@
 
     /* Style the indicator (dot/circle) */
     .radio_container .checkmark:after {
-        top: 9px;
-        left: 9px;
-        width: 8px;
-        height: 8px;
+        top: 7px;
+        left: 7px;
+        width: 9px;
+        height: 9px;
         border-radius: 50%;
-        background: white;
+        background: #FFC107;
     }
 
     .close {
@@ -544,15 +544,33 @@
         transition-duration: 0.4s;
         border-radius: 5px;
         vertical-align: central;
-        width: 180px;
+        width: 200px;
         font-weight: bolder;
     }
 
     .filter {
         background-color: #E2AD5B;
-        width: 180px;
+        width: 200px;
+        padding: 0;
+    }
+    .dropdown-item:hover{
+        /*background-color: #FFFBF4;*/
+        padding-top: 5%;
+        padding-bottom: 5%;
     }
 
+    .btn-reset-event{
+        float: right;
+        width: 72px;
+        height: 33px;
+        font-size: 11px;
+        border-radius: 100%;
+        background-color: #FFFFFF;
+        border: 1px solid #DDDDDD;
+    }
+    .btn-reset-event:hover{
+        background-color: #FFC107;
+    }
 
 </style>
 @endpush
@@ -568,7 +586,18 @@
                 <button class="btn btn_myqueries" onclick="filter_showAll()">My Queries</button>
             </div>
             <div class="col-sm-2 mt">
-                <button class="btn btn_events">My Events</button>
+
+                <div class="dropdown">
+                    <button class="btn btn_events" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">My Events
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach($events as $event)
+                            <a class="dropdown-item" href="#">{{$event->title}}</a>
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="col-sm-2"></div>
             <div class="col-sm-2"></div>
@@ -578,18 +607,23 @@
 
                     <button class="btn_filter add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>Filter</span>
+                        <span id="filter_title">Filter</span>
+                        <span style="float: right" onclick="filter_showAll('Filter')">&times;</span>
                     </button>
+
                     <div class="dropdown-menu filter" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Query_Submitted')">Query
-                            Submitted</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('In_Review')">In Review</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available')">Available</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Not_Available')">Not
-                            Available</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Booked')">Booked</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Time_Out')">Time Out</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll()">All</a>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           onclick="filter('Query_Submitted','Query Submitted')">Query Submitted</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('In_Review','In Review')">In
+                            Review</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available','Available')">Available</a>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           onclick="filter('Not_Available','Not Available')">Not Available</a>
+                        <a class="dropdown-item" href="javascript:void(0)"
+                           onclick="filter('Booked','Booked')">Booked</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Time_Out','Time Out')">Time
+                            Out</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll('All')">All</a>
 
                     </div>
                 </div>
@@ -627,6 +661,11 @@
                         $query_ids = array();
                         //print_r($query_ids);
                         $status = $vendor['display_status'];
+
+
+                        $event_title = $vendor['query_tag'];
+
+
                         //Making class name from status
                         $className = str_replace(' ', '_', $status);
 
@@ -647,7 +686,7 @@
                             $date_name = $status;
                         } elseif (strtolower($status) == "not available") {
                             $circle_background_color = "#ADADAD";
-                            $padding_top = "25%";
+                            $padding_top = "35%";
                             $status_var = 4;
                             $price = "(Depend on Discussion)";
                         } elseif (strtolower($status) == "booked") {
@@ -658,7 +697,7 @@
                         }
 
                         ?>
-                        <tr class="{{$className}} hideAll">
+                        <tr class="{{$className}} {{$event_title}} hideAll">
                             <td>
                                 <div class="circle"
                                      style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
@@ -767,16 +806,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 @if(sizeof($service_arr) > 0)
 
                     @foreach($service_arr as $vendor)
@@ -797,6 +826,8 @@
                         $query_ids = array();
                         //print_r($query_ids);
                         $status = $vendor['display_status'];
+                        $event_title = $vendor['query_tag'];
+
                         $className = str_replace(' ', '_', $status);
 
 
@@ -817,7 +848,7 @@
                             $date_name = $status;
                         } elseif (strtolower($status) == "not available") {
                             $circle_background_color = "#ADADAD";
-                            $padding_top = "25%";
+                            $padding_top = "35%";
                             $status_var = 4;
                             $price = "(Depend on Discussion)";
                         } elseif (strtolower($status) == "booked") {
@@ -828,7 +859,7 @@
                         }
 
                         ?>
-                        <tr class="{{$className}} hideAll">
+                        <tr class="{{$className}} {{$event_title}} hideAll">
                             <td>
                                 <div class="circle"
                                      style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
@@ -1022,7 +1053,9 @@
                         </div>
                     </div>
                     <div class="modal-footer modal_footer">
+
                         <div class="modal_create_event" id="modal_create_event">
+
                             <p onclick="create_event_form_open()">+ Create Event</p>
                         </div>
                         <br>
@@ -1192,13 +1225,31 @@
 
     }
 
-    function filter(status) {
+    function filter(status, title) {
         //alert(status);
         $('.hideAll').hide();
         $('.' + status + '').show();
+
+        $('#filter_title').html(title);
+        if (title == "Query Submitted") {
+            $('.btn_filter').css('width', '260px');
+            $('.filter').css('width', '260px');
+        } else if (title == "Not Available") {
+            $('.btn_filter').css('width', '250px');
+            $('.filter').css('width', '250px');
+        } else {
+            $('.btn_filter').css('width', '200px');
+            $('.filter').css('width', '200px');
+
+        }
     }
-    function filter_showAll() {
+    function filter_showAll(title) {
         $('.hideAll').show();
+        $('#filter_title').html(title);
+        $('.btn_filter').css('width', '200px');
+        $('.filter').css('width', '200px');
+
+
     }
 
 
