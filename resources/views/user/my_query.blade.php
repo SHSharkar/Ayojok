@@ -936,7 +936,7 @@
 
                 document.getElementById("drop_down").style.float = "left";
             }
-            
+
             function closeNav() {
                 document.getElementById("mySidebar").style.width = "0";
                 document.getElementById("main1").className = "col-sm-12";

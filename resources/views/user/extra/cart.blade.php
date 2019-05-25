@@ -33,6 +33,11 @@
     </tr>--}}
     </tbody>
 </table>
+<script>
+    $(document).ready(function(){
+       addTotal('{{$len}}');
+    });
+</script>
 
 {{--
 @php print_r($vendor_arr); @endphp--}}
