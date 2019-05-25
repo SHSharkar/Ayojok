@@ -25,7 +25,7 @@
         /*background-color: #89CB3E;*/
         text-align: center;
         color: #fff;
-        font-size: 22px;
+        font-size: 28px;
         font-weight: bolder;
     }
 
@@ -492,6 +492,12 @@
     }
 
 
+    .filter{
+        background-color: #E2AD5B;
+        width: 180px;
+    }
+
+
 </style>
 @endpush
 
@@ -512,13 +518,13 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-4 mt">
 
-                <div class="dropdown" style="float: right" id="drop_down">
+                <div class="dropdown " style="float: right" id="drop_down">
 
                     <button class="btn_filter add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>Filter</span>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                    <div class="dropdown-menu filter" aria-labelledby="dropdownMenuButton" >
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Query_Submitted')">Query Submitted</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('In_Review')">In Review</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available')">Available</a>
@@ -691,6 +697,13 @@
                 @else
                     <?php $check = 0; ?>
                 @endif
+
+
+
+
+
+
+
 
 
 
@@ -894,29 +907,9 @@
                 </tbody>
             </table>
         </div>
-
-        <script>
-            function openNav() {
-                document.getElementById("mySidebar").style.width = "25%";
-                document.getElementById("main1").className = "col-sm-9";
-
-                document.getElementById("drop_down").style.float = "left";
-
-            }
-
-            function closeNav() {
-                document.getElementById("mySidebar").style.width = "0";
-                document.getElementById("main1").className = "col-sm-12";
-
-                document.getElementById("drop_down").style.float = "right";
-
-            }
-        </script>
     </div>
 
-
     {{--Modals--}}
-
     {{--Events model--}}
     <div class="container">
         <!-- Modal -->
@@ -934,6 +927,7 @@
 
 
                         <div id="events">
+
                             @foreach($events as $event)
                                 <label class="radio_container">{{$event->title}}
                                     <input type="radio" id="{{$event->id}}" name="radio" value="{{$event->id}}"
@@ -943,16 +937,17 @@
                                        onclick="remove_event_from_query('{{$event->id}}')">&times;</a>
                                 </label>
                             @endforeach
+                            <label class="radio_container">Not Set
+                                <input type="radio" id="0" name="radio" value="{{null}}" onclick="add_event_to_query({{0}})" >
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="modal-footer modal_footer">
-
                         <div class="modal_create_event" id="modal_create_event">
                             <p onclick="create_event_form_open()">+ Create Event</p>
                         </div>
-
                         <br>
-
                         <form role="form" id="eventForm" class="form modal_form">
                             {{csrf_field()}}
                             <div class="form-group">
@@ -969,8 +964,21 @@
 
 </section>
 @endsection
-
 @push('scripts')
+
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "25%";
+        document.getElementById("main1").className = "col-sm-9";
+        document.getElementById("drop_down").style.float = "left";
+    }
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main1").className = "col-sm-12";
+        document.getElementById("drop_down").style.float = "right";
+    }
+</script>
+
 <script>
 
     var queryIds_for_event;
