@@ -283,9 +283,9 @@
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 2%;
-        -moz-box-shadow:    -3px 0 20px 0 #999;
+        -moz-box-shadow: -3px 0 20px 0 #999;
         -webkit-box-shadow: -3px 0 20px 0 #999;
-        box-shadow:         -3px 0 20px 0 #999;
+        box-shadow: -3px 0 20px 0 #999;
     }
 
     .sidebar .closebtn {
@@ -296,12 +296,14 @@
         font-size: x-large;
         font-weight: bolder;
     }
+
     .cart-head {
         font-family: "Helvetica Neue", sans-serif;
         font-size: 110%;
         font-weight: bolder;
     }
-    .cart-subhead{
+
+    .cart-subhead {
         font-family: "Helvetica Neue", sans-serif;
         font-size: 110%;
         font-weight: bolder;
@@ -309,11 +311,13 @@
         margin-top: 5%;
         margin-bottom: 5%;
     }
+
     .cart-type {
         font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
         font-size: 90%;
         margin-bottom: 0;
     }
+
     .cart-name {
         font-family: "Helvetica Neue", sans-serif;
         font-size: 95%;
@@ -347,12 +351,13 @@
         padding-top: 5%;
         padding-bottom: 5%;
     }
-    .cart-title-td{
+
+    .cart-title-td {
         padding-left: 5%;
 
     }
 
-    .cart-line{
+    .cart-line {
         width: 90%;
         margin-top: 5%;
         margin-left: 5%;
@@ -360,7 +365,8 @@
         border-bottom: 1px solid black;
         position: absolute;
     }
-    .cart-total{
+
+    .cart-total {
         margin-top: 10%;
         margin-left: 5%;
         color: #676767;
@@ -369,7 +375,8 @@
         font-size: 110%;
         position: absolute;
     }
-    .cart-total-value{
+
+    .cart-total-value {
         width: 40%;
         margin-left: 55%;
         text-align: center;
@@ -395,7 +402,8 @@
     .cart-paybtn-shadow {
         box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
     }
-    .cart-delete-btn{
+
+    .cart-delete-btn {
         background-color: #FFFFFF;
         border: 0px;
     }
@@ -540,8 +548,7 @@
         font-weight: bolder;
     }
 
-
-    .filter{
+    .filter {
         background-color: #E2AD5B;
         width: 180px;
     }
@@ -573,11 +580,13 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>Filter</span>
                     </button>
-                    <div class="dropdown-menu filter" aria-labelledby="dropdownMenuButton" >
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Query_Submitted')">Query Submitted</a>
+                    <div class="dropdown-menu filter" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Query_Submitted')">Query
+                            Submitted</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('In_Review')">In Review</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available')">Available</a>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Not_Available')">Not Available</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Not_Available')">Not
+                            Available</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Booked')">Booked</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Time_Out')">Time Out</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll()">All</a>
@@ -611,6 +620,9 @@
                         $date_name = "Request";
                         $price = 0;
                         $advance = 0;
+                        $due = 0;
+                        $already_paid = 0;
+                        $discount = 0;
 
                         $query_ids = array();
                         //print_r($query_ids);
@@ -680,12 +692,17 @@
                                             $event_title = "Add To Event";
                                             $event_background = "#F2F2F2";
                                             $event_txt_color = "#0B98FF";
-
                                         }
+
+
 
                                         if (is_numeric($price)) {
                                             $price += $query['total_payment'];
                                             $advance += $query['advance_payment'];
+                                            $already_paid += $query['total_paid'];
+                                            $due = $price - $already_paid;
+
+                                            $discount += $query['discount'];
                                         }
                                         ?>
                                     @endforeach
@@ -738,7 +755,7 @@
                                             onclick="addToCart('{{json_encode($query_ids)}}')"> Pay Rest
                                     </button>
                                     {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                    <p class="duePrice"> Due amount: BDT 108000 </p>
+                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
                                 </td>
                             @endif
                         </tr>
@@ -772,6 +789,10 @@
 
                         $date_name = "Request";
                         $price = 0;
+                        $advance = 0;
+                        $due = 0;
+                        $already_paid = 0;
+                        $discount = 0;
 
                         $query_ids = array();
                         //print_r($query_ids);
@@ -849,6 +870,10 @@
                                         if (is_numeric($price)) {
                                             $price += $query['total_payment'];
                                             $advance += $query['advance_payment'];
+                                            $already_paid += $query['total_paid'];
+                                            $due = $price - $already_paid;
+
+                                            $discount += $query['discount'];
                                         }
                                         ?>
                                     @endforeach
@@ -902,7 +927,7 @@
                                             onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"> Pay Rest
                                     </button>
                                     {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                    <p class="duePrice"> Due amount: BDT 108000 </p>
+                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
                                 </td>
                             @endif
                         </tr>
@@ -915,7 +940,8 @@
         </div>
         <div id="mySidebar" class="sidebar">
             <div class="row" style="padding-left: 30%">
-                <label class="cart-head" ><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <label class="cart-head"><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a
+                        href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             </div>
             <div class="row">
                 <label class="cart-subhead">Amount</label>
@@ -924,7 +950,8 @@
 
             </div>
             <div class="cart-line"></div>
-            <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label></div>
+            <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label>
+            </div>
             <button class="cart-paybtn cart-paybtn-shadow">Payment</button>
         </div>
 
@@ -944,16 +971,15 @@
                 document.getElementById("drop_down").style.float = "right";
             }
 
-            function addTotal($len)
-            {
+            function addTotal($len) {
                 //alert($len);
-                var i=0; var total=0;
-                for(i=0; i< $len; i++)
-                {
+                var i = 0;
+                var total = 0;
+                for (i = 0; i < $len; i++) {
                     //alert(document.getElementById(i).value);
-                    total=total+parseInt(document.getElementById(i).value);
+                    total = total + parseInt(document.getElementById(i).value);
                 }
-                document.getElementById('total').innerHTML="BDT "+total;
+                document.getElementById('total').innerHTML = "BDT " + total;
             }
         </script>
 
@@ -989,7 +1015,8 @@
                                 </label>
                             @endforeach
                             <label class="radio_container">Not Set
-                                <input type="radio" id="0" name="radio" value="{{null}}" onclick="add_event_to_query({{0}})" >
+                                <input type="radio" id="0" name="radio" value="{{null}}"
+                                       onclick="add_event_to_query({{0}})">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -999,6 +1026,7 @@
                             <p onclick="create_event_form_open()">+ Create Event</p>
                         </div>
                         <br>
+
                         <form role="form" id="eventForm" class="form modal_form">
                             {{csrf_field()}}
                             <div class="form-group">
@@ -1016,7 +1044,6 @@
 </section>
 @endsection
 @push('scripts')
-
 
 
 <script>
@@ -1173,7 +1200,6 @@
     function filter_showAll() {
         $('.hideAll').show();
     }
-
 
 
 </script>
