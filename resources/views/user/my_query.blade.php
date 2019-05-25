@@ -473,6 +473,24 @@
         font-weight: bolder;
     }
 
+    .btn_filter {
+        background-color: #FFFBF4;
+        border: 1px solid #E2AD5B;
+        color: #E2AD5B;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 22px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 5px;
+        vertical-align: central;
+        width: 180px;
+        font-weight: bolder;
+    }
+
 
 </style>
 @endpush
@@ -490,17 +508,19 @@
             <div class="col-sm-2 mt">
                 <button class="btn btn_events">My Events</button>
             </div>
-            <div class="col-sm-8 mt">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 mt">
 
+                <div class="dropdown" style="float: right" id="drop_down">
 
-                <div class="dropdown" style="float: right">
-
-                    <button class="add_event add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
+                    <button class="btn_filter add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span>Filter</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Query_Submitted')">Query Submitted</a>
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="filter('In_Review')">In Review</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available')">Available</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Not_Available')">Not Available</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Booked')">Booked</a>
@@ -879,11 +899,17 @@
             function openNav() {
                 document.getElementById("mySidebar").style.width = "25%";
                 document.getElementById("main1").className = "col-sm-9";
+
+                document.getElementById("drop_down").style.float = "left";
+
             }
 
             function closeNav() {
                 document.getElementById("mySidebar").style.width = "0";
                 document.getElementById("main1").className = "col-sm-12";
+
+                document.getElementById("drop_down").style.float = "right";
+
             }
         </script>
     </div>
@@ -1076,6 +1102,9 @@
             success: function (data) {
                 console.log(' message: ' + data);
                 $("#event_list").html(data);
+
+                document.location.reload(true);
+
             },
             error: function (xhr, status, error) {
                 // check status && error
