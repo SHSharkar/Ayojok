@@ -2,6 +2,184 @@
 
 @push('css')
 
+{{--All Modal Design--}}
+<style>
+    /*Event Modal Design*/
+    .event .modal_div {
+        /*border-radius: 10px;*/
+    }
+
+    .event .modal_dialog {
+        width: 22%;
+        overflow-y: initial !important;
+        /*border-radius: 10px;*/
+    }
+
+    .event .modal_header {
+        background-color: #FFC107;
+        color: #FFFFFF;
+        /*border-radius: 10px;*/
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+    }
+
+    .event .modal_title {
+        margin: 0 auto;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .event .modal_body {
+        height: 250px;
+        overflow-y: auto;
+    }
+
+    .event .modal_content {
+        border-radius: 10px;
+    }
+
+    .event .form {
+        width: 100%;
+        text-align: center;
+        display: none;
+    }
+
+    .event .form_event_input {
+        border: 0;
+        border-bottom: 1px solid #6E6E6E;
+    }
+
+    .event .form_event_button {
+        color: #6E6E6E;
+        background-color: #ffffff;
+        text-transform: capitalize;
+    }
+
+    .event .modal_create_event {
+        text-align: center;
+        width: 100%;
+        border-top: 2px solid #6E6E6E;
+        color: #6E6E6E;
+
+    }
+
+    .event .modal_create_event p {
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close {
+        color: #ffffff;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+    .modal_footer {
+        border: 0;
+    }
+
+
+
+    /*Details Modal Design*/
+    /*Event Modal Design*/
+
+    .details_modal .modal_dialog {
+        width: 55%;
+        height: 75%;
+        overflow-y: initial !important;
+    }
+
+    .details_modal .modal_header {
+        background-color: #FFFFFF;
+        color: #E2AD5B;
+        /*border-radius: 10px;*/
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+    }
+    .details_modal .close{
+        color: #E2AD5B;
+        float: right;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+    .details_modal .modal_title {
+        margin: 0 auto;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .details_modal .modal_body {
+        height: 250px;
+        overflow-y: auto;
+        padding: 0;
+        height: 550px;
+    }
+
+    .details_modal .modal_content {
+        border-radius: 10px;
+    }
+    .details_modal .vendor_img{
+        height: 110px;
+        width: 200px;
+    }
+    .details_modal .vendor_title{
+        text-transform: none;
+    }
+    .details_modal p{
+        margin: 0;
+    }
+    .details_modal .body_first_row{
+        background-color: #F4F4F4;
+    }
+    .details_modal .row{
+        margin-right: 0;
+    }
+    .details_modal .col-sm-8{
+        padding: 1%;
+    }
+
+    .details_modal .modal_container{
+        padding-top: 2%;
+        padding-right: 2%;
+        padding-bottom: 0;
+        padding-left: 5%;
+    }
+    .details_modal .modal_container p{
+        font-size: 15px;;
+    }
+
+    .details_modal .date_row{
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+    .details_modal .request_date_box{
+        border: 1px solid;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 22%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+    }
+    .details_modal .date_title{
+        padding-top: 2%;
+        color: #C29147;
+    }
+    .details_modal .available_date_box{
+        border: 1px solid;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 22%;
+        background-color: #62AF0B;
+        color: white;
+        padding-top: 1%;
+        padding-bottom: 1%;
+    }
+</style>
+
 @endpush
 
 @section('content')
@@ -232,23 +410,77 @@
                         </center>
                       </td>--}}
                         <td>
-                            <button class="btn btn-info" onclick="queryDetails()">Query Details</button>
+                            <button class="details details_shadow" data-toggle="modal" data-target="#modal_details"
+                                    onclick=setModalWithData('{{json_encode($service->id)}}')> Details
+                            </button>
                         </td>
                     </tr>
                   @endforeach
-
-
-
               </tbody>
-
             </table>
           </div><!-- /.box-body -->
         </div><!-- /.box -->
       </div>
       {{-- End of Ayojok Service Bookable Query --}}
-
-
     </section><!-- /.content -->
+  </div>
+
+  {{--Modals--}}
+  {{--Details modal--}}
+  <div class="container details_modal">
+      <!-- Trigger the modal with a button -->
+      <!-- Modal -->
+      <div class="modal fade" id="modal_details" role="dialog">
+          <div class="modal-dialog modal_dialog modal-lg">
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header modal_header">
+                      <h4 class="modal-title modal_title">Details</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body modal_body">
+                      <div class="row body_first_row">
+                          <div class="col-sm-4">
+                              <img src="https://yt3.ggpht.com/a/AGF-l790ZGzS4Qw4FWGGEp6MQHqbWjxxvVeJhF7_sA=s900-mo-c-c0xffffffff-rj-k-no" class="vendor_img">
+                          </div>
+                          <div class="col-sm-4">
+                              <h4 class="vendor_title">Wedding Mate</h4>
+                              <p>Photography & Cinematography</p>
+                              <p>Query ID: 095864</p>
+                          </div>
+                          <div class="col-sm-4">
+                              <div class="row date_row">
+                                  <div class="col-sm-6 date_title">
+                                      <p>Requested Date & Shift</p>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <p>21/June/2019 (Night)</p>
+                                      <p>BDT: 1,10,000</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row modal_container" >
+                          <table>
+                              <tr>
+                                  <td><label>Total: </label></td>
+                                  <td><input class="form_event_input" type="number"></td>
+                              </tr>
+                              <tr>
+
+                              </tr>
+
+                              <label>Discount: </label><input type="number"><br>
+                              <label>Payment: </label><input type="number"><br>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 
 @endsection

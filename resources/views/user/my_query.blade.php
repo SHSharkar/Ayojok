@@ -1207,15 +1207,10 @@
             </div>
         </div>
     </div>
-
-
-
-
     {{--Modals--}}
     {{--Details modal--}}
     <div class="container details_modal">
         <!-- Trigger the modal with a button -->
-
         <!-- Modal -->
         <div class="modal fade" id="modal_details" role="dialog">
             <div class="modal-dialog modal_dialog modal-lg">
@@ -1226,10 +1221,6 @@
                         <h4 class="modal-title modal_title">Details</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-
-
-
-
                     <div class="modal-body modal_body">
                         <div class="row body_first_row">
                             <div class="col-sm-4">
@@ -1281,11 +1272,6 @@
                            </div>
                         </div>
                     </div>
-
-
-
-
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
