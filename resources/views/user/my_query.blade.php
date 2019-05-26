@@ -206,7 +206,6 @@
         text-align: center;
     }
 
-
     /*cart*/
     tr:hover {
         background-color:#f5f5f5;
@@ -416,6 +415,7 @@
         font-weight: bold;
         cursor: pointer;
     }
+
     .close {
         color: #ffffff;
         font-size: 30px;
@@ -425,8 +425,6 @@
     .modal_footer {
         border: 0;
     }
-
-
 
     /*Details Modal Design*/
     /*Event Modal Design*/
@@ -445,7 +443,8 @@
         border-top-right-radius: 10px;
 
     }
-    .details_modal .close{
+
+    .details_modal .close {
         color: #E2AD5B;
         float: right;
         font-size: 30px;
@@ -469,41 +468,49 @@
     .details_modal .modal_content {
         border-radius: 10px;
     }
-    .details_modal .vendor_img{
+
+    .details_modal .vendor_img {
         height: 110px;
         width: 200px;
     }
-    .details_modal .vendor_title{
+
+    .details_modal .vendor_title {
         text-transform: none;
     }
-    .details_modal p{
+
+    .details_modal p {
         margin: 0;
     }
-    .details_modal .body_first_row{
+
+    .details_modal .body_first_row {
         background-color: #F4F4F4;
     }
-    .details_modal .row{
+
+    .details_modal .row {
         margin-right: 0;
     }
-    .details_modal .col-sm-8{
+
+    .details_modal .col-sm-8 {
         padding: 1%;
     }
 
-    .details_modal .modal_container{
+    .details_modal .modal_container {
         padding-top: 2%;
         padding-right: 2%;
         padding-bottom: 0;
         padding-left: 5%;
     }
-    .details_modal .modal_container p{
+
+    .details_modal .modal_container p {
         font-size: 15px;;
     }
 
-    .details_modal .date_row{
+    .details_modal .date_row {
         margin-top: 2%;
         margin-bottom: 2%;
     }
-    .details_modal .request_date_box{
+
+    .details_modal .request_date_box {
         border: 1px solid;
         border-radius: 10px;
         margin-right: 10px;
@@ -511,11 +518,13 @@
         padding-top: 1%;
         padding-bottom: 1%;
     }
-    .details_modal .date_title{
+
+    .details_modal .date_title {
         padding-top: 2%;
         color: #C29147;
     }
-    .details_modal .available_date_box{
+
+    .details_modal .available_date_box {
         border: 1px solid;
         border-radius: 10px;
         margin-right: 10px;
@@ -526,10 +535,31 @@
         padding-bottom: 1%;
     }
 
+    .details_modal .label {
+        color: #C29147;
+    }
+    .details_modal .message_box{
+        width: 100%;
+        height: 300%;
+        border-radius: 10px;
+        border: 1px solid #E2AD5B;
+        resize: none;
+        margin-left:0;
+        text-align:left
+    }
 
-
-
-
+    .details_modal .model_footer{
+        display: block;
+    }
+    .details_modal .footer_block{
+        border-right: 1px solid #DEDEDE;
+        text-align: center;
+        padding: 5px 0;
+    }
+    .details_modal .footer_price{
+        color: #535353;
+        font-weight: bold;
+    }
 
 
 </style>
@@ -795,7 +825,7 @@
                         if ($event_title == null) {
                             $event_title = "not_set";
                         }
-                        $event_title = str_replace(' ','_',$event_title);
+                        $event_title = str_replace(' ', '_', $event_title);
 
 
                         //Making class name from status
@@ -883,11 +913,16 @@
 
                                 <p class="detail">
                                     {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
-                                    <button class="details details_shadow"  data-toggle="modal" data-target="#modal_details"
-                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')> Details</button>
+                                    <button class="details details_shadow" data-toggle="modal"
+                                            data-target="#modal_details"
+                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                        Details
+                                    </button>
 
-                                    <button class="add_event add_event_shadow" style="background-color: {{$event_background}};color: {{$event_txt_color}}" data-toggle="modal" data-target="#modal_event"
-                                                      onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                    <button class="add_event add_event_shadow"
+                                            style="background-color: {{$event_background}};color: {{$event_txt_color}}"
+                                            data-toggle="modal" data-target="#modal_event"
+                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
                                         {{--<span>
                                             <img src="{{asset('img/icons/myquery/Add to events.png')}}">
                                         </span>--}}
@@ -960,7 +995,7 @@
                         if ($event_title == null) {
                             $event_title = "not_set";
                         }
-                        $event_title = str_replace(' ','_',$event_title);
+                        $event_title = str_replace(' ', '_', $event_title);
 
                         $className = str_replace(' ', '_', $status);
 
@@ -1048,8 +1083,10 @@
 
                                 <p class="detail">
 
-                                    <button class="details details_shadow" data-toggle="modal" data-target="#modal_details"
-                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')> Details
+                                    <button class="details details_shadow" data-toggle="modal"
+                                            data-target="#modal_details"
+                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                        Details
                                     </button>
                                     <button class="add_event add_event_shadow"
                                             style="background-color: {{$event_background}};color: {{$event_txt_color}}"
@@ -1221,59 +1258,100 @@
                         <h4 class="modal-title modal_title">Details</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
+
                     <div class="modal-body modal_body">
                         <div class="row body_first_row">
                             <div class="col-sm-4">
-                                <img src="https://yt3.ggpht.com/a/AGF-l790ZGzS4Qw4FWGGEp6MQHqbWjxxvVeJhF7_sA=s900-mo-c-c0xffffffff-rj-k-no" class="vendor_img">
+                                <img src="https://yt3.ggpht.com/a/AGF-l790ZGzS4Qw4FWGGEp6MQHqbWjxxvVeJhF7_sA=s900-mo-c-c0xffffffff-rj-k-no"
+                                     class="vendor_img">
                             </div>
                             <div class="col-sm-8">
                                 <h4 class="vendor_title">Wedding Mate</h4>
+
                                 <p>Photography & Cinematography</p>
+
                                 <p>Query ID: 095864</p>
                             </div>
                         </div>
-                        <div class="row modal_container" >
-                           <div class="col-sm-12">
-                               <div class="row date_row">
-                                   <div class="col-sm-3 date_title">
-                                       <p>Requested Dates & Shifts</p>
-                                   </div>
-                                   <div class="col-sm-3 request_date_box">
-                                       <p>21/June/2019 (Night)</p>
-                                       <p>BDT: 1,10,000</p>
-                                   </div>
-                                   <div class="col-sm-3 request_date_box">
-                                       <p>21/June/2019 (Day)</p>
-                                       <p>BDT: 1,10,000</p>
-                                   </div>
-                                   <div class="col-sm-3 request_date_box">
-                                       <p>23/June/2019 (Night)</p>
-                                       <p>BDT: 1,10,000</p>
-                                   </div>
-                               </div>
+                        <div class="row modal_container">
+                            <div class="col-sm-12">
+                                <div class="row date_row">
+                                    <div class="col-sm-3 date_title">
+                                        <p>Requested Dates & Shifts: </p>
+                                    </div>
+                                    <div class="col-sm-3 request_date_box">
+                                        <p>21/June/2019 (Night)</p>
 
-                               <div class="row date_row">
-                                   <div class="col-sm-3 date_title">
-                                       <p>Available Dates & Shifts</p>
-                                   </div>
-                                   <div class="col-sm-3 available_date_box">
-                                       <p>21/June/2019 (Night)</p>
-                                       <p>BDT: 1,10,000</p>
-                                   </div>
-                                   <div class="col-sm-3 available_date_box">
-                                       <p>21/June/2019 (Day)</p>
-                                       <p>BDT: 1,10,000</p>
-                                   </div>
-                                   <div class="col-sm-3 available_date_box">
-                                       <p>23/June/2019 (Night)</p>
-                                       <p>BDT: 1,10,000</p>
-                                   </div>
-                               </div>
-                           </div>
+                                        <p>BDT: 1,10,000</p>
+                                    </div>
+                                    <div class="col-sm-3 request_date_box">
+                                        <p>21/June/2019 (Day)</p>
+
+                                        <p>BDT: 1,10,000</p>
+                                    </div>
+                                    <div class="col-sm-3 request_date_box">
+                                        <p>23/June/2019 (Night)</p>
+
+                                        <p>BDT: 1,10,000</p>
+                                    </div>
+                                </div>
+
+                                <div class="row date_row">
+                                    <div class="col-sm-3 date_title">
+                                        <p>Available Dates & Shifts: </p>
+                                    </div>
+                                    <div class="col-sm-3 available_date_box">
+                                        <p>21/June/2019 (Night)</p>
+
+                                        <p>BDT: 1,10,000</p>
+                                    </div>
+                                    <div class="col-sm-3 available_date_box">
+                                        <p>21/June/2019 (Day)</p>
+
+                                        <p>BDT: 1,10,000</p>
+                                    </div>
+                                    <div class="col-sm-3 available_date_box">
+                                        <p>23/June/2019 (Night)</p>
+
+                                        <p>BDT: 1,10,000</p>
+                                    </div>
+                                </div>
+
+                                <div class="row date_row">
+                                    <div class="col-sm-3 label">
+                                        <p>Service Details: </p>
+                                    </div>
+                                    <div class="col-sm-9 ">
+                                        <p>Affordable package on 19th, standard package on 20th</p>
+                                    </div>
+                                </div>
+                                <div class="row date_row">
+                                    <div class="col-sm-3 label">
+                                        <p>Short Message: </p>
+                                    </div>
+                                </div>
+                                <div class="row date_row">
+                                    <div class="col-sm-12">
+                                        <textarea class="message_box" >
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <div class="modal-footer model_footer">
+                        <div class="row date_row">
+                            <div class="col-sm-4 label footer_block">
+                                Total Price: <span class="footer_price">BDT 122,000</span>
+                            </div>
+                            <div class="col-sm-4 label footer_block">
+                                Advance : <span class="footer_price">BDT 122,000</span>
+                            </div>
+                            <div class="col-sm-4 label">
+                                Due Payment: <span class="footer_price">BDT 122,000</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1281,7 +1359,6 @@
         </div>
 
     </div>
-
 
 
 </section>
