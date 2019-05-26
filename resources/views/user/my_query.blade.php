@@ -206,70 +206,6 @@
         text-align: center;
     }
 
-    .modal_div {
-        /*border-radius: 10px;*/
-    }
-
-    .modal_dialog {
-        width: 22%;
-        overflow-y: initial !important;
-        /*border-radius: 10px;*/
-    }
-
-    .modal_header {
-        background-color: #FFC107;
-        color: #FFFFFF;
-        /*border-radius: 10px;*/
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-
-    }
-
-    .modal_title {
-        margin: 0 auto;
-        font-size: 20px;
-        text-align: center;
-        font-weight: 500;
-    }
-
-    .modal_body {
-        height: 250px;
-        overflow-y: auto;
-    }
-
-    .modal_content {
-        border-radius: 10px;
-    }
-
-    .form {
-        width: 100%;
-        text-align: center;
-        display: none;
-    }
-
-    .form_event_input {
-        border: 0;
-        border-bottom: 1px solid #6E6E6E;
-    }
-
-    .form_event_button {
-        color: #6E6E6E;
-        background-color: #ffffff;
-        text-transform: capitalize;
-    }
-
-    .modal_create_event {
-        text-align: center;
-        width: 100%;
-        border-top: 2px solid #6E6E6E;
-        color: #6E6E6E;
-
-    }
-
-    .modal_create_event p {
-        font-weight: bold;
-        cursor: pointer;
-    }
 
     /*cart*/
     .sidebar {
@@ -409,6 +345,191 @@
     }
 </style>
 
+{{--All Modal Design--}}
+<style>
+    /*Event Modal Design*/
+    .event .modal_div {
+        /*border-radius: 10px;*/
+    }
+
+    .event .modal_dialog {
+        width: 22%;
+        overflow-y: initial !important;
+        /*border-radius: 10px;*/
+    }
+
+    .event .modal_header {
+        background-color: #FFC107;
+        color: #FFFFFF;
+        /*border-radius: 10px;*/
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+    }
+
+    .event .modal_title {
+        margin: 0 auto;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .event .modal_body {
+        height: 250px;
+        overflow-y: auto;
+    }
+
+    .event .modal_content {
+        border-radius: 10px;
+    }
+
+    .event .form {
+        width: 100%;
+        text-align: center;
+        display: none;
+    }
+
+    .event .form_event_input {
+        border: 0;
+        border-bottom: 1px solid #6E6E6E;
+    }
+
+    .event .form_event_button {
+        color: #6E6E6E;
+        background-color: #ffffff;
+        text-transform: capitalize;
+    }
+
+    .event .modal_create_event {
+        text-align: center;
+        width: 100%;
+        border-top: 2px solid #6E6E6E;
+        color: #6E6E6E;
+
+    }
+
+    .event .modal_create_event p {
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close {
+        color: #ffffff;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+    .modal_footer {
+        border: 0;
+    }
+
+
+
+    /*Details Modal Design*/
+    /*Event Modal Design*/
+
+    .details_modal .modal_dialog {
+        width: 55%;
+        height: 75%;
+        overflow-y: initial !important;
+    }
+
+    .details_modal .modal_header {
+        background-color: #FFFFFF;
+        color: #E2AD5B;
+        /*border-radius: 10px;*/
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+    }
+    .details_modal .close{
+        color: #E2AD5B;
+        float: right;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+    .details_modal .modal_title {
+        margin: 0 auto;
+        font-size: 20px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .details_modal .modal_body {
+        height: 250px;
+        overflow-y: auto;
+        padding: 0;
+        height: 550px;
+    }
+
+    .details_modal .modal_content {
+        border-radius: 10px;
+    }
+    .details_modal .vendor_img{
+        height: 110px;
+        width: 200px;
+    }
+    .details_modal .vendor_title{
+        text-transform: none;
+    }
+    .details_modal p{
+        margin: 0;
+    }
+    .details_modal .body_first_row{
+        background-color: #F4F4F4;
+    }
+    .details_modal .row{
+        margin-right: 0;
+    }
+    .details_modal .col-sm-8{
+        padding: 1%;
+    }
+
+    .details_modal .modal_container{
+        padding-top: 2%;
+        padding-right: 2%;
+        padding-bottom: 0;
+        padding-left: 5%;
+    }
+    .details_modal .modal_container p{
+        font-size: 15px;;
+    }
+
+    .details_modal .date_row{
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+    .details_modal .request_date_box{
+        border: 1px solid;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 22%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+    }
+    .details_modal .date_title{
+        padding-top: 2%;
+        color: #C29147;
+    }
+    .details_modal .available_date_box{
+        border: 1px solid;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 22%;
+        background-color: #62AF0B;
+        color: white;
+        padding-top: 1%;
+        padding-bottom: 1%;
+    }
+
+
+
+
+
+
+
+</style>
+
 {{--This style for Radio Box--}}
 <style>
     /* The container */
@@ -477,15 +598,7 @@
         background: #FFC107;
     }
 
-    .close {
-        color: #ffffff;
-        font-size: 30px;
-        opacity: 1;
-    }
 
-    .modal_footer {
-        border: 0;
-    }
 </style>
 
 {{--Style for header--}}
@@ -553,13 +666,14 @@
         width: 200px;
         padding: 0;
     }
-    .dropdown-item:hover{
+
+    .dropdown-item:hover {
         /*background-color: #FFFBF4;*/
         padding-top: 5%;
         padding-bottom: 5%;
     }
 
-    .btn-reset-event{
+    .btn-reset-event {
         float: right;
         width: 72px;
         height: 33px;
@@ -568,8 +682,15 @@
         background-color: #FFFFFF;
         border: 1px solid #DDDDDD;
     }
-    .btn-reset-event:hover{
+
+    .btn-reset-event:hover {
         background-color: #FFC107;
+    }
+
+    .event_dropdown {
+        background-color: #E2AD5B;
+        width: 200px;
+        padding: 0;
     }
 
 </style>
@@ -583,34 +704,38 @@
         <div class="row ">
 
             <div class="col-sm-2 mt">
-                <button class="btn btn_myqueries" onclick="filter_showAll()">My Queries</button>
+                <button class="btn btn_myqueries" onclick="filter_showAll('All')">My Queries</button>
             </div>
             <div class="col-sm-2 mt">
 
                 <div class="dropdown">
                     <button class="btn btn_events" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">My Events
+                            aria-haspopup="true" aria-expanded="false">
+                        <span id="event_title">My Events</span>
+                        <span style="float: right" onclick="event_filter_showAll('My Events')">&times;</span>
+
                     </button>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu event_dropdown" aria-labelledby="dropdownMenuButton">
                         @foreach($events as $event)
-                            <a class="dropdown-item" href="#">{{$event->title}}</a>
+
+                            <a class="dropdown-item" href="#"
+                               onclick="event_filter('{{str_replace(' ','_',$event->title)}}','{{$event->title}}')">{{$event->title}}</a>
                         @endforeach
+                        <a class="dropdown-item" href="#" onclick="event_filter_showAll('All')">All</a>
+                        <a class="dropdown-item" href="#" onclick="event_filter('not_set','Not Set')">Not Set</a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-2"></div>
             <div class="col-sm-2"></div>
             <div class="col-sm-4 mt">
-
                 <div class="dropdown " style="float: right" id="drop_down">
-
                     <button class="btn_filter add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span id="filter_title">Filter</span>
                         <span style="float: right" onclick="filter_showAll('Filter')">&times;</span>
                     </button>
-
                     <div class="dropdown-menu filter" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="javascript:void(0)"
                            onclick="filter('Query_Submitted','Query Submitted')">Query Submitted</a>
@@ -624,7 +749,6 @@
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Time_Out','Time Out')">Time
                             Out</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll('All')">All</a>
-
                     </div>
                 </div>
             </div>
@@ -664,6 +788,10 @@
 
 
                         $event_title = $vendor['query_tag'];
+                        if ($event_title == null) {
+                            $event_title = "not_set";
+                        }
+                        $event_title = str_replace(' ','_',$event_title);
 
 
                         //Making class name from status
@@ -751,13 +879,11 @@
 
                                 <p class="detail">
                                     {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
-                                    <button class="details details_shadow"> Details</button>
-                                    <button class="add_event add_event_shadow"
-                                            style="background-color: {{$event_background}};color: {{$event_txt_color}}"
-                                            data-toggle="modal"
-                                            data-target="#modal_event"
-                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')
-                                            >
+                                    <button class="details details_shadow"  data-toggle="modal" data-target="#modal_details"
+                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')> Details</button>
+
+                                    <button class="add_event add_event_shadow" style="background-color: {{$event_background}};color: {{$event_txt_color}}" data-toggle="modal" data-target="#modal_event"
+                                                      onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
                                         {{--<span>
                                             <img src="{{asset('img/icons/myquery/Add to events.png')}}">
                                         </span>--}}
@@ -827,6 +953,10 @@
                         //print_r($query_ids);
                         $status = $vendor['display_status'];
                         $event_title = $vendor['query_tag'];
+                        if ($event_title == null) {
+                            $event_title = "not_set";
+                        }
+                        $event_title = str_replace(' ','_',$event_title);
 
                         $className = str_replace(' ', '_', $status);
 
@@ -914,8 +1044,8 @@
 
                                 <p class="detail">
 
-                                    <button class="details details_shadow" data-toggle="modal"
-                                            data-target="#modal_event"> Details
+                                    <button class="details details_shadow" data-toggle="modal" data-target="#modal_details"
+                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')> Details
                                     </button>
                                     <button class="add_event add_event_shadow"
                                             style="background-color: {{$event_background}};color: {{$event_txt_color}}"
@@ -1018,8 +1148,8 @@
     </div>
 
     {{--Modals--}}
-    {{--Events model--}}
-    <div class="container">
+    {{--Events modal--}}
+    <div class="container event">
         <!-- Modal -->
         <div class="modal fade modal_div" id="modal_event" role="dialog">
             <div class="modal-dialog modal_dialog">
@@ -1073,6 +1203,96 @@
             </div>
         </div>
     </div>
+
+
+
+
+    {{--Modals--}}
+    {{--Details modal--}}
+    <div class="container details_modal">
+        <!-- Trigger the modal with a button -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal_details" role="dialog">
+            <div class="modal-dialog modal_dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header modal_header">
+                        <h4 class="modal-title modal_title">Details</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+
+
+
+                    <div class="modal-body modal_body">
+                        <div class="row body_first_row">
+                            <div class="col-sm-4">
+                                <img src="https://yt3.ggpht.com/a/AGF-l790ZGzS4Qw4FWGGEp6MQHqbWjxxvVeJhF7_sA=s900-mo-c-c0xffffffff-rj-k-no" class="vendor_img">
+                            </div>
+                            <div class="col-sm-8">
+                                <h4 class="vendor_title">Wedding Mate</h4>
+                                <p>Photography & Cinematography</p>
+                                <p>Query ID: 095864</p>
+                            </div>
+                        </div>
+                        <div class="row modal_container" >
+                           <div class="col-sm-12">
+                               <div class="row date_row">
+                                   <div class="col-sm-3 date_title">
+                                       <p>Requested Dates & Shifts</p>
+                                   </div>
+                                   <div class="col-sm-3 request_date_box">
+                                       <p>21/June/2019 (Night)</p>
+                                       <p>BDT: 1,10,000</p>
+                                   </div>
+                                   <div class="col-sm-3 request_date_box">
+                                       <p>21/June/2019 (Day)</p>
+                                       <p>BDT: 1,10,000</p>
+                                   </div>
+                                   <div class="col-sm-3 request_date_box">
+                                       <p>23/June/2019 (Night)</p>
+                                       <p>BDT: 1,10,000</p>
+                                   </div>
+                               </div>
+
+                               <div class="row date_row">
+                                   <div class="col-sm-3 date_title">
+                                       <p>Available Dates & Shifts</p>
+                                   </div>
+                                   <div class="col-sm-3 available_date_box">
+                                       <p>21/June/2019 (Night)</p>
+                                       <p>BDT: 1,10,000</p>
+                                   </div>
+                                   <div class="col-sm-3 available_date_box">
+                                       <p>21/June/2019 (Day)</p>
+                                       <p>BDT: 1,10,000</p>
+                                   </div>
+                                   <div class="col-sm-3 available_date_box">
+                                       <p>23/June/2019 (Night)</p>
+                                       <p>BDT: 1,10,000</p>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
 
 </section>
 @endsection
@@ -1199,9 +1419,7 @@
     }
     function remove_event_from_query($event_id) {
         //alert($event_id);
-
         //console.log("queries: "+queryIds_for_event);
-
         var id_array = queryIds_for_event; //queryIds_for_event is a global variable which defines when modal is open
 
         $.ajax({
@@ -1211,7 +1429,7 @@
                 console.log(' message: ' + data);
                 $("#event_list").html(data);
 
-                document.location.reload(true);
+//                document.location.reload(true);
 
             },
             error: function (xhr, status, error) {
@@ -1248,8 +1466,17 @@
         $('#filter_title').html(title);
         $('.btn_filter').css('width', '200px');
         $('.filter').css('width', '200px');
+    }
 
-
+    function event_filter(event, title) {
+        //alert(status);
+        $('.hideAll').hide();
+        $('.' + event + '').show();
+        $('#event_title').html(title);
+    }
+    function event_filter_showAll(title) {
+        $('.hideAll').show();
+        $('#event_title').html(title);
     }
 
 
