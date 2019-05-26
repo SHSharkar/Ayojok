@@ -172,6 +172,7 @@
                     <th>Service Price</th>
                     <th>Date</th>
                     <th>Message</th>
+                    <th>Status</th>
                    {{-- <th>Main Date</th>
                     <th>Shift/Time</th>
                     <th>Advance</th>
@@ -215,7 +216,7 @@
                           </a>
                         </center>
                       </td> --}}
-                      <td>
+                      {{--<td>
                         <center>
 
 
@@ -224,12 +225,15 @@
                             {!! Form::open(['method' => 'POST','route'=> ['no-update',$service->id,$datas->id,], 'style' => 'display:inline']) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-remove" style="" aria-hidden="true"></span>',['class'=> 'btn btn-danger a-btn-slide-text','type' => 'submit','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Click if not available']) !!}
                             {!! Form::close()!!}
-                            {{-- <a href="#" class="btn btn-danger a-btn-slide-text"style="padding:10px auto;">
+                            --}}{{-- <a href="#" class="btn btn-danger a-btn-slide-text"style="padding:10px auto;">
                               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a> --}}
+                            </a> --}}{{--
 
                         </center>
-                      </td>
+                      </td>--}}
+                        <td>
+                            <button class="btn btn-info" onclick="queryDetails()">Query Details</button>
+                        </td>
                     </tr>
                   @endforeach
 

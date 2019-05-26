@@ -208,6 +208,10 @@
 
 
     /*cart*/
+    tr:hover {
+        background-color:#f5f5f5;
+    }
+
     .sidebar {
         height: 100%;
         width: 0;
