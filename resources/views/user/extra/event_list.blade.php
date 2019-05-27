@@ -11,8 +11,6 @@
 
 <div id="events">
 
-
-
     @foreach($events as $event)
         <label class="radio_container">{{$event->title}}
             <input type="radio" id="{{$event->id}}" name="radio" value="{{$event->id}}" onclick="add_event_to_query({{$event->id}})" {{($event->id == $tag_id)? "checked":""}}>

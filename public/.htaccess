@@ -20,10 +20,12 @@
     #RewriteRule ^ index.php [L]
 	RewriteCond $1 !^(index\.php|images|robots\.txt|css)
 	RewriteRule ^(.*)$ index.php/$1 [L]
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
 
-	RewriteEngine On
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+	RewriteCond  %{SERVER_PORT} !^8001$ 
+    RewriteRule ^(.*) http://%{SERVER_NAME}:8001%{REQUEST_URI} 
+
 </IfModule>
 
 # php -- BEGIN cPanel-generated handler, do not edit

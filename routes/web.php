@@ -168,6 +168,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/add-event-to-query/{event_id}/{query_ids}','MyQueryController@addEven2Query' )->name('addEven2Query');
     Route::get('/remove-event-from-query/{event_id}/{query_ids}/{tag_id}','MyQueryController@removeEvent4mQuery' )->name('deleteEvent4mQuery');
     Route::post('/add_new_event/{tag_id}','MyQueryController@add_new_event' )->name('add_new_event');
+
+
+    Route::get('/load-query-detals/{ids}','MyQueryController@loadQueryDetails')->name('load_query_details');
+
     /*End of add for my query: 15-5-2019*/
 
 

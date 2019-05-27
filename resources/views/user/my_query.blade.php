@@ -208,7 +208,7 @@
 
     /*cart*/
     tr:hover {
-        background-color:#f5f5f5;
+        background-color: #f5f5f5;
     }
 
     .sidebar {
@@ -538,25 +538,28 @@
     .details_modal .label {
         color: #C29147;
     }
-    .details_modal .message_box{
+
+    .details_modal .message_box {
         width: 100%;
         height: 300%;
         border-radius: 10px;
         border: 1px solid #E2AD5B;
         resize: none;
-        margin-left:0;
-        text-align:left
+        margin-left: 0;
+        text-align: left
     }
 
-    .details_modal .model_footer{
+    .details_modal .model_footer {
         display: block;
     }
-    .details_modal .footer_block{
+
+    .details_modal .footer_block {
         border-right: 1px solid #DEDEDE;
         text-align: center;
         padding: 5px 0;
     }
-    .details_modal .footer_price{
+
+    .details_modal .footer_price {
         color: #535353;
         font-weight: bold;
     }
@@ -673,7 +676,7 @@
         transition-duration: 0.4s;
         border-radius: 5px;
         vertical-align: central;
-        width: 180px;
+        width: 200px;
         font-weight: bolder;
     }
 
@@ -746,7 +749,7 @@
                     <button class="btn btn_events" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span id="event_title">My Events</span>
-                        <span style="float: right" onclick="event_filter_showAll('My Events')">&times;</span>
+                        <span style="float: right;display: none" onclick="event_filter_showAll('My Events')" id="my_event_cross">&times;</span>
 
                     </button>
 
@@ -756,7 +759,7 @@
                             <a class="dropdown-item" href="#"
                                onclick="event_filter('{{str_replace(' ','_',$event->title)}}','{{$event->title}}')">{{$event->title}}</a>
                         @endforeach
-                        <a class="dropdown-item" href="#" onclick="event_filter_showAll('All')">All</a>
+                        {{--<a class="dropdown-item" href="#" onclick="event_filter_showAll('All')">All</a>--}}
                         <a class="dropdown-item" href="#" onclick="event_filter('not_set','Not Set')">Not Set</a>
                     </div>
                 </div>
@@ -915,7 +918,7 @@
                                     {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
                                     <button class="details details_shadow" data-toggle="modal"
                                             data-target="#modal_details"
-                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                            onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
                                         Details
                                     </button>
 
@@ -1085,7 +1088,7 @@
 
                                     <button class="details details_shadow" data-toggle="modal"
                                             data-target="#modal_details"
-                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                            onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
                                         Details
                                     </button>
                                     <button class="add_event add_event_shadow"
@@ -1252,107 +1255,10 @@
         <div class="modal fade" id="modal_details" role="dialog">
             <div class="modal-dialog modal_dialog modal-lg">
 
+
                 <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header modal_header">
-                        <h4 class="modal-title modal_title">Details</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+                <div class="modal-content" id="detail_body">
 
-                    <div class="modal-body modal_body">
-                        <div class="row body_first_row">
-                            <div class="col-sm-4">
-                                <img src="https://yt3.ggpht.com/a/AGF-l790ZGzS4Qw4FWGGEp6MQHqbWjxxvVeJhF7_sA=s900-mo-c-c0xffffffff-rj-k-no"
-                                     class="vendor_img">
-                            </div>
-                            <div class="col-sm-8">
-                                <h4 class="vendor_title">Wedding Mate</h4>
-
-                                <p>Photography & Cinematography</p>
-
-                                <p>Query ID: 095864</p>
-                            </div>
-                        </div>
-                        <div class="row modal_container">
-                            <div class="col-sm-12">
-                                <div class="row date_row">
-                                    <div class="col-sm-3 date_title">
-                                        <p>Requested Dates & Shifts: </p>
-                                    </div>
-                                    <div class="col-sm-3 request_date_box">
-                                        <p>21/June/2019 (Night)</p>
-
-                                        <p>BDT: 1,10,000</p>
-                                    </div>
-                                    <div class="col-sm-3 request_date_box">
-                                        <p>21/June/2019 (Day)</p>
-
-                                        <p>BDT: 1,10,000</p>
-                                    </div>
-                                    <div class="col-sm-3 request_date_box">
-                                        <p>23/June/2019 (Night)</p>
-
-                                        <p>BDT: 1,10,000</p>
-                                    </div>
-                                </div>
-
-                                <div class="row date_row">
-                                    <div class="col-sm-3 date_title">
-                                        <p>Available Dates & Shifts: </p>
-                                    </div>
-                                    <div class="col-sm-3 available_date_box">
-                                        <p>21/June/2019 (Night)</p>
-
-                                        <p>BDT: 1,10,000</p>
-                                    </div>
-                                    <div class="col-sm-3 available_date_box">
-                                        <p>21/June/2019 (Day)</p>
-
-                                        <p>BDT: 1,10,000</p>
-                                    </div>
-                                    <div class="col-sm-3 available_date_box">
-                                        <p>23/June/2019 (Night)</p>
-
-                                        <p>BDT: 1,10,000</p>
-                                    </div>
-                                </div>
-
-                                <div class="row date_row">
-                                    <div class="col-sm-3 label">
-                                        <p>Service Details: </p>
-                                    </div>
-                                    <div class="col-sm-9 ">
-                                        <p>Affordable package on 19th, standard package on 20th</p>
-                                    </div>
-                                </div>
-                                <div class="row date_row">
-                                    <div class="col-sm-3 label">
-                                        <p>Short Message: </p>
-                                    </div>
-                                </div>
-                                <div class="row date_row">
-                                    <div class="col-sm-12">
-                                        <textarea class="message_box" >
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer model_footer">
-                        <div class="row date_row">
-                            <div class="col-sm-4 label footer_block">
-                                Total Price: <span class="footer_price">BDT 122,000</span>
-                            </div>
-                            <div class="col-sm-4 label footer_block">
-                                Advance : <span class="footer_price">BDT 122,000</span>
-                            </div>
-                            <div class="col-sm-4 label">
-                                Due Payment: <span class="footer_price">BDT 122,000</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -1370,6 +1276,8 @@
 
     var queryIds_for_event;
     var tagId_for_event;
+
+    var queryIds_for_Details;
 
     function setModalWithData(query_ids, event_tag_id) {
         var id_array = JSON.parse(query_ids);
@@ -1399,6 +1307,31 @@
 
 
     }
+
+    function setDetailsModalWithData(query_ids) {
+        var id_array = JSON.parse(query_ids);
+        queryIds_for_Details = id_array; //set the array as global
+
+
+        $.ajax({
+            url: '/load-query-detals/' + id_array,
+            type: 'GET',
+            success: function (data) {
+                console.log(' message: ' + data);
+                $("#detail_body").html(data);
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+            },
+            dataType: 'text'
+
+        });
+
+
+    }
+
+
     function cart() {
         alert(document.getElementById('pname').innerHTML);
         var name = document.getElementById('pname').innerHTML;
@@ -1540,9 +1473,12 @@
         $('.hideAll').hide();
         $('.' + event + '').show();
         $('#event_title').html(title);
+        $('#my_event_cross').show();
+
     }
     function event_filter_showAll(title) {
         $('.hideAll').show();
+        $('#my_event_cross').hide();
         $('#event_title').html(title);
     }
 

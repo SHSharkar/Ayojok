@@ -399,4 +399,94 @@ class MyQueryController extends Controller
 
     }
 
+
+    /*Load query details in a modal- Ajax*/
+    public function loadQueryDetails($query_ids)
+    {
+        //return $query_ids;
+        $query_ids = explode(',', $query_ids);
+        $queries = Query::whereIn('id', $query_ids)->with('catagory')->with('vendors')->with('product')->get();
+
+        $details = array();
+        $requested_dates = array();
+        $available_dates = array();
+
+        // return $queries;
+
+        $title = "";
+        $image = "";
+        $category = "";
+
+        $total = 0;
+        $advance = 0;
+        $due = 0;
+        $total_paid = 0;
+
+        $i = 0;
+        $counter_for_availabe = 0;
+        foreach ($queries as $query) {
+
+
+            if ($query->vendors != null) {
+                $title = $query->vendors->title;
+                $image = $query->vendors->profile_img;
+            } else if ($query->product != null) {
+                $title = $query->product->title;
+                $image = $query->product->image;
+            }
+            $category = $query->catagory->name;
+
+            if( $query->status == 'Available'){
+                $available_dates[$counter_for_availabe] = [
+                  'event_date' => $query->event_date,
+                  'shift' => $query->shift,
+                  'total' => $query->total,
+                  'advance' => $query->advance,
+                  'discount' => $query->discount,
+                  'payment' => $query->payment,
+                ];
+
+                /*Calculate price details for available dates*/
+                $total += $query->total;
+                $advance += $query->advance;
+                $total_paid += $query->payment;
+
+                $counter_for_availabe++;
+            }
+
+            $requested_dates[$i] = [
+                'event_date' => $query->event_date,
+                'shift' => $query->shift,
+                'total' => $query->total,
+                'advance' => $query->advance,
+                'discount' => $query->discount,
+                'payment' => $query->payment,
+            ];
+            $i++;
+        }
+
+        $due = $total - $total_paid;
+
+
+
+        $details = [
+            'title' => $title,
+            'category' => $category,
+            'image_url' => $image,
+            'requested_dates' => $requested_dates,
+            'available_dates' => $available_dates,
+            'total' => $total,
+            'advance' => $advance,
+            'total_paid' => $total_paid,
+            'due' => $due,
+
+        ];
+
+
+
+        //return $details;
+        return view('user.extra.query_details')->with('details',$details);
+    }
+
+
 }
