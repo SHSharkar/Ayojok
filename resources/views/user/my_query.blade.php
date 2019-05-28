@@ -1193,15 +1193,13 @@
             <div class="row">
                 <label class="cart-subhead">Amount</label>
             </div>
-            <form method="post" action="">
             <div id="div-cart">
 
             </div>
             <div class="cart-line"></div>
             <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label>
             </div>
-            <button type="submit" class="cart-paybtn cart-paybtn-shadow">Payment</button>
-            </form>
+            <button class="cart-paybtn cart-paybtn-shadow">Payment</button>
         </div>
         <script>
             function openNav() {
