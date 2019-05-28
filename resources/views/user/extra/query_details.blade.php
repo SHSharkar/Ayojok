@@ -36,7 +36,8 @@
 
                 @foreach($details['requested_dates'] as  $requested_date)
                     <div class="col-sm-3 request_date_box">
-                        <p>{{date('d/M/Y',strtotime($requested_date['event_date']))}} ( {{$requested_date['shift']}} )</p>
+                        <p>{{date('d/M/Y',strtotime($requested_date['event_date']))}} ( {{$requested_date['shift']}}
+                            )</p>
 
                         <p>BDT: {{$requested_date['total']}}</p>
                     </div>
@@ -55,15 +56,31 @@
 
             <div class="row date_row">
                 <div class="col-sm-3 date_title">
-                    <p>Available Dates & Shifts: </p>
+                    @if(strtolower($details['status']) == "booked")
+                        <p>Booked Dates & Shifts: </p>
+                    @else
+                        <p>Available Dates & Shifts: </p>
+                    @endif
                 </div>
 
-                @foreach($details['available_dates'] as  $date)
-                    <div class="col-sm-3 available_date_box">
-                        <p>{{date('d/M/Y',strtotime($date['event_date']))}} ( {{$date['shift']}} )</p>
-                        <p>BDT: {{$date['total']}}</p>
-                    </div>
-                @endforeach
+                @if(strtolower($details['status']) == "booked")
+                    @foreach($details['booked_dates'] as  $date)
+                        <div class="col-sm-3 available_date_box">
+                            <p>{{date('d/M/Y',strtotime($date['event_date']))}} ( {{$date['shift']}} )</p>
+
+                            <p>BDT: {{$date['total']}}</p>
+                        </div>
+                    @endforeach
+                @else
+                    @foreach($details['available_dates'] as  $date)
+                        <div class="col-sm-3 available_date_box">
+                            <p>{{date('d/M/Y',strtotime($date['event_date']))}} ( {{$date['shift']}} )</p>
+
+                            <p>BDT: {{$date['total']}}</p>
+                        </div>
+                    @endforeach
+                @endif
+
 
                 {{--<div class="col-sm-3 available_date_box">
                     <p>21/June/2019 (Day)</p>
@@ -80,9 +97,11 @@
             <div class="row date_row">
                 <div class="col-sm-3 label">
                     <p>Service Details: </p>
+                    {{--<p>Query Message: </p>--}}
                 </div>
                 <div class="col-sm-9 ">
                     <p>Affordable package on 19th, standard package on 20th</p>
+                    {{--<p>{{$details['query_message']}}</p>--}}
                 </div>
             </div>
             <div class="row date_row">
@@ -103,13 +122,27 @@
 <div class="modal-footer model_footer">
     <div class="row date_row">
         <div class="col-sm-4 label footer_block">
-            Total Price: <span class="footer_price">BDT {{$details['total']}}</span>
+
+            Total Price: <span class="footer_price">
+                BDT {{(strtolower($details['status']) == "booked")? $details['total_booked'] : $details['total_av']}}
+            </span>
         </div>
         <div class="col-sm-4 label footer_block">
-            Advance : <span class="footer_price">BDT {{$details['advance']}}</span>
+            @if(strtolower($details['status']) == "booked")
+                <span class="discount_price"> Discount : <span class="footer_price">BDT {{$details['discount_booked']}}</span></span>
+                <br>
+                <span class="discount_price"> Paid : <span
+                            class="footer_price">BDT {{$details['total_paid_booked']}}</span></span>
+            @else
+                Advance : <span class="footer_price">BDT {{$details['advance_av']}}</span>
+            @endif
         </div>
         <div class="col-sm-4 label">
-            Due Payment: <span class="footer_price">BDT {{$details['due']}}</span>
+            @if(strtolower($details['status']) == "booked")
+                Due Payment: <span class="footer_price">BDT {{$details['due_booked']}}</span>
+            @else
+                <span class="discount_price"> Discount : <span class="footer_price">BDT {{$details['discount_av']}}</span></span>
+            @endif
         </div>
     </div>
 </div>

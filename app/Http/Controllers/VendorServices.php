@@ -208,8 +208,16 @@ class VendorServices extends Controller
         $catagoryid = $catagorydata->id;
 
 
-        $max_submitId = Query::max('submit_id');
-        $submit_id = $max_submitId+1;
+       /* $max_submitId = Query::max('submit_id');
+        $submit_id = $max_submitId+1;*/
+
+        /**
+         * generate Submit_id for all queries in same submit click event
+         */
+        $userid = Auth::user()->id;
+        $datTime = date('d-y-m');
+        $datTime = time($datTime);
+        $submit_id = $userid.$datTime;
 
         $i=1;
         foreach($dates as $v_date){
@@ -224,16 +232,20 @@ class VendorServices extends Controller
 
             $queryid = $queryadd->id;
 
-            /*update  Queue_id */
-            /*$query = Query::find($queryid);
-            $query->submit_id = $submit_id;
-            $query->save();*/
-
-
+/**
+* update  Submit_id
+*/
             $query = Query::find($queryid);
-            $query->queue_id = $queryid+1;
+            $query->submit_id = $submit_id;
+            $query->save();
+
+/**
+ * update  Queue_id
+ */
+            $query = Query::find($queryid);
+            //$query->queue_id = $queryid+1;
             if($i < sizeof($dates)){
-                $query->queue_id = $queryid+1;
+                $query->queue_id = 1;
             }else{
                 $query->queue_id = 0;
             }
