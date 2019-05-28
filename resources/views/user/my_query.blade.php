@@ -920,9 +920,9 @@
                                             $price += $query['total_payment'];
                                             $advance += $query['advance_payment'];
                                             $already_paid += $query['total_paid'];
-                                            $due = $price - $already_paid;
-
                                             $discount += $query['discount'];
+
+                                            $due = $price - ($already_paid + $discount);
                                         }
                                         ?>
                                     @endforeach
@@ -1097,9 +1097,10 @@
                                             $price += $query['total_payment'];
                                             $advance += $query['advance_payment'];
                                             $already_paid += $query['total_paid'];
-                                            $due = $price - $already_paid;
-
                                             $discount += $query['discount'];
+
+                                            $due = $price - ($already_paid + $discount);
+
                                         }
                                         ?>
                                     @endforeach
@@ -1154,7 +1155,7 @@
                                         & Book
                                     </button>
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
-                                    <p class="advance">Min. Advance: BDT 5000</p>
+                                    <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
                             @elseif($status_var == 5)
                                 <td class="column_3">
