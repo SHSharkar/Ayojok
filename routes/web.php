@@ -164,7 +164,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/load-events/{tag_id}', 'MyQueryController@load_event')->name('load_events');
 
     Route::get('/my-query-delete/{ids}','MyQueryController@delete' )->name('my_query_delete');
-    Route::get('/add-to-myCart/{ids}','MyQueryController@addToCart' )->name('my_query_delete');
+    Route::get('/add-to-myCart/{ids}','MyQueryController@addToCart' )->name('addToCart');
+    Route::get('/remove-from-myCart/{ids}','MyQueryController@removeFromCart' )->name('removeFromCart');
+    Route::get('/load-myCart/','MyQueryController@loadCart' )->name('loadCart');
     Route::get('/add-event-to-query/{event_id}/{query_ids}','MyQueryController@addEven2Query' )->name('addEven2Query');
     Route::get('/remove-event-from-query/{event_id}/{query_ids}/{tag_id}','MyQueryController@removeEvent4mQuery' )->name('deleteEvent4mQuery');
     Route::post('/add_new_event/{tag_id}','MyQueryController@add_new_event' )->name('add_new_event');

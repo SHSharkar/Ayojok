@@ -203,7 +203,6 @@ class MyQueryController extends Controller
 
     public function addToCart($query_ids)
     {
-        $user_id = Auth::user()->id;
         $query_ids = explode(',', $query_ids);
         //return $query_ids;
 
@@ -272,34 +271,96 @@ class MyQueryController extends Controller
 
         return view('user.extra.cart',compact('vendor_arr','service_arr'));*/
 
+        return $this->loadCart();
+
+    }
+
+    public function removeFromCart($id)
+    {
+        $query = Query::find($id);
+        $query->in_cart = 0;
+        $query->save();
+
+        return $this->loadCart();
+    }
+
+    public function loadCart()
+    {
+        $user_id = Auth::user()->id;
         $vendors = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
         $services = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
         $vendor_arr = array();
 
         foreach ($vendors as $vendor) {
+
+            $ed = $vendor->event_date;
+            $event_date = date("M d", strtotime($ed));
+
+            $due=($vendor->total)-($vendor->discount)-($vendor->payment);
+            $amount=0;$min=0;$max=0;
+
+            if(strtolower($vendor->status)=="booked" && $due!=0)
+            {
+                $amount=$due;
+                $min=$due;
+                $max=$due;
+            }
+            else
+            {
+                $amount=$vendor->advance;
+                $min=$vendor->advance;
+                $max=$due;
+            }
+
             $v = array(
                 "query_id" => $vendor->id,
-                "event_date" => $vendor->event_date,
+                "event_date" => $event_date,
                 "category_name" => $vendor->catagory->name,
                 "vendor_name" => $vendor->vendors->title,
                 "total_payment" => $vendor->total,
                 "advance_payment" => $vendor->advance,
                 "discount" => $vendor->discount,
-                "total_paid" => $vendor->payment
+                "total_paid" => $vendor->payment,
+                "amount" => $amount,
+                "min" => $min,
+                "max" => $max
             );
             array_push($vendor_arr, $v);
         }
 
         foreach ($services as $service) {
+
+            $ed = $service->event_date;
+            $event_date = date("M d", strtotime($ed));
+
+            $due=($service->total)-($service->discount)-($service->payment);
+            $amount=0;$min=0;$max=0;
+
+            if(strtolower($service->status)=="booked" && $due!=0)
+            {
+                $amount=$due;
+                $min=$due;
+                $max=$due;
+            }
+            else
+            {
+                $amount=$service->advance;
+                $min=$service->advance;
+                $max=$due;
+            }
+
             $s = array(
                 "query_id" => $service->id,
-                "event_date" => $service->event_date,
+                "event_date" => $event_date,
                 "category_name" => $service->catagory->name,
                 "vendor_name" => $service->product->title,
                 "total_payment" => $service->total,
                 "advance_payment" => $service->advance,
                 "discount" => $service->discount,
-                "total_paid" => $service->payment
+                "total_paid" => $service->payment,
+                "amount" => $amount,
+                "min" => $min,
+                "max" => $max
             );
             array_push($vendor_arr, $s);
         }

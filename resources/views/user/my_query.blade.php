@@ -207,7 +207,7 @@
     }
 
     /*cart*/
-    tr:hover {
+    .extra tr:hover {
         background-color: #f5f5f5;
     }
 
@@ -345,6 +345,17 @@
     .cart-delete-btn {
         background-color: #FFFFFF;
         border: 0px;
+    }
+
+    .cart-img{
+        padding: 1%;
+        background-color: #FFFFFF;
+        position: fixed;
+        right: 0%;
+        top: 30%;
+        border-top-left-radius: 70%;
+        border-bottom-left-radius: 70%;
+        box-shadow: 0px 0px 10px 2px #F2F2F2;
     }
 
     .price{
@@ -971,7 +982,7 @@
 
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     <button class="paybook paybook_shadow"
-                                            onclick="addToCart('{{json_encode($query_ids)}}')">
+                                            onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
                                         Pay & Book
                                     </button>
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
@@ -982,7 +993,7 @@
                                 <td class="column_3">
                                     <p></p>
                                     <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="addToCart('{{json_encode($query_ids)}}')"> Pay Rest
+                                            onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"> Pay Rest
                                     </button>
                                     {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
                                     <p class="duePrice"> Due amount: BDT {{$due}} </p>
@@ -993,9 +1004,6 @@
                 @else
                     <?php $check = 0; ?>
                 @endif
-
-
-
 
                 @if(sizeof($service_arr) > 0)
 
@@ -1150,8 +1158,7 @@
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     <button class="paybook paybook_shadow"
                                             onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
-                                        Pay
-                                        & Book
+                                        Pay & Book
                                     </button>
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT 5000</p>
@@ -1174,6 +1181,9 @@
                 @endif
             </table>
         </div>
+        <div class="cart-img">
+            <img src="{{asset('img/cart/cart.png')}}" onclick="openNav(),loadCart()">
+        </div>
         <div id="mySidebar" class="sidebar">
             <div class="row" style="padding-left: 30%">
                 <label class="cart-head"><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a
@@ -1182,16 +1192,16 @@
             <div class="row">
                 <label class="cart-subhead">Amount</label>
             </div>
+            <form method="post" action="">
             <div id="div-cart">
 
             </div>
             <div class="cart-line"></div>
             <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label>
             </div>
-            <button class="cart-paybtn cart-paybtn-shadow">Payment</button>
+            <button type="submit" class="cart-paybtn cart-paybtn-shadow">Payment</button>
+            </form>
         </div>
-
-
         <script>
             function openNav() {
                 document.getElementById("mySidebar").style.width = "20%";
@@ -1214,12 +1224,11 @@
                 for (i = 0; i < $len; i++) {
                     //alert(document.getElementById(i).value);
                     total = total + parseInt(document.getElementById(i).value);
+
                 }
                 document.getElementById('total').innerHTML = "BDT " + total;
             }
         </script>
-
-
     </div>
 
     {{--Modals--}}
@@ -1285,36 +1294,24 @@
         <!-- Modal -->
         <div class="modal fade" id="modal_details" role="dialog">
             <div class="modal-dialog modal_dialog modal-lg">
-
-
                 <!-- Modal content-->
                 <div class="modal-content" id="detail_body">
 
                 </div>
-
             </div>
         </div>
-
     </div>
-
-
 </section>
 @endsection
 @push('scripts')
-
-
 <script>
-
     var queryIds_for_event;
     var tagId_for_event;
-
     var queryIds_for_Details;
 
     function setModalWithData(query_ids, event_tag_id) {
         var id_array = JSON.parse(query_ids);
         queryIds_for_event = id_array;
-
-
         /*Loading Event List*/
         if (event_tag_id == "") {
             event_tag_id = 0;
@@ -1362,18 +1359,44 @@
 
     }
 
-
-    function cart() {
-        alert(document.getElementById('pname').innerHTML);
-        var name = document.getElementById('pname').innerHTML;
-        document.getElementById('cname').innerHTML = name;
-    }
-
     function addToCart(ids) {
         var id_array = JSON.parse(ids);
         //alert(id_array[0]);
         $.ajax({
             url: '/add-to-myCart/' + id_array,
+            type: 'GET',
+            success: function (data) {
+                console.log(' message: ' + data);
+                $('#div-cart').html(data);
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+            },
+            dataType: 'text',
+        });
+    }
+
+    function removeFromCart(ids) {
+        //alert(ids);
+        $.ajax({
+             url: '/remove-from-myCart/' + ids,
+             type: 'GET',
+             success: function (data) {
+             console.log(' message: ' + data);
+             $('#div-cart').html(data);
+             },
+             error: function (xhr, status, error) {
+             // check status && error
+             console.log('Error  message: ' + error);
+             },
+             dataType: 'text',
+         });
+    }
+
+    function loadCart() {
+        $.ajax({
+            url: '/load-myCart/',
             type: 'GET',
             success: function (data) {
                 console.log(' message: ' + data);
