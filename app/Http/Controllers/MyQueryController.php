@@ -407,6 +407,8 @@ class MyQueryController extends Controller
         $query_ids = explode(',', $query_ids);
         $queries = Query::whereIn('id', $query_ids)->with('catagory')->with('vendors')->with('product')->get();
 
+        //return $queries;
+
         $details = array();
         $requested_dates = array();
         $available_dates = array();
@@ -481,8 +483,6 @@ class MyQueryController extends Controller
             'due' => $due,
 
         ];
-
-
 
         //return $details;
         return view('user.extra.query_details')->with('details',$details);

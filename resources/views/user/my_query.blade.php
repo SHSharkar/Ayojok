@@ -346,6 +346,21 @@
         background-color: #FFFFFF;
         border: 0px;
     }
+
+    .price{
+        padding: 5px;
+    }
+    .regular_price{
+        text-decoration: line-through;
+    }
+    .discount_price{
+        color: #62AF0B;
+        margin-left: 15px;
+    }
+
+    .hideAll a{
+        color: #000;
+    }
 </style>
 
 {{--All Modal Design--}}
@@ -749,7 +764,8 @@
                     <button class="btn btn_events" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span id="event_title">My Events</span>
-                        <span style="float: right;display: none" onclick="event_filter_showAll('My Events')" id="my_event_cross">&times;</span>
+                        <span style="float: right;display: none" onclick="event_filter_showAll('My Events')"
+                              id="my_event_cross">&times;</span>
 
                     </button>
 
@@ -912,8 +928,15 @@
                                     @endforeach
                                 </p>
 
-                                <p class="detail">Price: <span>{{$price}}</span></p>
-
+                                @if($discount <= 0)
+                                    <p class="detail price"> Price:
+                                        <span>{{$price}}</span></p>
+                                @else
+                                    <p class="detail price" >
+                                        <span class="regular_price">Regular Price: <span >{{$price}}</span></span>
+                                        <span class="discount_price">Discount Price: <span >{{ ($price - $discount)}}</span></span>
+                                    </p>
+                                @endif
                                 <p class="detail">
                                     {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
                                     <button class="details details_shadow" data-toggle="modal"
@@ -1082,7 +1105,15 @@
                                     @endforeach
                                 </p>
 
-                                <p class="detail">Price: <span>{{$price}}</span></p>
+                                @if($discount <= 0)
+                                    <p class="detail price"> Price:
+                                        <span>{{$price}}</span></p>
+                                @else
+                                    <p class="detail price" >
+                                        <span class="regular_price">Regular Price: <span >{{$price}}</span></span>
+                                        <span class="discount_price">Discount Price: <span >{{($price - $discount)}}</span></span>
+                                    </p>
+                                @endif
 
                                 <p class="detail">
 

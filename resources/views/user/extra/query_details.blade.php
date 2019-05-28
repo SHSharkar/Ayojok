@@ -36,7 +36,7 @@
 
                 @foreach($details['requested_dates'] as  $requested_date)
                     <div class="col-sm-3 request_date_box">
-                        <p>{{$requested_date['event_date']}} ( {{$requested_date['shift']}} )</p>
+                        <p>{{date('d/M/Y',strtotime($requested_date['event_date']))}} ( {{$requested_date['shift']}} )</p>
 
                         <p>BDT: {{$requested_date['total']}}</p>
                     </div>
@@ -60,8 +60,7 @@
 
                 @foreach($details['available_dates'] as  $date)
                     <div class="col-sm-3 available_date_box">
-                        <p>{{$date['event_date']}} ( {{$date['shift']}} )</p>
-
+                        <p>{{date('d/M/Y',strtotime($date['event_date']))}} ( {{$date['shift']}} )</p>
                         <p>BDT: {{$date['total']}}</p>
                     </div>
                 @endforeach
