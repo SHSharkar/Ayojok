@@ -347,7 +347,7 @@
         border: 0px;
     }
 
-    .cart-img{
+    .cart-img {
         padding: 1%;
         background-color: #FFFFFF;
         position: fixed;
@@ -355,21 +355,35 @@
         top: 30%;
         border-top-left-radius: 70%;
         border-bottom-left-radius: 70%;
-        box-shadow: 0px 0px 10px 2px #F2F2F2;
+        box-shadow: 0px 0px 10px 2px #9c9c9c;
+        cursor: cell;
+    }
+    .cart-img:hover {
+        padding: 1.1%;
+        background-color: #FFFFFF;
+        position: fixed;
+        right: 0%;
+        top: 30%;
+        border-top-left-radius: 70%;
+        border-bottom-left-radius: 70%;
+        box-shadow: 4px 6px 5px 2px #272121;
+        cursor: cell;
     }
 
-    .price{
+    .price {
         padding: 5px;
     }
-    .regular_price{
+
+    .regular_price {
         text-decoration: line-through;
     }
-    .discount_price{
+
+    .discount_price {
         color: #62AF0B;
         margin-left: 15px;
     }
 
-    .hideAll a{
+    .hideAll a {
         color: #000;
     }
 </style>
@@ -502,6 +516,7 @@
 
     .details_modal .vendor_title {
         text-transform: none;
+        color: #E2AD5B;
     }
 
     .details_modal p {
@@ -589,6 +604,188 @@
         color: #535353;
         font-weight: bold;
     }
+
+
+
+
+
+    .multydates .modal_dialog {
+        width: 700px;
+    }
+
+    .multydates .close {
+        color: #E2AD5B;
+        float: right;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+    .multydates .modal_header {
+        border: 0;
+        display: block;
+
+        padding-top: 0;
+        padding-right: 10px;
+        padding-bottom: 0;
+        padding-left: 0;
+    }
+
+    .multydates .modal_footer {
+        border-top: 1px solid #e9ecef;
+        background-color: #FFC107;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+
+        padding-top: 0;
+        padding-right: 10px;
+        padding-bottom: 0;
+        padding-left: 10px;
+    }
+
+    .multydates .btn_paybook {
+        background-color: #FFC107;
+        width: 100%;
+        color: white;
+        font-size: 28px;
+    }
+
+
+    .multydates .modal_content {
+        border-radius: 1rem;
+    }
+
+    .multydates .footer {
+        width: 100%;
+        text-align: center;
+    }
+
+    .multydates p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .multydates .available_date_box {
+        border: 1px solid;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 30%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        cursor: pointer;
+    }
+
+    .multydates .selected_date_box {
+        border: 1px solid #62AF0B;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 30%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        cursor: pointer;
+        background-color: #62AF0B;
+        box-shadow: 6px 7px 14px -8px #0baf90;
+    }
+    .multydates .noAvailable_date_box {
+        border: 1px solid #2B2B2B;
+        border-radius: 10px;
+        margin-right: 10px;
+        max-width: 30%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        background-color: rgba(77, 77, 77, 0.57);
+        /*box-shadow: 6px 7px 14px -8px #000;*/
+        cursor: no-drop;
+    }
+
+    .multydates .row {
+        margin-left: 0;
+    }
+
+
+
+
+
+
+
+
+    .payment .modal_dialog {
+        width: 600px;
+    }
+
+    .payment .close {
+        color: #E2AD5B;
+        float: right;
+        font-size: 30px;
+        opacity: 1;
+    }
+
+    .payment .modal_header {
+        border: 0;
+        display: block;
+
+        padding-top: 0;
+        padding-right: 10px;
+        padding-bottom: 0;
+        padding-left: 0;
+    }
+
+    .payment .modal_footer {
+        border-top: 1px solid #e9ecef;
+        background-color: #FFC107;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+
+        padding-top: 0;
+        padding-right: 10px;
+        padding-bottom: 0;
+        padding-left: 10px;
+    }
+
+    .payment .modal_content {
+        border-radius: 1rem;
+    }
+
+    .payment .footer {
+        width: 100%;
+        text-align: center;
+    }
+
+    .payment p {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-weight: 500;
+        font-size: 20px;
+        text-align: center;
+    }
+
+
+    .payment .row {
+        margin-left: 0;
+    }
+
+    .payment .btn_paymentBook {
+        background-color: #FFC107;
+        width: 50%;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        font-weight: 500;
+    }
+
+    .payment .modal-body {
+        width: 100%;
+        color: white;
+        font-size: 28px;
+        text-align: center;
+        /*height: 260px;*/
+    }
+    .payment img {
+        margin-right: 15px;
+    }
+
 
 
 </style>
@@ -943,9 +1140,9 @@
                                     <p class="detail price"> Price:
                                         <span>{{$price}}</span></p>
                                 @else
-                                    <p class="detail price" >
-                                        <span class="regular_price">Regular Price: <span >{{$price}}</span></span>
-                                        <span class="discount_price">Discount Price: <span >{{ ($price - $discount)}}</span></span>
+                                    <p class="detail price">
+                                        <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
+                                        <span class="discount_price">Discount Price: <span>{{ ($price - $discount)}}</span></span>
                                     </p>
                                 @endif
                                 <p class="detail">
@@ -981,10 +1178,17 @@
                                 <td class="column_3">
 
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
+                                    {{-- <button class="paybook paybook_shadow"
+                                             onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
+                                             data-toggle="modal" data-target="#modal_multipledates">
+                                         Pay & Book
+                                     </button>--}}
                                     <button class="paybook paybook_shadow"
-                                            onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
+                                            data-toggle="modal" data-target="#modal_multipledates">
                                         Pay & Book
                                     </button>
+
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
@@ -993,7 +1197,8 @@
                                 <td class="column_3">
                                     <p></p>
                                     <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"> Pay Rest
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
                                     </button>
                                     {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
                                     <p class="duePrice"> Due amount: BDT {{$due}} </p>
@@ -1118,9 +1323,9 @@
                                     <p class="detail price"> Price:
                                         <span>{{$price}}</span></p>
                                 @else
-                                    <p class="detail price" >
-                                        <span class="regular_price">Regular Price: <span >{{$price}}</span></span>
-                                        <span class="discount_price">Discount Price: <span >{{($price - $discount)}}</span></span>
+                                    <p class="detail price">
+                                        <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
+                                        <span class="discount_price">Discount Price: <span>{{($price - $discount)}}</span></span>
                                     </p>
                                 @endif
 
@@ -1158,7 +1363,8 @@
 
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     <button class="paybook paybook_shadow"
-                                            onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
+                                            data-toggle="modal" data-target="#modal_multipledates">
                                         Pay & Book
                                     </button>
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
@@ -1168,7 +1374,8 @@
                                 <td class="column_3">
                                     <p></p>
                                     <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"> Pay Rest
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
                                     </button>
                                     {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
                                     <p class="duePrice"> Due amount: BDT {{$due}} </p>
@@ -1182,8 +1389,8 @@
                 @endif
             </table>
         </div>
-        <div class="cart-img">
-            <img src="{{asset('img/cart/cart.png')}}" onclick="openNav(),loadCart()">
+        <div class="cart-img" onclick="openNav(),loadCart()">
+            <img src="{{asset('img/cart/cart.png')}}" >
         </div>
         <div id="mySidebar" class="sidebar">
             <div class="row" style="padding-left: 30%">
@@ -1199,7 +1406,8 @@
             <div class="cart-line"></div>
             <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label>
             </div>
-            <button class="cart-paybtn cart-paybtn-shadow">Payment</button>
+            <button class="cart-paybtn cart-paybtn-shadow"
+                    data-toggle="modal" data-target="#modal_payment">Payment</button>
         </div>
         <script>
             function openNav() {
@@ -1300,6 +1508,69 @@
             </div>
         </div>
     </div>
+
+
+    {{--Multiple Dates modal--}}
+    <div class="container multydates">
+        <!-- Modal -->
+        <div class="modal fade modal_div" id="modal_multipledates" role="dialog">
+            <div class="modal-dialog modal_dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content modal_content">
+                    <div class="modal-header modal_header">
+
+                        <button type="button" class="close" data-dismiss="modal" id="close"
+                                onclick="close()">&times;</button>
+                    </div>
+                    <div class="modal-body modal_body" id="available_date_list">
+                        {{--Here Load from user -> dates.blade --}}
+                    </div>
+                    <div class="modal-footer modal_footer">
+                        <div class="footer">
+
+                            <a href="javascript:void(0)" class="btn btn_paybook" id=""
+                                    onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">Pay & Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {{--Payment Type modal--}}
+    <div class="container payment">
+        <!-- Modal -->
+        <div class="modal fade modal_div" id="modal_payment" role="dialog">
+            <div class="modal-dialog modal_dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content modal_content">
+                    <div class="modal-header modal_header">
+                        <button type="button" class="close" data-dismiss="modal" id="close"
+                                onclick="close()">&times;</button>
+                    </div>
+                    <p>Select Payment Method</p>
+                    <div class="modal-body modal_body" id="available_date_list">
+                        <div class="buttons">
+                            <a href="javascript:void(0)" class="btn btn_paymentBook" id=""
+                               onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
+                                <img src="{{asset('img/icons/query/pay.svg')}}">
+                                Cash Payment
+                            </a>
+
+                            <a href="javascript:void(0)" class="btn btn_paymentBook" id=""
+                               onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
+                                <img src="{{asset('img/icons/query/credit_card.svg')}}">
+                                Online Payment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @endsection
 @push('scripts')
@@ -1307,6 +1578,8 @@
     var queryIds_for_event;
     var tagId_for_event;
     var queryIds_for_Details;
+
+    var selected_query_ids = []; //its good practice, new Array is bad practice. they both works same.
 
     function setModalWithData(query_ids, event_tag_id) {
         var id_array = JSON.parse(query_ids);
@@ -1359,7 +1632,9 @@
     }
 
     function addToCart(ids) {
-        var id_array = JSON.parse(ids);
+        //var id_array = JSON.parse(ids);
+
+        id_array = selected_query_ids;
         //alert(id_array[0]);
         $.ajax({
             url: '/add-to-myCart/' + id_array,
@@ -1376,21 +1651,67 @@
         });
     }
 
+
+    function showAvailableDates(ids,status) {
+       // alert(status);
+        var id_array = JSON.parse(ids);
+        //alert(id_array[0]);
+        $.ajax({
+            url: '/show-dates/' + id_array+'/'+status,
+            type: 'GET',
+            success: function (data) {
+                console.log(' message: ' + data);
+                $('#available_date_list').html(data);
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+            },
+            dataType: 'text',
+        });
+
+        selected_query_ids = [];
+    }
+
+    function select_dates(query_id, ob) {
+
+        if (selected_query_ids.includes(query_id)) {
+            var index = selected_query_ids.indexOf(query_id);
+            if (index > -1) {
+                selected_query_ids.splice(index, 1);
+            }
+            $(ob).addClass('available_date_box');
+            $(ob).removeClass('selected_date_box');
+        }
+        else {
+            selected_query_ids.push(query_id);
+            $(ob).addClass('selected_date_box');
+            $(ob).removeClass('available_date_box');
+        }
+
+        console.log(selected_query_ids);
+
+        //alert(selected_query_ids);
+        //selected_query_ids.push(query_id);
+
+
+    }
+
     function removeFromCart(ids) {
         //alert(ids);
         $.ajax({
-             url: '/remove-from-myCart/' + ids,
-             type: 'GET',
-             success: function (data) {
-             console.log(' message: ' + data);
-             $('#div-cart').html(data);
-             },
-             error: function (xhr, status, error) {
-             // check status && error
-             console.log('Error  message: ' + error);
-             },
-             dataType: 'text',
-         });
+            url: '/remove-from-myCart/' + ids,
+            type: 'GET',
+            success: function (data) {
+                console.log(' message: ' + data);
+                $('#div-cart').html(data);
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+            },
+            dataType: 'text',
+        });
     }
 
     function loadCart() {

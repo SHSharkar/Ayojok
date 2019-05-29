@@ -201,6 +201,24 @@ class MyQueryController extends Controller
         return "Delete SuccessFully";
     }
 
+
+    public function showDates($query_ids,$status){
+        //return $query_ids;
+        $query_ids = explode(',', $query_ids);
+
+        $user_id = Auth::user()->id;
+
+        /*$queries =  Query::whereIn("id",$query_ids)
+            ->where('status',$status)
+            ->get();*/
+
+        $queries =  Query::whereIn("id",$query_ids)
+            ->get();
+
+        return  view('user.extra.dates')->with('queries',$queries);
+
+    }
+
     public function addToCart($query_ids)
     {
         $query_ids = explode(',', $query_ids);

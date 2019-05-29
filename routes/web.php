@@ -165,6 +165,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/my-query-delete/{ids}','MyQueryController@delete' )->name('my_query_delete');
     Route::get('/add-to-myCart/{ids}','MyQueryController@addToCart' )->name('addToCart');
+    Route::get('/show-dates/{ids}/{status}','MyQueryController@showDates' )->name('showDates');
     Route::get('/remove-from-myCart/{ids}','MyQueryController@removeFromCart' )->name('removeFromCart');
     Route::get('/load-myCart/','MyQueryController@loadCart' )->name('loadCart');
     Route::get('/add-event-to-query/{event_id}/{query_ids}','MyQueryController@addEven2Query' )->name('addEven2Query');
