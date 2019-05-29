@@ -12,11 +12,29 @@
 @push('css')
 {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
 <style xmlns="http://www.w3.org/1999/html">
+
+    body{
+        /*background-color: #FFFFFF;*/
+    }
+    .page-section{
+        /*background-color: #FFFFFF;*/
+    }
+
     .row.container {
         min-width: 100% !important;
         padding: 0 10%;
+        /*background-color: #FFFFFF;*/
+
     }
 
+
+
+    .query_table_div td{
+        border: 0;
+    }
+    .query_table_div tr{
+        border-bottom: 3px solid #DEDEDE;
+    }
     .circle {
         height: 150px;
         line-height: 30px;
@@ -1021,7 +1039,7 @@
 <section class="page-section mt-3 mb-3" style="min-height: 40%">
     <div class="row container">
         {{--Nirjhor Code For Query per submitted--}}
-        <div class="col-sm-12" id="main1">
+        <div class="col-sm-12 query_table_div" id="main1">
             <table class="table">
                 <tbody>
                 <?php
@@ -1164,17 +1182,17 @@
                                     </button>
                                 </p>
                             </td>
-                            @if($status_var == 1 || $status_var == 4)
+                            @if($status_var == 1)   <!- query submitted ->
                                 <td class="column_3">
                                     <p></p>
 
                                     <p class="remove remove_shadow"
                                        onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
                                 </td>
-                            @elseif($status_var == 2)
+                            @elseif($status_var == 2) <!- In Review ->
                                 <td class="column_3">
                                 </td>
-                            @elseif($status_var == 3)
+                            @elseif($status_var == 3) <!- Available ->
                                 <td class="column_3">
 
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
@@ -1192,8 +1210,16 @@
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
+                            @elseif($status_var == 4) <!- Not Availabe ->
+                            <td class="column_3">
+                            <td class="column_3">
+                                <p></p>
 
-                            @elseif($status_var == 5)
+                                <p class="remove remove_shadow"
+                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')"> soft Remove </p>
+                            </td>
+                            </td>
+                            @elseif($status_var == 5) <!- Booked ->
                                 <td class="column_3">
                                     <p></p>
                                     <button class="paybook paybook_shadow" style="padding: 5px 52px"
@@ -1751,6 +1777,30 @@
             });
         }
     }
+
+
+    function soft_remove_query(ids) {
+//        var x = confirm("are you sure to delete this query !");
+        var x =true;
+        if (x) {
+            var id_array = JSON.parse(ids);
+            //alert(id_array[0]);
+            $.ajax({
+                url: '/my-query-move-to-expire/' + id_array,
+                type: 'GET',
+                success: function (data) {
+                    console.log(' message: ' + data);
+                    //$('body').html(data);
+                },
+                error: function (xhr, status, error) {
+                    // check status && error
+                    console.log('Error  message: ' + error);
+                },
+                dataType: 'text',
+            });
+        }
+    }
+
     function create_event_form_open() {
         $("#modal_create_event").hide();
         $("#eventForm").fadeIn();

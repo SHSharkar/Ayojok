@@ -538,6 +538,7 @@
     //     window.location.href = location;
     //     return false;
     // });
+
     jQuery('#levnumber').click(function (e) {
         e.preventDefault();
         $.ajaxSetup({

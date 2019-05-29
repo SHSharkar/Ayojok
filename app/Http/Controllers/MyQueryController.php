@@ -7,6 +7,7 @@ use App\Tag;
 use App\User;
 
 use App\Query;
+use App\ExpireQuery;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -198,6 +199,27 @@ class MyQueryController extends Controller
             $query->delete();
         }
         return Redirect::back();
+        return "Delete SuccessFully";
+    }
+    public function softDelete($query_ids)
+    {
+        
+
+        $query_ids = explode(',', $query_ids);
+        //return $query_ids;
+
+        foreach ($query_ids as $id) {
+            $query = Query::find($id);
+            
+            /*New Code for replicating*/
+            $expired_query = new ExpireQuery();
+            $expired_query = $query->replicate();
+            $expired_query->save();
+            /*End of -> New Code for replicating*/
+            
+            //$query->delete();
+        }
+        return $expired_query;
         return "Delete SuccessFully";
     }
 

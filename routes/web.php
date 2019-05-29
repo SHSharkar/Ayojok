@@ -25,28 +25,7 @@ Route::get('testforurl', 'ProductController@getPath')->name("getPath");
 Route::get('/test', 'QueryController@test_rough');
 
 Route::get('/test2', function () {
-
-    $d=strtotime("5-20-19");
-    //echo "Created date is " . date("Y-m-d h:i:sa", $d);
-    echo $d;
-    exit;
-
-    $max_submitId = Query::max('submit_id');
-    echo "max: ".$max_submitId;
-    exit;
-
-    //echo app_path();
-    $myarray = array(1, 2, 3, 4, 5, 6);
-
-// Assign first array element to variable
-    $first = reset($myarray);
-
-    echo "first : " . $first . "<br>";
-    echo str_random(32);
-    exit;
-
-    return view('emails.user.email_to_new_user');
-
+    echo "this is test";
 });
 //Route::get('/inbox/{id}', 'MessageController@singleMessage_test');
 
@@ -163,17 +142,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-query', 'MyQueryController@index')->name('my_query');
     Route::get('/load-events/{tag_id}', 'MyQueryController@load_event')->name('load_events');
 
-    Route::get('/my-query-delete/{ids}','MyQueryController@delete' )->name('my_query_delete');
-    Route::get('/add-to-myCart/{ids}','MyQueryController@addToCart' )->name('addToCart');
-    Route::get('/show-dates/{ids}/{status}','MyQueryController@showDates' )->name('showDates');
-    Route::get('/remove-from-myCart/{ids}','MyQueryController@removeFromCart' )->name('removeFromCart');
-    Route::get('/load-myCart/','MyQueryController@loadCart' )->name('loadCart');
-    Route::get('/add-event-to-query/{event_id}/{query_ids}','MyQueryController@addEven2Query' )->name('addEven2Query');
-    Route::get('/remove-event-from-query/{event_id}/{query_ids}/{tag_id}','MyQueryController@removeEvent4mQuery' )->name('deleteEvent4mQuery');
-    Route::post('/add_new_event/{tag_id}','MyQueryController@add_new_event' )->name('add_new_event');
+    Route::get('/my-query-delete/{ids}', 'MyQueryController@delete')->name('my_query_delete');
+    Route::get('/my-query-move-to-expire/{ids}', 'MyQueryController@softDelete')->name('softDelete');
+
+    Route::get('/add-to-myCart/{ids}', 'MyQueryController@addToCart')->name('addToCart');
+    Route::get('/show-dates/{ids}/{status}', 'MyQueryController@showDates')->name('showDates');
+    Route::get('/remove-from-myCart/{ids}', 'MyQueryController@removeFromCart')->name('removeFromCart');
+    Route::get('/load-myCart/', 'MyQueryController@loadCart')->name('loadCart');
+    Route::get('/add-event-to-query/{event_id}/{query_ids}', 'MyQueryController@addEven2Query')->name('addEven2Query');
+    Route::get('/remove-event-from-query/{event_id}/{query_ids}/{tag_id}', 'MyQueryController@removeEvent4mQuery')->name('deleteEvent4mQuery');
+    Route::post('/add_new_event/{tag_id}', 'MyQueryController@add_new_event')->name('add_new_event');
 
 
-    Route::get('/load-query-detals/{ids}','MyQueryController@loadQueryDetails')->name('load_query_details');
+    Route::get('/load-query-detals/{ids}', 'MyQueryController@loadQueryDetails')->name('load_query_details');
 
     /*End of add for my query: 15-5-2019*/
 
