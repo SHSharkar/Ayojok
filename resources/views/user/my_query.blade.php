@@ -406,6 +406,29 @@
     }
 </style>
 
+
+{{--Time--}}
+
+<style>
+    .is-countdown {
+        border: 0 !important;
+        background-color: #F2F2F2 !important;
+    }
+
+    .countdown-period {
+        display: none !important;
+    }
+    .remain_time{
+        text-align: center;
+
+    }
+    .remain_time p{
+        font-size: 12px;
+
+    }
+
+
+</style>
 {{--All Modal Design--}}
 <style>
     /*Event Modal Design*/
@@ -1196,7 +1219,13 @@
                                 </td>
                             @elseif($status_var == 3) <!- Available ->
                                 <td class="column_3">
-                                    <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
+                                    <input type="hidden" id="{{$query_ids[0]}}" class="expire" value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                    <div class="remain_time">
+                                        {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                        <p class="time" id="defaultCountdown{{$query_ids[0]}}"> 72:89 left</p>
+                                    </div>
+
                                     {{-- <button class="paybook paybook_shadow"
                                              onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
                                              data-toggle="modal" data-target="#modal_multipledates">
@@ -1387,10 +1416,8 @@
                                 </td>
                             @elseif($status_var == 3)
                                 <td class="column_3">
-                                    <div id="defaultCountdown">
-
-                                    </div>
-                                    <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
+                                    <input type="hidden" id="{{$query_ids[0]}}" class="expire" value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     <button class="paybook paybook_shadow"
                                             onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
                                             data-toggle="modal" data-target="#modal_multipledates">
@@ -1967,9 +1994,20 @@
 </script>
 <script>
     $(function () {
-        var austDay = new Date();
-        austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
-        $('#defaultCountdown').countdown({until: austDay});
+        //var austDay = new Date("2019-05-31T10:00");
+        //austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
+        //$('#defaultCountdown').countdown({until: austDay,format: 'HM'});
+        var ex=document.getElementsByClassName('expire');
+        var tm=document.getElementsByClassName('time');
+        //console.log(ex.length);
+        for(var i=0; i < ex.length ; i++)
+        {
+            //console.log(i);
+            console.log(ex[i].id);
+            //tm[i].innerHTML=ex[i].value;
+            var day= new Date(ex[i].value);
+            $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS'});
+        }
     });
 </script>
 @endpush

@@ -61,7 +61,6 @@
                         <option value="Available">Available</option>
                         <option value="Not Available">Not Available</option>
                         <option value="Booked">Booked</option>
-                        <option value="Cash Request">Cash Request</option>
                         <option value="Payment Completed">Payment Completed</option>
                     </select>
                 </div>
