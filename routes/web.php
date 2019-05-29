@@ -173,6 +173,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::get('/load-query-detals/{ids}','MyQueryController@loadQueryDetails')->name('load_query_details');
+    Route::get('/load-query-details-admin/{ids}','MyQueryController@loadQueryDetailsAdmin')->name('load_query_details_admin');
+    Route::post('/admin/update-query-details/','QueryController@updateQueryDetails')->name('update_query_details');
 
     /*End of add for my query: 15-5-2019*/
 
@@ -296,6 +298,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::get('/admin/query', 'QueryController@adminlist')->name('query');
     Route::get('/admin/query/{user}', 'QueryController@adminlistdetails')->name('query-details');
+
+    Route::get('/admin/reviewStatus/{query_id}', 'QueryController@reviewStatus')->name('reviewStatus');
 
     Route::post('/admin/query/{id}', 'QueryController@UpdateStatus')->name('query-update');
     Route::post('/admin/query/status/{id}/{user}', 'QueryController@NoStatus')->name('no-update');

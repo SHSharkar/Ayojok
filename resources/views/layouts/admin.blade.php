@@ -111,7 +111,8 @@
 <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
 <link rel="stylesheet" href="{{asset('vendor/jquery-datepicker/jquery-ui.css')}}">
 <script src="{{asset('vendor/jquery-datepicker/jquery-ui.js')}}"></script>
-
+<link rel="stylesheet" href="{{asset('vendor/jquery-time/jquery.timepicker.min.css')}}">
+<script src="{{asset('vendor/jquery-time/jquery.timepicker.min.js')}}"></script>
 <script type="text/javascript">
   // The Calender
   $('#calendar').datepicker();

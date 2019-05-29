@@ -133,10 +133,35 @@ class QueryController extends Controller
         $emails = Query::where('user_id', $user)->get();
 
         $datas = User::find($user);
-        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->with('package')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
-        $services = Query::where('user_id', $user)->with('catagory')->where('product_id', '!=', 0)->with('product')->orderby('submit_id')->get();
+        $vendors = Query::where('user_id', $user)->with('catagory')->with('tag')->with('vendors')->with('package')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user)->with('catagory')->with('tag')->where('product_id', '!=', 0)->with('product')->orderby('submit_id')->get();
         //dd($datas,$vendors,$services);
         return view('admin.query-single', compact('datas', 'vendors', 'services', 'emails'));
+        //return $vendors;
+    }
+
+    public function reviewStatus($qid)
+    {
+        $query=Query::find($qid);
+        $query->status="In Review";
+        $query->save();
+        return redirect()->back();
+    }
+
+    public function updateQueryDetails(Request $request)
+    {
+        $query=Query::find($request->query_id);
+        $query->event_date=$request->event_date;
+        $query->shift=$request->shift;
+        $query->total=$request->total;
+        $query->advance=$request->advance;
+        $query->discount=$request->discount;
+        $query->payment=$query->payment+$request->payment;
+        $query->expiry_date=$request->expiry_date;
+        $query->expiry_time=$request->expiry_time;
+        $query->status=$request->status;
+        $query->save();
+        return redirect()->back();
     }
 
     public function UpdateStatus(Request $request)

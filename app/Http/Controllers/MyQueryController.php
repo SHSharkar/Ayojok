@@ -549,5 +549,52 @@ class MyQueryController extends Controller
         return view('user.extra.query_details')->with('details',$details);
     }
 
+    /*Load query details in a modal- Ajax*/
+    public function loadQueryDetailsAdmin($query_ids)
+    {
+        $query = Query::where('id',$query_ids)->with('catagory')->with('vendors')->with('product')->get();
+        //print_r($query);
+        foreach($query as $q)
+        {
+            //print_r($q->category);
+            if($q->product_id==null)
+            {
+                $details = [
+                    'id' => $q->id,
+                    'title' => $q->vendors->title,
+                    'category' => $q->catagory->name,
+                    'image_url' => $q->vendors->profile_img,
+                    'event_date' => $q->event_date,
+                    'shift' => $q->shift,
+                    'total' => $q->total,
+                    'advance' => $q->advance,
+                    'discount' => $q->discount,
+                    'payment' => $q->payment,
+                    'expiry_date' => $q->expiry_date,
+                    'expiry_time' => $q->expiry_time,
+                    'status' => $q->status,
+                ];
+            }
 
+            else if($q->vendor_id==null)
+            {
+                $details = [
+                    'id' => $q->id,
+                    'title' => $q->product->title,
+                    'category' => $q->catagory->name,
+                    'image_url' => $q->product->image,
+                    'event_date' => $q->event_date,
+                    'shift' => $q->shift,
+                    'total' => $q->total,
+                    'advance' => $q->advance,
+                    'discount' => $q->discount,
+                    'payment' => $q->payment,
+                    'expiry_date' => $q->expiry_date,
+                    'expiry_time' => $q->expiry_time,
+                    'status' => $q->status,
+                ];
+            }
+        }
+        return view('user.extra.query_details_admin')->with('details',$details);
+    }
 }
