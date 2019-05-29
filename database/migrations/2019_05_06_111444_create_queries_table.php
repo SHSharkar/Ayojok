@@ -42,7 +42,7 @@ class CreateQueriesTable extends Migration
             $table->double('payment')->default(0);
 
             $table->date('expiry_date')->nullable();
-            $table->time('expiry_time')->nullable();
+            $table->string('expiry_time')->nullable();
 
             $table->string('status')->nullable();
             $table->tinyInteger('is_available')->default(0);

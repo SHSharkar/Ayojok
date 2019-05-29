@@ -926,6 +926,13 @@
         font-weight: bolder;
     }
 
+    .query a{
+      text-decoration: none;
+    }
+    .query a:hover{
+        text-decoration: none;
+    }
+
     .btn_events {
         background-color: #FFFBF4;
         border: 1px solid #E2AD5B;
@@ -942,6 +949,24 @@
         vertical-align: central;
         width: 200px;
         font-weight: bolder;
+    }
+    .btn_expire {
+        background-color: #FFFBF4;
+        border: 1px solid #E2AD5B;
+        color: #E2AD5B;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 22px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 5px;
+        vertical-align: central;
+        width: 220px;
+        font-weight: bolder;
+        cursor: pointer;
     }
 
     .btn_filter {
@@ -1004,8 +1029,8 @@
     <div class="container">
         <div class="row ">
 
-            <div class="col-sm-2 mt">
-                <button class="btn btn_myqueries" onclick="filter_showAll('All')">My Queries</button>
+            <div class="col-sm-2 mt query">
+                <a href="{{route('my_query')}}" class="btn btn_myqueries" >My Queries</a>
             </div>
             <div class="col-sm-2 mt">
 
@@ -1271,7 +1296,6 @@
                     @foreach($service_arr as $vendor)
                         <?php $check = 2; ?>
                         <?php
-
                         $circle_background_color = "#ffffff";
                         $status_var = 0;
                         $padding_top = "35%";
@@ -1404,7 +1428,7 @@
                                     </button>
                                 </p>
                             </td>
-                            @if($status_var == 1 || $status_var == 4)
+                            @if($status_var == 1)
                                 <td class="column_3">
                                     <p></p>
 
@@ -1426,6 +1450,15 @@
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
+                            @elseif($status_var == 4) <!- Not Availabe ->
+                            <td class="column_3">
+                            <td class="column_3">
+                                <p></p>
+
+                                <p class="remove remove_shadow"
+                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')"> soft Remove </p>
+                            </td>
+                            </td>
                             @elseif($status_var == 5)
                                 <td class="column_3">
                                     <p></p>
@@ -1626,6 +1659,14 @@
             </div>
         </div>
     </div>
+
+    <div class="row container">
+        <a href="{{route('expired_query')}}" class="btn btn_expire" >
+
+            <span id="">Expired Queries</span>
+
+        </a>
+    </div>
 </section>
 @endsection
 @push('scripts')
@@ -1807,8 +1848,7 @@
 
 
     function soft_remove_query(ids) {
-//        var x = confirm("are you sure to delete this query !");
-        var x =true;
+        var x = confirm("are you sure to delete this query !");
         if (x) {
             var id_array = JSON.parse(ids);
             //alert(id_array[0]);
@@ -1817,7 +1857,7 @@
                 type: 'GET',
                 success: function (data) {
                     console.log(' message: ' + data);
-                    //$('body').html(data);
+                    $('body').html(data);
                 },
                 error: function (xhr, status, error) {
                     // check status && error
