@@ -140,6 +140,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     /*add for my query: 15-5-2019*/
     Route::get('/my-query', 'MyQueryController@index')->name('my_query');
+    Route::get('/my-expired_query', 'MyQueryController@expired_query')->name('expired_query');
+
     Route::get('/load-events/{tag_id}', 'MyQueryController@load_event')->name('load_events');
 
     Route::get('/my-query-delete/{ids}', 'MyQueryController@delete')->name('my_query_delete');
