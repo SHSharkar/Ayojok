@@ -30,6 +30,6 @@ class Query extends Model
 
     /*Nir-edit*/
     public function tag(){
-        return $this->belongsTo('App\Tag');
+        return $this->belongsTo('App\Tag','tag_id');
     }
 }

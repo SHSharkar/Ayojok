@@ -36,7 +36,7 @@
                 @foreach ($datas as $data)
 
                   <?php
-                    $seen = \App\Query::where('user_id',$data->user_id)->where('status','=','Query Submitted','or')->where('status','=','In Review')->count();
+                    $seen = \App\Query::where('user_id',$data->user_id)->whereIn('status',['Query Submitted','In Review'])->count();
                          // echo $seen;
                   ?>
 

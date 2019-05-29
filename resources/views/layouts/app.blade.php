@@ -578,9 +578,12 @@ page_id="718944784960805"
 theme_color="#ff7e29">
 </div> --}}
 
+
 <script type="text/javascript" src="{{asset('vendor/keith_wood_datepicker/')}}/js/jquery.plugin.js"></script>
 <script type="text/javascript" src="{{asset('vendor/keith_wood_datepicker/')}}/js/jquery.datepick.js"></script>
-
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/jquery-countdown/css/jquery.countdown.css')}}">
+<script type="text/javascript" src="{{asset('vendor/jquery-countdown/js/jquery.plugin.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendor/jquery-countdown/js/jquery.countdown.js')}}"></script>
 @stack('scripts')
 </body>
 </html>

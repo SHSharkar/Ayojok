@@ -1182,8 +1182,10 @@
                                     </button>
                                 </p>
                             </td>
+
                             @if($status_var == 1)   <!- query submitted ->
-                                <td class="column_3">
+
+                            <td class="column_3">
                                     <p></p>
 
                                     <p class="remove remove_shadow"
@@ -1194,7 +1196,6 @@
                                 </td>
                             @elseif($status_var == 3) <!- Available ->
                                 <td class="column_3">
-
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     {{-- <button class="paybook paybook_shadow"
                                              onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
@@ -1386,7 +1387,9 @@
                                 </td>
                             @elseif($status_var == 3)
                                 <td class="column_3">
+                                    <div id="defaultCountdown">
 
+                                    </div>
                                     <p class="time"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     <button class="paybook paybook_shadow"
                                             onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
@@ -1464,6 +1467,7 @@
         </script>
     </div>
 
+
     {{--Modals--}}
     {{--Events modal--}}
     <div class="container event">
@@ -1534,8 +1538,6 @@
             </div>
         </div>
     </div>
-
-
     {{--Multiple Dates modal--}}
     <div class="container multydates">
         <!-- Modal -->
@@ -1653,8 +1655,6 @@
             dataType: 'text'
 
         });
-
-
     }
 
     function addToCart(ids) {
@@ -1867,7 +1867,8 @@
 
     }
 
-    function filter(status, title) {
+    function filter(status, title)
+    {
         //alert(status);
         $('.hideAll').hide();
         $('.' + status + '').show();
@@ -1885,14 +1886,16 @@
 
         }
     }
-    function filter_showAll(title) {
+    function filter_showAll(title)
+    {
         $('.hideAll').show();
         $('#filter_title').html(title);
         $('.btn_filter').css('width', '200px');
         $('.filter').css('width', '200px');
     }
 
-    function event_filter(event, title) {
+    function event_filter(event, title)
+    {
         //alert(status);
         $('.hideAll').hide();
         $('.' + event + '').show();
@@ -1900,7 +1903,9 @@
         $('#my_event_cross').show();
 
     }
-    function event_filter_showAll(title) {
+
+    function event_filter_showAll(title)
+    {
         $('.hideAll').show();
         $('#my_event_cross').hide();
         $('#event_title').html(title);
@@ -1958,6 +1963,13 @@
                 },
             },
         });
+    });
+</script>
+<script>
+    $(function () {
+        var austDay = new Date();
+        austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
+        $('#defaultCountdown').countdown({until: austDay});
     });
 </script>
 @endpush

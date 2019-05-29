@@ -73,7 +73,7 @@
             {{-- Query Menu --}}
             <li>
                 <?php
-                $totalquery_unSeen = App\Query::where('status', 'In Review')->count();
+                $totalquery_unSeen = App\Query::whereIn('status', ['Query Submitted','In Review'])->count();
 
                 $totalOrder = App\Models\order::all()->where('isconfirmed', 0)->count();
 
