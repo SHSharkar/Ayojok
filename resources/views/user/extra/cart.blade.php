@@ -1,6 +1,10 @@
 <table>
     <tbody class="extra">
-    @php $i=0; $len=count($vendor_arr); @endphp
+
+    <?php
+        $cart_query_ids = array();
+    ?>
+    @php $i=0; $len=count($vendor_arr);  @endphp
     @foreach($vendor_arr as $v)
         <tr>
             <td class="cart-title-td cart-td">
@@ -16,7 +20,10 @@
                 </div>
             </td>
         </tr>
-        @php $i++; @endphp
+        <?php
+        $cart_query_ids[$i] = $v['query_id'];
+        ?>
+        @php $i++;  @endphp
     @endforeach
     {{--<tr>
         <td class="cart-title-td cart-td" width="50%">
@@ -33,6 +40,8 @@
     </tr>--}}
     </tbody>
 </table>
+
+<input type="hidden" value="{{json_encode($cart_query_ids)}}" id="cart_query_ids">
 <script>
     $(document).ready(function(){
        addTotal('{{$len}}');
