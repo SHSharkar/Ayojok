@@ -183,8 +183,9 @@ class MyQueryController extends Controller
         $user_id = Auth::user()->id;
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
+        $expire = 0;
 
-        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events'));
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire'));
     }
     public function expired_query()
     {
@@ -330,7 +331,9 @@ class MyQueryController extends Controller
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
 
-        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events'));
+        $expire = 1;
+
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire'));
     }
 
 
@@ -385,6 +388,23 @@ class MyQueryController extends Controller
         }
         return Redirect::back();
         //return "Delete SuccessFully";
+    }
+
+
+
+    public function cashPayments($cart_query_ids){
+        $cart_query_ids = explode(',', $cart_query_ids);
+
+        foreach ($cart_query_ids as $id) {
+            $query = Query::find($id);
+
+            $query->status = "Cash Requested";
+            $query->in_cart = 0;
+
+
+            $query->save();
+        }
+        return Redirect::back();
     }
 
 

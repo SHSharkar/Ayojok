@@ -13,10 +13,11 @@
 {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
 <style xmlns="http://www.w3.org/1999/html">
 
-    body{
+    body {
         /*background-color: #FFFFFF;*/
     }
-    .page-section{
+
+    .page-section {
         /*background-color: #FFFFFF;*/
     }
 
@@ -27,14 +28,14 @@
 
     }
 
-
-
-    .query_table_div td{
+    .query_table_div td {
         border: 0;
     }
-    .query_table_div tr{
+
+    .query_table_div tr {
         border-bottom: 3px solid #DEDEDE;
     }
+
     .circle {
         height: 150px;
         line-height: 30px;
@@ -376,6 +377,7 @@
         box-shadow: 0px 0px 10px 2px #9c9c9c;
         cursor: cell;
     }
+
     .cart-img:hover {
         padding: 1.1%;
         background-color: #FFFFFF;
@@ -416,13 +418,16 @@
     }
 
     .countdown-period {
-        display: none !important;
+        /*display: none !important;*/
+        font-size: 15px;
     }
-    .remain_time{
+
+    .remain_time {
         text-align: center;
 
     }
-    .remain_time p{
+
+    .remain_time p {
         font-size: 12px;
 
     }
@@ -646,10 +651,6 @@
         font-weight: bold;
     }
 
-
-
-
-
     .multydates .modal_dialog {
         width: 700px;
     }
@@ -690,7 +691,6 @@
         font-size: 28px;
     }
 
-
     .multydates .modal_content {
         border-radius: 1rem;
     }
@@ -726,6 +726,7 @@
         background-color: #62AF0B;
         box-shadow: 6px 7px 14px -8px #0baf90;
     }
+
     .multydates .noAvailable_date_box {
         border: 1px solid #2B2B2B;
         border-radius: 10px;
@@ -741,13 +742,6 @@
     .multydates .row {
         margin-left: 0;
     }
-
-
-
-
-
-
-
 
     .payment .modal_dialog {
         width: 600px;
@@ -799,7 +793,6 @@
         text-align: center;
     }
 
-
     .payment .row {
         margin-left: 0;
     }
@@ -823,10 +816,10 @@
         text-align: center;
         /*height: 260px;*/
     }
+
     .payment img {
         margin-right: 15px;
     }
-
 
 
 </style>
@@ -926,10 +919,12 @@
         font-weight: bolder;
     }
 
-    .query a{
-      text-decoration: none;
+    .query a {
+        text-decoration: none;
+        color: white;
     }
-    .query a:hover{
+
+    .query a:hover {
         text-decoration: none;
     }
 
@@ -950,6 +945,7 @@
         width: 200px;
         font-weight: bolder;
     }
+
     .btn_expire {
         background-color: #FFFBF4;
         border: 1px solid #E2AD5B;
@@ -1030,7 +1026,7 @@
         <div class="row ">
 
             <div class="col-sm-2 mt query">
-                <a href="{{route('my_query')}}" class="btn btn_myqueries" >My Queries</a>
+                <a href="{{route('my_query')}}" class="btn btn_myqueries">My Queries</a>
             </div>
             <div class="col-sm-2 mt">
 
@@ -1149,6 +1145,17 @@
                             $padding_top = "35%";
                             $status_var = 5;
                             $date_name = $status;
+                        } elseif (strtolower($status) == "cash requested") {
+                            $circle_background_color = "#1B83B8";
+                            $padding_top = "25%";
+                            $status_var = 6;
+                            $date_name = $status;
+                        }
+                        elseif (strtolower($status) == "timeout") {
+                            $circle_background_color = "#EF4E4A";
+                            $padding_top = "35%";
+                            $status_var = 7;
+                            $date_name = $status;
                         }
 
                         ?>
@@ -1213,11 +1220,13 @@
                                 @endif
                                 <p class="detail">
                                     {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
-                                    <button class="details details_shadow" data-toggle="modal"
-                                            data-target="#modal_details"
-                                            onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
-                                        Details
-                                    </button>
+                                    @if($expire != 1)
+                                        <button class="details details_shadow" data-toggle="modal"
+                                                data-target="#modal_details"
+                                                onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
+                                            Details
+                                        </button>
+                                    @endif
 
                                     <button class="add_event add_event_shadow"
                                             style="background-color: {{$event_background}};color: {{$event_txt_color}}"
@@ -1234,56 +1243,57 @@
                             @if($status_var == 1)   <!- query submitted ->
 
                             <td class="column_3">
-                                    <p></p>
+                                <p></p>
 
-                                    <p class="remove remove_shadow"
-                                       onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
-                                </td>
+                                <p class="remove remove_shadow"
+                                   onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                            </td>
                             @elseif($status_var == 2) <!- In Review ->
-                                <td class="column_3">
-                                </td>
+                            <td class="column_3">
+                            </td>
                             @elseif($status_var == 3) <!- Available ->
-                                <td class="column_3">
-                                    <input type="hidden" id="{{$query_ids[0]}}" class="expire" value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+                            <td class="column_3">
+                                <input type="hidden" id="{{$query_ids[0]}}" class="expire"
+                                       value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
-                                    <div class="remain_time">
-                                        {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                        <p class="time" id="defaultCountdown{{$query_ids[0]}}"> 72:89 left</p>
-                                    </div>
+                                <div class="remain_time">
+                                    {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}"> 72:89 left</p>
+                                </div>
 
-                                    {{-- <button class="paybook paybook_shadow"
-                                             onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
-                                             data-toggle="modal" data-target="#modal_multipledates">
-                                         Pay & Book
-                                     </button>--}}
-                                    <button class="paybook paybook_shadow"
-                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
-                                            data-toggle="modal" data-target="#modal_multipledates">
-                                        Pay & Book
-                                    </button>
+                                {{-- <button class="paybook paybook_shadow"
+                                         onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
+                                         data-toggle="modal" data-target="#modal_multipledates">
+                                     Pay & Book
+                                 </button>--}}
+                                <button class="paybook paybook_shadow"
+                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
+                                        data-toggle="modal" data-target="#modal_multipledates">
+                                    Pay & Book
+                                </button>
 
-                                    {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
-                                    <p class="advance">Min. Advance: BDT {{$advance}}</p>
-                                </td>
+                                {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                <p class="advance">Min. Advance: BDT {{$advance}}</p>
+                            </td>
                             @elseif($status_var == 4) <!- Not Availabe ->
                             <td class="column_3">
                             <td class="column_3">
                                 <p></p>
 
                                 <p class="remove remove_shadow"
-                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')"> soft Remove </p>
+                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
                             </td>
                             </td>
-                            @elseif($status_var == 5) <!- Booked ->
-                                <td class="column_3">
-                                    <p></p>
-                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                    </button>
-                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                                </td>
+                            @elseif($status_var == 5 ) <!- Booked ->
+                            <td class="column_3">
+                                <p></p>
+                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                </button>
+                                {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                            </td>
                             @endif
                         </tr>
                     @endforeach
@@ -1343,6 +1353,11 @@
                             $circle_background_color = "#FFC63C";
                             $padding_top = "35%";
                             $status_var = 5;
+                            $date_name = $status;
+                        } elseif (strtolower($status) == "Cash Requested") {
+                            $circle_background_color = "#1B83B8";
+                            $padding_top = "35%";
+                            $status_var = 6;
                             $date_name = $status;
                         }
 
@@ -1411,11 +1426,13 @@
 
                                 <p class="detail">
 
-                                    <button class="details details_shadow" data-toggle="modal"
-                                            data-target="#modal_details"
-                                            onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
-                                        Details
-                                    </button>
+                                    @if($expire != 1)
+                                        <button class="details details_shadow" data-toggle="modal"
+                                                data-target="#modal_details"
+                                                onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
+                                            Details
+                                        </button>
+                                    @endif
                                     <button class="add_event add_event_shadow"
                                             style="background-color: {{$event_background}};color: {{$event_txt_color}}"
                                             data-toggle="modal"
@@ -1440,8 +1457,11 @@
                                 </td>
                             @elseif($status_var == 3)
                                 <td class="column_3">
-                                    <input type="hidden" id="{{$query_ids[0]}}" class="expire" value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
-                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}"><img src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
+                                    <input type="hidden" id="{{$query_ids[0]}}" class="expire"
+                                           value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}"><img
+                                                src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
                                     <button class="paybook paybook_shadow"
                                             onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
                                             data-toggle="modal" data-target="#modal_multipledates">
@@ -1479,7 +1499,7 @@
             </table>
         </div>
         <div class="cart-img" onclick="openNav(),loadCart()">
-            <img src="{{asset('img/cart/cart.png')}}" >
+            <img src="{{asset('img/cart/cart.png')}}">
         </div>
         <div id="mySidebar" class="sidebar">
             <div class="row" style="padding-left: 30%">
@@ -1496,7 +1516,8 @@
             <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label>
             </div>
             <button class="cart-paybtn cart-paybtn-shadow"
-                    data-toggle="modal" data-target="#modal_payment">Payment</button>
+                    data-toggle="modal" data-target="#modal_payment">Payment
+            </button>
         </div>
         <script>
             function openNav() {
@@ -1617,7 +1638,7 @@
                         <div class="footer">
 
                             <a href="javascript:void(0)" class="btn btn_paybook" id=""
-                                    onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">Pay & Book
+                               onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">Pay & Book
                             </a>
                         </div>
                     </div>
@@ -1625,7 +1646,6 @@
             </div>
         </div>
     </div>
-
 
 
     {{--Payment Type modal--}}
@@ -1640,10 +1660,11 @@
                                 onclick="close()">&times;</button>
                     </div>
                     <p>Select Payment Method</p>
+
                     <div class="modal-body modal_body" id="available_date_list">
                         <div class="buttons">
                             <a href="javascript:void(0)" class="btn btn_paymentBook" id=""
-                               onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
+                               onclick="cashPayment('d')">
                                 <img src="{{asset('img/icons/query/pay.svg')}}">
                                 Cash Payment
                             </a>
@@ -1661,7 +1682,7 @@
     </div>
 
     <div class="row container">
-        <a href="{{route('expired_query')}}" class="btn btn_expire" >
+        <a href="{{route('expired_query')}}" class="btn btn_expire">
 
             <span id="">Expired Queries</span>
 
@@ -1670,6 +1691,13 @@
 </section>
 @endsection
 @push('scripts')
+
+<script>
+    $(document).ready(function () {
+        loadCart();
+    });
+</script>
+
 <script>
     var queryIds_for_event;
     var tagId_for_event;
@@ -1728,6 +1756,8 @@
     function addToCart(ids) {
         //var id_array = JSON.parse(ids);
 
+
+        //alert("ok");
         id_array = selected_query_ids;
         //alert(id_array[0]);
         $.ajax({
@@ -1736,6 +1766,32 @@
             success: function (data) {
                 console.log(' message: ' + data);
                 $('#div-cart').html(data);
+
+                $('#modal_multipledates').modal('hide');
+                //close();
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+                $('#modal_multipledates').modal('hide');
+            },
+            dataType: 'text',
+        });
+    }
+
+    function cashPayment(ids) {
+
+        //var id_array = JSON.parse(ids);
+        var ids = document.getElementById('cart_query_ids').value;
+        ids = JSON.parse(ids);
+        console.log(ids);
+
+        $.ajax({
+            url: '/cash-payments/' + ids,
+            type: 'GET',
+            success: function (data) {
+                console.log(' message: ' + data);
+                $('body').html(data);
             },
             error: function (xhr, status, error) {
                 // check status && error
@@ -1746,12 +1802,12 @@
     }
 
 
-    function showAvailableDates(ids,status) {
-       // alert(status);
+    function showAvailableDates(ids, status) {
+        // alert(status);
         var id_array = JSON.parse(ids);
         //alert(id_array[0]);
         $.ajax({
-            url: '/show-dates/' + id_array+'/'+status,
+            url: '/show-dates/' + id_array + '/' + status,
             type: 'GET',
             success: function (data) {
                 console.log(' message: ' + data);
@@ -1934,8 +1990,7 @@
 
     }
 
-    function filter(status, title)
-    {
+    function filter(status, title) {
         //alert(status);
         $('.hideAll').hide();
         $('.' + status + '').show();
@@ -1953,16 +2008,14 @@
 
         }
     }
-    function filter_showAll(title)
-    {
+    function filter_showAll(title) {
         $('.hideAll').show();
         $('#filter_title').html(title);
         $('.btn_filter').css('width', '200px');
         $('.filter').css('width', '200px');
     }
 
-    function event_filter(event, title)
-    {
+    function event_filter(event, title) {
         //alert(status);
         $('.hideAll').hide();
         $('.' + event + '').show();
@@ -1971,8 +2024,7 @@
 
     }
 
-    function event_filter_showAll(title)
-    {
+    function event_filter_showAll(title) {
         $('.hideAll').show();
         $('#my_event_cross').hide();
         $('#event_title').html(title);
@@ -2037,11 +2089,10 @@
         //var austDay = new Date("2019-05-31T10:00");
         //austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
         //$('#defaultCountdown').countdown({until: austDay,format: 'HM'});
-        var ex=document.getElementsByClassName('expire');
-        var tm=document.getElementsByClassName('time');
+        var ex = document.getElementsByClassName('expire');
+        var tm = document.getElementsByClassName('time');
         //console.log(ex.length);
-        for(var i=0; i < ex.length ; i++)
-        {
+        for (var i = 0; i < ex.length; i++) {
             //console.log(i);
             var qid=ex[i].id;
             console.log(ex[i].id);
@@ -2065,6 +2116,7 @@
                     });
                 }
             });
+
         }
     });
 </script>
