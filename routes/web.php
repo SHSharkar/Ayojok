@@ -154,6 +154,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/add-event-to-query/{event_id}/{query_ids}', 'MyQueryController@addEven2Query')->name('addEven2Query');
     Route::get('/remove-event-from-query/{event_id}/{query_ids}/{tag_id}', 'MyQueryController@removeEvent4mQuery')->name('deleteEvent4mQuery');
     Route::post('/add_new_event/{tag_id}', 'MyQueryController@add_new_event')->name('add_new_event');
+    Route::get('/timeout-status/{qid}', 'MyQueryController@changeTimeOutStatus')->name('changeTimeOutStatus');
 
 
 

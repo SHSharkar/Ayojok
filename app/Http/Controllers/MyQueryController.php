@@ -571,6 +571,16 @@ class MyQueryController extends Controller
         return view('user.extra.cart', compact('vendor_arr'));
     }
 
+    public function changeTimeOutStatus($qid)
+    {
+        $query=Query::find($qid);
+        $query->status="Timeout";
+        $query->in_cart=0;
+        $query->save();
+
+        return $query;
+    }
+
     public function add_new_event(Request $request, $tag_id)
     {
         //return $request->event_name;
