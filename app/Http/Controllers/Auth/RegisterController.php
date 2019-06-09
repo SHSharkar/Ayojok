@@ -66,7 +66,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
+
         $data['token'] = str_random(32);
+
+        //return $data['token'];
+
 
         //return $data;
 
