@@ -6,6 +6,7 @@
  * Time: 11:28 AM
  */
 //print_r($vendor_arr);
+$query_ids = array();
 ?>
 @extends('layouts.app')
 
