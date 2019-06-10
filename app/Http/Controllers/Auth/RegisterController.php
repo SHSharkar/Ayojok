@@ -65,21 +65,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        //print_r( $data);
+        //exit;
 
         $data['token'] = str_random(32);
-
         //return $data['token'];
-
 
         //return $data;
 
         /*Start - Email Sending to New Registered Users*/
-        Mail::send('emails.user.email_to_new_user', $data, function ($mess) use ($data) {
+        /*Mail::send('emails.user.email_to_new_user', $data, function ($mess) use ($data) {
             $mess->from('sazzad3029@gmail.com');
             $mess->to($data['email']);
             $mess->subject("Contact Us | Ayojok");
-        });
+        });*/
         /*End - Email Sending to New Registered Users*/
 
         return User::create([

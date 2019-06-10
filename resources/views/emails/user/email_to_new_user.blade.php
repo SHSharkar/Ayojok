@@ -223,7 +223,7 @@
                         <tr>
                             <td style="padding: 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                <center><h1 style="margin: 0 0 10px; font-size: 25px; line-height: 30px; color: #333333; font-weight: normal;">Welcome to <a href="https://ayojok.com"><span style="color:#f47f20;">Ayojok.com </span></a></h1></center>
-                                <p style="margin: 0 0 10px;">Dear Ayojok {{ $name }}</p>
+                                <p style="margin: 0 0 10px;">Dear  {{ $name }}</p>
                                 <p style="margin: 0 0 10px;">We would like to get in touch with you, Please  Confirm Your Email By Clicking the given Button below:</p>
 
                                 {{--<p style="margin: 0 0 10px;">I would like to get in touch with you, my informations are given below:</p>--}}
