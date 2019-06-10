@@ -2093,31 +2093,34 @@ $query_ids = array();
         var ex = document.getElementsByClassName('expire');
         var tm = document.getElementsByClassName('time');
         //console.log(ex.length);
+        var at={};
         for (var i = 0; i < ex.length; i++) {
+            var qid='at_'+ex[i].id;
             //console.log(i);
-            var qid=ex[i].id;
             console.log(ex[i].id);
             //tm[i].innerHTML=ex[i].value;
             var day= new Date(ex[i].value);
             $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS',
-                onExpiry: function()
-                {
-                    $.ajax({
-                        url: '/timeout-status/' + qid,
-                        type: 'GET',
-                        success: function (data) {
-                            console.log(' message: ' + data);
-                            $("#body").html(data);
-                        },
-                        error: function (xhr, status, error) {
-                            // check status && error
-                            console.log('Error  message: ' + error);
-                        },
-                        dataType: 'text'
-                    });
-                }
-            });
+                onExpiry: timeout });
 
+            at[qid] = function(){alert(ex[i].id);};
+
+            function timeout()
+            {
+                $.ajax({
+                    url: '/timeout-status/' + qid,
+                    type: 'GET',
+                    success: function (data) {
+                        console.log(' message: ' + data);
+                        $("#body").html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        // check status && error
+                        console.log('Error  message: ' + error);
+                    },
+                    dataType: 'text'
+                });
+            }
         }
     });
 </script>

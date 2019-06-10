@@ -593,12 +593,13 @@ class MyQueryController extends Controller
 
     public function changeTimeOutStatus($qid)
     {
-        $query=Query::find($qid);
+        echo $qid;
+        /*$query=Query::find($qid);
         $query->status="Timeout";
         $query->in_cart=0;
         $query->save();
 
-        return $query;
+        return $query;*/
     }
 
     public function add_new_event(Request $request, $tag_id)
