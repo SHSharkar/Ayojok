@@ -1259,7 +1259,9 @@ $query_ids = array();
 
                                 <div class="remain_time">
                                     {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}"> 72:89 left</p>
+                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}">
+
+                                    </p>
                                 </div>
 
                                 {{-- <button class="paybook paybook_shadow"
@@ -1462,7 +1464,7 @@ $query_ids = array();
                                            value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
                                     <p class="time" id="defaultCountdown{{$query_ids[0]}}"><img
-                                                src="{{asset('img/icons/time.png')}}"> 72:89 left</p>
+                                                src="{{asset('img/icons/time.png')}}"></p>
                                     <button class="paybook paybook_shadow"
                                             onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
                                             data-toggle="modal" data-target="#modal_multipledates">
@@ -2094,31 +2096,36 @@ $query_ids = array();
         var tm = document.getElementsByClassName('time');
         //console.log(ex.length);
         for (var i = 0; i < ex.length; i++) {
-            //console.log(i);
-            var qid=ex[i].id;
             console.log(ex[i].id);
             //tm[i].innerHTML=ex[i].value;
             var day= new Date(ex[i].value);
-            $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS',
-                onExpiry: function()
-                {
-                    $.ajax({
-                        url: '/timeout-status/' + qid,
-                        type: 'GET',
-                        success: function (data) {
-                            console.log(' message: ' + data);
-                            $("#body").html(data);
-                        },
-                        error: function (xhr, status, error) {
-                            // check status && error
-                            console.log('Error  message: ' + error);
-                        },
-                        dataType: 'text'
-                    });
-                }
-            });
 
+            $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS',
+                onExpiry: timeout});
         }
+
+        function timeout()
+        {
+            //alert(this.id);
+            var qid = this.id.replace ( /[^\d.]/g, '' );
+            qid=parseInt(qid, 10);
+
+            $.ajax({
+                url: '/timeout-status/' + qid,
+                type: 'GET',
+                success: function (data) {
+                    console.log(' id: ' + data);
+                    //alert(i+':'+data);
+                    $('body').html(data);
+                },
+                error: function (xhr, status, error) {
+                    // check status && error
+                    console.log('Error  message: ' + error);
+                },
+                dataType: 'text'
+            });
+        };
+
     });
 </script>
 @endpush
