@@ -194,6 +194,9 @@ class MyQueryController extends Controller
         $user = Auth::user()->id;
         $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
         $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
+
+        //return $vendors;
+
         $vendor_arr = array();
         $service_arr = array();
         $query_arr = array();
