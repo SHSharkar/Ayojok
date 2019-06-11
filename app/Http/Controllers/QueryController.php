@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Auth;
 // use App\Models\catagory;
 use App\Models\querycart;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 use App\Models\order;
+
+use App\jobs\SendEmail;
 
 class QueryController extends Controller
 {
@@ -307,6 +310,20 @@ class QueryController extends Controller
 
     public function test_rough()
     {
+
+        $data = [
+            'name' => "Nirjhor",
+            'email' => "nirjhor@nvisio.net",
+            'contact' => "01685262326",
+            'token' => "sdufihsd12487dsihd",
+        ];
+
+        SendEmail::dispatch($data);
+
+        //echo "ok test";
+
+        exit;
+
         // $datas = querycart::groupBy('user_id')->where('status',0)->with('user')->where('is_confirm', 0)->get();
         //    $datas = querycart::groupBy('user_id')->where('status',0)->with('user')->where('is_confirm', 0)->get();
         //$counts = querycart::groupBy('user_id')->groupBy('query_set')->where('status',1)->get(array('query_set', DB::raw('count(*) as total')))->get();

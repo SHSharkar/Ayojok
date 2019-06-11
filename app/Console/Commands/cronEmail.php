@@ -40,6 +40,8 @@ class cronEmail extends Command
     {
         //Code for sending Email
 
+       // echo "ok <br>";
+        //exit;
 
         $data = [
             'name' => "Nirjhor",
