@@ -599,9 +599,12 @@ class MyQueryController extends Controller
         $querys=Query::where('submit_id',$qid)->get();
         foreach($querys as $query)
         {
-            $query->status="Timeout";
-            $query->in_cart=0;
-            $query->save();
+            if($query->status=="Available")
+            {
+                $query->status="Timeout";
+                $query->in_cart=0;
+                $query->save();
+            }
         }
         //return $query;
         return redirect()->back();
