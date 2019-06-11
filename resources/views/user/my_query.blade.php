@@ -1474,14 +1474,14 @@ $query_ids = array();
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
                             @elseif($status_var == 4) <!- Not Availabe ->
-                            <td class="column_3">
+
                             <td class="column_3">
                                 <p></p>
 
                                 <p class="remove remove_shadow"
                                    onclick="soft_remove_query('{{json_encode($query_ids)}}')"> soft Remove </p>
                             </td>
-                            </td>
+
                             @elseif($status_var == 5)
                                 <td class="column_3">
                                     <p></p>
