@@ -593,7 +593,9 @@ class MyQueryController extends Controller
 
     public function changeTimeOutStatus($qid)
     {
+
         //echo $qid;
+
         $query=Query::find($qid);
         $query->status="Timeout";
         $query->in_cart=0;

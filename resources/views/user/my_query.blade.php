@@ -2100,8 +2100,7 @@ $query_ids = array();
             //tm[i].innerHTML=ex[i].value;
             var day= new Date(ex[i].value);
 
-            $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS',
-                onExpiry: timeout});
+            $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS',onExpiry: timeout});
         }
 
         function timeout()
@@ -2123,6 +2122,7 @@ $query_ids = array();
                     console.log('Error  message: ' + error);
                 },
                 dataType: 'text'
+
             });
         };
 
