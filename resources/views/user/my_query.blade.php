@@ -2103,11 +2103,12 @@ $query_ids = array();
                 onExpiry: function()
                 {
                     $.ajax({
-                        url: '/timeout-status/' + qid,
+                        url: '/timeout-status/' + ex[i].id,
                         type: 'GET',
                         success: function (data) {
-                            console.log(' message: ' + data);
-                            $("#body").html(data);
+                            //console.log(' message: ' + data);
+                            //$("#body").html(data);
+                            alert(data);
                         },
                         error: function (xhr, status, error) {
                             // check status && error
