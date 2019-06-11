@@ -1254,12 +1254,12 @@ $query_ids = array();
                             </td>
                             @elseif($status_var == 3) <!- Available ->
                             <td class="column_3">
-                                <input type="hidden" id="{{$query_ids[0]}}" class="expire"
+                                <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
                                        value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
                                 <div class="remain_time">
                                     {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}">
+                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
 
                                     </p>
                                 </div>
@@ -1460,10 +1460,10 @@ $query_ids = array();
                                 </td>
                             @elseif($status_var == 3)
                                 <td class="column_3">
-                                    <input type="hidden" id="{{$query_ids[0]}}" class="expire"
+                                    <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
                                            value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
-                                    <p class="time" id="defaultCountdown{{$query_ids[0]}}"><img
+                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}"><img
                                                 src="{{asset('img/icons/time.png')}}"></p>
                                     <button class="paybook paybook_shadow"
                                             onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
