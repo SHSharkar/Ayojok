@@ -755,6 +755,7 @@
                 // $("#queryCount").text(response.totalquery);
                 // $("#queryForm")[0].reset();
 
+                console.log(response);
 
                 if (response.flash_message) {
                     $("#inboxmess").text(response.totalinbox);

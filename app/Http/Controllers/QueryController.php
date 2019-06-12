@@ -160,10 +160,18 @@ class QueryController extends Controller
         $query->advance=$request->advance;
         $query->discount=$request->discount;
         $query->payment=$query->payment+$request->payment;
-        $query->expiry_date=$request->expiry_date;
-        $query->expiry_time=$request->expiry_time;
         $query->status=$request->status;
         $query->save();
+
+        $ssquery=Query::where('submit_id',$query->submit_id)->get();
+
+        foreach($ssquery as $sq)
+        {
+            $sq->expiry_date=$request->expiry_date;
+            $sq->expiry_time=$request->expiry_time;
+            $sq->save();
+        }
+
         return redirect()->back();
     }
 

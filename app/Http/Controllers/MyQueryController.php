@@ -43,8 +43,8 @@ class MyQueryController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
-        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
-        $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
+        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
         $vendor_arr = array();
         $service_arr = array();
         $query_arr = array();
@@ -100,6 +100,7 @@ class MyQueryController extends Controller
                     "vendor_id" => $vendor->vendors->id,
                     "vendor_name" => $vendor->vendors->title,
                     "vendor_image" => $vendor->vendors->profile_img,
+                    "submit_id" => $vendor->submit_id,
                     "expiry_date" => $vendor->expiry_date,
                     "expiry_time" => $vendor->expiry_time,
                     "display_status" => $status,
@@ -166,6 +167,7 @@ class MyQueryController extends Controller
                     "vendor_id" => $service->product->id,
                     "vendor_name" => $service->product->title,
                     "vendor_image" => $service->product->profile_img,
+                    "submit_id" => $service->submit_id,
                     "expiry_date" => $service->expiry_date,
                     "expiry_time" => $service->expiry_time,
                     "display_status" => $status1,
@@ -342,6 +344,7 @@ class MyQueryController extends Controller
 
     public function delete($query_ids)
     {
+
 
         $query_ids = explode(',', $query_ids);
         //return $query_ids;
@@ -596,14 +599,15 @@ class MyQueryController extends Controller
 
     public function changeTimeOutStatus($qid)
     {
-
         //echo $qid;
-
-        $query=Query::find($qid);
-        $query->status="Timeout";
-        $query->in_cart=0;
-        $query->save();
-
+        $querys=Query::where('submit_id',$qid)->get();
+        foreach($querys as $query)
+        {
+            $query->status="Timeout";
+            $query->in_cart=0;
+            $query->save();
+        }
+        //return $query;
         return redirect()->back();
     }
 

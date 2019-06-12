@@ -15,6 +15,7 @@
 /*nir test rough*/
 
 use App\Query;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,7 +26,12 @@ Route::get('testforurl', 'ProductController@getPath')->name("getPath");
 Route::get('/test', 'QueryController@test_rough');
 
 Route::get('/test2', function () {
-    echo "this is test";
+    $userid = Auth::user()->id;
+    $datTime = date('d-y-m');
+    $datTime = time($datTime);
+    $submit_id = $userid.$datTime.rand(100,1000);
+
+    echo $submit_id;
 });
 //Route::get('/inbox/{id}', 'MessageController@singleMessage_test');
 
