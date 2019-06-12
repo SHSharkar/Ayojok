@@ -215,8 +215,7 @@ class VendorServices extends Controller
          * generate Submit_id for all queries in same submit click event
          */
         $userid = Auth::user()->id;
-        $submit_id = (int)$userid.rand(1000,100000);
-       // exit;
+        $submit_id = (int)$userid.rand(1000,100000).rand(10,1000);
 
         $i=1;
         foreach($dates as $v_date){

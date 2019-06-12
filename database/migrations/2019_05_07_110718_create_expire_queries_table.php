@@ -29,6 +29,7 @@ class CreateExpireQueriesTable extends Migration
             $table->integer('tag_id')->nullable()->unsigned();
             $table->foreign('tag_id')->references('id')->on('tags');
 
+            $table->string('unit')->nullable();
             $table->string('quantity')->nullable();
 
             $table->string('message')->nullable();
@@ -47,6 +48,11 @@ class CreateExpireQueriesTable extends Migration
             $table->tinyInteger('is_available')->default(0);
 
             $table->tinyInteger('is_open')->default(0);
+
+
+            $table->integer('in_cart')->default(0);
+            $table->integer('submit_id')->default(0);
+            $table->integer('queue_id')->default(0);
 
             $table->timestamps();
         });

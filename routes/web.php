@@ -86,6 +86,8 @@ Route::post('/partners', 'IndexController@savePartner')->name('savePartner');
 
 Route::get('/services/{catagory}', 'OurServices@CatProducts')->name('CatProducts');
 Route::get('/services/{catagory}/{product}', 'OurServices@Services')->name('Services');
+Route::post('/services/{catagory}/{product}', 'OurServices@product');
+
 
 Route::get('/vendors/{catagory}', 'VendorServices@Services')->name('Vendors');
 Route::get('/vendors/{catagory}/{vendor}', 'VendorServices@vendor')->name('single-vendor');
@@ -178,7 +180,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('/wishlist', function(){ return view('user.wishlist'); })->name('my-wishlist');
 
     Route::post('/vendors/{catagory}/{vendor}', 'VendorServices@vendorQuery');
-    Route::post('/services/{catagory}/{product}', 'OurServices@product');
 
     // Route::get('/checkout', 'CheckoutController@show')->name('check1');
     // Route::post('/checkout', 'CheckoutController@address')->name('check2');

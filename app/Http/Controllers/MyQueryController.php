@@ -192,8 +192,9 @@ class MyQueryController extends Controller
     public function expired_query()
     {
         $user = Auth::user()->id;
-        $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
-        $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
+
+        $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
 
         //return $vendors;
 
@@ -373,6 +374,7 @@ class MyQueryController extends Controller
             $expired_query->vendor_id = $query->vendor_id;
             $expired_query->product_id = $query->product_id;
             $expired_query->tag_id = $query->tag_id;
+            $expired_query->unit = $query->unit;
             $expired_query->quantity = $query->quantity;
             $expired_query->message = $query->message;
             $expired_query->event_date = $query->event_date;
@@ -386,6 +388,10 @@ class MyQueryController extends Controller
             $expired_query->status = $query->status;
             $expired_query->is_available = $query->is_available;
             $expired_query->is_open = $query->is_open;
+
+            $expired_query->in_cart = $query->in_cart;
+            $expired_query->submit_id = $query->submit_id;
+            $expired_query->queue_id = $query->queue_id;
 
             $expired_query->save();
             /*End of -> New Code for replicating*/

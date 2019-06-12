@@ -1363,6 +1363,12 @@ $query_ids = array();
                             $status_var = 6;
                             $date_name = $status;
                         }
+                        elseif (strtolower($status) == "timeout") {
+                            $circle_background_color = "#EF4E4A";
+                            $padding_top = "35%";
+                            $status_var = 7;
+                            $date_name = $status;
+                        }
 
                         ?>
                         <tr class="{{$className}} {{$event_title}} hideAll">
@@ -1371,6 +1377,7 @@ $query_ids = array();
                                      style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
                                     <span>{{$status}}</span></div>
                             </td>
+
                             <td>
                                 <p class="title">{{$vendor['vendor_name']}}</p>
 
@@ -1448,6 +1455,7 @@ $query_ids = array();
                                     </button>
                                 </p>
                             </td>
+
                             @if($status_var == 1)
                                 <td class="column_3">
                                     <p></p>
@@ -1463,8 +1471,8 @@ $query_ids = array();
                                     <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
                                            value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
-                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}"><img
-                                                src="{{asset('img/icons/time.png')}}"></p>
+                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+                                    </p>
                                     <button class="paybook paybook_shadow"
                                             onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
                                             data-toggle="modal" data-target="#modal_multipledates">
@@ -1479,10 +1487,10 @@ $query_ids = array();
                                 <p></p>
 
                                 <p class="remove remove_shadow"
-                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')"> soft Remove </p>
+                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')">  Remove </p>
                             </td>
 
-                            @elseif($status_var == 5)
+                            @elseif($status_var == 5)  {{--Booked--}}
                                 <td class="column_3">
                                     <p></p>
                                     <button class="paybook paybook_shadow" style="padding: 5px 52px"

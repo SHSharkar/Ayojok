@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ExpireQuery extends Model
 {
     //
-
     protected $table = 'expire_queries';
     protected $fillable = ['user_id','category_id','vendor_id','product_id','quantity',
         'tag_id','event_date','message','status'];
