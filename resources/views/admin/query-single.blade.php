@@ -204,7 +204,11 @@
                     <div class="box-body table-responsive">
                         <table id="vendor" class="table table-bordered table-striped">
                             <select id="table-filter">
+                                <option value="All">All</option>
+                                <option value="Query Submitted">Query Submitted</option>
+                                <option value="In Review">In Review</option>
                                 <option value="Available">Available</option>
+                                <option value="Not Available">Not Available</option>
                                 <option value="Booked">Booked</option>
                             </select>
                             <thead>
@@ -265,6 +269,14 @@
                     <!-- /.box-header -->
                     <div class="box-body table-responsive">
                         <table id="service" class="table table-bordered table-striped">
+                            <select id="table-filter1">
+                                <option value="All">All</option>
+                                <option value="Query Submitted">Query Submitted</option>
+                                <option value="In Review">In Review</option>
+                                <option value="Available">Available</option>
+                                <option value="Not Available">Not Available</option>
+                                <option value="Booked">Booked</option>
+                            </select>
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -341,7 +353,7 @@
         todayHighlight: true
     });
     $(function () {
-        var table=  $('#vendor,#service').DataTable({
+        var table=  $('#vendor').DataTable({
             'paging': true,
             'lengthChange': false,
             'searching': true,
@@ -350,11 +362,47 @@
             'autoWidth': false
         })
 
-        $('#table-filter').on('change', function () {
-            table
-                    .columns(6)
-                    .search("^" + $(this).val() + "$", true, false, true)
-                    .draw();
+        var table1=  $('#service').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+
+        $('#table-filter').on('change', function (){
+            if((document.getElementById('table-filter').value)=="All")
+            {
+                table
+                        .columns(6)
+                        .search("", true, false, true)
+                        .draw();
+            }
+            else
+            {
+                table
+                        .columns(6)
+                        .search("^" + $(this).val() + "$", true, false, true)
+                        .draw();
+            }
+        });
+
+        $('#table-filter1').on('change', function (){
+            if((document.getElementById('table-filter1').value)=="All")
+            {
+                table1
+                        .columns(6)
+                        .search("", true, false, true)
+                        .draw();
+            }
+            else
+            {
+                table1
+                        .columns(6)
+                        .search("^" + $(this).val() + "$", true, false, true)
+                        .draw();
+            }
         });
     })
 </script>
