@@ -215,9 +215,8 @@ class VendorServices extends Controller
          * generate Submit_id for all queries in same submit click event
          */
         $userid = Auth::user()->id;
-        $datTime = date('d-y-m');
-        $datTime = time($datTime);
-        $submit_id = $userid.$datTime;
+        $submit_id = (int)$userid.rand(1000,100000);
+       // exit;
 
         $i=1;
         foreach($dates as $v_date){
@@ -232,16 +231,13 @@ class VendorServices extends Controller
 
             $queryid = $queryadd->id;
 
-/**
-* update  Submit_id
-*/
+
             $query = Query::find($queryid);
+            //return $submit_id;
             $query->submit_id = $submit_id;
             $query->save();
 
-/**
- * update  Queue_id
- */
+
             $query = Query::find($queryid);
             //$query->queue_id = $queryid+1;
             if($i < sizeof($dates)){

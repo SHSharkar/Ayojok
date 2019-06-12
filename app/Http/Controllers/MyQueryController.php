@@ -345,6 +345,7 @@ class MyQueryController extends Controller
     public function delete($query_ids)
     {
 
+
         $query_ids = explode(',', $query_ids);
         //return $query_ids;
 
