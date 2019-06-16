@@ -100,7 +100,7 @@
                     {{--<p>Query Message: </p>--}}
                 </div>
                 <div class="col-sm-9 ">
-                    <p>Affordable package on 19th, standard package on 20th</p>
+                    <p>{{$details['query_admin_reply']}}</p>
                     {{--<p>{{$details['query_message']}}</p>--}}
                 </div>
             </div>
@@ -112,6 +112,7 @@
             <div class="row date_row">
                 <div class="col-sm-12">
                     <textarea class="message_box">
+    {{$details['query_message']}}
                     </textarea>
                 </div>
             </div>

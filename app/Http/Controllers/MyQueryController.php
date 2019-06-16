@@ -853,6 +853,8 @@ class MyQueryController extends Controller
 
             'status' => $status,
             'query_message' => $query->message,
+            'query_admin_reply' => $query->admin_reply,
+
 
         ];
 

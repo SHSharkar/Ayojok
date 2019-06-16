@@ -126,17 +126,48 @@ class MailController extends Controller
             {
                 $user->email_verified_at = $date;
                 $user->save();
-                echo "email Verified successfully.";
+                //echo "email Verified successfully.";
+
+                /*Not use yet*/
+                if(isset(Auth::user()->email)){
+                    //return view('pages.email_verification')->with('user',$user);
+                }else{
+                    //$pass = $user->password;
+                    //$this->login($email,$pass);
+                }
+
+
+
+                return view('pages.email_verification')->with('user',$user);
+
             }else{
-                echo "<span style='color: red'>email not Verified. !!!!</span>";
+               // echo "<span style='color: red'>email not Verified. !!!!</span>";
+                return view('pages.email_verification');
             }
         }else{
-            echo "<span style='color: red'>email not Verified. !!!!</span>";
+            //echo "<span style='color: red'>email not Verified. !!!!</span>";
+            return view('pages.email_verification');
         }
 
 
     }
 
+    /*Not use yet*/
+    public function login($email,$pass){
+        $user_array = array();
+        $user_array['email'] = $email;
+        $user_array['password'] = $pass;
+
+        //echo $pass;
+        //exit;
+
+        if(Auth::attempt($user_array)){
+            return Redirect::to('/');
+        }else{
+            echo "not login";
+            //return Redirect::to('/')->with("reg_msg","1");
+        }
+    }
 
     // mail for order placement
     public function orderMail()
