@@ -43,8 +43,8 @@ class MyQueryController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
-        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
-        $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
+        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('created_at','desc')->get();
+        $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('created_at','desc')->get();
         $vendor_arr = array();
         $service_arr = array();
         $query_arr = array();
