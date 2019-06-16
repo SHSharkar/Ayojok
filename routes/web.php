@@ -169,8 +169,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::get('/load-query-detals/{ids}','MyQueryController@loadQueryDetails')->name('load_query_details');
-    Route::get('/load-query-details-admin/{ids}','MyQueryController@loadQueryDetailsAdmin')->name('load_query_details_admin');
-    Route::post('/admin/update-query-details/','QueryController@updateQueryDetails')->name('update_query_details');
+
 
     /*End of add for my query: 15-5-2019*/
 
@@ -375,11 +374,11 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     //edited by frank
 
-
+    Route::get('/load-query-details-admin/{ids}','MyQueryController@loadQueryDetailsAdmin')->name('load_query_details_admin');
+    Route::post('/admin/update-query-details/','QueryController@updateQueryDetails')->name('update_query_details');
     Route::get('/admin/dashboard/google', 'AdminAnalyticsController@selectAnalyticsDate')->name('admindash');
     Route::post('/admin/dashboard/google', 'AdminAnalyticsController@showVisitorAnalytics')->name('admindashdate');
-
-
+    Route::get('/admin/timeout', 'QueryController@timeout')->name('timeout');
 });
 
 Route::get('go', 'MyQueryController@go');

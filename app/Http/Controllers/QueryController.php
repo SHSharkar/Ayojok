@@ -143,12 +143,24 @@ class QueryController extends Controller
         //return $vendors;
     }
 
-    public function reviewStatus($qid)
+    public function reviewStatus($sid)
     {
-        $query=Query::find($qid);
-        $query->status="In Review";
-        $query->save();
+        $queries=Query::where('submit_id',$sid)->get();
+
+        foreach($queries as $query)
+        {
+            $query->status="In Review";
+            $query->save();
+        }
+
         return redirect()->back();
+    }
+
+    public function timeout()
+    {
+        date_default_timezone_set("Asia/Dhaka");
+        $cdt=date("Y-m-d h:i A");
+        echo $cdt;
     }
 
     public function updateQueryDetails(Request $request)

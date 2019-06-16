@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Nirjhor
- * Date: 5/27/2019
- * Time: 11:17 AM
- */
-?>
-
 {{--Date Picker--}}
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/keith_wood_datepicker/')}}/css/jquery.datepick.css">
 <div class="modal-header modal_header">

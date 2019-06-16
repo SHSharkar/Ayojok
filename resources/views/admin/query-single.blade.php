@@ -235,7 +235,7 @@
                                     <td>{{$vendor->event_date}}</td>
                                     <td>{{$vendor->status}}</td>
                                     @if(strtolower($vendor->status)=='query submitted')
-                                        <td><a href="{{url('/admin/reviewStatus/'.$vendor->id)}}"
+                                        <td><a href="{{url('/admin/reviewStatus/'.$vendor->submit_id)}}"
                                                class="btn btn-danger">Not Reviewed</a></td>
                                     @else
                                         <td>Reviewed</td>
