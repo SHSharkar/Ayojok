@@ -1151,8 +1151,7 @@ $query_ids = array();
                             $padding_top = "25%";
                             $status_var = 6;
                             $date_name = $status;
-                        }
-                        elseif (strtolower($status) == "timeout") {
+                        } elseif (strtolower($status) == "timeout") {
                             $circle_background_color = "#EF4E4A";
                             $padding_top = "35%";
                             $status_var = 7;
@@ -1195,9 +1194,6 @@ $query_ids = array();
                                             $event_background = "#F2F2F2";
                                             $event_txt_color = "#0B98FF";
                                         }
-
-
-
                                         if (is_numeric($price)) {
                                             $price += $query['total_payment'];
                                             $advance += $query['advance_payment'];
@@ -1246,8 +1242,10 @@ $query_ids = array();
                             <td class="column_3">
                                 <p></p>
 
-                                <p class="remove remove_shadow"
-                                   onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                @if($expire != 1)
+                                    <p class="remove remove_shadow"
+                                       onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                @endif
                             </td>
                             @elseif($status_var == 2) <!- In Review ->
                             <td class="column_3">
@@ -1283,8 +1281,10 @@ $query_ids = array();
                             <td class="column_3">
                                 <p></p>
 
-                                <p class="remove remove_shadow"
-                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                @if($expire != 1)
+                                    <p class="remove remove_shadow"
+                                       onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                @endif
                             </td>
                             </td>
                             @elseif($status_var == 5 ) <!- Booked ->
@@ -1362,8 +1362,7 @@ $query_ids = array();
                             $padding_top = "35%";
                             $status_var = 6;
                             $date_name = $status;
-                        }
-                        elseif (strtolower($status) == "timeout") {
+                        } elseif (strtolower($status) == "timeout") {
                             $circle_background_color = "#EF4E4A";
                             $padding_top = "35%";
                             $status_var = 7;
@@ -1460,8 +1459,10 @@ $query_ids = array();
                                 <td class="column_3">
                                     <p></p>
 
-                                    <p class="remove remove_shadow"
-                                       onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                    @if($expire != 1)
+                                        <p class="remove remove_shadow"
+                                           onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                    @endif
                                 </td>
                             @elseif($status_var == 2)
                                 <td class="column_3">
@@ -1485,21 +1486,22 @@ $query_ids = array();
 
                             <td class="column_3">
                                 <p></p>
-
-                                <p class="remove remove_shadow"
-                                   onclick="soft_remove_query('{{json_encode($query_ids)}}')">  Remove </p>
+                                @if($expire != 1)
+                                    <p class="remove remove_shadow"
+                                       onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                @endif
                             </td>
 
                             @elseif($status_var == 5)  {{--Booked--}}
-                                <td class="column_3">
-                                    <p></p>
-                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                    </button>
-                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                                </td>
+                            <td class="column_3">
+                                <p></p>
+                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                </button>
+                                {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                            </td>
                             @endif
                         </tr>
                     @endforeach
@@ -2106,16 +2108,15 @@ $query_ids = array();
         for (var i = 0; i < ex.length; i++) {
             console.log(ex[i].id);
             //tm[i].innerHTML=ex[i].value;
-            var day= new Date(ex[i].value);
+            var day = new Date(ex[i].value);
 
-            $('#defaultCountdown'+ex[i].id).countdown({until: day,format: 'HMS',onExpiry: timeout});
+            $('#defaultCountdown' + ex[i].id).countdown({until: day, format: 'HMS', onExpiry: timeout});
         }
 
-        function timeout()
-        {
+        function timeout() {
             //alert(this.id);
-            var qid = this.id.replace ( /[^\d.]/g, '' );
-            qid=parseInt(qid, 10);
+            var qid = this.id.replace(/[^\d.]/g, '');
+            qid = parseInt(qid, 10);
 
             $.ajax({
                 url: '/timeout-status/' + qid,
