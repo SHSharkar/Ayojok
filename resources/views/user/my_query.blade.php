@@ -1267,11 +1267,21 @@ $query_ids = array();
                                          data-toggle="modal" data-target="#modal_multipledates">
                                      Pay & Book
                                  </button>--}}
-                                <button class="paybook paybook_shadow"
-                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
-                                        data-toggle="modal" data-target="#modal_multipledates">
-                                    Pay & Book
-                                </button>
+
+                                @if(count($query_ids) <=1)
+                                    <button class="paybook paybook_shadow"
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available'),openNav()"
+                                            data-toggle="modal" data-target="">
+                                        Pay & Book
+                                    </button>
+                                @else
+                                    <button class="paybook paybook_shadow"
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
+                                            data-toggle="modal" data-target="#modal_multipledates">
+                                        Pay & Book
+                                    </button>
+                                @endif
+
 
                                 {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                 <p class="advance">Min. Advance: BDT {{$advance}}</p>
@@ -1290,10 +1300,19 @@ $query_ids = array();
                             @elseif($status_var == 5 ) <!- Booked ->
                             <td class="column_3">
                                 <p></p>
-                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                </button>
+                                @if(count($query_ids) <=1)
+                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
+                                            data-toggle="modal" data-target=""> Pay Rest
+                                    </button>
+                                @else
+                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                    </button>
+                                @endif
+
+
                                 {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
                                 <p class="duePrice"> Due amount: BDT {{$due}} </p>
                             </td>
@@ -1474,11 +1493,21 @@ $query_ids = array();
 
                                     <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
                                     </p>
-                                    <button class="paybook paybook_shadow"
-                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
-                                            data-toggle="modal" data-target="#modal_multipledates">
-                                        Pay & Book
-                                    </button>
+
+                                    @if(count($query_ids) <=1)
+                                        <button class="paybook paybook_shadow"
+                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Available'),openNav()"
+                                                data-toggle="modal" data-target="">
+                                            Pay & Book
+                                        </button>
+                                    @else
+                                        <button class="paybook paybook_shadow"
+                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
+                                                data-toggle="modal" data-target="#modal_multipledates">
+                                            Pay & Book
+                                        </button>
+                                    @endif
+
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
@@ -1495,10 +1524,18 @@ $query_ids = array();
                             @elseif($status_var == 5)  {{--Booked--}}
                             <td class="column_3">
                                 <p></p>
-                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                </button>
+                                @if(count($query_ids) <=1)
+                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
+                                            data-toggle="modal" data-target=""> Pay Rest
+                                    </button>
+                                @else
+                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                    </button>
+                                @endif
+
                                 {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
                                 <p class="duePrice"> Due amount: BDT {{$due}} </p>
                             </td>
@@ -1792,6 +1829,30 @@ $query_ids = array();
         });
     }
 
+    function addToCart_singleDate(ids) {
+
+        var id_array = ids;
+
+
+        $.ajax({
+            url: '/add-to-myCart/' + id_array,
+            type: 'GET',
+            success: function (data) {
+                console.log(' message: ' + data);
+                $('#div-cart').html(data);
+
+                $('#modal_multipledates').modal('hide');
+                //close();
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+                $('#modal_multipledates').modal('hide');
+            },
+            dataType: 'text',
+        });
+    }
+
     function cashPayment(ids) {
 
         //var id_array = JSON.parse(ids);
@@ -1819,21 +1880,28 @@ $query_ids = array();
         // alert(status);
         var id_array = JSON.parse(ids);
         //alert(id_array[0]);
-        $.ajax({
-            url: '/show-dates/' + id_array + '/' + status,
-            type: 'GET',
-            success: function (data) {
-                console.log(' message: ' + data);
-                $('#available_date_list').html(data);
-            },
-            error: function (xhr, status, error) {
-                // check status && error
-                console.log('Error  message: ' + error);
-            },
-            dataType: 'text',
-        });
 
-        selected_query_ids = [];
+        if (id_array.length <= 1) {
+            addToCart_singleDate(id_array);
+        } else {
+            $.ajax({
+                url: '/show-dates/' + id_array + '/' + status,
+                type: 'GET',
+                success: function (data) {
+                    console.log(' message: ' + data);
+                    $('#available_date_list').html(data);
+                },
+                error: function (xhr, status, error) {
+                    // check status && error
+                    console.log('Error  message: ' + error);
+                },
+                dataType: 'text',
+            });
+
+            selected_query_ids = [];
+        }
+
+
     }
 
     function select_dates(query_id, ob) {
