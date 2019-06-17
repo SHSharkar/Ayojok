@@ -160,6 +160,16 @@ class QueryController extends Controller
     {
         date_default_timezone_set("Asia/Dhaka");
         $cdt=date("Y-m-d h:i A");
+
+        $query=Query::where('expiry_date',date('Y-m-d'))->get();
+        foreach($query as $q)
+        {
+            if(strtotime($cdt)>=strtotime($q->expiry_date.' '.$q->expiry_time) && $q->status == "Available")
+            {
+                $q->status="Timeout";
+                $q->save();
+            }
+        }
         echo $cdt;
     }
 
