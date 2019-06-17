@@ -8,13 +8,16 @@
 ?>
 
 <div id="dates">
-    <h4>Pubali Resort Club</h4>
-    <p>Venue </p>
+    <h4>{{$same_details['vendor_name']}}</h4>
+    <p>{{$same_details['category']}} </p>
     <p>Selected Date: </p>
 
     <div class="row date_row">
 
         @foreach($queries as $query)
+
+
+
             @if($query->status == "Available" || $query->status == "Booked")
         <div class="col-sm-4 {{($query->in_cart > 0)? 'selected_date_box' : 'available_date_box'}}" onclick="select_dates('{{$query->id}}',this)" id="selected_date">
             <p> {{$query->event_date}} ( {{ $query->shift }} )</p>

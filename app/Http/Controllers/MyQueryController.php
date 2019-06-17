@@ -430,10 +430,25 @@ class MyQueryController extends Controller
             ->where('status',$status)
             ->get();*/
 
-        $queries =  Query::whereIn("id",$query_ids)
-            ->get();
+        $queries =  Query::whereIn("id",$query_ids)->with('catagory')->with('vendors')->with('product')->get();
 
-        return  view('user.extra.dates')->with('queries',$queries);
+        $vendor_title = "";
+        if(isset($queries[0]['product'])){
+            $vendor_title = $queries[0]['product']['title'];
+        }else{
+            $vendor_title = $queries[0]['vendors']['title'];
+        }
+
+        //return $vendor_title;
+
+        $same_details = [
+            'category' =>  $queries[0]['catagory']['name'],
+            'vendor_name' =>  $vendor_title,
+        ];
+
+        return  view('user.extra.dates')
+            ->with('queries',$queries)
+            ->with('same_details',$same_details);
 
     }
 
