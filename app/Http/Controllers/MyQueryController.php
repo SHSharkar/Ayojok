@@ -809,6 +809,7 @@ class MyQueryController extends Controller
                 $total_paid_available += $query->payment;
                 $discount_available += $query->discount;
 
+                //change
                 $counter_for_availabe++;
             }
             if(  strtolower($query->status) == 'booked'){
