@@ -155,6 +155,26 @@ $query_ids = array();
         box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
     }
 
+    .re_request {
+        background-color: #EF4E4A;
+        border: 1px solid #DFA449;
+        color: #FFFFFF;
+        padding: 5px 40px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        margin: 4px 2px;
+        /*cursor: pointer;*/
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 5px;
+    }
+
+    .re_request_shadow {
+        box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
+    }
+
     .remove {
         background-color: #F2F2F2;
         border: 1px solid #EF4E4A;
@@ -1238,7 +1258,6 @@ $query_ids = array();
                             </td>
 
                             @if($status_var == 1)   <!- query submitted ->
-
                             <td class="column_3">
                                 <p></p>
 
@@ -1247,9 +1266,11 @@ $query_ids = array();
                                        onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
                                 @endif
                             </td>
+
                             @elseif($status_var == 2) <!- In Review ->
                             <td class="column_3">
                             </td>
+
                             @elseif($status_var == 3) <!- Available ->
                             <td class="column_3">
                                 <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
@@ -1286,8 +1307,8 @@ $query_ids = array();
                                 {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                 <p class="advance">Min. Advance: BDT {{$advance}}</p>
                             </td>
+
                             @elseif($status_var == 4) <!- Not Availabe ->
-                            <td class="column_3">
                             <td class="column_3">
                                 <p></p>
 
@@ -1296,7 +1317,7 @@ $query_ids = array();
                                        onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
                                 @endif
                             </td>
-                            </td>
+
                             @elseif($status_var == 5 ) <!- Booked ->
                             <td class="column_3">
                                 <p></p>
@@ -1315,6 +1336,27 @@ $query_ids = array();
 
                                 {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
                                 <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                            </td>
+
+                            @elseif($status_var == 7 ) <!- Booked ->
+                            <td class="column_3">
+                                <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
+                                       value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                <div class="remain_time">
+                                    {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+
+                                    </p>
+                                </div>
+
+                                <button class="re_request re_request_shadow" onclick="re_request('{{json_encode($query_ids)}}')">
+                                    Re-request
+                                </button>
+
+
+                                {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                <p class="advance">Min. Advance: BDT {{$advance}}</p>
                             </td>
                             @endif
                         </tr>
@@ -1969,6 +2011,32 @@ $query_ids = array();
 
             $.ajax({
                 url: '/my-query-delete/' + id_array,
+                type: 'GET',
+                success: function (data) {
+                    console.log(' message: ' + data);
+                    $('body').html(data);
+                },
+                error: function (xhr, status, error) {
+                    // check status && error
+                    console.log('Error  message: ' + error);
+                },
+                dataType: 'text',
+            });
+        }
+    }
+
+
+    function re_request(ids) {
+
+        //alert(ids);
+        var x = confirm("Do You Want to re-Submit The Query with dates ?!! ");
+        if (x) {
+            var id_array = JSON.parse(ids);
+            //alert(id_array[0]);
+
+            $.ajax({
+
+                url: '/my-query-re-request/' + id_array,
                 type: 'GET',
                 success: function (data) {
                     console.log(' message: ' + data);

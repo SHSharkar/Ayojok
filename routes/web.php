@@ -152,6 +152,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/load-events/{tag_id}', 'MyQueryController@load_event')->name('load_events');
 
+    Route::get('/my-query-re-request/{ids}', 'MyQueryController@reRequest')->name('reRequest');
+
     Route::get('/my-query-delete/{ids}', 'MyQueryController@delete')->name('my_query_delete');
     Route::get('/my-query-move-to-expire/{ids}', 'MyQueryController@softDelete')->name('softDelete');
 

@@ -343,6 +343,25 @@ class MyQueryController extends Controller
     }
 
 
+    public function reRequest($query_ids)
+    {
+
+        //return $query_ids;
+
+        $query_ids = explode(',', $query_ids);
+        //return $query_ids;
+
+        foreach ($query_ids as $id) {
+            $query = Query::find($id);
+
+            $query->save();
+        }
+        return Redirect::back();
+        //return "Delete SuccessFully";
+    }
+
+
+
     public function delete($query_ids)
     {
 
