@@ -40,7 +40,7 @@ class SendEmail implements ShouldQueue
         $data = $this->data;
 
         /*Start - Email Sending to New Registered Users*/
-        Mail::send('emails.user.email_to_new_user', $data, function ($mess) use ($data) {
+        Mail::send($data['mail_template'], $data, function ($mess) use ($data) {
             $mess->from('sazzad3029@gmail.com');
             $mess->to($data['email']);
             $mess->subject("Contact Us | Ayojok");

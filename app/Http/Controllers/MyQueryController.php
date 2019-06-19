@@ -354,6 +354,8 @@ class MyQueryController extends Controller
         foreach ($query_ids as $id) {
             $query = Query::find($id);
 
+            $query->status = "Query Submitted";
+
             $query->save();
         }
         return Redirect::back();
@@ -673,7 +675,6 @@ class MyQueryController extends Controller
         return view('user.extra.event_list')->with('events', $events)->with('tag_id', $tag_id);
     }
 
-
     public function load_event($event_tag_id)
     {
 
@@ -747,7 +748,6 @@ class MyQueryController extends Controller
         //return $event_id."<br>".$query_ids;
 
     }
-
 
     /*Load query details in a modal- Ajax*/
     public function loadQueryDetails($query_ids)

@@ -69,6 +69,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $data['token'] = str_random(32);
+        $data['mail_template'] = "emails.user.email_to_new_user";
 
         /*Mail Sending In queue*/
         SendEmail::dispatch($data);

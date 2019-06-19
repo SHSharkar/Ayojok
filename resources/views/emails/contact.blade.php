@@ -202,7 +202,7 @@
             <tr>
               <td style="padding: 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                 <h1 style="margin: 0 0 10px; font-size: 25px; line-height: 30px; color: #333333; font-weight: normal;">Contact Us <span style="color:#f47f20;">Notification</span></h1>
-                <p style="margin: 0 0 10px;">Dear Ayojok</p>
+                <p style="margin: 0 0 10px;">Dear </p>
                 <p style="margin: 0 0 10px;">I would like to get in touch with you, my informations are given below:</p>
                 <p style="margin: 0 0 10px;"><strong>My Name : </strong> {{ $name }} </p>
                 <p style="margin: 0 0 10px;"><strong>My Email : </strong> {{$email}}</p>

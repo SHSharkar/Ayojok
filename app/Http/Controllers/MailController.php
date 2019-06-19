@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
 use App\Mail\NewUserWelcome;
 use App\User;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class MailController extends Controller
         );
 
 
-        if(Mail::send('emails.contact', $data, function ($mess) use ($data) {
+       /* if(Mail::send('emails.contact', $data, function ($mess) use ($data) {
             $mess->from('sazzad3029@gmail.com');
             $mess->to('mailatsajal@gmail.com');
             $mess->subject("Contact Us | Ayojok");
@@ -43,7 +44,21 @@ class MailController extends Controller
             echo "send";
         }else{
             echo "not";
-        }
+        }*/
+
+        /*Sennd Email by Queueing system*/
+        $data = array(
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'bodyMessage' => $request->mess,
+            'mail_template' => "emails.contact",
+        );
+        $data['token'] = str_random(32);
+
+
+        /*Mail Sending In queue*/
+        SendEmail::dispatch($data);
 
         $contact = new contactus;
         $contact->name = $request->name;
