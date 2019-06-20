@@ -314,6 +314,14 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/admin/partner_delete/{id}', 'MessageController@part_message_delete')->name('partner-single-delete');
     /*End Of Nir-edit for be our partners */
 
+
+    /*Nir-edit for be Event Coordinators */
+    Route::get('/admin/event-coordinators', 'MessageController@EV_index')->name('event_coordinators_msg');
+    Route::get('/admin/event_coordinator/{id}', 'MessageController@EV_show')->name('event_coordinator-single');
+    Route::get('/admin/event_coordinator_delete/{id}', 'MessageController@EV_message_delete')->name('event_coordinator-single-delete');
+    /*End Of Nir-edit for be our partners */
+
+
     Route::resource('/admin/service', 'ProductController');
     Route::get('/admin/services/{category}', 'ProductController@index2')->name('product.categories');
     Route::post('/admin/service/suspend/{id}', 'ProductController@suspend')->name('service.suspend');

@@ -73,6 +73,8 @@
             {{-- Query Menu --}}
             <li>
                 <?php
+                use App\EventCoordinator;
+
                 $totalquery_unSeen = App\Query::whereIn('status', ['Query Submitted','In Review'])->count();
 
                 $totalOrder = App\Models\order::all()->where('isconfirmed', 0)->count();
@@ -101,6 +103,7 @@
                 $totalPayment_list = App\Models\order::all()->where('isconfirmed', 1)->count();
 
                 $total_partners = \App\Models\partner::all()->count();
+                $total_event_coordinator = EventCoordinator::all()->count();
 
                 $total_message = \App\Models\contactus::all()->count();
 
@@ -198,6 +201,12 @@
             <li>
                 <a href="{{route('ad_partners')}}">
                     <i class="fa fa-handshake-o"></i> <span>Partners ( {{$total_partners}} )</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{route('event_coordinators_msg')}}">
+                    <i class="fa fa-handshake-o"></i> <span>event-coordinator Message  ( {{$total_event_coordinator}} )</span>
                 </a>
             </li>
         </ul>

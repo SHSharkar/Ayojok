@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EventCoordinator;
 use App\Models\partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,29 @@ class MessageController extends Controller
   }
   /* End of Nir-Edit for be our partners*/
 
+
+
+  /*Nir-Edit for Event-Coordinators*/
+  public function EV_index(){
+
+    $datas = EventCoordinator::all();
+    return view('admin.event_coordinators',compact('datas'));
+
+  }
+
+  public function EV_show($id){
+    $datas = EventCoordinator::where('id',$id);
+
+    return view('admin.event_coordinator-single', compact('datas'));
+  }
+
+  public function EV_message_delete($id){
+    $data = EventCoordinator::where('id',$id)->first();
+    $data->delete();
+
+    return Redirect::back();
+  }
+  /* End of Nir-Edit for be our partners*/
 
 
   /*http://127.0.0.1:8000/inbox*/

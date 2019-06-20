@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EventCoordinator;
 use App\Jobs\SendEmail;
 use App\Mail\NewUserWelcome;
 use App\User;
@@ -78,43 +79,14 @@ class MailController extends Controller
             'message' => 'min:0',
             'phone' => 'min:10']);
 
-        $email = $request->email;
-        $data = array(
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'bodyMessage' => $request->mess
-        );
 
-
-       /* Mail::send('emails.contact', $data, function ($mess) use ($data) {
-            $mess->from($data['email']);
-            $mess->to('sazzad3029@gmail.com');
-            $mess->subject("Contact Us | Ayojok");
-        });*/
-
-        return $request;
-
-
-        $contact = new contactus;
+        $contact = new EventCoordinator();
         $contact->name = $request->name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
         $contact->messbody = $request->mess;
         $contact->save();
 
-        /*Mail::send('emails.order', array('orders'=>$datas), function($mess) use ($datas){
-            $mess->from('booking@ayojok.com','Ayojok.com');
-            //$mess->bcc(Auth::user()->email);
-            $mess->to(Auth::user()->email,Auth::user()->name);
-            $mess->subject("Ayojok | Order");
-        });*/
-
-        /*Mail::send('emails.contact', $data, function($mess) use ($data){
-            $mess->from('admin@ayojok.com','Ayojok.com');
-            $mess->to($data['email']);
-            $mess->subject("Contact Us | Ayojok");
-        });*/
     }
 
     public function sendEmail(){
