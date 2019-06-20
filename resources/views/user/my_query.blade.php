@@ -1591,7 +1591,6 @@ $query_ids = array();
                 for (i = 0; i < $len; i++) {
                     //alert(document.getElementById(i).value);
                     total = total + parseInt(document.getElementById(i).value);
-
                 }
                 document.getElementById('total').innerHTML = "BDT " + total;
             }
