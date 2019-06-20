@@ -51,10 +51,10 @@
                                     <td>{{$data->updated_at}}</td>
                                     <td>
                                         <center>
-                                            <a href="{{url('/admin/partner/'.$id = $data->id)}}" class="btn btn-primary">
+                                            <a href="{{url('/admin/event_coordinator/'.$id = $data->id)}}" class="btn btn-primary">
                                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                             </a>
-                                            <a href="{{url('/admin/partner_delete/'.$id = $data->id)}}" class="btn btn-danger" onclick="return confirm('are you sure to delete the message ! ')">
+                                            <a href="{{url('/admin/event_coordinator_delete/'.$id = $data->id)}}" class="btn btn-danger" onclick="return confirm('are you sure to delete the message ! ')">
                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                             </a>
                                         </center>

@@ -83,15 +83,11 @@
                             <div class="col-md-8">
                                 <p>{{$datas->first()->mess}}</p>
                             </div>
-
                         </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
 
             </div>
-
-
-
         </section><!-- /.content -->
     </div>
 

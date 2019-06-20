@@ -270,6 +270,9 @@ Route::group(['middleware' => ['auth']], function () {
     // Rating & Review
     Route::post('/rating', 'VendorServices@rating')->name('rating');
 
+
+    Route::get('/invoice','InvoiceController@index')->name('showInvoice');
+
 });
 
 Route::group(['middleware' => ['auth:admin']], function () {

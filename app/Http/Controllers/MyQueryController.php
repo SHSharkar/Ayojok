@@ -737,8 +737,9 @@ class MyQueryController extends Controller
         }
 
         //Tag Delete not needed cause expire queries need that tag still
-        /*$tag = Tag::find($event_id);
-        $tag->delete();*/
+        $tag = Tag::find($event_id);
+        //return $tag->name;
+        $tag->delete();
 
         $events = Tag::where('user_id', $user_id)->get();
 
