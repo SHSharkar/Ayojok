@@ -20,6 +20,9 @@ class PublicSslCommerzPaymentController extends Controller
 {
     public function index(Request $request)
     {
+
+       // return $request;
+
         # Here you have to receive all the order data to initiate the payment.
         # Lets your oder transaction information are saving in a table called "orders"
         # In orders table order unique identity is "order_id","order_status" field contain status of the transaction, "grand_total" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.

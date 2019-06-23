@@ -1037,11 +1037,51 @@ $query_ids = array();
     }
 
 </style>
+
+{{--Style For Tabs--}}
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
 @endpush
 
 @section('content')
 
-        <!-- Masthead -->
+<!-- Masthead -->
 <header class="pagehead" style="background-image: url({{asset('img/backgrounds/page_header.png')}});">
     <div class="container">
         <div class="row ">
@@ -1074,7 +1114,7 @@ $query_ids = array();
             <div class="col-sm-2"></div>
             <div class="col-sm-2"></div>
             <div class="col-sm-4 mt">
-                <div class="dropdown " style="float: right" id="drop_down">
+                {{--<div class="dropdown " style="float: right" id="drop_down">
                     <button class="btn_filter add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span id="filter_title">Filter</span>
@@ -1094,14 +1134,29 @@ $query_ids = array();
                             Out</a>
                         <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll('All')">All</a>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
+
     </div>
 </header>
 
 <!-- My Query Section -->
 <section class="page-section mt-3 mb-3" style="min-height: 40%">
+    <div class="row container">
+        <div class="col-sm-12">
+            <div class="tab">
+                <button class="tablinks" onclick="filter_showAll(event, 'All')">All</button>
+                <button class="tablinks" onclick="filter(event, 'Query_Submitted','Query Submitted')">Query Submitted</button>
+                <button class="tablinks" onclick="filter(event, 'In_Review','In Review')">In Review</button>
+                <button class="tablinks" onclick="filter(event, 'Available','Available')">Available</button>
+                <button class="tablinks" onclick="filter(event, 'Not_Available','Not Available')">Not Available</button>
+                <button class="tablinks" onclick="filter(event, 'Booked','Booked')">Booked</button>
+                <button class="tablinks" onclick="filter(event, 'Time_Out','Time Out')">Time Out</button>
+                <button class="tablinks" onclick="filter(event, 'Cash_Requested','Cash Requested')">Cash Requested</button>
+            </div>
+        </div>
+    </div>
     <div class="row container">
         {{--Nirjhor Code For Query per submitted--}}
         <div class="col-sm-12 query_table_div" id="main1">
@@ -1605,10 +1660,10 @@ $query_ids = array();
 
             </div>
             <div class="cart-line"></div>
-            <div><label class="cart-total">Total: </label><label class="cart-total cart-total-value" id="total"></label>
+            <div><label class="cart-total">Total: </label> <label class="cart-total cart-total-value" id="total"></label>
             </div>
             <button class="cart-paybtn cart-paybtn-shadow"
-                    data-toggle="modal" data-target="#modal_payment">Payment
+                    data-toggle="modal" data-target="#modal_payment" onclick="setTotal()">Payment
             </button>
         </div>
         <script>
@@ -1635,7 +1690,7 @@ $query_ids = array();
                     total = total + parseInt(document.getElementById(i).value);
 
                 }
-                document.getElementById('total').innerHTML = "BDT " + total;
+                document.getElementById('total').innerHTML =  total;
             }
         </script>
     </div>
@@ -1761,11 +1816,16 @@ $query_ids = array();
                                 Cash Payment
                             </a>
 
-                            <a href="javascript:void(0)" class="btn btn_paymentBook" id=""
-                               onclick="addToCart('{{json_encode($query_ids)}}'),openNav()">
-                                <img src="{{asset('img/icons/query/credit_card.svg')}}">
-                                Online Payment
-                            </a>
+                            <form method="post" action="{{route('sslpay')}}">
+                                {{csrf_field()}}
+                                <input type="hidden" name="total" id="total_pay">
+                                <input type="hidden" name="transid" value="{{uniqid(mt_rand())}}">
+                                <button  class="btn btn_paymentBook">
+                                    <img src="{{asset('img/icons/query/credit_card.svg')}}">
+                                    Online Payment
+                                </button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -1788,6 +1848,12 @@ $query_ids = array();
     $(document).ready(function () {
         loadCart();
     });
+
+    function setTotal(){
+       var x = $('#total').text();
+        //alert("ok"+x);
+        $('#total_pay').val(parseInt(x));
+    }
 </script>
 
 <script>
@@ -2139,12 +2205,17 @@ $query_ids = array();
 
     }
 
-    function filter(status, title) {
+    function filter(event,status, title) {
         //alert(status);
         $('.hideAll').hide();
         $('.' + status + '').show();
 
-        $('#filter_title').html(title);
+        $('.tablinks').removeClass("active");
+        event.currentTarget.className += " active";
+
+
+        /**Status Filter not used anymore*/
+        /*$('#filter_title').html(title);
         if (title == "Query Submitted") {
             $('.btn_filter').css('width', '260px');
             $('.filter').css('width', '260px');
@@ -2155,13 +2226,18 @@ $query_ids = array();
             $('.btn_filter').css('width', '200px');
             $('.filter').css('width', '200px');
 
-        }
+        }*/
     }
-    function filter_showAll(title) {
+    function filter_showAll(event,title) {
         $('.hideAll').show();
-        $('#filter_title').html(title);
+
+        $('.tablinks').removeClass("active");
+        event.currentTarget.className += " active";
+
+        /**Status Filter not used anymore*/
+        /*$('#filter_title').html(title);
         $('.btn_filter').css('width', '200px');
-        $('.filter').css('width', '200px');
+        $('.filter').css('width', '200px');*/
     }
 
     function event_filter(event, title) {
