@@ -181,7 +181,7 @@ class MyQueryController extends Controller
         /*echo "<pre>";
         print_r($vendor_arr);
         exit;*/
-        return $vendor_arr[0];
+        // return $vendor_arr[0];
         //return $vendor_arr[0]['query_details'];
         //print_r($vendor_arr);
 
