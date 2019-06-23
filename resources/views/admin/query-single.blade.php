@@ -299,7 +299,7 @@
                                     <td>{{$service->tag['title']}}</td>
                                     <td>{{$service->event_date}}</td>
                                     @if(strtolower($service->status)=='query submitted')
-                                        <td><a href="{{url('/admin/reviewStatus/'.$service->id)}}"
+                                        <td><a href="{{url('/admin/reviewStatus/'.$service->submit_id)}}"
                                                class="btn btn-danger">Not Reviewed</a></td>
                                     @else
                                         <td>{{$service->status}}</td>
