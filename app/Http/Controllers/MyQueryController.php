@@ -181,9 +181,44 @@ class MyQueryController extends Controller
         /*echo "<pre>";
         print_r($vendor_arr);
         exit;*/
-        return $vendor_arr[0];
+        //return $vendor_arr;
         //return $vendor_arr[0]['query_details'];
         //print_r($vendor_arr);
+
+       /* $i = 0;
+        foreach($vendor_arr as $vendor){
+            foreach($vendor['query_list'] as $queries){
+
+                //return $queries;
+
+                foreach($queries['query_details'] as $query){
+                    return $query;
+                }
+            }
+        }
+        exit;*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         foreach ($services as $service) {
             if ($service->tag_id != null) {
@@ -313,7 +348,7 @@ class MyQueryController extends Controller
             }
         }
         //print_r($service_arr);
-        return $service_arr;
+       // return $service_arr;
 
         $user_id = Auth::user()->id;
         /*Event list as user specific*/

@@ -1186,7 +1186,11 @@ $query_ids = array();
                         $query_ids = array();
                         //print_r($query_ids);
 
-
+                        $event_title = $vendor['query_tag'];
+                        if ($event_title == null) {
+                            $event_title = "not_set";
+                        }
+                        $event_title = str_replace(' ', '_', $event_title);
 
 
                         /**
@@ -1199,18 +1203,13 @@ $query_ids = array();
 
                         ?>
 
-                        @foreach($vendor['query_details'] as $queries)
+                        @foreach($vendor['query_list'] as $queries)
 
 
                             <?php
-                            $status = $vendor['display_status'];
+                            $status = $queries['display_status'];
 
 
-                            $event_title = $vendor['query_tag'];
-                            if ($event_title == null) {
-                                $event_title = "not_set";
-                            }
-                            $event_title = str_replace(' ', '_', $event_title);
 
 
                             //Making class name from status
@@ -1267,8 +1266,11 @@ $query_ids = array();
                                         <span>{{$vendor['category_name']}}</span>
                                         |
                                         {{$date_name}} Date:
-                                        @foreach($vendor['query_details'] as $query)
-                                            @if($query == reset($vendor['query_details'])) {{--For Showing 1st date's month--}}
+                                        @foreach($queries['query_details'] as $query)
+
+
+
+                                            @if($query == reset($queries['query_details'])) {{--For Showing 1st date's month--}}
                                             <span class="button button2">{{date_format(date_create($query['event_date']),"M")}}</span>
                                             @endif
                                             <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
@@ -1445,8 +1447,9 @@ $query_ids = array();
                 @if(sizeof($service_arr) > 0)
 
                     @foreach($service_arr as $vendor)
-                        <?php $check = 2; ?>
+                        <?php $check = 1; ?>
                         <?php
+
                         $circle_background_color = "#ffffff";
                         $status_var = 0;
                         $padding_top = "35%";
@@ -1460,140 +1463,156 @@ $query_ids = array();
 
                         $query_ids = array();
                         //print_r($query_ids);
-                        $status = $vendor['display_status'];
+
                         $event_title = $vendor['query_tag'];
                         if ($event_title == null) {
                             $event_title = "not_set";
                         }
                         $event_title = str_replace(' ', '_', $event_title);
 
-                        $className = str_replace(' ', '_', $status);
+
+                        /**
+                         * New Code [ V.02 Api ]
+                         */
 
 
-                        if (strtolower($status) == "query submitted") {
-                            $circle_background_color = "#47DBC3";
-                            $padding_top = "25%";
-                            $status_var = 1;
-                            $price = "(Depend on Discussion)";
-                        } elseif (strtolower($status) == "in review") {
-                            $circle_background_color = "#FF8A45";
-                            $padding_top = "35%";
-                            $status_var = 2;
-                            $price = "(Depend on Discussion)";
-                        } elseif (strtolower($status) == "available") {
-                            $circle_background_color = "#89CB3E";
-                            $padding_top = "35%";
-                            $status_var = 3;
-                            $date_name = $status;
-                        } elseif (strtolower($status) == "not available") {
-                            $circle_background_color = "#ADADAD";
-                            $padding_top = "35%";
-                            $status_var = 4;
-                            $price = "(Depend on Discussion)";
-                        } elseif (strtolower($status) == "booked") {
-                            $circle_background_color = "#FFC63C";
-                            $padding_top = "35%";
-                            $status_var = 5;
-                            $date_name = $status;
-                        } elseif (strtolower($status) == "Cash Requested") {
-                            $circle_background_color = "#1B83B8";
-                            $padding_top = "35%";
-                            $status_var = 6;
-                            $date_name = $status;
-                        } elseif (strtolower($status) == "timeout") {
-                            $circle_background_color = "#EF4E4A";
-                            $padding_top = "35%";
-                            $status_var = 7;
-                            $date_name = $status;
-                        }
+
+
 
                         ?>
-                        <tr class="{{$className}} {{$event_title}} hideAll">
-                            <td>
-                                <div class="circle"
-                                     style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
-                                    <span>{{$status}}</span></div>
-                            </td>
 
-                            <td>
-                                <p class="title">{{$vendor['vendor_name']}}</p>
-
-                                <p class="detail">
-                                    <span>{{$vendor['category_name']}}</span>
-                                    |
-                                    {{$date_name}} Date:
+                        @foreach($vendor['query_list'] as $queries)
 
 
-                                    @foreach($vendor['query_details'] as $query)
-                                        @if($query == reset($vendor['query_details']))
+                            <?php
+                            $status = $queries['display_status'];
+
+
+
+
+                            //Making class name from status
+                            $className = str_replace(' ', '_', $status);
+
+                            if (strtolower($status) == "query submitted") {
+                                $circle_background_color = "#47DBC3";
+                                $padding_top = "25%";
+                                $status_var = 1;
+                                $price = "(Depend on Discussion)";
+                            } elseif (strtolower($status) == "in review") {
+                                $circle_background_color = "#FF8A45";
+                                $padding_top = "35%";
+                                $status_var = 2;
+                                $price = "(Depend on Discussion)";
+                            } elseif (strtolower($status) == "available") {
+                                $circle_background_color = "#89CB3E";
+                                $padding_top = "35%";
+                                $status_var = 3;
+                                $date_name = $status;
+                            } elseif (strtolower($status) == "not available") {
+                                $circle_background_color = "#ADADAD";
+                                $padding_top = "35%";
+                                $status_var = 4;
+                                $price = "(Depend on Discussion)";
+                            } elseif (strtolower($status) == "booked") {
+                                $circle_background_color = "#FFC63C";
+                                $padding_top = "35%";
+                                $status_var = 5;
+                                $date_name = $status;
+                            } elseif (strtolower($status) == "cash requested") {
+                                $circle_background_color = "#1B83B8";
+                                $padding_top = "25%";
+                                $status_var = 6;
+                                $date_name = $status;
+                            } elseif (strtolower($status) == "timeout") {
+                                $circle_background_color = "#EF4E4A";
+                                $padding_top = "35%";
+                                $status_var = 7;
+                                $date_name = $status;
+                            }
+                            ?>
+
+                            <tr class="{{$className}} {{$event_title}} hideAll">
+                                <td>
+                                    <div class="circle"
+                                         style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
+                                        <span>{{$status}}</span></div>
+                                </td>
+                                <td>
+                                    <p class="title">{{$vendor['vendor_name']}}</p>
+
+                                    <p class="detail">
+                                        <span>{{$vendor['category_name']}}</span>
+                                        |
+                                        {{$date_name}} Date:
+                                        @foreach($queries['query_details'] as $query)
+
+
+
+                                            @if($query == reset($queries['query_details'])) {{--For Showing 1st date's month--}}
                                             <span class="button button2">{{date_format(date_create($query['event_date']),"M")}}</span>
-                                        @endif
-                                        <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
+                                            @endif
+                                            <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
 
-                                        <?php
-                                        array_push($query_ids, $query['query_id']);
+                                            <?php
+                                            array_push($query_ids, $query['query_id']);
 
-                                        $event_title = "";
-                                        $event_tag_id = null;
-                                        $event_background = "#ffffff";
-                                        if (isset($query['query_tag'])) {
-                                            $event_title = $query['query_tag'];
-                                            $event_tag_id = $query['query_tag_id'];
-                                            $event_background = "#0B98FF";
-                                            $event_txt_color = "#ffffff";
-                                        } else {
-                                            $event_title = "Add To Event";
-                                            $event_background = "#F2F2F2";
-                                            $event_txt_color = "#0B98FF";
+                                            $event_title = "";
+                                            $event_tag_id = null;
+                                            $event_background = "#ffffff";
+                                            if (isset($query['query_tag'])) {
+                                                $event_title = $query['query_tag'];
+                                                $event_tag_id = $query['query_tag_id'];
+                                                $event_background = "#0B98FF";
+                                                $event_txt_color = "#ffffff";
+                                            } else {
+                                                $event_title = "Add To Event";
+                                                $event_background = "#F2F2F2";
+                                                $event_txt_color = "#0B98FF";
+                                            }
+                                            if (is_numeric($price)) {
+                                                $price += $query['total_payment'];
+                                                $advance += $query['advance_payment'];
+                                                $already_paid += $query['total_paid'];
+                                                $discount += $query['discount'];
 
-                                        }
-
-                                        if (is_numeric($price)) {
-                                            $price += $query['total_payment'];
-                                            $advance += $query['advance_payment'];
-                                            $already_paid += $query['total_paid'];
-                                            $discount += $query['discount'];
-
-                                            $due = $price - ($already_paid + $discount);
-
-                                        }
-                                        ?>
-                                    @endforeach
-                                </p>
-
-                                @if($discount <= 0)
-                                    <p class="detail price"> Price:
-                                        <span>{{$price}}</span></p>
-                                @else
-                                    <p class="detail price">
-                                        <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
-                                        <span class="discount_price">Discount Price: <span>{{($price - $discount)}}</span></span>
+                                                $due = $price - ($already_paid + $discount);
+                                            }
+                                            ?>
+                                        @endforeach
                                     </p>
-                                @endif
 
-                                <p class="detail">
-
-                                    @if($expire != 1)
-                                        <button class="details details_shadow" data-toggle="modal"
-                                                data-target="#modal_details"
-                                                onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
-                                            Details
-                                        </button>
+                                    @if($discount <= 0)
+                                        <p class="detail price"> Price:
+                                            <span>{{$price}}</span></p>
+                                    @else
+                                        <p class="detail price">
+                                            <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
+                                            <span class="discount_price">Discount Price: <span>{{ ($price - $discount)}}</span></span>
+                                        </p>
                                     @endif
-                                    <button class="add_event add_event_shadow"
-                                            style="background-color: {{$event_background}};color: {{$event_txt_color}}"
-                                            data-toggle="modal"
-                                            data-target="#modal_event"
-                                            onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')
-                                            >
-                                        <span class="glyphicon glyphicon-th-large"></span>
-                                        <span style="font-size: 22px">{{$event_title}}</span>
+                                    <p class="detail">
+                                        {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
+                                        @if($expire != 1)
+                                            <button class="details details_shadow" data-toggle="modal"
+                                                    data-target="#modal_details"
+                                                    onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
+                                                Details
+                                            </button>
+                                        @endif
 
-                                    </button>
-                                </p>
-                            </td>
+                                        <button class="add_event add_event_shadow"
+                                                style="background-color: {{$event_background}};color: {{$event_txt_color}}"
+                                                data-toggle="modal" data-target="#modal_event"
+                                                onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                            {{--<span>
+                                                <img src="{{asset('img/icons/myquery/Add to events.png')}}">
+                                            </span>--}}
+                                            <span style="font-size: 22px">{{$event_title}}</span>
+                                        </button>
+                                    </p>
+                                </td>
 
-                            @if($status_var == 1)
+                                @if($status_var == 1)   <!- query submitted ->
                                 <td class="column_3">
                                     <p></p>
 
@@ -1602,16 +1621,28 @@ $query_ids = array();
                                            onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
                                     @endif
                                 </td>
-                            @elseif($status_var == 2)
+
+                                @elseif($status_var == 2) <!- In Review ->
                                 <td class="column_3">
                                 </td>
-                            @elseif($status_var == 3)
+
+                                @elseif($status_var == 3) <!- Available ->
                                 <td class="column_3">
                                     <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
                                            value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
-                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
-                                    </p>
+                                    <div class="remain_time">
+                                        {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                        <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+
+                                        </p>
+                                    </div>
+
+                                    {{-- <button class="paybook paybook_shadow"
+                                             onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
+                                             data-toggle="modal" data-target="#modal_multipledates">
+                                         Pay & Book
+                                     </button>--}}
 
                                     @if(count($query_ids) <=1)
                                         <button class="paybook paybook_shadow"
@@ -1627,39 +1658,65 @@ $query_ids = array();
                                         </button>
                                     @endif
 
+
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
-                            @elseif($status_var == 4) <!- Not Availabe ->
 
-                            <td class="column_3">
-                                <p></p>
-                                @if($expire != 1)
-                                    <p class="remove remove_shadow"
-                                       onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
-                                @endif
-                            </td>
+                                @elseif($status_var == 4) <!- Not Availabe ->
+                                <td class="column_3">
+                                    <p></p>
 
-                            @elseif($status_var == 5)  {{--Booked--}}
-                            <td class="column_3">
-                                <p></p>
-                                @if(count($query_ids) <=1)
-                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
-                                            data-toggle="modal" data-target=""> Pay Rest
+                                    @if($expire != 1)
+                                        <p class="remove remove_shadow"
+                                           onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                    @endif
+                                </td>
+
+                                @elseif($status_var == 5 ) <!- Booked ->
+                                <td class="column_3">
+                                    <p></p>
+                                    @if(count($query_ids) <=1)
+                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
+                                                data-toggle="modal" data-target=""> Pay Rest
+                                        </button>
+                                    @else
+                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                                data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                        </button>
+                                    @endif
+
+
+                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                </td>
+
+                                @elseif($status_var == 7 ) <!- Booked ->
+                                <td class="column_3">
+                                    <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
+                                           value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                    <div class="remain_time">
+                                        {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                        <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+
+                                        </p>
+                                    </div>
+
+                                    <button class="re_request re_request_shadow"
+                                            onclick="re_request('{{json_encode($query_ids)}}')">
+                                        Re-request
                                     </button>
-                                @else
-                                    <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                            data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                    </button>
-                                @endif
 
-                                {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                            </td>
-                            @endif
-                        </tr>
+
+                                    {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                    <p class="advance">Min. Advance: BDT {{$advance}}</p>
+                                </td>
+                                @endif
+                            </tr>
+                        @endforeach
                     @endforeach
                 @endif
                 @if($check <= 0)
