@@ -182,44 +182,6 @@ class MyQueryController extends Controller
         print_r($vendor_arr);
         exit;*/
         //return $vendor_arr;
-        //return $vendor_arr[0]['query_details'];
-        //print_r($vendor_arr);
-
-       /* $i = 0;
-        foreach($vendor_arr as $vendor){
-            foreach($vendor['query_list'] as $queries){
-
-                //return $queries;
-
-                foreach($queries['query_details'] as $query){
-                    return $query;
-                }
-            }
-        }
-        exit;*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         foreach ($services as $service) {
             if ($service->tag_id != null) {
                 $tag_title = $service->tag->title;

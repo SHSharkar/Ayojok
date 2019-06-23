@@ -145,8 +145,8 @@ class QueryController extends Controller
 
     public function reviewStatus($sid)
     {
+        //return $sid;
         $queries=Query::where('submit_id',$sid)->get();
-
         foreach($queries as $query)
         {
             $query->status="In Review";
