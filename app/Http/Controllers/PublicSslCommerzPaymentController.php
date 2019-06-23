@@ -92,7 +92,7 @@ class PublicSslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        //return $request;
+        return $request;
         //echo "Transaction is Successful";
         //exit;
         $sslc = new SSLCommerz();
