@@ -61,6 +61,15 @@
     {{--Date Picker--}}
     <link rel="stylesheet" type="text/css" href="{{asset('vendor/keith_wood_datepicker/')}}/css/jquery.datepick.css">
 
+    <style>
+        .error_msg{
+
+            margin-top:.25rem;
+            font-size:.875rem;
+            color:#dc3545
+        }
+    </style>
+
     @stack('css')
 
 
@@ -358,6 +367,8 @@
                         <li class="nav-item"><a class="nav-link" data-toggle="modal" href="#myModal">Login/Registration</a></li>
                         @endauth
                     @endif
+
+
 
 
 

@@ -71,6 +71,7 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
 
 
 <!-- Incorrect Email Modal -->
+<div>
     <div class="modal fade" id="myModal_2" role="dialog">
         <div class="modal-dialog modal-login">
             <div class="modal-content">
@@ -100,16 +101,9 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
         {{ csrf_field() }}
 
           <div class="form-group">
-
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
               <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus >
-
-              @if ($errors->has('email'))
-                  <span class="invalid-feedback" id="error" onclick="vanishErrorMessage(this)">
-                      <strong>{{ $errors->first('email') }}</strong>
-                  </span>
-              @endif
             </div>
           </div>
 
@@ -125,6 +119,22 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
               @endif
             </div>
           </div>
+
+
+            @if ($errors->has('email'))
+            <div class="form-group row">
+                <div class="col-md-12 offset-md-4">
+                    <div class="checkbox">
+                        <span class="error_msg" id="error" onclick="vanishErrorMessage(this)">
+                        <strong>
+                            {{ $errors->first('email') }}
+                        </strong>
+                     </span>
+                    </div>
+                </div>
+            </div>
+            @endif
+
           <div class="form-group row">
               <div class="col-md-6 offset-md-4">
                   <div class="checkbox">
@@ -134,6 +144,7 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
                   </div>
               </div>
           </div>
+
           <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Sign In') }}</button>
             <button type="submit" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" data-toggle="modal" href="#registerModal">Register Now</button>
@@ -156,6 +167,12 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
   </div>
 </div>
 <!--Login Modal HTML-->
+
+
+
+
+
+
 <script>
 
 
