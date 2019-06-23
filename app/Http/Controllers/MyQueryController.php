@@ -119,31 +119,46 @@ class MyQueryController extends Controller
             {
                 if(!empty($qs))
                 {
-                    array_push($query_arr, $qs);
+                    array_push($query_arr,array(
+                        "display_status" => "Query Submitted",
+                        "query_details" => $qs));
+
                 }
                 if(!empty($ir))
                 {
-                    array_push($query_arr, $ir);
+                    array_push($query_arr,array(
+                        "display_status" => "In Review",
+                        "query_details" => $ir));
                 }
                 if(!empty($av))
                 {
-                    array_push($query_arr, $av);
+                    array_push($query_arr,array(
+                        "display_status" => "Available",
+                        "query_details" => $av));
                 }
                 if(!empty($na))
                 {
-                    array_push($query_arr, $na);
+                    array_push($query_arr,array(
+                        "display_status" => "Not Available",
+                        "query_details" => $na));
                 }
                 if(!empty($b))
                 {
-                    array_push($query_arr, $b);
+                    array_push($query_arr,array(
+                        "display_status" => "Booked",
+                        "query_details" => $b));
                 }
                 if(!empty($cr))
                 {
-                    array_push($query_arr, $cr);
+                    array_push($query_arr,array(
+                        "display_status" => "Cash Requested",
+                        "query_details" => $cr));
                 }
                 if(!empty($to))
                 {
-                    array_push($query_arr, $to);
+                    array_push($query_arr1,array(
+                        "display_status" => "Timeout",
+                        "query_details" => $to));
                 }
 
                 $v = array(
@@ -155,7 +170,7 @@ class MyQueryController extends Controller
                     "submit_id" => $vendor->submit_id,
                     "expiry_date" => $vendor->expiry_date,
                     "expiry_time" => $vendor->expiry_time,
-                    "query_details" => $query_arr,
+                    "query_list" => $query_arr,
                     "query_tag" => $tag_title,
                 );
                 array_push($vendor_arr, $v);
@@ -238,31 +253,45 @@ class MyQueryController extends Controller
 
                 if(!empty($qs))
                 {
-                    array_push($query_arr1, $qs);
+                    array_push($query_arr1,array(
+                        "display_status" => "Query Submitted",
+                        "query_details" => $qs));
                 }
                 if(!empty($ir))
                 {
-                    array_push($query_arr1, $ir);
+                    array_push($query_arr1,array(
+                        "display_status" => "In Review",
+                        "query_details" => $ir));
                 }
                 if(!empty($av))
                 {
-                    array_push($query_arr1, $av);
+                    array_push($query_arr1,array(
+                        "display_status" => "Available",
+                        "query_details" => $av));
                 }
                 if(!empty($na))
                 {
-                    array_push($query_arr1, $na);
+                    array_push($query_arr1,array(
+                        "display_status" => "Not Available",
+                        "query_details" => $na));
                 }
                 if(!empty($b))
                 {
-                    array_push($query_arr1, $b);
+                    array_push($query_arr1,array(
+                        "display_status" => "Booked",
+                        "query_details" => $b));
                 }
                 if(!empty($cr))
                 {
-                    array_push($query_arr1, $cr);
+                    array_push($query_arr1,array(
+                        "display_status" => "Cash Requested",
+                        "query_details" => $cr));
                 }
                 if(!empty($to))
                 {
-                    array_push($query_arr1, $to);
+                    array_push($query_arr1,array(
+                        "display_status" => "Timeout",
+                        "query_details" => $to));
                 }
 
                 $v = array(
@@ -274,8 +303,7 @@ class MyQueryController extends Controller
                     "submit_id" => $service->submit_id,
                     "expiry_date" => $service->expiry_date,
                     "expiry_time" => $service->expiry_time,
-                    "display_status" => $service->status,
-                    "query_details" => $query_arr1,
+                    "query_list" => $query_arr1,
                     "query_tag" => $tag_title,
 
                 );
