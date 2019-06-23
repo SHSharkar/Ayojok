@@ -220,7 +220,6 @@
                                 <th>Tag</th>
                                 <th>Event Date</th>
                                 <th>Status</th>
-                                <th>Review</th>
                                 <th>Details</th>
                             </tr>
                             </thead>
@@ -233,12 +232,11 @@
                                     <td>{{$vendor->submit_id}}</td>
                                     <td>{{$vendor->tag['title']}}</td>
                                     <td>{{$vendor->event_date}}</td>
-                                    <td>{{$vendor->status}}</td>
                                     @if(strtolower($vendor->status)=='query submitted')
                                         <td><a href="{{url('/admin/reviewStatus/'.$vendor->submit_id)}}"
                                                class="btn btn-danger">Not Reviewed</a></td>
                                     @else
-                                        <td>Reviewed</td>
+                                        <td>{{$vendor->status}}</td>
                                     @endif
                                     <td>
                                         <button class="btn btn-primary" data-toggle="modal"
@@ -287,7 +285,6 @@
                                 <th>Tag</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                <th>Review</th>
                                 <th>Details</th>
                             </tr>
                             </thead>
@@ -301,12 +298,11 @@
                                     <td>{{$service->submit_id}}</td>
                                     <td>{{$service->tag['title']}}</td>
                                     <td>{{$service->event_date}}</td>
-                                    <td>{{$service->status}}</td>
                                     @if(strtolower($service->status)=='query submitted')
                                         <td><a href="{{url('/admin/reviewStatus/'.$service->id)}}"
                                                class="btn btn-danger">Not Reviewed</a></td>
                                     @else
-                                        <td>Reviewed</td>
+                                        <td>{{$service->status}}</td>
                                     @endif
                                     <td>
                                         <button class="btn btn-primary" data-toggle="modal"
