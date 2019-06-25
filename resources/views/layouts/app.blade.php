@@ -68,6 +68,23 @@
             font-size:.875rem;
             color:#dc3545
         }
+        .badge_q{
+           /* position: absolute;*/
+            top: 0;
+            right: 0;
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            background-color: rgba(244, 127, 32, 0.5);
+            border-radius: 10px;
+        }
     </style>
 
     @stack('css')
@@ -292,7 +309,7 @@
                 <ul class="navbar-nav ml-auto">
                     @if (Route::has('login'))
                         @auth
-                        {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Logout">
+                        <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Logout">
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
                                         class="fa fa-power-off"></i></a>
@@ -300,20 +317,29 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
-                        </li>--}}
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{route('my_query')}}">My queries <span class="badge_q badge-light" id="cartCount">@include('extra.cart')</span> </a>
+
+                        </li>
+
+
                         <li class="nav-item dropdown loggeduser mr-5">
                             <a class="nav-link dropdown-toggle disabled" id="navbarDropdown"
                                href="{{url('my-account')}}" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
-                                <small>Hello,</small>
+                                {{--<small>Hello,</small>--}}
                                 @if (is_null(Auth::user()->fname))
-                                    {{Auth::user()->name}} <span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>
+                                    {{Auth::user()->name}} {{--<span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}
                                 @else
-                                    {{Auth::user()->fname}} <span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>
+                                    {{Auth::user()->fname}} {{--<span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}
                                 @endif
                             </a>
                             <ul class="megamenu dropdown-menu scrollable-menu" id="dropdown-menu"
                                 aria-labelledby="navbarDropdown">
+
                                 <li>
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -336,9 +362,12 @@
                                             <ul>
                                                 {{--<li><a href="{{route('my-account')}}">My Account</a></li>--}}
                                                 <li><a href="{{route('User.Message')}}"> Inbox (<span id="inboxmess">@include('extra.mess')</span>)</a></li>
-                                                <li><a href="{{route('my_query')}}">My queries (<span id="query_cart">@include('extra.cart')</span>)</a></li>
+
+                                                {{--<li><a href="{{route('my_query')}}">My queries (<span id="query_cart">@include('extra.cart')</span>)</a></li>
                                                 <li><a href="{{route('client-orderlist', Auth::user()->id)}}">Booking List</a>
-                                                <li><a href="{{route('payment')}}">Payment</a></li>
+                                                <li><a href="{{route('payment')}}">Payment</a></li>--}}
+
+
                                                 <li class="nav-item" data-toggle="tooltip" data-placement="bottom"
                                                     title="Logout">
 
