@@ -209,6 +209,7 @@
                                 <option value="In Review">In Review</option>
                                 <option value="Available">Available</option>
                                 <option value="Not Available">Not Available</option>
+                                <option value="Cash Requested">Cash Requested</option>
                                 <option value="Booked">Booked</option>
                             </select>
                             <thead>
@@ -234,7 +235,7 @@
                                     <td>{{$vendor->event_date}}</td>
                                     @if(strtolower($vendor->status)=='query submitted')
                                         <td><a href="{{url('/admin/reviewStatus/'.$vendor->submit_id)}}"
-                                               class="btn btn-danger">Not Reviewed</a></td>
+                                               class="btn btn-danger">Query Submitted</a></td>
                                     @else
                                         <td>{{$vendor->status}}</td>
                                     @endif
@@ -273,6 +274,7 @@
                                 <option value="In Review">In Review</option>
                                 <option value="Available">Available</option>
                                 <option value="Not Available">Not Available</option>
+                                <option value="Cash Requested">Cash Requested</option>
                                 <option value="Booked">Booked</option>
                             </select>
                             <thead>
@@ -300,7 +302,7 @@
                                     <td>{{$service->event_date}}</td>
                                     @if(strtolower($service->status)=='query submitted')
                                         <td><a href="{{url('/admin/reviewStatus/'.$service->submit_id)}}"
-                                               class="btn btn-danger">Not Reviewed</a></td>
+                                               class="btn btn-danger">Query Submitted</a></td>
                                     @else
                                         <td>{{$service->status}}</td>
                                     @endif
@@ -388,14 +390,14 @@
             if((document.getElementById('table-filter1').value)=="All")
             {
                 table1
-                        .columns(6)
+                        .columns(7)
                         .search("", true, false, true)
                         .draw();
             }
             else
             {
                 table1
-                        .columns(6)
+                        .columns(7)
                         .search("^" + $(this).val() + "$", true, false, true)
                         .draw();
             }
