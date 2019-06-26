@@ -81,7 +81,7 @@
                     <p>Total Payable: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="total" name="total" placeholder="Total Amount" value="{{$details['total']}}">
+                    <input type="number" id="total" name="total" placeholder="Total Amount" value="{{$details['total']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="ap">
@@ -89,7 +89,7 @@
                     <p>Advance Payable: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}" max="{{$details['total']}}">
+                    <input type="number" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}" max="{{$details['total']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="ds">
@@ -97,7 +97,7 @@
                     <p>Discount: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="discount" name="discount" placeholder="Discount" value="{{$details['discount']}}" max="{{$details['total']}}">
+                    <input type="number" id="discount" name="discount" placeholder="Discount" value="{{$details['discount']}}" max="{{$details['total']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="cp">
@@ -385,5 +385,18 @@
                 break;
             }
         }
+    }
+
+    function inputValid()
+    {
+        var t=document.getElementById('total').value;
+        var a=document.getElementById('advance').value;
+        var d=parseInt(t-a).toString();
+        //alert (d);
+        document.getElementById('total').setAttribute('min','0');
+        document.getElementById('advance').setAttribute('min','0');
+        document.getElementById('advance').setAttribute('max',t);
+        document.getElementById('discount').setAttribute('min','0');
+        document.getElementById('discount').setAttribute('max',d);
     }
 </script>
