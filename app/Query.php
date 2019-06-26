@@ -28,8 +28,12 @@ class Query extends Model
         return $this->belongsTo('App\User');
     }
 
-    /*Nir-edit*/
+
     public function tag(){
         return $this->belongsTo('App\Tag','tag_id');
+    }
+
+    public function invoices(){
+        return $this->hasMany('App\invoice');
     }
 }
