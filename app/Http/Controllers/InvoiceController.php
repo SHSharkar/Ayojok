@@ -28,10 +28,21 @@ class InvoiceController extends Controller
      */
     public function index($q_id)
     {
+        $query_ids = explode(',',$q_id);
+
+        //return $query_ids;
         //$queries = Query::where('id')
         $user_id =  Auth::user()->id;
 
+        $details = Query::whereIn('id',$query_ids)->where('user_id',$user_id)->with('catagory')->with('vendors')->with('product')->with('invoices')->get();
+
+        return $details;
+
+
+
         return view('user.invoices')->with('user_id',$user_id);
+
+
 
     }
 

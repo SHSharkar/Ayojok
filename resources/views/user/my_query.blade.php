@@ -1496,9 +1496,6 @@ $query_ids = array();
                          */
 
 
-
-
-
                         ?>
 
                         @foreach($vendor['query_list'] as $queries)
@@ -1506,7 +1503,6 @@ $query_ids = array();
 
                             <?php
                             $status = $queries['display_status'];
-
 
 
 
@@ -1639,6 +1635,8 @@ $query_ids = array();
                                 </td>
 
 
+                                {{--Icons for Invoices--}}
+
                                 <td>
                                     @if($status_var == 5) <!- booked ->
                                     {{--<div class="row" id="#invoice_btn">
@@ -1648,9 +1646,8 @@ $query_ids = array();
                                     </div>--}}
                                     <div class="row "   id="invoice" >
                                         <div class="col-sm-4 invoice_tab">
-                                            <a href="#">
+                                            <a href="{{route('showInvoice',implode(',',$query_ids))}}">
                                                 <i class="fa fa-download icons"></i>
-
                                             </a>
                                         </div>
                                         <div class="col-sm-4 invoice_tab">
