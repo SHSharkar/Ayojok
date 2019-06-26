@@ -1,24 +1,20 @@
 {{--Date Picker--}}
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/keith_wood_datepicker/')}}/css/jquery.datepick.css">
 <div class="modal-header modal_header">
-    <h4 class="modal-title modal_title">Details</h4>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 
 <div class="modal-body modal_body">
     <div class="row body_first_row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <img src="{{asset($details['image_url'])}}"
                  class="vendor_img">
         </div>
-        <div class="col-sm-4">
-            <h4 class="vendor_title date_title">{{$details['title']}}</h4>
-            <p>{{$details['category']}}</p>
-            {{--<p>Query ID: 095864</p>--}}
-        </div>
-        <div class="col-sm-4">
-            <h4 class="date_title">Date: {{date("d M Y", strtotime($details['event_date']))}}</h4>
-            <p class="date_title">Shift: {{$details['shift']}}</p>
+        <div class="col-sm-6">
+            <h4 class="vendor_title date_title" style="text-transform: capitalize">{{$details['category']}} : {{$details['title']}}</h4>
+            <h4 class="date_title">Requested Date: {{date("d M Y", strtotime($details['event_date']))}}</h4>
+            <h4 class="date_title">Requested Shift: {{$details['shift']}}</h4>
+            <h4 class="date_title">Query Status: {{$details['status']}}</h4>
             {{--<p>Query ID: 095864</p>--}}
         </div>
     </div>
@@ -48,11 +44,7 @@
                 </div>
                 <div class="col-sm-3 form control">
                     <select name="status" id="status" onchange="onStatusChange()">
-                        <option value="{{$details['status']}}" selected>--{{$details['status']}}--</option>
-                        <option value="Available">Available</option>
-                        <option value="Not Available">Not Available</option>
-                        <option value="Booked">Booked</option>
-                        <option value="Payment Completed">Payment Completed</option>
+                        <option value="{{$details['status']}}" selected>{{$details['status']}}</option>
                     </select>
                 </div>
             </div>
@@ -97,7 +89,7 @@
                     <p>Advance Payable: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}">
+                    <input type="number" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}" max="{{$details['total']}}">
                 </div>
             </div>
             <div class="row date_row" id="ds">
@@ -105,7 +97,7 @@
                     <p>Discount: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="discount" name="discount" placeholder="Discount" value="{{$details['discount']}}">
+                    <input type="number" id="discount" name="discount" placeholder="Discount" value="{{$details['discount']}}" max="{{$details['total']}}">
                 </div>
             </div>
             <div class="row date_row" id="cp">
@@ -113,7 +105,7 @@
                     <p>Cash Payment: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" name="payment" placeholder="Cash Payment" value="">
+                    <input type="number" id="payment" name="payment" placeholder="Cash Payment" value="">
                 </div>
             </div>
             <div class="row date_row" id="pt">
@@ -138,6 +130,7 @@
     $( function() {
         $("#datepicker2").datepicker({
             dateFormat: "yy-mm-dd",
+            minDate: 1
         });
     });
     var dt='<?php echo $details['expiry_time'];?>';
@@ -155,12 +148,161 @@
 </script>
 <script>
     $(document).ready(function(){
+        var status="<?php echo $details['status'] ;?>";
+
+        switch(status)
+        {
+            case 'Not Available':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+                var av = document.createElement('option');
+                av.text = "Available";
+                av.value= "Available";
+                x.add(av);
+                var b = document.createElement('option');
+                b.text = "Booked";
+                b.value= "Booked";
+                x.add(b);
+
+                break;
+            }
+
+            case 'Booked':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+
+                break;
+            }
+
+            case 'Available':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+                var av = document.createElement('option');
+                av.text = "Not Available";
+                av.value= "Not Available";
+                x.add(av);
+                var b = document.createElement('option');
+                b.text = "Booked";
+                b.value= "Booked";
+                x.add(b);
+
+                break;
+            }
+
+            case 'Cash Requested':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+                var b = document.createElement('option');
+                b.text = "Booked";
+                b.value= "Booked";
+                x.add(b);
+
+                break;
+            }
+
+            case 'In Review':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+                var av = document.createElement('option');
+                av.text = "Available";
+                av.value= "Available";
+                x.add(av);
+                var na = document.createElement('option');
+                na.text = "Not Available";
+                na.value= "Not Available";
+                x.add(na);
+                var b = document.createElement('option');
+                b.text = "Booked";
+                b.value= "Booked";
+                x.add(b);
+
+                break;
+            }
+
+            case 'Timeout':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+                var av = document.createElement('option');
+                av.text = "Available";
+                av.value= "Available";
+                x.add(av);
+                var na = document.createElement('option');
+                na.text = "Not Available";
+                na.value= "Not Available";
+                x.add(na);
+                var b = document.createElement('option');
+                b.text = "Booked";
+                b.value= "Booked";
+                x.add(b);
+
+                break;
+            }
+
+            case 'Query Submitted':
+            {
+                document.getElementById('status').innerHTML = "";
+                var x = document.getElementById('status');
+                var s = document.createElement('option');
+                s.text = status;
+                s.value= status;
+                x.add(s);
+                var ir = document.createElement('option');
+                ir.text = "In Review";
+                ir.value= "In Review";
+                x.add(s);
+                var av = document.createElement('option');
+                av.text = "Available";
+                av.value= "Available";
+                x.add(av);
+                var na = document.createElement('option');
+                na.text = "Not Available";
+                na.value= "Not Available";
+                x.add(na);
+                var b = document.createElement('option');
+                b.text = "Booked";
+                b.value= "Booked";
+                x.add(b);
+
+                break;
+            }
+        }
+
         onStatusChange();
     });
+
     function onStatusChange()
     {
         var stat=document.getElementById('status').value;
-
         document.getElementById('ed').style.display="";
         document.getElementById('et').style.display="";
         document.getElementById('tp').style.display="";
@@ -184,6 +326,12 @@
                 document.getElementById('ds').style.display="none";
                 document.getElementById('cp').style.display="none";
                 document.getElementById('pt').style.display="none";
+                document.getElementById('datepicker2').value="";
+                document.getElementById('timepicker').value="";
+                document.getElementById('total').value="";
+                document.getElementById('advance').value="";
+                document.getElementById('discount').value="";
+
                 break;
             }
 
@@ -192,6 +340,43 @@
                 document.getElementById('total').readOnly= true;
                 document.getElementById('advance').readOnly= true;
                 document.getElementById('discount').readOnly= true;
+
+                break;
+            }
+
+            case 'Cash Requested':
+            {
+                document.getElementById('total').readOnly= true;
+                document.getElementById('advance').readOnly= true;
+                document.getElementById('discount').readOnly= true;
+
+                break;
+            }
+
+            case 'Available':
+            {
+                document.getElementById('cp').style.display="none";
+                document.getElementById('pt').style.display="none";
+                document.getElementById('payment').value="";
+
+                break;
+            }
+
+            case 'In Review':
+            {
+                document.getElementById('cp').style.display="none";
+                document.getElementById('pt').style.display="none";
+                document.getElementById('payment').value="";
+
+                break;
+            }
+
+            case 'Query Submitted':
+            {
+                document.getElementById('cp').style.display="none";
+                document.getElementById('pt').style.display="none";
+                document.getElementById('payment').value="";
+
                 break;
             }
 
