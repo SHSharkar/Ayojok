@@ -16,11 +16,16 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('invoice_id')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('submit_id')->nullable();
 
             $table->integer('sslorder_id')->unsigned();
             $table->foreign('sslorder_id')->references('id')->on('sslorder');
 
-            $table->string('query_ids');
+            $table->integer('query_id')->unsigned();
+            $table->foreign('query_id')->references('id')->on('queries');
+
+
 
             $table->string('paid_amount');
             $table->string('payment_type')->nullable();
