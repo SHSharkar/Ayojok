@@ -271,7 +271,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/rating', 'VendorServices@rating')->name('rating');
 
 
-    Route::get('/invoice','InvoiceController@index')->name('showInvoice');
+    Route::get('/invoice/{q_id}','InvoiceController@index')->name('showInvoice');
 
 });
 

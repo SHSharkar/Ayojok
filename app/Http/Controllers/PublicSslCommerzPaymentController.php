@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,7 @@ use Session;
 
 use App\Models\order;
 use App\Models\my_vendors;
-use App\Models\invoice;
+use App\invoice;
 use App\Models\sslorder;
 use Illuminate\Routing\UrlGenerator;
 use App\Http\Controllers;
@@ -20,8 +21,17 @@ class PublicSslCommerzPaymentController extends Controller
 {
     public function index(Request $request)
     {
+        //return $request;
 
-       // return $request;
+
+
+
+
+
+
+
+        //print_r($query_inCart_ids);
+        //return $request;
 
         # Here you have to receive all the order data to initiate the payment.
         # Lets your oder transaction information are saving in a table called "orders"
@@ -92,11 +102,69 @@ class PublicSslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        return $request;
+        //return $request;
+
+        /*Save Extra Information After Transaction Successful*/
+        $update_sslorder = sslorder::where('tran_id',$request->tran_id)->first();
+        $update_sslorder->val_id = $request->val_id;
+        $update_sslorder->store_amount = $request->store_amount;
+        $update_sslorder->tran_date = $request->tran_date;
+        $update_sslorder->bank_tran_id = $request->bank_tran_id;
+        $update_sslorder->card_issuer = $request->card_issuer;
+        $update_sslorder->card_brand = $request->card_brand;
+        $update_sslorder->store_id = $request->store_id;
+        $update_sslorder->verify_sign = $request->verify_sign;
+        $update_sslorder->verify_sign_sha2 = $request->verify_sign_sha2;
+        $update_sslorder->currency_rate = $request->currency_rate;
+        $update_sslorder->save();
+
+        //return $request;
+
+
+
+        $user = Auth::user();
+        $unique_id = uniqid();
+        $queries = Query::where('user_id',$user->id)->where('in_cart',1)->get();
+        $query_inCart_ids = array();
+        foreach($queries as $query){
+            array_push($query_inCart_ids,$query->id);
+
+            /**
+             * Invoice Table:
+             */
+            $invoice = new invoice();
+
+            $invoice->invoice_id = $unique_id;
+            $invoice->sslorder_id = $update_sslorder->id;
+            $invoice->query_id = $query->id;
+
+            $invoice->paid_amount = $request->amount;
+            $invoice->transaction_id = $request->tran_id;
+            $invoice->payment_type = "Online";
+            $invoice->save();
+
+
+            /**Update Query*/
+
+            $previous_paid_amount = $query->payment;
+
+            $query->in_cart = 0;
+            $query->status = "Booked";
+            $query->payment = $previous_paid_amount + $request->amount;
+            $query->save();
+
+        }
+
+
+
+
+
+
+
+
         //echo "Transaction is Successful";
         //exit;
         $sslc = new SSLCommerz();
-
         //dd($sslc) ;
         #Start to received these value from session. which was saved in index function.
         $tran_id = $_SESSION['payment_values']['tran_id'];
@@ -116,6 +184,10 @@ class PublicSslCommerzPaymentController extends Controller
                 */
                 $update_sslorder = sslorder::where('tran_id', $tran_id)
                     ->update(['order_status' => 'Complete']);
+
+
+
+
                 echo "<br >Validated - Transaction is successfully Complete";
 
                 //exit;
@@ -128,12 +200,12 @@ class PublicSslCommerzPaymentController extends Controller
                 $orders = order::where("user_id", "=", $user->id)->where('temp_add', '=', 1)->where('payment_type', 0)->where('online_paid', 0)->pluck('id')->implode(',');
 
                 // Add Invoice with bkash Id and order Id
-                $newinvoice = new invoice;
-                $newinvoice->wire_id = $_SESSION['wire_id'];
-                $newinvoice->orders_id = $orders;
-                $newinvoice->save();
+                //$newinvoice = new invoice;
+                //$newinvoice->wire_id = $_SESSION['wire_id'];
+                //$newinvoice->orders_id = $orders;
+                //$newinvoice->save();
                 // get the latest inserted row id from invoice table
-                $order_invoice = $newinvoice->id;
+                $order_invoice = $invoice->id;//$newinvoice->id;
 
                 // Update the order table
                 foreach ($datas as $data) {
@@ -174,6 +246,9 @@ class PublicSslCommerzPaymentController extends Controller
                   'val_id' => $request->val_id,
                   'currency_amount' => $request->currency_amount,
                 ];
+
+                return Redirect::back();
+
                 return view('user.success')
                     ->with('tran_id',$tran_id)
                     ->with('tranDetail_directFromSSL',$tranDetail_directFromSSL)

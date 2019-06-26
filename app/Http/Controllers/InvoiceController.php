@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,17 +26,12 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($q_id)
     {
+        //$queries = Query::where('id')
         $user_id =  Auth::user()->id;
 
-
-
-
-
         return view('user.invoices')->with('user_id',$user_id);
-
-
 
     }
 

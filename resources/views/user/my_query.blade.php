@@ -1656,13 +1656,11 @@ $query_ids = array();
                                         <div class="col-sm-4 invoice_tab">
                                             <a href="#">
                                                 <i class="fa fa-envelope icons"></i>
-
                                             </a>
                                         </div>
                                         <div class="col-sm-4 invoice_tab">
                                             <a href="#">
                                                 <i class="fa fa-print icons"></i>
-
                                             </a>
                                         </div>
                                     </div>
@@ -1768,7 +1766,6 @@ $query_ids = array();
                                             onclick="re_request('{{json_encode($query_ids)}}')">
                                         Re-request
                                     </button>
-
 
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
@@ -1991,6 +1988,8 @@ $query_ids = array();
         var x = $('#total').text();
         //alert("ok"+x);
         $('#total_pay').val(parseInt(x));
+
+
     }
 </script>
 

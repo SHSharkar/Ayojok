@@ -17,17 +17,16 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
             $table->string('invoice_id')->nullable();
 
+            $table->integer('sslorder_id')->unsigned();
+            $table->foreign('sslorder_id')->references('id')->on('sslorder');
+
             $table->integer('query_id')->unsigned();
             $table->foreign('query_id')->references('id')->on('queries');
 
-            $table->double('discount')->default(0);
-
-            $table->string('currency')->nullable();
-            $table->string('total_amount');
+            $table->string('paid_amount');
             $table->string('payment_type')->nullable();
-            $table->string('transaction_id');
 
-
+            $table->string('transaction_id')->nullable();
 
             $table->timestamps();
         });
