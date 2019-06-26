@@ -129,23 +129,7 @@ class PublicSslCommerzPaymentController extends Controller
         foreach($queries as $query){
             array_push($query_inCart_ids,$query->id);
 
-            /**
-             * Invoice Table:
-             */
-            $invoice = new invoice();
-
-            $invoice->invoice_id = $unique_id;
-            $invoice->sslorder_id = $update_sslorder->id;
-            $invoice->query_id = $query->id;
-
-            $invoice->paid_amount = $request->amount;
-            $invoice->transaction_id = $request->tran_id;
-            $invoice->payment_type = "Online";
-            $invoice->save();
-
-
             /**Update Query*/
-
             $previous_paid_amount = $query->payment;
 
             $query->in_cart = 0;
@@ -154,6 +138,25 @@ class PublicSslCommerzPaymentController extends Controller
             $query->save();
 
         }
+
+        //return $query_inCart_ids;
+
+        /**
+         * Invoice Table:
+         */
+        $queries_id = implode(',',$query_inCart_ids);
+
+        //return $queries_id;
+
+        $invoice = new invoice();
+        $invoice->invoice_id = $unique_id;
+        $invoice->sslorder_id = $update_sslorder->id;
+        $invoice->query_ids = $queries_id;
+
+        $invoice->paid_amount = $request->amount;
+        $invoice->transaction_id = $request->tran_id;
+        $invoice->payment_type = "Online";
+        $invoice->save();
 
 
 

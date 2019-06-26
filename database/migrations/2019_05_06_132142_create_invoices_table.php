@@ -20,8 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('sslorder_id')->unsigned();
             $table->foreign('sslorder_id')->references('id')->on('sslorder');
 
-            $table->integer('query_id')->unsigned();
-            $table->foreign('query_id')->references('id')->on('queries');
+            $table->string('query_ids');
 
             $table->string('paid_amount');
             $table->string('payment_type')->nullable();
