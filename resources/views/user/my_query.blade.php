@@ -427,6 +427,12 @@ $query_ids = array();
     .hideAll a {
         color: #000;
     }
+
+
+    #invoice_btn:hover #invoice{
+        display: block;
+    }
+
 </style>
 
 
@@ -1076,6 +1082,21 @@ $query_ids = array();
         border: 1px solid #ccc;
         border-top: none;
     }
+
+
+    .icons{
+        font-size:35px !important;
+        color: #E2AD5B;
+    }
+
+    .invoice_tab:hover{
+        background-color: #DDDDDD;
+    }
+    .invoice_tab{
+        text-align: center;
+        padding: 10px;
+    }
+
 </style>
 @endpush
 
@@ -1461,8 +1482,7 @@ $query_ids = array();
                         $already_paid = 0;
                         $discount = 0;
 
-                        $query_ids = array();
-                        //print_r($query_ids);
+
 
                         $event_title = $vendor['query_tag'];
                         if ($event_title == null) {
@@ -1529,6 +1549,10 @@ $query_ids = array();
                                 $status_var = 7;
                                 $date_name = $status;
                             }
+
+                            $query_ids = array();
+                            //print_r($query_ids);
+
                             ?>
 
                             <tr class="{{$className}} {{$event_title}} hideAll">
@@ -1537,6 +1561,8 @@ $query_ids = array();
                                          style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
                                         <span>{{$status}}</span></div>
                                 </td>
+
+
                                 <td>
                                     <p class="title">{{$vendor['vendor_name']}}</p>
 
@@ -1612,6 +1638,36 @@ $query_ids = array();
                                     </p>
                                 </td>
 
+
+                                <td>
+                                    @if($status_var == 5) <!- booked ->
+                                    {{--<div class="row" id="#invoice_btn">
+                                        <div class="col-sm-12 " style="text-align: center">
+                                            <a class="btn btn-default paybook paybook_shadow" href="#" onmouseover="showInvoiceOutput()">Get Invoice</a>
+                                        </div>
+                                    </div>--}}
+                                    <div class="row "   id="invoice" >
+                                        <div class="col-sm-4 invoice_tab">
+                                            <a href="#">
+                                                <i class="fa fa-download icons"></i>
+
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4 invoice_tab">
+                                            <a href="#">
+                                                <i class="fa fa-envelope icons"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4 invoice_tab">
+                                            <a href="#">
+                                                <i class="fa fa-print icons"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </td>
+
+
                                 @if($status_var == 1)   <!- query submitted ->
                                 <td class="column_3">
                                     <p></p>
@@ -1624,6 +1680,7 @@ $query_ids = array();
 
                                 @elseif($status_var == 2) <!- In Review ->
                                 <td class="column_3">
+
                                 </td>
 
                                 @elseif($status_var == 3) <!- Available ->
@@ -1709,7 +1766,6 @@ $query_ids = array();
                                             onclick="re_request('{{json_encode($query_ids)}}')">
                                         Re-request
                                     </button>
-
 
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
@@ -1932,6 +1988,8 @@ $query_ids = array();
         var x = $('#total').text();
         //alert("ok"+x);
         $('#total_pay').val(parseInt(x));
+
+
     }
 </script>
 
@@ -2427,5 +2485,9 @@ $query_ids = array();
         };
 
     });
+
+    function showInvoiceOutput (){
+        $('#invoice').show();
+    }
 </script>
 @endpush

@@ -1,10 +1,11 @@
 <?php
-if(Auth::check()){
-$totalquery = DB::table('query_cart')
-->where('user_id', Auth::user()->id)
-->count();
-echo $totalquery;
-}else{
-  echo "0";
+if (Auth::check()) {
+    $totalquery = DB::table('queries')
+        ->where('user_id', Auth::user()->id)
+        ->where('is_open', 0)
+        ->count();
+    echo $totalquery;
+} else {
+    echo "0";
 }
- ?>
+?>
