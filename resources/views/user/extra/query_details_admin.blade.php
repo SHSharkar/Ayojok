@@ -389,10 +389,11 @@
 
     function inputValid()
     {
+        
         var t=document.getElementById('total').value;
         var a=document.getElementById('advance').value;
         var d=parseInt(t-a).toString();
-        //alert (d);
+        //alert (d); have to change
         document.getElementById('total').setAttribute('min','0');
         document.getElementById('advance').setAttribute('min','0');
         document.getElementById('advance').setAttribute('max',t);
