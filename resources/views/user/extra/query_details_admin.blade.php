@@ -27,7 +27,7 @@
                     <p>Date: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="text" id="datepicker" name="event_date" placeholder="Event Date" value="{{$details['event_date']}}">
+                    <input type="text" id="datepicker" name="event_date" placeholder="Event Date" value="{{$details['event_date']}}" autocomplete="off">
                 </div>
             </div>
             <div class="row date_row">
@@ -53,7 +53,7 @@
                     <p>Expiry Date: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="text" id="datepicker2" name="expiry_date" placeholder="Expiry Date" value="{{$details['expiry_date']}}">
+                    <input type="text" id="datepicker2" name="expiry_date" placeholder="Expiry Date" value="{{$details['expiry_date']}}" autocomplete="off">
                 </div>
             </div>
             <div class="row date_row" id="et">
@@ -61,7 +61,7 @@
                     <p>Expiry Time: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="text" id="timepicker" name="expiry_time" placeholder="Expiry Time" value="{{$details['expiry_time']}}">
+                    <input type="text" id="timepicker" name="expiry_time" placeholder="Expiry Time" value="{{$details['expiry_time']}}" autocomplete="off">
                 </div>
             </div>
             <div class="row">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" name="query_id" value="{{$details['id']}}">
-                    <input  class="btn btn-success" style="width: 100%" type="submit" name="update_query" value="Update Query">
+                    <input  class="btn btn-success"  type="submit" name="update_query" value="Update Query">
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
                     <p>Total Payable: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="total" name="total" placeholder="Total Amount" value="{{$details['total']}}" onkeyup="inputValid()">
+                    <input type="number" style="width:150px" id="total" name="total" placeholder="Total Amount" value="{{$details['total']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="ap">
@@ -89,7 +89,7 @@
                     <p>Advance Payable: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}" max="{{$details['total']}}" onkeyup="inputValid()">
+                    <input type="number" style="width:150px" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}" max="{{$details['total']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="ds">
@@ -97,7 +97,7 @@
                     <p>Discount: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="discount" name="discount" placeholder="Discount" value="{{$details['discount']}}" max="{{$details['total']}}" onkeyup="inputValid()">
+                    <input type="number" style="width:150px" id="discount" name="discount" placeholder="Discount" value="{{$details['discount']}}" max="{{$details['total']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="cp">
@@ -337,6 +337,8 @@
 
             case 'Booked':
             {
+                document.getElementById('ed').style.display="none";
+                document.getElementById('et').style.display="none";
                 document.getElementById('total').readOnly= true;
                 document.getElementById('advance').readOnly= true;
                 document.getElementById('discount').readOnly= true;
@@ -346,6 +348,8 @@
 
             case 'Cash Requested':
             {
+                document.getElementById('ed').style.display="none";
+                document.getElementById('et').style.display="none";
                 document.getElementById('total').readOnly= true;
                 document.getElementById('advance').readOnly= true;
                 document.getElementById('discount').readOnly= true;
@@ -389,7 +393,6 @@
 
     function inputValid()
     {
-        
         var t=document.getElementById('total').value;
         var a=document.getElementById('advance').value;
         var d=parseInt(t-a).toString();
