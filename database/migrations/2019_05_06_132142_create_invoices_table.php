@@ -32,6 +32,8 @@ class CreateInvoicesTable extends Migration
 
             $table->string('transaction_id')->nullable();
 
+            $table->integer('valid')->nullable();
+
             $table->timestamps();
         });
     }

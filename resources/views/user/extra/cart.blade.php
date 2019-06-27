@@ -42,6 +42,7 @@
 </table>
 
 <input type="hidden" value="{{json_encode($cart_query_ids)}}" id="cart_query_ids">
+<input type="hidden" value="" id="cart_current_amounts">
 <script>
     $(document).ready(function(){
        addTotal('{{$len}}');

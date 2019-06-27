@@ -34,13 +34,28 @@ class InvoiceController extends Controller
         //$queries = Query::where('id')
         $user_id =  Auth::user()->id;
 
-        $details = Query::whereIn('id',$query_ids)->where('user_id',$user_id)->with('catagory')->with('vendors')->with('product')->with('invoices')->get();
+        $details = Query::whereIn('id',$query_ids)->where('user_id',$user_id)->with('user')->with('catagory')->with('vendors')->with('product')->with('invoices')->get();
 
-        return $details;
+        $user_info = $details[0]['user'];
+        $category = $details[0]['catagory'];
+
+        $product = "";
+        if($details[0]['product'] != null){
+            $product = $details[0]['product'];
+        }else{
+            $product = $details[0]['vendors'];
+        }
+        $category = $details[0]['catagory'];
+
+        //return $details;
 
 
 
-        return view('user.invoices')->with('user_id',$user_id);
+        return view('user.invoices')
+            ->with('user_info',$user_info)
+            ->with('details',$details)
+            ->with('product',$product)
+            ->with('category',$category);
 
 
 
