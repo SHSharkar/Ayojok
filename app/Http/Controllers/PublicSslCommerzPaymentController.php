@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Query;
+use App\TempTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +22,42 @@ class PublicSslCommerzPaymentController extends Controller
 {
     public function index(Request $request)
     {
-        //return $request;
+       // return $request;
+
+        $user = Auth::user();
+        //$unique_id = uniqid();
 
 
+        $q_ids = $request->q_ids;
+        $q_ids = explode(',',$q_ids);
+
+        $q_amounts = $request->q_amounts;
+        $q_amounts = explode(',',$q_amounts);
+
+        $i = 0;
+        foreach($q_ids as $qId){
+
+            $x = TempTransaction::where('query_id',$qId)->first();
+            /*echo $x;
+            exit;*/
+            if(count($x) == 0){
+                $tempTransaction = new TempTransaction();
+                $tempTransaction->user_id = $user->id;
+                $tempTransaction->query_id = $qId;
+                $tempTransaction->amount = $q_amounts[$i];
+                $tempTransaction->save();
+            }else{
+                $tempTransaction = $x;
+                $tempTransaction->user_id = $user->id;
+                $tempTransaction->query_id = $qId;
+                $tempTransaction->amount = $q_amounts[$i];
+                $tempTransaction->save();
+            }
+
+            $i++;
+        }
+
+        exit;
 
 
 
@@ -54,6 +88,7 @@ class PublicSslCommerzPaymentController extends Controller
         $post_data['cus_name'] = $user->name;
         $post_data['cus_email'] = $user->email;
         $post_data['cus_phone'] = $user->contact;
+
         // $post_data['cus_add1'] = 'Customer Address';
         // $post_data['cus_add2'] = "";
         // $post_data['cus_city'] = "";
@@ -102,7 +137,7 @@ class PublicSslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        //return $request;
+        return $request;
 
         /*Save Extra Information After Transaction Successful*/
         $update_sslorder = sslorder::where('tran_id',$request->tran_id)->first();

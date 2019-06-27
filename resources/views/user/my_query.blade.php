@@ -7,6 +7,9 @@
  */
 //print_r($vendor_arr);
 $query_ids = array();
+
+$cart_query_ids = array();
+
 ?>
 @extends('layouts.app')
 
@@ -1816,13 +1819,22 @@ $query_ids = array();
 
             function addTotal($len) {
                 //alert($len);
+
+                var query_current_amount = [];
+
                 var i = 0;
                 var total = 0;
                 for (i = 0; i < $len; i++) {
                     //alert(document.getElementById(i).value);
                     total = total + parseInt(document.getElementById(i).value);
+
+                    query_current_amount[i] = parseInt(document.getElementById(i).value);
                 }
                 document.getElementById('total').innerHTML = total;
+
+                document.getElementById('cart_current_amounts').value = query_current_amount;
+
+
             }
         </script>
     </div>
@@ -1943,7 +1955,7 @@ $query_ids = array();
                     <div class="modal-body modal_body" id="available_date_list">
                         <div class="buttons">
                             <a href="javascript:void(0)" class="btn btn_paymentBook" id=""
-                               onclick="cashPayment('d')">
+                               onclick="cashPayment()">
                                 <img src="{{asset('img/icons/query/pay.svg')}}">
                                 Cash Payment
                             </a>
@@ -1952,6 +1964,8 @@ $query_ids = array();
                                 {{csrf_field()}}
                                 <input type="hidden" name="total" id="total_pay">
                                 <input type="hidden" name="transid" value="{{uniqid(mt_rand())}}">
+                                <input type="hidden" name="q_ids" id="q_ids" value="">
+                                <input type="hidden" name="q_amounts" id="q_amounts" value="">
                                 <button class="btn btn_paymentBook">
                                     <img src="{{asset('img/icons/query/credit_card.svg')}}">
                                     Online Payment
@@ -1985,6 +1999,13 @@ $query_ids = array();
         var x = $('#total').text();
         //alert("ok"+x);
         $('#total_pay').val(parseInt(x));
+
+        var ids = document.getElementById('cart_query_ids').value;
+        ids = JSON.parse(ids)
+        document.getElementById('q_ids').value = ids;
+
+        var amounts = document.getElementById('cart_current_amounts').value;
+        document.getElementById('q_amounts').value = amounts;
 
 
     }
@@ -2095,7 +2116,7 @@ $query_ids = array();
         });
     }
 
-    function cashPayment(ids) {
+    function cashPayment() {
 
         //var id_array = JSON.parse(ids);
         var ids = document.getElementById('cart_query_ids').value;

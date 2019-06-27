@@ -15,7 +15,7 @@
 
 
 @section('content')
-<!-- Masthead -->
+        <!-- Masthead -->
 <header class="pagehead" style="background-image: url({{asset('img/backgrounds/header_bg_index.jpg')}});">
     <div class="container">
         <div class="row">
@@ -36,28 +36,26 @@
             <div class="text-center">
                 <a href="#"><i class="fa fa-print pull-left icon" id="print"></i></a>
 
-                <h3>Invoice for Booking #33221</h3>
+                <h5>Invoice for Booking <span> #{{$details[0]->submit_id}}</span></h5>
             </div>
         </div>
     </div>
 
 
-
-
     <div class="row">
-        <div class="col-sm-12" >
+        <div class="col-sm-12">
             <div class="card height">
                 <div class="card-header">Billing Details</div>
                 <div class="row">
-                    <div class="col-sm-6" >
-                        <div class="card-body" >
+                    <div class="col-sm-6">
+                        <div class="card-body">
                             <table>
-                                <tr >
+                                {{--<tr >
                                     <td>
                                         <strong>Transaction Id</strong>
                                     </td>
                                     <td>
-                                        : {{--{{$tran_id}} || {{$tranDetail_directFromSSL['tran_id']}}--}}
+                                        : {{$tran_id}} || {{$tranDetail_directFromSSL['tran_id']}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -65,31 +63,24 @@
                                         <strong>Payment Type</strong>
                                     </td>
                                     <td>
-                                        : {{--{{$tranDetail_directFromSSL['card_type']}}--}}
+                                        : {{$tranDetail_directFromSSL['card_type']}}
                                     </td>
-                                </tr>
+                                </tr>--}}
                                 <tr>
                                     <td>
-                                        <strong>Account Holder Name</strong>
+                                        <strong>Customer Name</strong>
                                     </td>
                                     <td>
-                                        : {{--{{$order_detials->cus_name}}--}}
+                                        : {{$user_info->name}}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Total Payment</strong>
-                                    </td>
-                                    <td>
-                                        : {{--{{$order_detials->total_amount}} {{$tranDetail_directFromSSL['currency']}}--}}
-                                    </td>
-                                </tr>
+
                                 <tr>
                                     <td>
                                         <strong>Email</strong>
                                     </td>
                                     <td>
-                                        : {{--{{$order_detials->cus_email}}--}}
+                                        : {{$user_info->email}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -97,17 +88,26 @@
                                         <strong>Phone</strong>
                                     </td>
                                     <td>
-                                        : {{--{{$order_detials->cus_phone}}--}}
+                                        : {{$user_info->contact}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <strong>Orders id</strong>
+                                        <strong>Product </strong>
                                     </td>
                                     <td>
-                                        : {{--{{$order_detials->order_id}}--}}
+                                        : {{$product->title}} ( {{$product->short_des}} )
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Category </strong>
+                                    </td>
+                                    <td>
+                                        : {{ucwords(str_replace('_',' ',$category->name))}}
+                                    </td>
+                                </tr>
+
                             </table>
 
                         </div>
@@ -115,9 +115,9 @@
                     </div>
                     <div class="col-sm-6">
 
-                        <div class="card-body" >
+                        <div class="card-body">
                             <table>
-                                <tr >
+                                <tr>
                                     <td>
                                         <strong>Company Info </strong>
                                     </td>
@@ -147,7 +147,6 @@
     </div>
 
 
-
     <div class="row mt-4 mb-2">
         <div class="col-sm-12">
             <div class="card">
@@ -159,15 +158,86 @@
                         <table class="table table-condensed">
                             <thead>
                             <tr>
+                                <td><strong>Booking Date</strong></td>
                                 <td><strong>Order Date</strong></td>
-                                <td><strong>Transaction Date</strong></td>
-                                <td><strong>Transaction ID</strong></td>
-                                <td class="text-center"><strong>{{--Advance Paid--}} Total Amount Paid</strong></td>
+                                {{-- <td><strong>Transaction Date</strong></td>--}}
+                                {{--<td><strong>Transaction ID</strong></td>--}}
+                                <td class=""><strong>Total Price</strong></td>
+                                <td class=""><strong>Discount</strong></td>
+                                <td class=""><strong>Advance Price</strong></td>
+                                <td class=""><strong>Payable Amount</strong></td>
                             </tr>
                             </thead>
                             <tbody>
 
+                            @foreach($details as $query)
+
+                                <tr>
+                                    <td class="highrow">
+                                        {{ date("d-M-Y",strtotime($query->event_date))}}
+                                    </td>
+                                    <td class="highrow">
+                                        {{ date("d-M-Y",strtotime($query->created_at))}}
+                                    </td>
+                                    <td class="highrow">
+                                        {{$query->total}}
+                                    </td>
+                                    <td class="highrow">
+                                        {{$query->discount}}
+                                    </td>
+                                    <td class="highrow ">
+                                        {{$query->advance}}
+                                    </td>
+                                    <td class="highrow ">
+                                        <?php
+                                        $payable_amount = 0;
+                                        $payable_amount = $query->total - $query->discount;
+                                        ?>
+                                        <strong>
+                                            {{ $payable_amount }}
+                                        </strong>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <thead>
+                                            {{--<tr>
+                                                <th class="text-center" colspan="3">Invoices</th>
+                                            </tr>--}}
+                                            <tr>
+                                                <th>Transaction Id</th>
+                                                <th>Date</th>
+                                                <th>Payment Type</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($query->invoices as $invoice)
+                                                <tr>
+                                                    <td>{{$invoice->transaction_id}}</td>
+                                                    <td>{{date("d-M-Y",strtotime($invoice->created_at)) }}</td>
+                                                    <td>{{$invoice->payment_type}}</td>
+
+                                                    <td>{{$invoice->paid_amount}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </td>
+
+                                </tr>
+
+
+                            @endforeach
+
+
                             <tr>
+                                <td class="highrow"></td>
+                                <td class="highrow"></td>
                                 <td class="highrow"></td>
                                 <td class="highrow"></td>
                                 <td class="highrow text-center">
@@ -176,8 +246,9 @@
                                 <td class="highrow text-right"></td>
                             </tr>
 
-
                             <tr>
+                                <td class="highrow2"></td>
+                                <td class="highrow2"></td>
                                 <td class="highrow2"></td>
                                 <td class="highrow2"></td>
                                 <td class="highrow2 text-center">
@@ -189,11 +260,14 @@
                             <tr>
                                 <td class=""><i class="fa fa-barcode iconbig"></i></td>
                                 <td class=""></td>
+                                <td class=""></td>
+                                <td class=""></td>
                                 <td class=" text-center">
-                                    <strong>Total  Paid: </strong>
+                                    <strong>Total Paid: </strong>
                                 </td>
                                 <td class=" text-right"></td>
                             </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -242,6 +316,7 @@
     .table > tbody > tr > .highrow {
         border-top: 3px solid;
     }
+
     .table > tbody > tr > .highrow2 {
         border-top: 0 solid;
     }
