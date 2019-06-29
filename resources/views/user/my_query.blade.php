@@ -158,6 +158,30 @@ $cart_query_ids = array();
         box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
     }
 
+
+
+    .paybook_complete {
+        background-color: #F2F2F2;
+        border: 1px solid #DEDEDE;
+        color: #6b6b6b;
+        padding: 5px 40px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        margin: 4px 2px;
+        /*cursor: pointer;*/
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 5px;
+    }
+
+    .paybook_complete_shadow {
+        box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
+    }
+
+
+
     .re_request {
         background-color: #EF4E4A;
         border: 1px solid #DFA449;
@@ -248,6 +272,13 @@ $cart_query_ids = array();
         color: #DD5E5B;
         text-align: center;
     }
+    .duePrice_0 {
+        font-weight: bolder;
+        margin-bottom: 0;
+        /*margin-left: 5px;*/
+        color: #464c52;
+        text-align: center;
+    }
 
     /*cart*/
     .extra tr:hover {
@@ -309,6 +340,7 @@ $cart_query_ids = array();
     .cart-addon {
         /*padding: .5rem .75rem;*/
         margin-bottom: 0;
+
         font-size: 1rem;
         font-weight: normal;
         line-height: 0.01;
@@ -431,8 +463,7 @@ $cart_query_ids = array();
         color: #000;
     }
 
-
-    #invoice_btn:hover #invoice{
+    #invoice_btn:hover #invoice {
         display: block;
     }
 
@@ -1086,19 +1117,22 @@ $cart_query_ids = array();
         border-top: none;
     }
 
-
-    .icons{
-        font-size:35px !important;
+    .icons {
+        font-size: 35px !important;
         color: #E2AD5B;
     }
 
-    .invoice_tab:hover{
+    .invoice_tab:hover {
         background-color: #DDDDDD;
     }
-    .invoice_tab{
+
+    .invoice_tab {
         text-align: center;
         padding: 10px;
     }
+
+
+
 
 </style>
 @endpush
@@ -1220,11 +1254,6 @@ $cart_query_ids = array();
                         /**
                          * New Code [ V.02 Api ]
                          */
-
-
-
-
-
                         ?>
 
                         @foreach($vendor['query_list'] as $queries)
@@ -1254,6 +1283,7 @@ $cart_query_ids = array();
                                 $padding_top = "35%";
                                 $status_var = 3;
                                 $date_name = $status;
+                                $price = 0;
                             } elseif (strtolower($status) == "not available") {
                                 $circle_background_color = "#ADADAD";
                                 $padding_top = "35%";
@@ -1264,16 +1294,19 @@ $cart_query_ids = array();
                                 $padding_top = "35%";
                                 $status_var = 5;
                                 $date_name = $status;
+                                $price = 0;
                             } elseif (strtolower($status) == "cash requested") {
                                 $circle_background_color = "#1B83B8";
                                 $padding_top = "25%";
                                 $status_var = 6;
                                 $date_name = $status;
+                                $price = 0;
                             } elseif (strtolower($status) == "timeout") {
                                 $circle_background_color = "#EF4E4A";
                                 $padding_top = "35%";
                                 $status_var = 7;
                                 $date_name = $status;
+                                $price = 0;
                             }
                             ?>
 
@@ -1358,6 +1391,41 @@ $cart_query_ids = array();
                                     </p>
                                 </td>
 
+
+
+
+
+                                {{--Icons for Invoices--}}
+
+                                <td>
+                                    @if($status_var == 5) <!- booked ->
+                                    <div class="row" id="#invoice_btn">
+                                        <div class="col-sm-12 " style="text-align: center">
+                                            <a class="btn btn-default paybook paybook_shadow" href="{{route('showInvoice',implode(',',$query_ids))}}" >Get Invoice</a>
+                                        </div>
+                                    </div>
+                                    {{--<div class="row " id="invoice">
+                                        <div class="col-sm-4 invoice_tab">
+                                            <a href="{{route('showInvoice',implode(',',$query_ids))}}">
+                                                <i class="fa fa-download icons"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4 invoice_tab">
+                                            <a href="#">
+                                                <i class="fa fa-envelope icons"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4 invoice_tab">
+                                            <a href="#">
+                                                <i class="fa fa-print icons"></i>
+                                            </a>
+                                        </div>
+                                    </div>--}}
+                                    @endif
+                                </td>
+
+
+
                                 @if($status_var == 1)   <!- query submitted ->
                                 <td class="column_3">
                                     <p></p>
@@ -1420,26 +1488,37 @@ $cart_query_ids = array();
                                 </td>
 
                                 @elseif($status_var == 5 ) <!- Booked ->
-                                <td class="column_3">
-                                    <p></p>
-                                    @if(count($query_ids) <=1)
-                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
-                                                data-toggle="modal" data-target=""> Pay Rest
-                                        </button>
+
+                                    @if($due > 0)
+                                        <td class="column_3">
+                                            <p></p>
+                                            @if(count($query_ids) <=1)
+                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
+                                                        data-toggle="modal" data-target=""> Pay Rest
+                                                </button>
+                                            @else
+                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                                </button>
+                                            @endif
+                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                            <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                        </td>
                                     @else
-                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                                data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                        </button>
+                                        <td class="column_3">
+                                            <p></p>
+                                            <button class="paybook_complete paybook_complete_shadow" style="padding: 5px 52px"
+                                                    onclick="openNav()"
+                                                    data-toggle="modal"> Payment Complete
+                                            </button>
+                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                            <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                        </td>
                                     @endif
 
-
-                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                                </td>
-
-                                @elseif($status_var == 7 ) <!- Booked ->
+                                @elseif($status_var == 7 ) <!- timeout ->
                                 <td class="column_3">
                                     <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
                                            value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
@@ -1527,6 +1606,7 @@ $cart_query_ids = array();
                                 $padding_top = "35%";
                                 $status_var = 3;
                                 $date_name = $status;
+                                $price = 0;
                             } elseif (strtolower($status) == "not available") {
                                 $circle_background_color = "#ADADAD";
                                 $padding_top = "35%";
@@ -1537,16 +1617,19 @@ $cart_query_ids = array();
                                 $padding_top = "35%";
                                 $status_var = 5;
                                 $date_name = $status;
+                                $price = 0;
                             } elseif (strtolower($status) == "cash requested") {
                                 $circle_background_color = "#1B83B8";
                                 $padding_top = "25%";
                                 $status_var = 6;
                                 $date_name = $status;
+                                $price = 0;
                             } elseif (strtolower($status) == "timeout") {
                                 $circle_background_color = "#EF4E4A";
                                 $padding_top = "35%";
                                 $status_var = 7;
                                 $date_name = $status;
+                                $price = 0;
                             }
 
                             $query_ids = array();
@@ -1642,12 +1725,12 @@ $cart_query_ids = array();
 
                                 <td>
                                     @if($status_var == 5) <!- booked ->
-                                    {{--<div class="row" id="#invoice_btn">
+                                    <div class="row" id="#invoice_btn">
                                         <div class="col-sm-12 " style="text-align: center">
-                                            <a class="btn btn-default paybook paybook_shadow" href="#" onmouseover="showInvoiceOutput()">Get Invoice</a>
+                                            <a class="btn btn-default paybook paybook_shadow" href="{{route('showInvoice',implode(',',$query_ids))}}" >Get Invoice</a>
                                         </div>
-                                    </div>--}}
-                                    <div class="row "   id="invoice" >
+                                    </div>
+                                    {{--<div class="row " id="invoice">
                                         <div class="col-sm-4 invoice_tab">
                                             <a href="{{route('showInvoice',implode(',',$query_ids))}}">
                                                 <i class="fa fa-download icons"></i>
@@ -1663,7 +1746,7 @@ $cart_query_ids = array();
                                                 <i class="fa fa-print icons"></i>
                                             </a>
                                         </div>
-                                    </div>
+                                    </div>--}}
                                     @endif
                                 </td>
 
@@ -1731,26 +1814,35 @@ $cart_query_ids = array();
                                 </td>
 
                                 @elseif($status_var == 5 ) <!- Booked ->
-                                <td class="column_3">
-                                    <p></p>
-                                    @if(count($query_ids) <=1)
-                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
-                                                data-toggle="modal" data-target=""> Pay Rest
-                                        </button>
+                                    @if($due > 0)
+                                        <td class="column_3">
+                                            <p></p>
+                                            @if(count($query_ids) <=1)
+                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
+                                                        data-toggle="modal" data-target=""> Pay Rest
+                                                </button>
+                                            @else
+                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                                </button>
+                                            @endif
+                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                            <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                        </td>
                                     @else
-                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                                data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                        </button>
+                                    <td class="column_3">
+                                        <p></p>
+                                            <button class="paybook_complete paybook_complete_shadow" style="padding: 5px 52px"
+                                                    onclick="openNav()"
+                                                    data-toggle="modal"> Payment Complete
+                                            </button>
+                                        {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                        <p class="duePrice_0"> Due amount: BDT {{$due}} </p>
+                                    </td>
                                     @endif
-
-
-                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                                </td>
-
-                                @elseif($status_var == 7 ) <!- Booked ->
+                                @elseif($status_var == 7 ) <!- timeout ->
                                 <td class="column_3">
                                     <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
                                            value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
@@ -2504,7 +2596,7 @@ $cart_query_ids = array();
 
     });
 
-    function showInvoiceOutput (){
+    function showInvoiceOutput() {
         $('#invoice').show();
     }
 </script>

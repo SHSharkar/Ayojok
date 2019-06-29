@@ -56,13 +56,7 @@ class PublicSslCommerzPaymentController extends Controller
 
             $i++;
         }
-
-        exit;
-
-
-
-
-
+        //exit;
 
         //print_r($query_inCart_ids);
         //return $request;
@@ -137,7 +131,7 @@ class PublicSslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        return $request;
+        //return $request;
 
         /*Save Extra Information After Transaction Successful*/
         $update_sslorder = sslorder::where('tran_id',$request->tran_id)->first();
@@ -161,16 +155,28 @@ class PublicSslCommerzPaymentController extends Controller
         $unique_id = uniqid();
         $queries = Query::where('user_id',$user->id)->where('in_cart',1)->get();
         $query_inCart_ids = array();
+
         foreach($queries as $query){
             array_push($query_inCart_ids,$query->id);
+
+
+            /**
+             * Get Current Cart Amount from Temp_transaction table
+             */
+            $cart = TempTransaction::where('user_id',$user->id)->where('query_id',$query->id)->first();
+            $query_cart_amount = $cart->amount;
+            $cart->delete();
+
 
             /**Update Query*/
             $previous_paid_amount = $query->payment;
 
             $query->in_cart = 0;
             $query->status = "Booked";
-            $query->payment = $previous_paid_amount + $request->amount;
+            $query->payment = $previous_paid_amount + $query_cart_amount;
             $query->save();
+
+
 
 
             /**
@@ -188,7 +194,7 @@ class PublicSslCommerzPaymentController extends Controller
             $invoice->sslorder_id = $update_sslorder->id;
             $invoice->query_id = $query->id;
 
-            $invoice->paid_amount = $request->amount;
+            $invoice->paid_amount = $query_cart_amount;
             $invoice->transaction_id = $request->tran_id;
             $invoice->payment_type = "Online";
             $invoice->save();

@@ -310,7 +310,7 @@ class MyQueryController extends Controller
             }
         }
         //print_r($service_arr);
-       // return $service_arr;
+        //return $service_arr;
 
         $user_id = Auth::user()->id;
         /*Event list as user specific*/
@@ -321,19 +321,23 @@ class MyQueryController extends Controller
     }
     public function expired_query()
     {
+
+
+
+
+
         $user = Auth::user()->id;
 
-        $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
-        $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
+        $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
+        $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
 
-        //return $vendors;
 
         $vendor_arr = array();
         $service_arr = array();
         $query_arr = array();
         $query_arr1 = array();
-        $status = "";
-        $status1 = "";
+        $qs=array();$ir=array();$av=array();$na=array();
+        $b=array();$cr=array();$to=array();
 
         foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
@@ -343,11 +347,6 @@ class MyQueryController extends Controller
             } else {
                 $tag_title = null;
                 $tag_id = null;
-            }
-            if (strtolower($vendor->status) == "booked") {
-                $status = "Booked";
-            } else if ($status != "Booked" && strtolower($vendor->status) == "available") {
-                $status = "available";
             }
 
             $q = array(
@@ -363,18 +362,90 @@ class MyQueryController extends Controller
                 "status" => $vendor->status,
                 "in_cart" => $vendor->in_cart
             );
-            array_push($query_arr, $q);
 
-            if ($vendor->queue_id == 0) {
+            switch($vendor->status)
+            {
+                case 'Query Submitted':
+                {
+                    array_push($qs,$q);
+                    break;
+                }
+                case 'In Review':
+                {
+                    array_push($ir,$q);
+                    break;
+                }
+                case 'Available':
+                {
+                    array_push($av,$q);
+                    break;
+                }
+                case 'Not Available':
+                {
+                    array_push($na,$q);
+                    break;
+                }
+                case 'Booked':
+                {
+                    array_push($b,$q);
+                    break;
+                }
+                case 'Cash Requested':
+                {
+                    array_push($cr,$q);
+                    break;
+                }
+                case 'Timeout':
+                {
+                    array_push($to,$q);
+                    break;
+                }
+            }
 
-                if ($status == "Booked") {
-                    $status = "Booked";
-                } else if ($status == "available") {
-                    //echo $status;
-                    $status = "Available";
-                } else {
+            if ($vendor->queue_id == 0)
+            {
+                if(!empty($qs))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Query Submitted",
+                        "query_details" => $qs));
 
-                    $status = $vendor->status;
+                }
+                if(!empty($ir))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "In Review",
+                        "query_details" => $ir));
+                }
+                if(!empty($av))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Available",
+                        "query_details" => $av));
+                }
+                if(!empty($na))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Not Available",
+                        "query_details" => $na));
+                }
+                if(!empty($b))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Booked",
+                        "query_details" => $b));
+                }
+                if(!empty($cr))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Cash Requested",
+                        "query_details" => $cr));
+                }
+                if(!empty($to))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Timeout",
+                        "query_details" => $to));
                 }
 
                 $v = array(
@@ -383,24 +454,21 @@ class MyQueryController extends Controller
                     "vendor_id" => $vendor->vendors->id,
                     "vendor_name" => $vendor->vendors->title,
                     "vendor_image" => $vendor->vendors->profile_img,
+                    "submit_id" => $vendor->submit_id,
                     "expiry_date" => $vendor->expiry_date,
                     "expiry_time" => $vendor->expiry_time,
-                    "display_status" => $status,
-                    "query_details" => $query_arr,
+                    "query_list" => $query_arr,
                     "query_tag" => $tag_title,
                 );
                 array_push($vendor_arr, $v);
-                $query_arr = array();
-                $status = "";
+                $query_arr = array();$qs=array();$ir=array();$av=array();$na=array();
+                $b=array();$cr=array();$to=array();
             }
         }
         /*echo "<pre>";
         print_r($vendor_arr);
         exit;*/
         //return $vendor_arr;
-        //return $vendor_arr[0]['query_details'];
-        //print_r($vendor_arr);
-
         foreach ($services as $service) {
             if ($service->tag_id != null) {
                 $tag_title = $service->tag->title;
@@ -410,13 +478,6 @@ class MyQueryController extends Controller
                 $tag_title = null;
                 $tag_id = null;
 
-            }
-
-
-            if ($service->status == "Booked") {
-                $status1 = "Booked";
-            } else if ($status1 != "Booked" && $service->status == "Available") {
-                $status1 = "Available";
             }
 
             $q = array(
@@ -432,15 +493,89 @@ class MyQueryController extends Controller
                 "status" => $service->status,
                 "in_cart" => $service->in_cart
             );
-            array_push($query_arr1, $q);
+
+            switch($service->status)
+            {
+                case 'Query Submitted':
+                {
+                    array_push($qs,$q);
+                    break;
+                }
+                case 'In Review':
+                {
+                    array_push($ir,$q);
+                    break;
+                }
+                case 'Available':
+                {
+                    array_push($av,$q);
+                    break;
+                }
+                case 'Not Available':
+                {
+                    array_push($na,$q);
+                    break;
+                }
+                case 'Booked':
+                {
+                    array_push($b,$q);
+                    break;
+                }
+                case 'Cash Requested':
+                {
+                    array_push($cr,$q);
+                    break;
+                }
+                case 'Timeout':
+                {
+                    array_push($to,$q);
+                    break;
+                }
+            }
 
             if ($service->queue_id == 0) {
-                if ($status1 == "Booked") {
-                    $status1 = "Booked";
-                } else if ($status1 == "Available") {
-                    $status1 = "Available";
-                } else {
-                    $status1 = $service->status;
+
+                if(!empty($qs))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Query Submitted",
+                        "query_details" => $qs));
+                }
+                if(!empty($ir))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "In Review",
+                        "query_details" => $ir));
+                }
+                if(!empty($av))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Available",
+                        "query_details" => $av));
+                }
+                if(!empty($na))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Not Available",
+                        "query_details" => $na));
+                }
+                if(!empty($b))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Booked",
+                        "query_details" => $b));
+                }
+                if(!empty($cr))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Cash Requested",
+                        "query_details" => $cr));
+                }
+                if(!empty($to))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Timeout",
+                        "query_details" => $to));
                 }
 
                 $v = array(
@@ -449,27 +584,28 @@ class MyQueryController extends Controller
                     "vendor_id" => $service->product->id,
                     "vendor_name" => $service->product->title,
                     "vendor_image" => $service->product->profile_img,
+                    "submit_id" => $service->submit_id,
                     "expiry_date" => $service->expiry_date,
                     "expiry_time" => $service->expiry_time,
-                    "display_status" => $status1,
-                    "query_details" => $query_arr1,
+                    "query_list" => $query_arr1,
                     "query_tag" => $tag_title,
 
                 );
                 array_push($service_arr, $v);
-                $query_arr1 = array();
+                $query_arr1 = array();$qs=array();$ir=array();$av=array();$na=array();
+                $b=array();$cr=array();$to=array();
             }
         }
         //print_r($service_arr);
-        //return $service_arr;
+        // return $service_arr;
 
         $user_id = Auth::user()->id;
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
-
         $expire = 1;
 
         return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire'));
+
     }
 
 
@@ -610,8 +746,13 @@ class MyQueryController extends Controller
 
         foreach ($query_ids as $id) {
             $query = Query::find($id);
-            $query->in_cart = 1;
-            $query->save();
+
+            if($query->total > ($query->discount+$query->payment))
+            {
+                $query->in_cart = 1;
+                $query->save();
+            }
+
         }
 
         /*$vendors = Query::where('user_id', $user_id)->where('in_cart',1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
