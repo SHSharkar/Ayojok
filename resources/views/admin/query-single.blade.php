@@ -237,7 +237,38 @@
                                         <td><a href="{{url('/admin/reviewStatus/'.$vendor->submit_id)}}"
                                                class="btn btn-danger">Query Submitted</a></td>
                                     @else
+
+                                        @switch($vendor->status)
+
+                                        @case('In Review')
+                                        <td style="background-color: #ff8a45">{{$vendor->status}}</td>
+                                        @break
+
+                                        @case('Available')
+                                        <td style="background-color: #89cb3e">{{$vendor->status}}</td>
+                                        @break
+
+                                        @case('Not Available')
+                                        <td style="background-color: #adadad">{{$vendor->status}}</td>
+                                        @break
+
+                                        @case('Booked')
+                                        <td style="background-color: #ffc63c">{{$vendor->status}}</td>
+                                        @break
+
+                                        @case('Timeout')
+                                        <td style="background-color: #ef4e4a">{{$vendor->status}}</td>
+                                        @break
+
+                                        @case('Cash Requested')
+                                        <td style="background-color: #1b83b8">{{$vendor->status}}</td>
+                                        @break
+
+                                        @default
                                         <td>{{$vendor->status}}</td>
+
+                                        @endswitch
+
                                     @endif
                                     <td>
                                         <button class="btn btn-primary" data-toggle="modal"
@@ -304,7 +335,36 @@
                                         <td><a href="{{url('/admin/reviewStatus/'.$service->submit_id)}}"
                                                class="btn btn-danger">Query Submitted</a></td>
                                     @else
+                                        @switch($service->status)
+
+                                        @case('In Review')
+                                        <td style="background-color: #ff8a45">{{$service->status}}</td>
+                                        @break
+
+                                        @case('Available')
+                                        <td style="background-color: #89cb3e">{{$service->status}}</td>
+                                        @break
+
+                                        @case('Not Available')
+                                        <td style="background-color: #adadad">{{$service->status}}</td>
+                                        @break
+
+                                        @case('Booked')
+                                        <td style="background-color: #ffc63c">{{$service->status}}</td>
+                                        @break
+
+                                        @case('Timeout')
+                                        <td style="background-color: #ef4e4a">{{$service->status}}</td>
+                                        @break
+
+                                        @case('Cash Requested')
+                                        <td style="background-color: #1b83b8">{{$service->status}}</td>
+                                        @break
+
+                                        @default
                                         <td>{{$service->status}}</td>
+
+                                        @endswitch
                                     @endif
                                     <td>
                                         <button class="btn btn-primary" data-toggle="modal"
