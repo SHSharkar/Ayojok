@@ -140,7 +140,7 @@ class QueryController extends Controller
         $services = Query::where('user_id', $user)->with('catagory')->with('tag')->where('product_id', '!=', 0)->with('product')->orderby('submit_id')->get();
         //dd($datas,$vendors,$services);
         return view('admin.query-single', compact('datas', 'vendors', 'services', 'emails'));
-        //return $vendors;
+        //return $vendors[0]['admin_message'];
     }
 
     public function reviewStatus($sid)
@@ -182,6 +182,7 @@ class QueryController extends Controller
         $query->advance=$request->advance;
         $query->discount=$request->discount;
         $query->payment=$query->payment+$request->payment;
+        $query->admin_message=$request->admin_message;
         $query->status=$request->status;
         $query->save();
 

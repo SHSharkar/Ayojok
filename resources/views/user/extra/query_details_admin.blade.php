@@ -27,7 +27,7 @@
                     <p>Date: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="text" id="datepicker" name="event_date" placeholder="Event Date" value="{{$details['event_date']}}" autocomplete="off">
+                    <input type="text" id="datepicker" name="event_date" placeholder="Event Date" value="{{$details['event_date']}}" autocomplete="off" required>
                 </div>
             </div>
             <div class="row date_row">
@@ -76,9 +76,17 @@
 
         </div>
         <div class="col-sm-6">
+            <div class="row date_row" id="sd">
+                <div class="col-sm-4 date_title">
+                    <p>Service Details </p>
+                </div>
+                <div class="col-sm-3 form control">
+                    <textarea id="sdm" name="admin_message" placeholder="Enter Service Details" required>{{$details['admin_message']}}</textarea>
+                </div>
+            </div>
             <div class="row date_row" id="tp">
                 <div class="col-sm-4 date_title">
-                    <p>Total Payable: </p>
+                    <p>Total Price: </p>
                 </div>
                 <div class="col-sm-3 form control">
                     <input type="number" style="width:150px" id="total" name="total" placeholder="Total Amount" value="{{$details['total']}}" onkeyup="inputValid()">
@@ -86,7 +94,7 @@
             </div>
             <div class="row date_row" id="ap">
                 <div class="col-sm-4 date_title">
-                    <p>Advance Payable: </p>
+                    <p>Advance Price: </p>
                 </div>
                 <div class="col-sm-3 form control">
                     <input type="number" style="width:150px" id="advance" name="advance" placeholder="Advance Amount" value="{{$details['advance']}}" max="{{$details['total']}}" onkeyup="inputValid()">
@@ -310,6 +318,7 @@
         document.getElementById('ds').style.display="";
         document.getElementById('cp').style.display="";
         document.getElementById('pt').style.display="";
+        document.getElementById('sd').style.display="";
 
         document.getElementById('total').readOnly= false;
         document.getElementById('advance').readOnly= false;
@@ -326,8 +335,10 @@
                 document.getElementById('ds').style.display="none";
                 document.getElementById('cp').style.display="none";
                 document.getElementById('pt').style.display="none";
+                document.getElementById('sd').style.display="none";
                 document.getElementById('datepicker2').value="";
                 document.getElementById('timepicker').value="";
+                document.getElementById('sdm').value="";
                 document.getElementById('total').value="";
                 document.getElementById('advance').value="";
                 document.getElementById('discount').value="";

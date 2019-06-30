@@ -32,7 +32,7 @@ class CreateQueriesTable extends Migration
             $table->string('unit')->nullable();
             $table->string('quantity')->nullable();
 
-            $table->string('message')->nullable();
+            $table->string('admin_message',1000)->nullable();
             $table->string('message',1000)->nullable();
 
 

@@ -51,6 +51,7 @@ class MyQueryController extends Controller
         $query_arr1 = array();
         $qs=array();$ir=array();$av=array();$na=array();
         $b=array();$cr=array();$to=array();
+        $not_qs=0;$not_ir=0;$not_av=0;$not_na=0;$not_b=0;$not_cr=0;$not_to=0;$not_total=0;
 
         foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
@@ -81,36 +82,78 @@ class MyQueryController extends Controller
                 case 'Query Submitted':
                 {
                     array_push($qs,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_qs=$not_qs+1;
+                    }
+
                     break;
                 }
                 case 'In Review':
                 {
                     array_push($ir,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_ir=$not_ir+1;
+                    }
+
                     break;
                 }
                 case 'Available':
                 {
                     array_push($av,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_av=$not_av+1;
+                    }
+
                     break;
                 }
                 case 'Not Available':
                 {
                     array_push($na,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_na=$not_na+1;
+                    }
+
                     break;
                 }
                 case 'Booked':
                 {
                     array_push($b,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_b=$not_b+1;
+                    }
+
                     break;
                 }
                 case 'Cash Requested':
                 {
                     array_push($cr,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_cr=$not_cr+1;
+                    }
+
                     break;
                 }
                 case 'Timeout':
                 {
                     array_push($to,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_to=$not_to+1;
+                    }
+
                     break;
                 }
             }
@@ -212,36 +255,78 @@ class MyQueryController extends Controller
                 case 'Query Submitted':
                 {
                     array_push($qs,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_qs=$not_qs+1;
+                    }
+
                     break;
                 }
                 case 'In Review':
                 {
                     array_push($ir,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_ir=$not_ir+1;
+                    }
+
                     break;
                 }
                 case 'Available':
                 {
                     array_push($av,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_av=$not_av+1;
+                    }
+
                     break;
                 }
                 case 'Not Available':
                 {
                     array_push($na,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_na=$not_na+1;
+                    }
+
                     break;
                 }
                 case 'Booked':
                 {
                     array_push($b,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_b=$not_b+1;
+                    }
+
                     break;
                 }
                 case 'Cash Requested':
                 {
                     array_push($cr,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_cr=$not_cr+1;
+                    }
+
                     break;
                 }
                 case 'Timeout':
                 {
                     array_push($to,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_to=$not_to+1;
+                    }
+
                     break;
                 }
             }
@@ -316,16 +401,24 @@ class MyQueryController extends Controller
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
         $expire = 0;
+        $not_total=$not_qs+$not_ir+$not_av+$not_na+$not_b+$not_cr+$not_to;
 
-        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire'));
+        $not_arr=array(
+            "Query Submitted" => $not_qs,
+            "In Review" => $not_ir,
+            "Available" => $not_av,
+            "Not Available" => $not_na,
+            "Booked" => $not_b,
+            "Cash Requested" => $not_cr,
+            "Timeout" => $not_to,
+            "Total" => $not_total
+        );
+
+        //return $not_arr;
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
     }
     public function expired_query()
     {
-
-
-
-
-
         $user = Auth::user()->id;
 
         $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
@@ -1190,6 +1283,7 @@ class MyQueryController extends Controller
                     'payment' => $q->payment,
                     'expiry_date' => $q->expiry_date,
                     'expiry_time' => $q->expiry_time,
+                    'admin_message' => $q->admin_message,
                     'status' => $q->status,
                 ];
             }
@@ -1209,6 +1303,7 @@ class MyQueryController extends Controller
                     'payment' => $q->payment,
                     'expiry_date' => $q->expiry_date,
                     'expiry_time' => $q->expiry_time,
+                    'admin_message' => $q->admin_message,
                     'status' => $q->status,
                 ];
             }
