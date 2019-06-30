@@ -1204,15 +1204,35 @@ $cart_query_ids = array();
     <div class="row container">
         <div class="col-sm-12">
             <div class="tab">
-                <button class="tablinks" onclick="filter_showAll(event, 'All')">All</button>
-                <button class="tablinks" onclick="filter(event, 'Query_Submitted','Query Submitted')">Query Submitted
+                <button class="tablinks" onclick="filter_showAll(event, 'All')">All  </button>
+                <button class="tablinks" onclick="filter(event, 'Query_Submitted','Query Submitted')">
+                    Query Submitted
+                    @if($not_arr['Query Submitted'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['Query Submitted']}}</span>@endif
                 </button>
-                <button class="tablinks" onclick="filter(event, 'In_Review','In Review')">In Review</button>
-                <button class="tablinks" onclick="filter(event, 'Available','Available')">Available</button>
-                <button class="tablinks" onclick="filter(event, 'Not_Available','Not Available')">Not Available</button>
-                <button class="tablinks" onclick="filter(event, 'Booked','Booked')">Booked</button>
-                <button class="tablinks" onclick="filter(event, 'Time_Out','Time Out')">Time Out</button>
-                <button class="tablinks" onclick="filter(event, 'Cash_Requested','Cash Requested')">Cash Requested
+                <button class="tablinks" onclick="filter(event, 'In_Review','In Review')">
+                    In Review
+                    @if($not_arr['In Review'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['In Review']}}</span>@endif
+                </button>
+                <button class="tablinks" onclick="filter(event, 'Available','Available')">
+                    Available
+                    @if($not_arr['Available'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['Available']}}</span>@endif
+                </button>
+                <button class="tablinks" onclick="filter(event, 'Not_Available','Not Available')">
+                    Not Available
+                    @if($not_arr['Not Available'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['Not Available']}}</span>@endif
+                </button>
+                <button class="tablinks" onclick="filter(event, 'Booked','Booked')">
+                    Booked
+                    @if($not_arr['Booked'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['Booked']}}</span>@endif
+                </button>
+                <button class="tablinks" onclick="filter(event, 'Timeout','Time Out')">
+                    Time Out
+                    @if($not_arr['Timeout'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['Timeout']}}</span>@endif
+
+                </button>
+                <button class="tablinks" onclick="filter(event, 'Cash_Requested','Cash Requested')">
+                    Cash Requested
+                    @if($not_arr['Cash Requested'] != 0)<span class="badge_q badge-light" id="cartCount">{{$not_arr['Cash Requested']}}</span>@endif
                 </button>
             </div>
         </div>
@@ -2456,6 +2476,8 @@ $cart_query_ids = array();
         //alert(status);
         $('.hideAll').hide();
         $('.' + status + '').show();
+
+        //alert(status);
 
         $('.tablinks').removeClass("active");
         event.currentTarget.className += " active";
