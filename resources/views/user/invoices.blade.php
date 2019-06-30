@@ -16,7 +16,7 @@
 
 @section('content')
         <!-- Masthead -->
-<header class="pagehead" style="background-image: url({{asset('img/backgrounds/header_bg_index.jpg')}});">
+{{--<header class="pagehead" style="background-image: url({{asset('img/backgrounds/header_bg_index.jpg')}});">
     <div class="container">
         <div class="row">
             <div class="col-12 my-auto text-center text-white">
@@ -24,12 +24,12 @@
             </div>
         </div>
     </div>
-</header>
+</header>--}}
 <!--/ End of Masthead -->
 
 {{--@include('extra.invoice')--}}
 
-<div class="container" id='printableArea'>
+<div class="container" id='printableArea' style="margin-top: 100px">
 
     <div class="row mt-4">
         <div class="col-sm-12">
@@ -91,22 +91,7 @@
                                         : {{$user_info->contact}}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Product </strong>
-                                    </td>
-                                    <td>
-                                        : {{$product->title}} ( {{$product->short_des}} )
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Category </strong>
-                                    </td>
-                                    <td>
-                                        : {{ucwords(str_replace('_',' ',$category->name))}}
-                                    </td>
-                                </tr>
+
 
                             </table>
 
@@ -123,6 +108,26 @@
                                     </td>
                                     <td>
                                         : {{--{{$tran_id}} || {{$tranDetail_directFromSSL['tran_id']}}--}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Product </strong>
+                                    </td>
+                                    <td>
+                                        : {{$product->title}}
+                                        @if(isset($product->short_des))
+                                            ( {{ $product->short_des}} )
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Category </strong>
+                                    </td>
+                                    <td>
+                                        : {{ucwords(str_replace('_',' ',$category->name))}}
                                     </td>
                                 </tr>
 
@@ -170,7 +175,15 @@
                             </thead>
                             <tbody>
 
+                            <?php
+                            $total_discounts = 0;
+                            $total_due = 0;
+                            $total_paid = 0;
+                            ?>
                             @foreach($details as $query)
+                                @php
+                                $total_discounts += $query->discount;
+                                @endphp
 
                                 <tr>
                                     <td class="highrow">
@@ -202,7 +215,7 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td>
+                                    <td colspan="5">
                                         <table>
                                             <thead>
                                             {{--<tr>
@@ -216,6 +229,10 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+                                            $total_amount_for_one_query = 0;
+                                            $current_due = 0;
+                                            ?>
                                             @foreach($query->invoices as $invoice)
                                                 <tr>
                                                     <td>{{$invoice->transaction_id}}</td>
@@ -223,8 +240,44 @@
                                                     <td>{{$invoice->payment_type}}</td>
 
                                                     <td>{{$invoice->paid_amount}}</td>
+
                                                 </tr>
+                                                <?php
+                                                $total_amount_for_one_query += $invoice->paid_amount;
+
+                                                ?>
                                             @endforeach
+                                            <tr class="total_paid">
+                                                <td></td>
+                                                <td></td>
+                                                <td>Total Paid:</td>
+
+                                                <td>
+                                                    {{$total_amount_for_one_query}}
+                                                    <?php
+                                                    $total_paid += $total_amount_for_one_query;
+                                                    ?>
+                                                </td>
+
+                                            </tr>
+                                            @if($total_amount_for_one_query >= $payable_amount)
+                                                <tr class="payment_complete">
+                                                    <td colspan="4">
+                                                        * Payment Complete *
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                <tr class="payment_due">
+                                                    <td colspan="4">
+                                                        <?php
+                                                        $current_due = $payable_amount - $total_amount_for_one_query;
+                                                        $total_due += $current_due;
+                                                        ?>
+                                                        * Due Amount: {{$current_due}} *
+                                                    </td>
+                                                </tr>
+                                            @endif
+
                                             </tbody>
                                         </table>
                                     </td>
@@ -241,10 +294,22 @@
                                 <td class="highrow"></td>
                                 <td class="highrow"></td>
                                 <td class="highrow text-center">
+                                    <strong>Total Price: </strong>
+                                </td>
+                                <td class="highrow">{{$total_discounts}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=" text-center">
                                     <strong>Discounts: </strong>
                                 </td>
-                                <td class="highrow text-right"></td>
+                                <td class="">{{$total_discounts}}</td>
                             </tr>
+
 
                             <tr>
                                 <td class="highrow2"></td>
@@ -254,7 +319,7 @@
                                 <td class="highrow2 text-center">
                                     <strong>Due: </strong>
                                 </td>
-                                <td class="highrow2 text-right"></td>
+                                <td class="highrow2">{{$total_due}}</td>
                             </tr>
 
                             <tr>
@@ -265,8 +330,9 @@
                                 <td class=" text-center">
                                     <strong>Total Paid: </strong>
                                 </td>
-                                <td class=" text-right"></td>
+                                <td class="">{{$total_paid}}</td>
                             </tr>
+
 
                             </tbody>
                         </table>
@@ -293,6 +359,22 @@
 
     .height {
         min-height: 210px;
+    }
+
+    .total_paid {
+        font-weight: bold;
+    }
+
+    .payment_complete {
+        font-weight: bold;
+        text-align: center;
+        color: green;
+    }
+
+    .payment_due {
+        font-weight: bold;
+        text-align: center;
+        color: #ff5470;
     }
 
     .icon {
