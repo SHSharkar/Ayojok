@@ -324,6 +324,11 @@
         document.getElementById('advance').readOnly= false;
         document.getElementById('discount').readOnly= false;
 
+        document.getElementById('datepicker2').setAttribute('required','');
+        document.getElementById('timepicker').setAttribute('required','');
+        document.getElementById('total').setAttribute('required','');
+        document.getElementById('advance').setAttribute('required','');
+
         switch (stat)
         {
             case 'Not Available':
@@ -373,15 +378,30 @@
                 document.getElementById('cp').style.display="none";
                 document.getElementById('pt').style.display="none";
                 document.getElementById('payment').value="";
+                document.getElementById('datepicker2').setAttribute('required','required');
+                document.getElementById('timepicker').setAttribute('required','required');
+                document.getElementById('total').setAttribute('required','required');
+                document.getElementById('advance').setAttribute('required','required');
 
                 break;
             }
 
             case 'In Review':
             {
+                document.getElementById('ed').style.display="none";
+                document.getElementById('et').style.display="none";
+                document.getElementById('tp').style.display="none";
+                document.getElementById('ap').style.display="none";
+                document.getElementById('ds').style.display="none";
                 document.getElementById('cp').style.display="none";
                 document.getElementById('pt').style.display="none";
-                document.getElementById('payment').value="";
+                document.getElementById('sd').style.display="none";
+                document.getElementById('datepicker2').value="";
+                document.getElementById('timepicker').value="";
+                document.getElementById('sdm').value="";
+                document.getElementById('total').value="";
+                document.getElementById('advance').value="";
+                document.getElementById('discount').value="";
 
                 break;
             }
