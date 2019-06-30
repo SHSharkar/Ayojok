@@ -348,6 +348,7 @@
                                         @case('Not Available')
                                         <td style="background-color: #adadad">{{$service->status}}</td>
                                         @break
+                                    
 
                                         @case('Booked')
                                         <td style="background-color: #ffc63c">{{$service->status}}</td>
