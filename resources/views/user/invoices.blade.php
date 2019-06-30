@@ -179,10 +179,13 @@
                             $total_discounts = 0;
                             $total_due = 0;
                             $total_paid = 0;
+                            $total_price = 0;
+
                             ?>
                             @foreach($details as $query)
                                 @php
                                 $total_discounts += $query->discount;
+                                $total_price += $query->total;
                                 @endphp
 
                                 <tr>
@@ -296,7 +299,7 @@
                                 <td class="highrow text-center">
                                     <strong>Total Price: </strong>
                                 </td>
-                                <td class="highrow">{{$total_discounts}}</td>
+                                <td class="highrow">{{$total_price}}</td>
                             </tr>
 
                             <tr>
@@ -312,7 +315,18 @@
 
 
                             <tr>
-                                <td class="highrow2"></td>
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=" text-center">
+                                    <strong>Total Paid: </strong>
+                                </td>
+                                <td class="">{{$total_paid}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="highrow2"><i class="fa fa-barcode iconbig"></i></td>
                                 <td class="highrow2"></td>
                                 <td class="highrow2"></td>
                                 <td class="highrow2"></td>
@@ -322,16 +336,7 @@
                                 <td class="highrow2">{{$total_due}}</td>
                             </tr>
 
-                            <tr>
-                                <td class=""><i class="fa fa-barcode iconbig"></i></td>
-                                <td class=""></td>
-                                <td class=""></td>
-                                <td class=""></td>
-                                <td class=" text-center">
-                                    <strong>Total Paid: </strong>
-                                </td>
-                                <td class="">{{$total_paid}}</td>
-                            </tr>
+
 
 
                             </tbody>

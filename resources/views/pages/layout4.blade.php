@@ -526,7 +526,7 @@
   });
 
   $('#date').datepick({
-    multiSelect: 999,
+    multiSelect: 3,
     monthsToShow: 1,
     showTrigger: '#calImg',
     dateFormat: 'dd-mm-yyyy',
