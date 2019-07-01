@@ -113,7 +113,7 @@
                     <p>Cash Payment: </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <input type="number" id="payment" name="payment" placeholder="Cash Payment" value="">
+                    <input type="number" style="width:150px" id="payment" name="payment" placeholder="Cash Payment" value="{{$details['cramount']}}" onkeyup="inputValid()">
                 </div>
             </div>
             <div class="row date_row" id="pt">
@@ -244,10 +244,6 @@
                 na.text = "Not Available";
                 na.value= "Not Available";
                 x.add(na);
-                var b = document.createElement('option');
-                b.text = "Booked";
-                b.value= "Booked";
-                x.add(b);
 
                 break;
             }
@@ -347,6 +343,7 @@
                 document.getElementById('total').value="";
                 document.getElementById('advance').value="";
                 document.getElementById('discount').value="";
+                document.getElementById('payment').value="";
 
                 break;
             }
@@ -402,6 +399,7 @@
                 document.getElementById('total').value="";
                 document.getElementById('advance').value="";
                 document.getElementById('discount').value="";
+                document.getElementById('payment').value="";
 
                 break;
             }
@@ -427,11 +425,13 @@
         var t=document.getElementById('total').value;
         var a=document.getElementById('advance').value;
         var d=parseInt(t-a).toString();
-        //alert (d); have to change
+        var p= <?php echo $details['total']-$details['discount']-$details['payment'];?>;
         document.getElementById('total').setAttribute('min','0');
         document.getElementById('advance').setAttribute('min','0');
         document.getElementById('advance').setAttribute('max',t);
         document.getElementById('discount').setAttribute('min','0');
         document.getElementById('discount').setAttribute('max',d);
+        document.getElementById('payment').setAttribute('min',0);
+        document.getElementById('payment').setAttribute('max',p);
     }
 </script>
