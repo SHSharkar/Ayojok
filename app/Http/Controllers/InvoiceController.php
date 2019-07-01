@@ -51,7 +51,7 @@ class InvoiceController extends Controller
 
 
 
-        return view('user.invoices')
+        return view('user.extra.invoice')
             ->with('user_info',$user_info)
             ->with('details',$details)
             ->with('product',$product)

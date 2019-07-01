@@ -424,6 +424,384 @@ class MyQueryController extends Controller
         $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
         $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
 
+        $vendor_arr = array();
+        $service_arr = array();
+        $query_arr = array();
+        $query_arr1 = array();
+        $qs=array();$ir=array();$av=array();$na=array();
+        $b=array();$cr=array();$to=array();
+        $not_qs=0;$not_ir=0;$not_av=0;$not_na=0;$not_b=0;$not_cr=0;$not_to=0;$not_total=0;
+
+        foreach ($vendors as $vendor) {
+            //return $vendor->tag->title;
+            if ($vendor->tag_id != null) {
+                $tag_title = $vendor->tag->title;
+                $tag_id = $vendor->tag_id;
+            } else {
+                $tag_title = null;
+                $tag_id = null;
+            }
+
+            $q = array(
+                "query_id" => $vendor->id,
+                "query_tag" => $tag_title,
+                "query_tag_id" => $tag_id,
+                "event_date" => $vendor->event_date,
+                "shift" => $vendor->shift,
+                "total_payment" => $vendor->total,
+                "advance_payment" => $vendor->advance,
+                "discount" => $vendor->discount,
+                "total_paid" => $vendor->payment,
+                "status" => $vendor->status,
+                "in_cart" => $vendor->in_cart
+            );
+
+            switch($vendor->status)
+            {
+                case 'Query Submitted':
+                {
+                    array_push($qs,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_qs=$not_qs+1;
+                    }
+
+                    break;
+                }
+                case 'In Review':
+                {
+                    array_push($ir,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_ir=$not_ir+1;
+                    }
+
+                    break;
+                }
+                case 'Available':
+                {
+                    array_push($av,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_av=$not_av+1;
+                    }
+
+                    break;
+                }
+                case 'Not Available':
+                {
+                    array_push($na,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_na=$not_na+1;
+                    }
+
+                    break;
+                }
+                case 'Booked':
+                {
+                    array_push($b,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_b=$not_b+1;
+                    }
+
+                    break;
+                }
+                case 'Cash Requested':
+                {
+                    array_push($cr,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_cr=$not_cr+1;
+                    }
+
+                    break;
+                }
+                case 'Timeout':
+                {
+                    array_push($to,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_to=$not_to+1;
+                    }
+
+                    break;
+                }
+            }
+
+            if ($vendor->queue_id == 0)
+            {
+                if(!empty($qs))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Query Submitted",
+                        "query_details" => $qs));
+
+                }
+                if(!empty($ir))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "In Review",
+                        "query_details" => $ir));
+                }
+                if(!empty($av))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Available",
+                        "query_details" => $av));
+                }
+                if(!empty($na))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Not Available",
+                        "query_details" => $na));
+                }
+                if(!empty($b))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Booked",
+                        "query_details" => $b));
+                }
+                if(!empty($cr))
+                {
+                    array_push($query_arr,array(
+                        "display_status" => "Cash Requested",
+                        "query_details" => $cr));
+                }
+                if(!empty($to))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Timeout",
+                        "query_details" => $to));
+                }
+
+                $v = array(
+                    "category_id" => $vendor->catagory->id,
+                    "category_name" => $vendor->catagory->name,
+                    "vendor_id" => $vendor->vendors->id,
+                    "vendor_name" => $vendor->vendors->title,
+                    "vendor_image" => $vendor->vendors->profile_img,
+                    "submit_id" => $vendor->submit_id,
+                    "expiry_date" => $vendor->expiry_date,
+                    "expiry_time" => $vendor->expiry_time,
+                    "query_list" => $query_arr,
+                    "query_tag" => $tag_title,
+                );
+                array_push($vendor_arr, $v);
+                $query_arr = array();$qs=array();$ir=array();$av=array();$na=array();
+                $b=array();$cr=array();$to=array();
+            }
+        }
+        /*echo "<pre>";
+        print_r($vendor_arr);
+        exit;*/
+        //return $vendor_arr;
+        foreach ($services as $service) {
+            if ($service->tag_id != null) {
+                $tag_title = $service->tag->title;
+                $tag_id = $service->tag_id;
+
+            } else {
+                $tag_title = null;
+                $tag_id = null;
+
+            }
+
+            $q = array(
+                "query_id" => $service->id,
+                "query_tag" => $tag_title,
+                "query_tag_id" => $tag_id,
+                "event_date" => $service->event_date,
+                "shift" => $service->shift,
+                "total_payment" => $service->total,
+                "advance_payment" => $service->advance,
+                "discount" => $service->discount,
+                "total_paid" => $service->payment,
+                "status" => $service->status,
+                "in_cart" => $service->in_cart
+            );
+
+            switch($service->status)
+            {
+                case 'Query Submitted':
+                {
+                    array_push($qs,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_qs=$not_qs+1;
+                    }
+
+                    break;
+                }
+                case 'In Review':
+                {
+                    array_push($ir,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_ir=$not_ir+1;
+                    }
+
+                    break;
+                }
+                case 'Available':
+                {
+                    array_push($av,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_av=$not_av+1;
+                    }
+
+                    break;
+                }
+                case 'Not Available':
+                {
+                    array_push($na,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_na=$not_na+1;
+                    }
+
+                    break;
+                }
+                case 'Booked':
+                {
+                    array_push($b,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_b=$not_b+1;
+                    }
+
+                    break;
+                }
+                case 'Cash Requested':
+                {
+                    array_push($cr,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_cr=$not_cr+1;
+                    }
+
+                    break;
+                }
+                case 'Timeout':
+                {
+                    array_push($to,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_to=$not_to+1;
+                    }
+
+                    break;
+                }
+            }
+
+            if ($service->queue_id == 0) {
+
+                if(!empty($qs))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Query Submitted",
+                        "query_details" => $qs));
+                }
+                if(!empty($ir))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "In Review",
+                        "query_details" => $ir));
+                }
+                if(!empty($av))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Available",
+                        "query_details" => $av));
+                }
+                if(!empty($na))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Not Available",
+                        "query_details" => $na));
+                }
+                if(!empty($b))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Booked",
+                        "query_details" => $b));
+                }
+                if(!empty($cr))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Cash Requested",
+                        "query_details" => $cr));
+                }
+                if(!empty($to))
+                {
+                    array_push($query_arr1,array(
+                        "display_status" => "Timeout",
+                        "query_details" => $to));
+                }
+
+                $v = array(
+                    "category_id" => $service->catagory->id,
+                    "category_name" => $service->catagory->name,
+                    "vendor_id" => $service->product->id,
+                    "vendor_name" => $service->product->title,
+                    "vendor_image" => $service->product->profile_img,
+                    "submit_id" => $service->submit_id,
+                    "expiry_date" => $service->expiry_date,
+                    "expiry_time" => $service->expiry_time,
+                    "query_list" => $query_arr1,
+                    "query_tag" => $tag_title,
+
+                );
+                array_push($service_arr, $v);
+                $query_arr1 = array();$qs=array();$ir=array();$av=array();$na=array();
+                $b=array();$cr=array();$to=array();
+            }
+        }
+        //print_r($service_arr);
+        //return $service_arr;
+
+        $user_id = Auth::user()->id;
+        /*Event list as user specific*/
+        $events = Tag::where('user_id', $user_id)->get();
+        $expire = 0;
+        $not_total=$not_qs+$not_ir+$not_av+$not_na+$not_b+$not_cr+$not_to;
+
+        $not_arr=array(
+            "Query Submitted" => $not_qs,
+            "In Review" => $not_ir,
+            "Available" => $not_av,
+            "Not Available" => $not_na,
+            "Booked" => $not_b,
+            "Cash Requested" => $not_cr,
+            "Timeout" => $not_to,
+            "Total" => $not_total
+        );
+
+        //return $not_arr;
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
+
+
+        $user = Auth::user()->id;
+
+        $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
+        $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
+
 
         $vendor_arr = array();
         $service_arr = array();
@@ -714,6 +1092,9 @@ class MyQueryController extends Controller
             $query = Query::find($id);
 
             $query->status = "Query Submitted";
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+            }
 
             $query->save();
         }
@@ -732,6 +1113,7 @@ class MyQueryController extends Controller
 
         foreach ($query_ids as $id) {
             $query = Query::find($id);
+
             $query->delete();
         }
         return Redirect::back();
@@ -793,6 +1175,9 @@ class MyQueryController extends Controller
             $query->status = "Cash Requested";
             $query->in_cart = 0;
 
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+            }
 
             $query->save();
         }
@@ -839,6 +1224,10 @@ class MyQueryController extends Controller
 
         foreach ($query_ids as $id) {
             $query = Query::find($id);
+
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+            }
 
             if($query->total > ($query->discount+$query->payment))
             {
@@ -915,6 +1304,12 @@ class MyQueryController extends Controller
     {
         $query = Query::find($id);
         $query->in_cart = 0;
+
+        if($query->is_open == 0 ){
+            $query->is_open = 1;
+        }
+
+
         $query->save();
 
         return $this->loadCart();
@@ -1153,7 +1548,13 @@ class MyQueryController extends Controller
         $i = 0;
         $counter_for_availabe = 0;
         $counter_for_booked = 0;
-        foreach ($queries as $query) {
+        foreach ($queries as $query)
+        {
+
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+                $query->save();
+            }
 
 
 //            $status = $query->status;

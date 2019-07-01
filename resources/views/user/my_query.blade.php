@@ -1131,6 +1131,10 @@ $cart_query_ids = array();
         padding: 10px;
     }
 
+    .invoice_image{
+        height: 80px;
+    }
+
 
 
 
@@ -1422,8 +1426,11 @@ $cart_query_ids = array();
                                 <td>
                                     @if($status_var == 5) <!- booked ->
                                     <div class="row" id="#invoice_btn">
-                                        <div class="col-sm-12 " style="text-align: center">
-                                            <a class="btn btn-default paybook paybook_shadow" href="{{route('showInvoice',implode(',',$query_ids))}}" >Get Invoice</a>
+                                        <div class="col-sm-12 " >
+                                            <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}" >
+                                                <img class="invoice_image" src="{{asset('img/icons/invoice.png')}}">
+                                                {{--Get Invoice--}}
+                                            </a>
                                         </div>
                                     </div>
                                     {{--<div class="row " id="invoice">
