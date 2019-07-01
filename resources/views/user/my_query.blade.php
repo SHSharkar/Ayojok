@@ -2233,10 +2233,13 @@ $cart_query_ids = array();
         //var id_array = JSON.parse(ids);
         var ids = document.getElementById('cart_query_ids').value;
         ids = JSON.parse(ids);
-        console.log(ids);
+        //console.log(ids);
+
+        var amounts = document.getElementById('cart_current_amounts').value;
+        amounts = JSON.parse(amounts);
 
         $.ajax({
-            url: '/cash-payments/' + ids,
+            url: '/cash-payments/' + ids + '/' +amounts,
             type: 'GET',
             success: function (data) {
                 console.log(' message: ' + data);

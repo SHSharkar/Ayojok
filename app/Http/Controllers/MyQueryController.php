@@ -784,18 +784,20 @@ class MyQueryController extends Controller
 
 
 
-    public function cashPayments($cart_query_ids){
+    public function cashPayments($cart_query_ids,$cart_query_amounts){
         $cart_query_ids = explode(',', $cart_query_ids);
+        $cart_query_amounts = explode(',', $cart_query_amounts);
+
+        return $cart_query_amounts;
 
         foreach ($cart_query_ids as $id) {
             $query = Query::find($id);
 
             $query->status = "Cash Requested";
             $query->in_cart = 0;
-
-
             $query->save();
         }
+
         return Redirect::back();
     }
 

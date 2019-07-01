@@ -157,7 +157,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-query-delete/{ids}', 'MyQueryController@delete')->name('my_query_delete');
     Route::get('/my-query-move-to-expire/{ids}', 'MyQueryController@softDelete')->name('softDelete');
 
-    Route::get('/cash-payments/{ids}', 'MyQueryController@cashPayments')->name('cashPayments');
+    Route::get('/cash-payments/{ids}/{amounts}', 'MyQueryController@cashPayments')->name('cashPayments');
 
     Route::get('/add-to-myCart/{ids}', 'MyQueryController@addToCart')->name('addToCart');
     Route::get('/show-dates/{ids}/{status}', 'MyQueryController@showDates')->name('showDates');
