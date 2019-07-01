@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\ChangeLog;
+use App\invoice;
 use App\Models\catagory;
 use App\Models\products;
 use App\Models\vendors;
 use App\Query;
+use App\TempTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -184,6 +186,7 @@ class QueryController extends Controller
         $query->payment=$query->payment+$request->payment;
         $query->admin_message=$request->admin_message;
         $query->status=$request->status;
+        $query->is_open=0;
         $query->save();
 
         if($request->status=="Available")
@@ -196,6 +199,29 @@ class QueryController extends Controller
                 $sq->expiry_time = $request->expiry_time;
                 $sq->save();
             }
+        }
+
+        if($request->status=="Booked" && $request->payment > 0)
+        {
+            $tt=TempTransaction::where('query_id',$query->id)->first();
+
+            if(isset($tt))
+            {
+                $tt->delete();
+            }
+            
+            $invoice = new invoice();
+            $invoice->invoice_id = uniqid();
+            $invoice->user_id = $query->user_id;
+            $invoice->submit_id = $query->submit_id;
+
+            $invoice->sslorder_id = 0;
+            $invoice->query_id = $query->id;
+
+            $invoice->paid_amount = $request->payment;
+            $invoice->transaction_id = 0;
+            $invoice->payment_type = "Cash";
+            $invoice->save();
         }
 
         return redirect()->back();

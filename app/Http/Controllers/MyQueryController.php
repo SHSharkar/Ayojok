@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Tag;
+use App\TempTransaction;
 use App\User;
 
 use App\Query;
@@ -256,7 +257,7 @@ class MyQueryController extends Controller
                 {
                     array_push($qs,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_qs=$not_qs+1;
                     }
@@ -267,7 +268,7 @@ class MyQueryController extends Controller
                 {
                     array_push($ir,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_ir=$not_ir+1;
                     }
@@ -278,7 +279,7 @@ class MyQueryController extends Controller
                 {
                     array_push($av,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_av=$not_av+1;
                     }
@@ -289,7 +290,7 @@ class MyQueryController extends Controller
                 {
                     array_push($na,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_na=$not_na+1;
                     }
@@ -300,7 +301,7 @@ class MyQueryController extends Controller
                 {
                     array_push($b,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_b=$not_b+1;
                     }
@@ -311,7 +312,7 @@ class MyQueryController extends Controller
                 {
                     array_push($cr,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_cr=$not_cr+1;
                     }
@@ -322,7 +323,7 @@ class MyQueryController extends Controller
                 {
                     array_push($to,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_to=$not_to+1;
                     }
@@ -787,8 +788,9 @@ class MyQueryController extends Controller
     public function cashPayments($cart_query_ids,$cart_query_amounts){
         $cart_query_ids = explode(',', $cart_query_ids);
         $cart_query_amounts = explode(',', $cart_query_amounts);
+        $cart_comb = array_combine($cart_query_ids, $cart_query_amounts);
 
-        return $cart_query_amounts;
+        //return $cart_query_ids;
 
         foreach ($cart_query_ids as $id) {
             $query = Query::find($id);
@@ -796,6 +798,12 @@ class MyQueryController extends Controller
             $query->status = "Cash Requested";
             $query->in_cart = 0;
             $query->save();
+
+            $tt=new TempTransaction;
+            $tt->user_id=Auth::user()->id;
+            $tt->query_id=$id;
+            $tt->amount=$cart_comb[$id];
+            $tt->save();
         }
 
         return Redirect::back();
@@ -1269,6 +1277,16 @@ class MyQueryController extends Controller
         //print_r($query);
         foreach($query as $q)
         {
+            $am=TempTransaction::where('query_id',$q->id)->first();
+
+            if(isset($am))
+            {
+                $cramount=$am->amount;
+            }
+            else
+            {
+                $cramount=0;
+            }
             //print_r($q->category);
             if($q->product_id==null)
             {
@@ -1287,6 +1305,7 @@ class MyQueryController extends Controller
                     'expiry_time' => $q->expiry_time,
                     'admin_message' => $q->admin_message,
                     'status' => $q->status,
+                    'cramount' => $cramount
                 ];
             }
 
@@ -1307,6 +1326,7 @@ class MyQueryController extends Controller
                     'expiry_time' => $q->expiry_time,
                     'admin_message' => $q->admin_message,
                     'status' => $q->status,
+                    'cramount' => $cramount
                 ];
             }
         }
