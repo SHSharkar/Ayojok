@@ -53,6 +53,7 @@ class MyQueryController extends Controller
         $qs=array();$ir=array();$av=array();$na=array();
         $b=array();$cr=array();$to=array();
         $not_qs=0;$not_ir=0;$not_av=0;$not_na=0;$not_b=0;$not_cr=0;$not_to=0;$not_total=0;
+        $up_at="";
 
         foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
