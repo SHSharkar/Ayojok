@@ -425,13 +425,13 @@ class MyQueryController extends Controller
         $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
         $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
 
-
         $vendor_arr = array();
         $service_arr = array();
         $query_arr = array();
         $query_arr1 = array();
         $qs=array();$ir=array();$av=array();$na=array();
         $b=array();$cr=array();$to=array();
+        $not_qs=0;$not_ir=0;$not_av=0;$not_na=0;$not_b=0;$not_cr=0;$not_to=0;$not_total=0;
 
         foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
@@ -462,36 +462,78 @@ class MyQueryController extends Controller
                 case 'Query Submitted':
                 {
                     array_push($qs,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_qs=$not_qs+1;
+                    }
+
                     break;
                 }
                 case 'In Review':
                 {
                     array_push($ir,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_ir=$not_ir+1;
+                    }
+
                     break;
                 }
                 case 'Available':
                 {
                     array_push($av,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_av=$not_av+1;
+                    }
+
                     break;
                 }
                 case 'Not Available':
                 {
                     array_push($na,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_na=$not_na+1;
+                    }
+
                     break;
                 }
                 case 'Booked':
                 {
                     array_push($b,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_b=$not_b+1;
+                    }
+
                     break;
                 }
                 case 'Cash Requested':
                 {
                     array_push($cr,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_cr=$not_cr+1;
+                    }
+
                     break;
                 }
                 case 'Timeout':
                 {
                     array_push($to,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_to=$not_to+1;
+                    }
+
                     break;
                 }
             }
@@ -593,36 +635,78 @@ class MyQueryController extends Controller
                 case 'Query Submitted':
                 {
                     array_push($qs,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_qs=$not_qs+1;
+                    }
+
                     break;
                 }
                 case 'In Review':
                 {
                     array_push($ir,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_ir=$not_ir+1;
+                    }
+
                     break;
                 }
                 case 'Available':
                 {
                     array_push($av,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_av=$not_av+1;
+                    }
+
                     break;
                 }
                 case 'Not Available':
                 {
                     array_push($na,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_na=$not_na+1;
+                    }
+
                     break;
                 }
                 case 'Booked':
                 {
                     array_push($b,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_b=$not_b+1;
+                    }
+
                     break;
                 }
                 case 'Cash Requested':
                 {
                     array_push($cr,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_cr=$not_cr+1;
+                    }
+
                     break;
                 }
                 case 'Timeout':
                 {
                     array_push($to,$q);
+
+                    if($vendor->is_open==0)
+                    {
+                        $not_to=$not_to+1;
+                    }
+
                     break;
                 }
             }
@@ -691,14 +775,27 @@ class MyQueryController extends Controller
             }
         }
         //print_r($service_arr);
-        // return $service_arr;
+        //return $service_arr;
 
         $user_id = Auth::user()->id;
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
-        $expire = 1;
+        $expire = 0;
+        $not_total=$not_qs+$not_ir+$not_av+$not_na+$not_b+$not_cr+$not_to;
 
-        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire'));
+        $not_arr=array(
+            "Query Submitted" => $not_qs,
+            "In Review" => $not_ir,
+            "Available" => $not_av,
+            "Not Available" => $not_na,
+            "Booked" => $not_b,
+            "Cash Requested" => $not_cr,
+            "Timeout" => $not_to,
+            "Total" => $not_total
+        );
+
+        //return $not_arr;
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
 
     }
 
@@ -715,6 +812,9 @@ class MyQueryController extends Controller
             $query = Query::find($id);
 
             $query->status = "Query Submitted";
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+            }
 
             $query->save();
         }
@@ -733,6 +833,7 @@ class MyQueryController extends Controller
 
         foreach ($query_ids as $id) {
             $query = Query::find($id);
+
             $query->delete();
         }
         return Redirect::back();
@@ -797,6 +898,13 @@ class MyQueryController extends Controller
 
             $query->status = "Cash Requested";
             $query->in_cart = 0;
+
+
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+            }
+
+
             $query->save();
 
             $tt=new TempTransaction;
@@ -849,6 +957,10 @@ class MyQueryController extends Controller
 
         foreach ($query_ids as $id) {
             $query = Query::find($id);
+
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+            }
 
             if($query->total > ($query->discount+$query->payment))
             {
@@ -925,6 +1037,12 @@ class MyQueryController extends Controller
     {
         $query = Query::find($id);
         $query->in_cart = 0;
+
+        if($query->is_open == 0 ){
+            $query->is_open = 1;
+        }
+
+
         $query->save();
 
         return $this->loadCart();
@@ -1163,7 +1281,13 @@ class MyQueryController extends Controller
         $i = 0;
         $counter_for_availabe = 0;
         $counter_for_booked = 0;
-        foreach ($queries as $query) {
+        foreach ($queries as $query)
+        {
+
+            if($query->is_open == 0 ){
+                $query->is_open = 1;
+                $query->save();
+            }
 
 
 //            $status = $query->status;

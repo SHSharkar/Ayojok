@@ -332,6 +332,21 @@ class PublicSslCommerzPaymentController extends Controller
 
     public function fail(Request $request)
     {
+
+        $user = Auth::user();
+        $queries = Query::where('user_id',$user->id)->where('in_cart',1)->get();
+
+        foreach($queries as $query){
+            /**
+             * Get Current Cart Amount from Temp_transaction table
+             */
+            $cart = TempTransaction::where('user_id',$user->id)->where('query_id',$query->id)->first();
+            $query_cart_amount = $cart->amount;
+            $cart->delete();
+        }
+
+
+
         $tran_id = $_SESSION['payment_values']['tran_id'];
         $order_detials = sslorder::where('tran_id', $tran_id)->first();
         if ($order_detials->order_status == 'Pending') {
