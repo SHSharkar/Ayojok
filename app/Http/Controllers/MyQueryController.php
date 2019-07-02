@@ -225,6 +225,9 @@ class MyQueryController extends Controller
         /*echo "<pre>";
         print_r($vendor_arr);
         exit;*/
+
+        //$vendor_arr = asort($vendor_arr);
+
         //return $vendor_arr;
         foreach ($services as $service) {
             if ($service->tag_id != null) {

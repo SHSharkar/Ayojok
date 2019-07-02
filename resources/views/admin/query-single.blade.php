@@ -99,7 +99,8 @@
     .details_modal .date_title {
         color: #C29147;
     }
-    .details_modal .due_title{
+
+    .details_modal .due_title {
         color: red;
     }
 
@@ -109,6 +110,10 @@
 
     .ui-timepicker-container {
         z-index: 1151 !important;
+    }
+
+    .invoice_image {
+        height: 35px;
     }
 
 </style>
@@ -271,11 +276,24 @@
 
                                     @endif
                                     <td>
-                                        <button class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modal_details"
-                                                onclick=setDetailsModalWithData('{{json_encode($vendor->id)}}')>
-                                            Details
-                                        </button>
+                                        <div class="row" id="#invoice_btn">
+                                            <div class="col-sm-6 ">
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#modal_details"
+                                                        onclick=setDetailsModalWithData('{{json_encode($vendor->id)}}')>
+                                                    Details
+                                                </button>
+                                            </div>
+                                            @if($vendor->status == "Booked")
+                                                <div class="col-sm-6 ">
+                                                        <a class="" href="{{route('showInvoiceAdmin',[$datas->id,$vendor->submit_id])}}">
+                                                        <img class="invoice_image"
+                                                             src="{{asset('img/icons/invoice.png')}}">
+                                                        {{--Get Invoice--}}
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -348,7 +366,7 @@
                                         @case('Not Available')
                                         <td style="background-color: #adadad">{{$service->status}}</td>
                                         @break
-                                    
+
 
                                         @case('Booked')
                                         <td style="background-color: #ffc63c">{{$service->status}}</td>
@@ -412,7 +430,7 @@
         todayHighlight: true
     });
     $(function () {
-        var table=  $('#vendor').DataTable({
+        var table = $('#vendor').DataTable({
             'paging': true,
             'lengthChange': false,
             'searching': true,
@@ -421,7 +439,7 @@
             'autoWidth': false
         })
 
-        var table1=  $('#service').DataTable({
+        var table1 = $('#service').DataTable({
             'paging': true,
             'lengthChange': false,
             'searching': true,
@@ -430,16 +448,14 @@
             'autoWidth': false
         })
 
-        $('#table-filter').on('change', function (){
-            if((document.getElementById('table-filter').value)=="All")
-            {
+        $('#table-filter').on('change', function () {
+            if ((document.getElementById('table-filter').value) == "All") {
                 table
                         .columns(6)
                         .search("", true, false, true)
                         .draw();
             }
-            else
-            {
+            else {
                 table
                         .columns(6)
                         .search("^" + $(this).val() + "$", true, false, true)
@@ -447,16 +463,14 @@
             }
         });
 
-        $('#table-filter1').on('change', function (){
-            if((document.getElementById('table-filter1').value)=="All")
-            {
+        $('#table-filter1').on('change', function () {
+            if ((document.getElementById('table-filter1').value) == "All") {
                 table1
                         .columns(7)
                         .search("", true, false, true)
                         .draw();
             }
-            else
-            {
+            else {
                 table1
                         .columns(7)
                         .search("^" + $(this).val() + "$", true, false, true)
