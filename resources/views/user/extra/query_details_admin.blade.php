@@ -81,7 +81,7 @@
                     <p>Service Details </p>
                 </div>
                 <div class="col-sm-3 form control">
-                    <textarea id="sdm" name="admin_message" placeholder="Enter Service Details" required>{{$details['admin_message']}}</textarea>
+                    <textarea id="sdm" name="admin_message" placeholder="Enter Service Details">{{$details['admin_message']}}</textarea>
                 </div>
             </div>
             <div class="row date_row" id="tp">
@@ -320,10 +320,11 @@
         document.getElementById('advance').readOnly= false;
         document.getElementById('discount').readOnly= false;
 
-        document.getElementById('datepicker2').setAttribute('required','');
-        document.getElementById('timepicker').setAttribute('required','');
-        document.getElementById('total').setAttribute('required','');
-        document.getElementById('advance').setAttribute('required','');
+        document.getElementById('datepicker2').removeAttribute('required');
+        document.getElementById('timepicker').removeAttribute('required');
+        document.getElementById('total').removeAttribute('required');
+        document.getElementById('advance').removeAttribute('required');
+        document.getElementById('sdm').removeAttribute('required');
 
         switch (stat)
         {
@@ -379,6 +380,7 @@
                 document.getElementById('timepicker').setAttribute('required','required');
                 document.getElementById('total').setAttribute('required','required');
                 document.getElementById('advance').setAttribute('required','required');
+                document.getElementById('sdm').setAttribute('required','required');
 
                 break;
             }
