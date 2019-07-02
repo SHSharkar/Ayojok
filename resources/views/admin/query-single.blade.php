@@ -418,7 +418,8 @@
             'searching': true,
             'ordering': true,
             'info': true,
-            'autoWidth': false
+            'autoWidth': false,
+            "aaSorting": []
         })
 
         var table1=  $('#service').DataTable({
@@ -427,7 +428,8 @@
             'searching': true,
             'ordering': true,
             'info': true,
-            'autoWidth': false
+            'autoWidth': false,
+            "aaSorting": [],
         })
 
         $('#table-filter').on('change', function (){

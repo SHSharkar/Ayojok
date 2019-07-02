@@ -2242,17 +2242,16 @@ $cart_query_ids = array();
         //var id_array = JSON.parse(ids);
         var ids = document.getElementById('cart_query_ids').value;
         ids = JSON.parse(ids);
-        //console.log(ids);
+        //alert(ids);
 
         var amounts = document.getElementById('cart_current_amounts').value;
-        amounts = JSON.parse(amounts);
-
         $.ajax({
             url: '/cash-payments/' + ids + '/' +amounts,
             type: 'GET',
             success: function (data) {
                 console.log(' message: ' + data);
-                $('body').html(data);
+                //$('body').html(data);
+                document.location.reload(true);
             },
             error: function (xhr, status, error) {
                 // check status && error
