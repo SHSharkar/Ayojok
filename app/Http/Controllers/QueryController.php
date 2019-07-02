@@ -138,9 +138,9 @@ class QueryController extends Controller
         $emails = Query::where('user_id', $user)->get();
 
         $datas = User::find($user);
-        $vendors = Query::where('user_id', $user)->with('catagory')->with('tag')->with('vendors')->with('package')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
-        $services = Query::where('user_id', $user)->with('catagory')->with('tag')->where('product_id', '!=', 0)->with('product')->orderby('submit_id')->get();
-        //dd($datas,$vendors,$services);
+        $vendors = Query::where('user_id', $user)->with('catagory')->with('tag')->with('vendors')->with('package')->where('vendor_id', '!=', 0)->orderBy('updated_at','desc')->get();
+        $services = Query::where('user_id', $user)->with('catagory')->with('tag')->where('product_id', '!=', 0)->with('product')->orderBy('updated_at','desc')->get();
+        //return $services;
         return view('admin.query-single', compact('datas', 'vendors', 'services', 'emails'));
         //return $vendors[0]['admin_message'];
     }

@@ -44,8 +44,8 @@ class MyQueryController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
-        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
-        $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
+        $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
         $vendor_arr = array();
         $service_arr = array();
         $query_arr = array();
@@ -78,6 +78,15 @@ class MyQueryController extends Controller
                 "status" => $vendor->status,
                 "in_cart" => $vendor->in_cart
             );
+
+            if($up_at=="")
+            {
+                $up_at=$vendor->updated_at->format('Y-m-d H:i:s');
+            }
+            elseif (strtotime($up_at) < strtotime($vendor->updated_at->format('Y-m-d H:i:s')))
+            {
+                $up_at=$vendor->updated_at->format('Y-m-d H:i:s');
+            }
 
             switch($vendor->status)
             {
@@ -217,10 +226,11 @@ class MyQueryController extends Controller
                     "expiry_time" => $vendor->expiry_time,
                     "query_list" => $query_arr,
                     "query_tag" => $tag_title,
+                    "updated_at" => $up_at
                 );
                 array_push($vendor_arr, $v);
                 $query_arr = array();$qs=array();$ir=array();$av=array();$na=array();
-                $b=array();$cr=array();$to=array();
+                $b=array();$cr=array();$to=array();$up_at="";
             }
         }
         /*echo "<pre>";
@@ -252,8 +262,17 @@ class MyQueryController extends Controller
                 "discount" => $service->discount,
                 "total_paid" => $service->payment,
                 "status" => $service->status,
-                "in_cart" => $service->in_cart
+                "in_cart" => $service->in_cart,
             );
+
+            if($up_at=="")
+            {
+                $up_at=$service->updated_at->format('Y-m-d H:i:s');
+            }
+            elseif (strtotime($up_at) < strtotime($service->updated_at->format('Y-m-d H:i:s')))
+            {
+                $up_at=$service->updated_at->format('Y-m-d H:i:s');
+            }
 
             switch($service->status)
             {
@@ -392,15 +411,21 @@ class MyQueryController extends Controller
                     "expiry_time" => $service->expiry_time,
                     "query_list" => $query_arr1,
                     "query_tag" => $tag_title,
-
+                    "updated_at" => $up_at
                 );
+
                 array_push($service_arr, $v);
                 $query_arr1 = array();$qs=array();$ir=array();$av=array();$na=array();
-                $b=array();$cr=array();$to=array();
+                $b=array();$cr=array();$to=array();$up_at="";
             }
         }
-        //print_r($service_arr);
-        //return $service_arr;
+
+        /*$sort = array();
+        foreach ($service_arr as $key => $row)
+        {
+            $sort[$key] = $row['updated_at'];
+        }
+        array_multisort($sort, SORT_DESC, $service_arr);*/
 
         $user_id = Auth::user()->id;
         /*Event list as user specific*/
@@ -419,7 +444,17 @@ class MyQueryController extends Controller
             "Total" => $not_total
         );
 
-        //return $not_arr;
+        $vendor_arr=array_merge($service_arr,$vendor_arr);
+        $service_arr=array();
+
+        $sort = array();
+        foreach ($vendor_arr as $key => $row)
+        {
+            $sort[$key] = $row['updated_at'];
+        }
+        array_multisort($sort, SORT_DESC, $vendor_arr);
+
+        //return $vendor_arr;
         return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
     }
     public function expired_query()
@@ -917,8 +952,7 @@ class MyQueryController extends Controller
             $tt->amount=$cart_comb[$id];
             $tt->save();
         }
-
-        return Redirect::back();
+        //return Redirect::to('/my-query');
     }
 
 
