@@ -233,10 +233,7 @@ Route::group(['middleware' => ['auth']], function () {
     /* End of
      * Nir Edit for user inbox
      * */
-
     // Route::get('/add-address', function(){ return view('user.add-address'); })->name('add-address');
-
-
     // Planning Tools "My Checklist"
     Route::get('/user-checklist/{id}', 'ChecklistController@uploadFirstChecklist')->name('userCheckList_upload');
     Route::get('/my-checklist/{id}', 'ChecklistController@show')->name('mychecklist');
@@ -276,6 +273,10 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => ['auth:admin']], function () {
+
+
+    Route::get('/admin/invoice/{user_id}/{q_id}','InvoiceController@invoiceFromAdmin')->name('showInvoiceAdmin');
+
 
     Route::get('/admin', 'AdminController@index')->name('adminhome');
 
