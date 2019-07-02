@@ -386,11 +386,29 @@
                                         @endswitch
                                     @endif
                                     <td>
-                                        <button class="btn btn-primary" data-toggle="modal"
+                                       {{-- <button class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modal_details"
                                                 onclick=setDetailsModalWithData('{{json_encode($service->id)}}')>
                                             Details
-                                        </button>
+                                        </button>--}}
+                                        <div class="row" id="#invoice_btn">
+                                            <div class="col-sm-6 ">
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#modal_details"
+                                                        onclick=setDetailsModalWithData('{{json_encode($service->id)}}')>
+                                                    Details
+                                                </button>
+                                            </div>
+                                            @if($service->status == "Booked")
+                                                <div class="col-sm-6 ">
+                                                    <a class="" href="{{route('showInvoiceAdmin',[$datas->id,$service->submit_id])}}">
+                                                        <img class="invoice_image"
+                                                             src="{{asset('img/icons/invoice.png')}}">
+                                                        {{--Get Invoice--}}
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
