@@ -322,8 +322,9 @@
                             <a class="nav-link dropdown-toggle disabled" id="navbarDropdown"
                                href="{{url('my-account')}}" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
+
                                 {{--<small>Hello,</small>--}}
-                                @if (is_null(Auth::user()->fname))
+                                @if ((Auth::user()->fname) == "")
                                     {{Auth::user()->name}} {{--<span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}
                                 @else
                                     {{Auth::user()->fname}} {{--<span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}

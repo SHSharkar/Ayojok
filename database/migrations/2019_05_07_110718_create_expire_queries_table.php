@@ -32,7 +32,10 @@ class CreateExpireQueriesTable extends Migration
             $table->string('unit')->nullable();
             $table->string('quantity')->nullable();
 
-            $table->string('message')->nullable();
+            $table->string('admin_message',1000)->nullable();
+            $table->string('message',1000)->nullable();
+
+
             $table->string('event_date')->nullable();
             $table->string('shift')->nullable();
 
@@ -48,7 +51,6 @@ class CreateExpireQueriesTable extends Migration
             $table->tinyInteger('is_available')->default(0);
 
             $table->tinyInteger('is_open')->default(0);
-
 
             $table->integer('in_cart')->default(0);
             $table->integer('submit_id')->default(0);

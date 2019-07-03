@@ -45,6 +45,26 @@
             <div class="col-sm-12">
                 <div class="text-center">
                     <a href="#"><i class="fa fa-print pull-left icon" id="print"></i></a>
+                    <a href="#"><i class="fa fa-envelope icons pull-left icon" id="sendMail"></i></a>
+
+                    {{--<div class="row " id="invoice">
+                        <div class="col-sm-4 invoice_tab">
+                            <a href="">
+                                <i class="fa fa-download icons"></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 invoice_tab">
+                            <a href="#">
+                                <i class="fa fa-envelope icons"></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 invoice_tab">
+                            <a href="#">
+                                <i class="fa fa-print icons"></i>
+                            </a>
+                        </div>
+                    </div>--}}
+
 
                     <h5>Invoice for Booking <span> #{{$details[0]->submit_id}}</span></h5>
                 </div>
@@ -99,7 +119,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <strong class="highlighter_bold" >Company Info </strong>
+                                            <strong class="highlighter_bold">Company Info </strong>
                                         </td>
                                         <td>
                                             : {{--{{$tran_id}} || {{$tranDetail_directFromSSL['tran_id']}}--}}
@@ -169,9 +189,9 @@
                                 $total_discounts += $query->discount;
                                 $total_price += $query->total;
 
-                                if($j%2==0){
+                                if ($j % 2 == 0) {
                                     $background = "#FFFFFF";
-                                }else{
+                                } else {
                                     $background = "#FFFFFF";
                                 }
                                 ?>
@@ -237,7 +257,7 @@
                                             <td>{{date("d-M-Y",strtotime($invoice->created_at)) }}</td>
                                             <td>
                                                 {{$invoice->payment_type}} <br>
-                                                @if(isset($invoice->transaction_id))
+                                                @if($invoice->transaction_id != 0 )
                                                     ( {{$invoice->transaction_id}} )
                                                 @endif
                                             </td>
@@ -253,7 +273,8 @@
                                         <td></td>
                                         <td></td>
                                         <td class="highlighter_bold text-right">Total Paid:</td>
-                                        <td class="highlighter_bold text-right">BDT. {{$total_amount_for_one_query}}</td>
+                                        <td class="highlighter_bold text-right">
+                                            BDT. {{$total_amount_for_one_query}}</td>
                                     </tr>
                                     <tr class="highlighter border_bottom">
                                         <td colspan="5">
@@ -268,7 +289,7 @@
                                 </table>
 
                                 <?php
-                                    $j++;
+                                $j++;
                                 ?>
                             @endforeach
                         </div>
@@ -357,16 +378,19 @@
             border-bottom: none;
         }
 
-        .highlighter{
+        .highlighter {
             font-size: 20px;
         }
-        .highlighter_bold{
+
+        .highlighter_bold {
             font-weight: bold;
         }
-        .border_bottom{
+
+        .border_bottom {
             border-bottom: 2px solid black;
         }
-        .text-right{
+
+        .text-right {
             text-align: right;
         }
 
@@ -383,11 +407,17 @@
         $('.footer').hide();
         $('.navbar').hide();
 
+        $('#print').hide();
+        $('#sendMail').hide();
+
         window.print();
 
         /*setTimeout(function(){*/
         $('.footer').show();
         $('.navbar').show();
+
+        $('#print').show();
+        $('#sendMail').show();
         /*}, 2000);*/
     })
 </script>
