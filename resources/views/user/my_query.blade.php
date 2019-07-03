@@ -398,6 +398,7 @@ $cart_query_ids = array();
         margin-top: 20%;
         margin-left: 5%;
         padding: 5px;
+        margin-bottom: 100%;
         background-color: #E2AD5B;
         border: 1px solid #DFA449;
         color: #F2F2F2;
@@ -1998,20 +1999,22 @@ $cart_query_ids = array();
                 //alert($len);
 
                 var query_current_amount = [];
-
                 var i = 0;
                 var total = 0;
-                for (i = 0; i < $len; i++) {
+                for (i = 0; i < $len; i++)
+                {
                     //alert(document.getElementById(i).value);
-                    total = total + parseInt(document.getElementById(i).value);
+                    //alert(document.getElementById(i).getAttribute('max'));
+                    if(parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) || parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max')))
+                    {
+                        alert(document.getElementById(i).value + ' min ' + document.getElementById(i).getAttribute('min') + 'max' + document.getElementById(i).getAttribute('max'));
+                    }
 
+                    total = total + parseInt(document.getElementById(i).value);
                     query_current_amount[i] = parseInt(document.getElementById(i).value);
                 }
                 document.getElementById('total').innerHTML = total;
-
                 document.getElementById('cart_current_amounts').value = query_current_amount;
-
-
             }
         </script>
     </div>
@@ -2183,8 +2186,6 @@ $cart_query_ids = array();
 
         var amounts = document.getElementById('cart_current_amounts').value;
         document.getElementById('q_amounts').value = amounts;
-
-
     }
 </script>
 
