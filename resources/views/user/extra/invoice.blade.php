@@ -181,9 +181,9 @@
                                             <strong class="highlighter">
                                                 <span class="highlighter_bold ">Vendor/Service Name:</span>
                                                 {{$product->title}}
-                                                @if(isset($product->short_des))
+                                                {{--@if(isset($product->short_des))
                                                     ( {{ $product->short_des}} )
-                                                @endif
+                                                @endif--}}
                                                 <br>
                                                 <span class="highlighter_bold ">Booking Date: </span>{{ date("d-M-Y",strtotime($query->event_date))}}
                                             </strong>
