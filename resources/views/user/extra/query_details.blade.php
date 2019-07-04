@@ -56,8 +56,9 @@
 
             <div class="row date_row">
                 <div class="col-sm-3 date_title">
+
                     @if(strtolower($details['status']) == "booked")
-                        <p>Booked Dates & Shifts: </p>
+                            <p>Booked Dates & Shifts: </p>
                     @else
                         <p>Available Dates & Shifts: </p>
                     @endif
@@ -125,15 +126,29 @@
         <div class="col-sm-4 label footer_block">
 
             Total Price: <span class="footer_price">
-                BDT {{(strtolower($details['status']) == "booked")? $details['total_booked'] : $details['total_av']}}
+                BDT
+                @if(strtolower($details['status']) =="cash requested")
+                    {{$details['total_av']}}
+                @elseif((strtolower($details['status']) == "booked"))
+                    {{$details['total_booked']}}
+                @else
+                    {{ $details['total_av']}}
+                @endif
             </span>
         </div>
         <div class="col-sm-4 label footer_block">
             @if(strtolower($details['status']) == "booked")
-                <span class="discount_price"> Discount : <span class="footer_price">BDT {{$details['discount_booked']}}</span></span>
+                <span class="discount_price"> Discount : <span
+                            class="footer_price">BDT {{$details['discount_booked']}}</span></span>
                 <br>
                 <span class="discount_price"> Paid : <span
                             class="footer_price">BDT {{$details['total_paid_booked']}}</span></span>
+            @elseif(strtolower($details['status']) =="cash requested")
+                <span class="discount_price"> Discount : <span
+                            class="footer_price">BDT {{$details['discount_av']}}</span></span>
+                <br>
+                <span class="discount_price"> Paid : <span
+                            class="footer_price">BDT {{$details['total_paid_av']}}</span></span>
             @else
                 Advance : <span class="footer_price">BDT {{$details['advance_av']}}</span>
             @endif
@@ -141,8 +156,11 @@
         <div class="col-sm-4 label">
             @if(strtolower($details['status']) == "booked")
                 Due Payment: <span class="footer_price">BDT {{$details['due_booked']}}</span>
+            @elseif(strtolower($details['status']) =="cash requested")
+                Due Payment: <span class="footer_price">BDT {{$details['due_av']}}</span>
             @else
-                <span class="discount_price"> Discount : <span class="footer_price">BDT {{$details['discount_av']}}</span></span>
+                <span class="discount_price"> Discount : <span
+                            class="footer_price">BDT {{$details['discount_av']}}</span></span>
             @endif
         </div>
     </div>

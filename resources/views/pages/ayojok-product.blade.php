@@ -76,7 +76,7 @@
 
                     <div class="col-lg-8 mt-3" style="padding:0px;">
                         <div class="form-area">
-                            <h5 style="margin-top: 5px; text-align: center; color:white;">Booking Query</h5>
+                            <h5 style="margin-top: 5px; text-align: center; color:white;">Booking Query </h5>
 
                             <p style="font-size:0.8rem;font-weight:500;">Please leave your details and let us take care
                                 of the rest</p>
@@ -115,11 +115,22 @@
 
                                 {{-- Extra Message --}}
                                 <div class="form-group">
+                                    @guest
+                                    <textarea data-toggle="modal" href="#myModal" class="form-control" type="textarea" id="message"
+                                              placeholder="Extra Messages to clarify your need" maxlength="500"
+                                              rows="3"></textarea>
+                                    <span class="help-text"><p id="characterLeft" class="help-block ">You have reached
+                                            the limit</p></span>
+                                    @endguest
+                                    @auth
                                     <textarea class="form-control" type="textarea" id="message"
                                               placeholder="Extra Messages to clarify your need" maxlength="500"
                                               rows="3"></textarea>
                                     <span class="help-text"><p id="characterLeft" class="help-block ">You have reached
                                             the limit</p></span>
+                                    @endauth
+
+
                                 </div>
 
                             </form>

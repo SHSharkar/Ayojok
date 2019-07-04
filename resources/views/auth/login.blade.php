@@ -156,10 +156,10 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
             <a href="{{url('login/facebook')}}" class="btn fb fa-fw"><i class="fa fa-facebook"></i> Facebook</a>
           </div>
 
-          <div class="text-center mt-2">
+          {{--<div class="text-center mt-2">
             <p style="font-size:0.8rem; color:#f47f20;">Don't want to Register?</p>
             <button type="submit" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" data-toggle="modal" href="#levnum">Leave Your Number</button>
-          </div>
+          </div>--}}
         </form>
       </div>
       <div class="modal-footer"><p class="hint-text"><a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a></p></div>

@@ -223,7 +223,6 @@ $cart_query_ids = array();
         box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
     }
 
-
     .invoice {
         background-color: #F2F2F2;
         border: 1px solid #dfa449;
@@ -248,7 +247,6 @@ $cart_query_ids = array();
     .invoice_shadow {
         box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
     }
-
 
     .add_event {
         /*background-color: #E2AD5B;*/
@@ -1161,15 +1159,15 @@ $cart_query_ids = array();
     }
 
     .move_right {
-        text-align:right;
+        text-align: right;
         opacity: 0.3;
     }
-    .move_right:hover{
+
+    .move_right:hover {
         opacity: 1;
         transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
         animation-duration: 40s;
     }
-
 
     /*Copy*/
     .tooltip {
@@ -1429,7 +1427,13 @@ $cart_query_ids = array();
                                         {{$date_name}} Date:
 
                                         <?php
-                                            $query_ids = array();
+                                        $date_name = "Request";
+                                        $price = 0;
+                                        $advance = 0;
+                                        $due = 0;
+                                        $already_paid = 0;
+                                        $discount = 0;
+                                        $query_ids = array();
                                         ?>
 
                                         @foreach($queries['query_details'] as $query)
@@ -1462,6 +1466,7 @@ $cart_query_ids = array();
                                                 $advance += $query['advance_payment'];
                                                 $already_paid += $query['total_paid'];
                                                 $discount += $query['discount'];
+
 
                                                 $due = $price - ($already_paid + $discount);
                                             }
@@ -1511,13 +1516,14 @@ $cart_query_ids = array();
                                         <div class="col-sm-12">
                                             <p></p>
 
-                                            <a href="{{route('showInvoice',implode(',',$query_ids))}}" class="invoice invoice_shadow"> Get Invoice </a>
+                                            {{--<a href="{{route('showInvoice',implode(',',$query_ids))}}" class="invoice invoice_shadow"> Get Invoice </a>--}}
 
-
-                                           {{-- <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}">
-                                                <img class="invoice_image" src="{{asset('img/icons/invoice2.png')}}">
-                                                <span class="tooltiptext">Get Invoice</span>
-                                            </a>--}}
+                                            <a href="{{route('showInvoice',implode(',',$query_ids))}}" type="button"
+                                               class="btn btn-info"> Get Invoice </a>
+                                            {{-- <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}">
+                                                 <img class="invoice_image" src="{{asset('img/icons/invoice2.png')}}">
+                                                 <span class="tooltiptext">Get Invoice</span>
+                                             </a>--}}
                                             <p class="duePrice"></p>
                                         </div>
                                     </div>
@@ -1540,7 +1546,7 @@ $cart_query_ids = array();
                                         </div>
                                     </div>--}}
                                     @endif
-                                    
+
                                 </td>
 
 
@@ -1630,11 +1636,14 @@ $cart_query_ids = array();
                                         <p></p>
                                         <button class="paybook_complete paybook_complete_shadow"
                                                 style="padding: 5px 52px"
-                                                onclick="openNav()"
-                                                data-toggle="modal"> Payment Complete
+                                                onclick="/*openNav()*/"
+                                                data-toggle="modal" disabled> Payment Complete
                                         </button>
                                         {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                        <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                        <p class="duePrice"> Due amount: BDT {{$due}}
+
+
+                                        </p>
                                     </td>
                                 @endif
 
@@ -1656,11 +1665,13 @@ $cart_query_ids = array();
                                     </button>
 
 
-
-
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
                                     <p class="advance">Min. Advance: BDT {{$advance}}</p>
                                 </td>
+                                @else
+                                    <td>
+
+                                    </td>
                                 @endif
                             </tr>
                         @endforeach
@@ -1963,7 +1974,10 @@ $cart_query_ids = array();
                                                 data-toggle="modal"> Payment Complete
                                         </button>
                                         {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                        <p class="duePrice_0"> Due amount: BDT {{$due}} </p>
+                                        <p class="duePrice_0"> Due amount: BDT {{$due}}
+
+
+                                        </p>
                                     </td>
                                 @endif
                                 @elseif($status_var == 7 ) <!- timeout ->
@@ -2039,12 +2053,10 @@ $cart_query_ids = array();
                 var query_current_amount = [];
                 var i = 0;
                 var total = 0;
-                for (i = 0; i < $len; i++)
-                {
+                for (i = 0; i < $len; i++) {
                     //alert(document.getElementById(i).value);
                     //alert(document.getElementById(i).getAttribute('max'));
-                    if(parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) || parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max')))
-                    {
+                    if (parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) || parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max'))) {
                         alert(document.getElementById(i).value + ' min ' + document.getElementById(i).getAttribute('min') + 'max' + document.getElementById(i).getAttribute('max'));
                     }
 
