@@ -163,6 +163,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*Pdf*/
+        Barryvdh\DomPDF\ServiceProvider::class,
+
+
     ],
 
     /*
@@ -216,6 +220,10 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Feeds'    => willvincent\Feeds\Facades\FeedsFacade::class,
+
+        /*pdf*/
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
     ],
 
 ];

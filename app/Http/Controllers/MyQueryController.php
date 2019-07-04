@@ -210,7 +210,7 @@ class MyQueryController extends Controller
                 }
                 if(!empty($to))
                 {
-                    array_push($query_arr1,array(
+                    array_push($query_arr,array(
                         "display_status" => "Timeout",
                         "query_details" => $to));
                 }
@@ -444,6 +444,7 @@ class MyQueryController extends Controller
             "Total" => $not_total
         );
 
+
         $vendor_arr=array_merge($service_arr,$vendor_arr);
         $service_arr=array();
 
@@ -455,6 +456,11 @@ class MyQueryController extends Controller
         array_multisort($sort, SORT_DESC, $vendor_arr);
 
         //return $vendor_arr;
+        //return $not_arr;
+
+        //return $vendor_arr;
+
+
         return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
     }
     public function expired_query()
@@ -463,6 +469,8 @@ class MyQueryController extends Controller
 
         $vendors = ExpireQuery::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->get();
         $services = ExpireQuery::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->get();
+
+        //return $services;
 
         $vendor_arr = array();
         $service_arr = array();
@@ -675,7 +683,7 @@ class MyQueryController extends Controller
                 {
                     array_push($qs,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_qs=$not_qs+1;
                     }
@@ -686,7 +694,7 @@ class MyQueryController extends Controller
                 {
                     array_push($ir,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_ir=$not_ir+1;
                     }
@@ -697,7 +705,7 @@ class MyQueryController extends Controller
                 {
                     array_push($av,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_av=$not_av+1;
                     }
@@ -706,9 +714,10 @@ class MyQueryController extends Controller
                 }
                 case 'Not Available':
                 {
+
                     array_push($na,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_na=$not_na+1;
                     }
@@ -717,9 +726,10 @@ class MyQueryController extends Controller
                 }
                 case 'Booked':
                 {
+
                     array_push($b,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_b=$not_b+1;
                     }
@@ -730,7 +740,7 @@ class MyQueryController extends Controller
                 {
                     array_push($cr,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_cr=$not_cr+1;
                     }
@@ -741,7 +751,7 @@ class MyQueryController extends Controller
                 {
                     array_push($to,$q);
 
-                    if($vendor->is_open==0)
+                    if($service->is_open==0)
                     {
                         $not_to=$not_to+1;
                     }
@@ -808,6 +818,7 @@ class MyQueryController extends Controller
                     "query_tag" => $tag_title,
 
                 );
+
                 array_push($service_arr, $v);
                 $query_arr1 = array();$qs=array();$ir=array();$av=array();$na=array();
                 $b=array();$cr=array();$to=array();
@@ -884,7 +895,27 @@ class MyQueryController extends Controller
         $query_ids = explode(',', $query_ids);
         //return $query_ids;
 
+        /**
+         * Find the submit id -> and use it in the end of this method
+         */
+        $query = Query::find($query_ids[0]);
+        $submit_id = $query->submit_id;
+
+
+        $que_id = 1;
+
+
+
         foreach ($query_ids as $id) {
+
+
+            if(end($query_ids) == $id){
+                $que_id = 0;
+            }else{
+                $que_id = 1;
+            }
+
+
             $query = Query::find($id);
             
             /*New Code for replicating*/
@@ -912,13 +943,25 @@ class MyQueryController extends Controller
 
             $expired_query->in_cart = $query->in_cart;
             $expired_query->submit_id = $query->submit_id;
-            $expired_query->queue_id = $query->queue_id;
+            $expired_query->queue_id = $que_id;
 
             $expired_query->save();
             /*End of -> New Code for replicating*/
             
             $query->delete();
         }
+
+
+        $queries = Query::where('submit_id',$submit_id)->get();
+        $i=0;
+        foreach($queries as $q){
+            if(count($queries)-1 == $i){
+                $q->queue_id = 0;
+                $q->save();
+            }
+                $i++;
+        }
+
         return Redirect::back();
         //return "Delete SuccessFully";
     }
@@ -1424,11 +1467,12 @@ class MyQueryController extends Controller
             'status' => $status,
             'query_message' => $query->message,
             'query_admin_reply' => $query->admin_reply,
+            'admin_message' => $query->admin_message,
 
 
         ];
 
-        //return $details;
+       // return $details;
         return view('user.extra.query_details')->with('details',$details);
     }
 

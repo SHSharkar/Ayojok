@@ -223,6 +223,33 @@ $cart_query_ids = array();
         box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
     }
 
+
+    .invoice {
+        background-color: #F2F2F2;
+        border: 1px solid #dfa449;
+        color: #EF4E4A;
+        padding: 3px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+        /*margin: 4px 2px;*/
+        /*cursor: pointer;*/
+        /*margin-top: 50%;*/
+
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 5px;
+
+    }
+
+    .invoice_shadow {
+        box-shadow: 0 1px 3px 0 rgba(223, 164, 73, 0.24), 0 1px 1px 0 rgba(33, 136, 56, 0.19);
+    }
+
+
     .add_event {
         /*background-color: #E2AD5B;*/
         border: 1px solid #0B98FF;
@@ -1400,6 +1427,11 @@ $cart_query_ids = array();
                                         <span>{{$vendor['category_name']}}</span>
                                         |
                                         {{$date_name}} Date:
+
+                                        <?php
+                                            $query_ids = array();
+                                        ?>
+
                                         @foreach($queries['query_details'] as $query)
 
 
@@ -1472,16 +1504,20 @@ $cart_query_ids = array();
                                 {{--Icons for Invoices--}}
 
                                 <td>
+                                    {{--{{json_encode($query_ids)}}--}}
                                     @if($status_var == 5) <!- booked ->
                                     <div class="row" id="#invoice_btn" style="margin-bottom: 30%;">
-                                        <div class="col-sm-8 ">
-                                        </div>
-                                        <div class="col-sm-4 move_right tooltip">
+
+                                        <div class="col-sm-12">
                                             <p></p>
-                                            <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}">
+
+                                            <a href="{{route('showInvoice',implode(',',$query_ids))}}" class="invoice invoice_shadow"> Get Invoice </a>
+
+
+                                           {{-- <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}">
                                                 <img class="invoice_image" src="{{asset('img/icons/invoice2.png')}}">
                                                 <span class="tooltiptext">Get Invoice</span>
-                                            </a>
+                                            </a>--}}
                                             <p class="duePrice"></p>
                                         </div>
                                     </div>
@@ -1618,6 +1654,8 @@ $cart_query_ids = array();
                                             onclick="re_request('{{json_encode($query_ids)}}')">
                                         Re-request
                                     </button>
+
+
 
 
                                     {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
@@ -1985,14 +2023,14 @@ $cart_query_ids = array();
                 document.getElementById("mySidebar").style.width = "20%";
                 document.getElementById("main1").className = "col-sm-10";
 
-                document.getElementById("drop_down").style.float = "left";
+                //document.getElementById("drop_down").style.float = "left";
             }
 
             function closeNav() {
                 document.getElementById("mySidebar").style.width = "0";
                 document.getElementById("main1").className = "col-sm-12";
 
-                document.getElementById("drop_down").style.float = "right";
+                //.getElementById("drop_down").style.float = "right";
             }
 
             function addTotal($len) {

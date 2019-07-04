@@ -56,7 +56,6 @@ class CreateQueriesTable extends Migration
             $table->integer('submit_id')->default(0);
             $table->integer('queue_id')->default(0);
 
-            $table->integer('requested_amount')->default(0);
 
             $table->timestamps();
         });

@@ -100,7 +100,7 @@
                     {{--<p>Query Message: </p>--}}
                 </div>
                 <div class="col-sm-9 ">
-                    <p>{{$details['query_admin_reply']}}</p>
+                    <p>{{$details['admin_message']}}</p>
                     {{--<p>{{$details['query_message']}}</p>--}}
                 </div>
             </div>
