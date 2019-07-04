@@ -1428,6 +1428,18 @@ class MyQueryController extends Controller
                 $counter_for_booked++;
             }
 
+            if(  strtolower($query->status) == 'cash requested'){
+
+               // return "cash";
+
+                /*Calculate price details for available dates*/
+                $total_available += $query->total;
+                $advance_available += $query->advance;
+                $total_paid_available += $query->payment;
+                $discount_available += $query->discount;
+                $counter_for_availabe++;
+            }
+
             $requested_dates[$i] = [
                 'event_date' => $query->event_date,
                 'shift' => $query->shift,
@@ -1472,7 +1484,7 @@ class MyQueryController extends Controller
 
         ];
 
-       // return $details;
+        //return $details;
         return view('user.extra.query_details')->with('details',$details);
     }
 

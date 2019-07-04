@@ -80,7 +80,7 @@
 
                     <div class="col-lg-8 mt-3" style="padding:0px;">
                         <div class="form-area">
-                            <h5 style="margin-top: 5px; text-align: center; color:white;">Booking Query</h5>
+                            <h5 style="margin-top: 5px; text-align: center; color:white;">Booking Query </h5>
 
                             <p style="font-size:0.8rem;font-weight:500;">Please leave your details and let us take care
                                 of the rest</p>
@@ -91,15 +91,27 @@
                                 <input type="hidden" id="catagory_id" value="{{$singleproduct->catagory_id}}">
                                 <input type="hidden" id="product_id" value="{{$singleproduct->id}}">
 
+                                @guest
+                                {{-- Date and Time --}}
+                                <div class="form-group">
+                                    <input type="text" data-toggle="modal" href="#myModal" class="form-control"  id="date" name="date" placeholder="Date"
+                                           required readonly>
+                                </div>
+                                @endguest
+                                @auth
                                 {{-- Date and Time --}}
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="date" name="date" placeholder="Date"
                                            required readonly>
                                 </div>
+                                @endauth
+
+
+
 
                                 <div class="form-group">
                                     @guest
-                                    <input type="text" class="form-control" name="phn" placeholder="Mobile Number"
+                                    <input  type="text" data-toggle="modal" href="#myModal" class="form-control" name="phn" placeholder="Mobile Number"
                                            required readonly>
                                     @endguest
                                     @auth
@@ -108,6 +120,16 @@
                                     @endauth
                                 </div>
 
+                                @guest
+                                <div class="form-group">
+                                    <textarea  data-toggle="modal" href="#myModal" class="form-control" type="textarea" id="message"
+                                              placeholder="Extra Messages to clarify your need" maxlength="250"
+                                              rows="3"></textarea>
+                                    <span class="help-text"><p id="characterLeft" class="help-block ">You have reached
+                                            the limit</p></span>
+                                </div>
+                                @endguest
+                                @auth
                                 {{-- Extra Message --}}
                                 <div class="form-group">
                                     <textarea class="form-control" type="textarea" id="message"
@@ -116,6 +138,8 @@
                                     <span class="help-text"><p id="characterLeft" class="help-block ">You have reached
                                             the limit</p></span>
                                 </div>
+                                @endauth
+
 
                             </form>
 
