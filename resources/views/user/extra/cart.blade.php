@@ -18,6 +18,7 @@
                     <input type="number" onkeyup="addTotal('{{$len}}')" class="form-control-sm cart-form-control" id="{{$i}}" name="{{$v['query_id']}}" value="{{$v['amount']}}" min="{{$v['min']}}" max="{{$v['max']}}">
                     <button onclick="removeFromCart({{$v['query_id']}})" class="cart-delete-btn"><img src="{{asset('img/cart/Delete.png')}}"/></button>
                 </div>
+                <p style="font-size: 14px; color: #c9302c; padding-top: 1%; font-weight: bold" id="ep{{$i}}"></p>
             </td>
         </tr>
         <?php

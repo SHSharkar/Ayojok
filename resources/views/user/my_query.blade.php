@@ -2014,7 +2014,7 @@ $cart_query_ids = array();
             <div><label class="cart-total">Total: </label> <label class="cart-total cart-total-value"
                                                                   id="total"></label>
             </div>
-            <button class="cart-paybtn cart-paybtn-shadow"
+            <button id="pbtn" class="cart-paybtn cart-paybtn-shadow"
                     data-toggle="modal" data-target="#modal_payment" onclick="setTotal()">Payment
             </button>
         </div>
@@ -2023,34 +2023,56 @@ $cart_query_ids = array();
                 document.getElementById("mySidebar").style.width = "20%";
                 document.getElementById("main1").className = "col-sm-10";
 
-                //document.getElementById("drop_down").style.float = "left";
             }
 
             function closeNav() {
                 document.getElementById("mySidebar").style.width = "0";
                 document.getElementById("main1").className = "col-sm-12";
 
-                //.getElementById("drop_down").style.float = "right";
             }
 
             function addTotal($len) {
                 //alert($len);
 
                 var query_current_amount = [];
-                var i = 0;
+                var i = 0; var flag=0;
                 var total = 0;
                 for (i = 0; i < $len; i++)
                 {
                     //alert(document.getElementById(i).value);
                     //alert(document.getElementById(i).getAttribute('max'));
-                    if(parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) || parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max')))
-                    {
-                        alert(document.getElementById(i).value + ' min ' + document.getElementById(i).getAttribute('min') + 'max' + document.getElementById(i).getAttribute('max'));
-                    }
-
                     total = total + parseInt(document.getElementById(i).value);
                     query_current_amount[i] = parseInt(document.getElementById(i).value);
+
+                    if(parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) || parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max')))
+                    {
+                        document.getElementById(i).style.border='2px solid #c9302c';
+                        document.getElementById(i).style.color='#c9302c';
+                        var ep= "ep"+i;
+                        document.getElementById(ep).innerHTML="Min: "+parseInt(document.getElementById(i).getAttribute('min'))+" and Max: "+parseInt(document.getElementById(i).getAttribute('max'));
+                        flag=1;
+
+                    }
+                    else
+                    {
+                        document.getElementById(i).style.border='1px solid #DFA449';
+                        document.getElementById(i).style.color='#495057';
+                        var ep= "ep"+i;
+                        document.getElementById(ep).innerHTML="";
+                    }
                 }
+
+                if(flag==1)
+                {
+                    $('#pbtn').attr('disabled','disabled');
+                    $('#pbtn').attr('style','background-color : #dec49c');
+                }
+                else
+                {
+                    $('#pbtn').removeAttr('disabled');
+                    $('#pbtn').attr('style','background-color : #E2AD5B')
+                }
+
                 document.getElementById('total').innerHTML = total;
                 document.getElementById('cart_current_amounts').value = query_current_amount;
             }
