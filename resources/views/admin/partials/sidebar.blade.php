@@ -116,18 +116,18 @@
                 </a>
             </li>
             {{-- Confirm List --}}
-            <li>
+            {{--<li>
                 <a href="{{route('confirm')}}">
                     <span class="glyphicon glyphicon-ok"></span> <span>Booking List ( {{$totalOrder}} )</span>
                 </a>
-            </li>
+            </li>--}}
 
             {{-- Order Menu --}}
-            <li>
+            {{--<li>
                 <a href="{{route('order')}}">
                     <i class="fa fa-clipboard"></i> <span>Payment List ( {{$totalPayment_list}} ) </span>
                 </a>
-            </li>
+            </li>--}}
 
             {{-- Product Menu --}}
             <li class="treeview">
@@ -194,15 +194,17 @@
 
             {{-- Messages --}}
             <li>
-                <a href="{{route('mess')}}">
-                    <i class="fa fa-envelope-o"></i> <span>Message ( {{$total_message}} ) </span>
-                </a>
-            </li>
-            <li>
                 <a href="{{route('ad_partners')}}">
                     <i class="fa fa-handshake-o"></i> <span>Partners ( {{$total_partners}} )</span>
                 </a>
             </li>
+
+            <li>
+                <a href="{{route('mess')}}">
+                    <i class="fa fa-envelope-o"></i> <span>Message ( {{$total_message}} ) </span>
+                </a>
+            </li>
+
 
             <li>
                 <a href="{{route('event_coordinators_msg')}}">
