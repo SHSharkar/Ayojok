@@ -292,6 +292,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/admin/client/load-category/{type}', 'ClientController@loadCategory')->name('loadCategory');
     Route::get('/admin/client/load-item/{category_id}', 'ClientController@loadItem')->name('loadItem');
 
+    Route::post('/admin/client/query', 'ClientController@query_submit')->name('admin.user.query');
+
 
 
 
