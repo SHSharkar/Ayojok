@@ -289,6 +289,13 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/admin/new-client', 'ClientController@newClient')->name('new_client');
     Route::post('/admin/new-client/', 'ClientController@newClientSubmit')->name('client.store');
 
+    Route::get('/admin/client/load-category/{type}', 'ClientController@loadCategory')->name('loadCategory');
+    Route::get('/admin/client/load-item/{category_id}', 'ClientController@loadItem')->name('loadItem');
+
+
+
+
+
     Route::get('/admin/order', 'OrderController@show')->name('order');
     Route::get('/admin/order/{userid}', 'OrderController@showsingle')->name('specific-order');
 

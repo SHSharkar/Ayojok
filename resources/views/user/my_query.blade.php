@@ -2732,7 +2732,7 @@ $cart_query_ids = array();
                 dataType: 'text'
 
             });
-        };
+        }
 
     });
 

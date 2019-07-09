@@ -16,6 +16,7 @@
 
         <section class="maincontent">
 
+
             <div class="col-md-4" style="margin-top:2rem;">
 
                 <div class="box box-danger">
@@ -96,9 +97,81 @@
                     </div>
                 </div>
             </div>
-
-
         </section>
+
+        <div class="row container-fluid">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body" style="margin-top:2rem;">
+                        <div class="col-md-6" style="margin-bottom:2rem;">
+                            <form action="{{route('service.store')}}" method="post" class="form-horizontal"
+                                  enctype="multipart/form-data">
+                                {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="service_type">Type:</label>
+
+                                    <div class="col-md-10">
+                                        <select style="padding: 5px;" class="form-control" id="service_type"
+                                                name="service_type" required onchange="loadCategory(this)">
+                                            <option value="">-- Select any type --</option>
+                                            <option value="service" style="text-transform:capitalize;">service</option>
+                                            <option value="vendor" style="text-transform:capitalize;">vendor</option>
+                                            {{--@foreach ($catagories as $catagory)
+                                                <option value="{{$catagory->id}}" style="text-transform:capitalize;">{{$catagory->name}}</option>
+                                            @endforeach--}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="category">Category:</label>
+
+                                    <div class="col-md-10">
+                                        <select style="padding: 5px;" class="form-control" id="category" name="category"
+                                                onchange="loadItem(this)" required>
+                                            <option value="">-- Select any Category --</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="category">Category:</label>
+
+                                    <div class="col-md-10">
+                                        <select style="padding: 5px;" class="form-control" id="item" name="item"
+                                                 required>
+                                            <option value="">-- Select Item --</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="long_description">Long
+                                        Description:</label>
+
+                                    <div class="col-md-10">
+                                        <textarea rows="5" class="form-control" id="long_description"
+                                                  placeholder="Enter deatils description" name="long_description"
+                                                  required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary pull-right" type="submit">Upload service</button>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
         <!-- /.content -->
     </div>
 
@@ -116,5 +189,45 @@
             'autoWidth': false
         })
     })
+
+    function loadCategory(ob) {
+        // alert(ob.value);
+
+        $.ajax({
+            url: 'load-category/' + ob.value,
+            type: 'GET',
+            success: function (data) {
+                console.log(' type: ' + data);
+                //alert(i+':'+data);
+                $('#category').html(data);
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+            },
+            dataType: 'text'
+
+        });
+    }
+
+    function loadItem(ob) {
+        //alert(ob.value);
+        $.ajax({
+            url: 'load-item/' + ob.value,
+            type: 'GET',
+            success: function (data) {
+                console.log(' item: ' + data);
+                //alert(i+':'+data);
+                $('#item').html(data);
+            },
+            error: function (xhr, status, error) {
+                // check status && error
+                console.log('Error  message: ' + error);
+            },
+            dataType: 'text'
+        });
+    }
+
+
 </script>
 @endpush

@@ -13,6 +13,9 @@ class catagory extends Model
     public function products(){
       return $this->hasMany('App\Models\Products','catagory_id');
     }
+    public function vendors(){
+      return $this->hasMany('App\Models\Products','catagory_id');
+    }
 
     public function packages(){
       return $this->hasMany('App\Models\packages','catagory_id');

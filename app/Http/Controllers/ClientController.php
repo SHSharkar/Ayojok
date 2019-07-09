@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Models\address;
+use App\Models\vendors;
+use App\Models\products;
+use App\Models\catagory;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -58,5 +61,41 @@ class ClientController extends Controller
 
     return Redirect::back()->with('success',"New User .$client->name. added successfully.");
 
+  }
+
+  public function loadCategory($type){
+
+    $is_service = 0;
+    if($type == "service"){
+      $is_service =0;
+    }else{
+      $is_service = 1;
+    }
+    $categories = catagory::where('is_service',$is_service)->get();
+
+
+
+    return view('admin.extra.select_options')->with('categories',$categories);
+  }
+
+  public function loadItem($category_id){
+
+
+    $category = catagory::find($category_id);
+
+    $items = null;
+    if($category->is_service){
+      $items = vendors::where('catagory_id',$category_id)->get();
+    }else{
+      $items = products::where('catagory_id',$category_id)->get();
+    }
+
+
+
+    //return $items;
+
+
+
+    return view('admin.extra.select_options')->with('items',$items);
   }
 }
