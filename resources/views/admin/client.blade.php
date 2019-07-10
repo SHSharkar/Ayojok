@@ -21,9 +21,15 @@
 
         <div class="box box-danger">
 
-
-
           <div class="box-body table-responsive">
+
+            <div class="row">
+              <div class="col-md-4">
+
+
+              </div>
+            </div>
+
             <a href="{{route('new_client')}}" class="btn btn-primary btn-lg">Add New</a>
             <table id="example1" class="table table-bordered table-striped">
               <thead>
@@ -67,6 +73,7 @@
   @endsection
 
   @push('scripts')
+
     <script>
     $(function () {
       $('#example1').DataTable({
@@ -78,5 +85,8 @@
         'autoWidth'   : false
       })
     })
+
+
+
     </script>
   @endpush

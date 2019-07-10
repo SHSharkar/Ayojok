@@ -9,15 +9,26 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Client Details
-            </h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>
+                        Client Details
+                    </h3>
+
+                </div>
+                <div class="col-md-6">
+                    <h3>
+                        Add New Query
+                    </h3>
+
+                </div>
+            </div>
         </section>
 
         <section class="maincontent">
             <div class="row container-fluid">
-                <div class="col-md-4" style="margin-top:2rem;">
-                    <div class="box box-danger">
+                <div class="col-md-6" >
+                    <div class="box box-default">
                         <div class="box-body">
                             <div class="details">
                                 <label for="id" class="control-label col-md-4">Client ID:</label>
@@ -60,9 +71,142 @@
                     </div>
                     <!-- /.box -->
 
+                    <h3>
+                        Total Accounting
+                    </h3>
+                    <div class="box box-success">
+                        <div class="box-body">
+                            <div class="details">
+                                <label for="id" class="control-label col-md-4">Total Price:</label>
+
+                                <div class="col-md-8">
+                                    <p>{{$data->id}}</p>
+                                </div>
+                                <label for="email" class="control-label col-md-4">Advance price:</label>
+
+                                <div class="col-md-8">
+                                    <p>{{$data->email}}</p>
+                                </div>
+                                <label for="username" class="control-label col-md-4">Discount:</label>
+
+                                <div class="col-md-8">
+                                    <p>{{$data->name}}</p>
+                                </div>
+                                <label for="name" class="control-label col-md-4">Total paid:</label>
+
+                                <div class="col-md-8">
+                                    @if (empty($data->fname) && empty($data->lname))
+                                        <p>{{"Not Set Yet"}}</p>
+                                    @else
+                                        <p>{{$data->fname}} {{$data->lname}}</p>
+                                    @endif
+                                </div>
+                                <label for="contact" class="control-label col-md-4">Due:</label>
+
+                                <div class="col-md-8">
+                                    <p>{{$data->contact}}</p>
+                                </div>
+                                <label for="contact" class="control-label col-md-4">Client Address:</label>
+
+                                <div class="col-md-8">
+                                    <p>{{$data->address}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
                 </div>
 
-                <div class="col-md-8" style="margin-top:2rem;">
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-body" style="margin-top:2rem;">
+                            <div class="col-md-12" style="margin-bottom:2rem;">
+                                <form action="{{route('admin.user.query')}}" method="post" class="form-horizontal"
+                                      enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+
+                                    <input type="hidden" value="{{$data->id}}" name="user_id">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="contact">Mobile:</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" style="padding: 5px;" class="form-control" id="contact" name="contact" value="{{$data->contact}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="event_date">Date:</label>
+                                        <div class="col-md-4">
+                                            <input type="date" style="padding: 5px;" class="form-control" id="event_date" name="event_date" value="" required>
+                                        </div>
+
+                                        <label class="control-label col-md-2" for="shift">Shift:</label>
+                                        <div class="col-md-4">
+                                            <input type="text" style="padding: 5px;" class="form-control" id="shift" name="shift" value="" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="service_type">Type:</label>
+
+                                        <div class="col-md-10">
+                                            <select style="padding: 5px;" class="form-control" id="service_type"
+                                                    name="service_type" required onchange="loadCategory(this)">
+                                                <option value="">-- Select any type --</option>
+                                                <option value="service" style="text-transform:capitalize;">service</option>
+                                                <option value="vendor" style="text-transform:capitalize;">vendor</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="category">Category:</label>
+
+                                        <div class="col-md-10">
+                                            <select style="padding: 5px;" class="form-control" id="category" name="category"
+                                                    onchange="loadItem(this)" required>
+                                                <option value="">-- Select any Category --</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="item">Item/Vendor:</label>
+
+                                        <div class="col-md-10">
+                                            <select style="padding: 5px;" class="form-control" id="item" name="item"
+                                                    required>
+                                                <option value="">-- Select Item --</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="long_description">Message:</label>
+
+                                        <div class="col-md-10">
+                                        <textarea rows="5" class="form-control" id="long_description"
+                                                  placeholder="Enter deatils description" name="long_description"
+                                                ></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-primary pull-right" type="submit">Add Query</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+                {{--<div class="col-md-8" style="margin-top:2rem;">
                     <div class="box box-success">
                         <div class="box-body table-responsive">
                             <table id="example1" class="table table-bordered table-striped">
@@ -94,98 +238,13 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </section>
 
         <div class="row container-fluid">
-            <div class="col-md-4">
-                <div class="box box-primary">
-                    <div class="box-body" style="margin-top:2rem;">
-                        <div class="col-md-12" style="margin-bottom:2rem;">
-                            <form action="{{route('admin.user.query')}}" method="post" class="form-horizontal"
-                                  enctype="multipart/form-data">
-                                {{ csrf_field() }}
 
-                                <input type="hidden" value="{{$data->id}}" name="user_id">
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="contact">Mobile:</label>
-
-                                    <div class="col-md-10">
-                                        <input type="text" style="padding: 5px;" class="form-control" id="contact" name="contact" value="{{$data->contact}}" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="event_date">Date:</label>
-                                    <div class="col-md-4">
-                                        <input type="date" style="padding: 5px;" class="form-control" id="event_date" name="event_date" value="" required>
-                                    </div>
-
-                                    <label class="control-label col-md-2" for="shift">Shift:</label>
-                                    <div class="col-md-4">
-                                        <input type="text" style="padding: 5px;" class="form-control" id="shift" name="shift" value="" >
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="service_type">Type:</label>
-
-                                    <div class="col-md-10">
-                                        <select style="padding: 5px;" class="form-control" id="service_type"
-                                                name="service_type" required onchange="loadCategory(this)">
-                                            <option value="">-- Select any type --</option>
-                                            <option value="service" style="text-transform:capitalize;">service</option>
-                                            <option value="vendor" style="text-transform:capitalize;">vendor</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="category">Category:</label>
-
-                                    <div class="col-md-10">
-                                        <select style="padding: 5px;" class="form-control" id="category" name="category"
-                                                onchange="loadItem(this)" required>
-                                            <option value="">-- Select any Category --</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="item">Item/Vendor:</label>
-
-                                    <div class="col-md-10">
-                                        <select style="padding: 5px;" class="form-control" id="item" name="item"
-                                                 required>
-                                            <option value="">-- Select Item --</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2" for="long_description">Message:</label>
-
-                                    <div class="col-md-10">
-                                        <textarea rows="5" class="form-control" id="long_description"
-                                                  placeholder="Enter deatils description" name="long_description"
-                                                  ></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <button class="btn btn-primary pull-right" type="submit">Add Query</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="box box-success">
                     <div class="box-body table-responsive">
                         <label class="label-primary">Query List</label>
@@ -199,7 +258,14 @@
                                 <th>Vendor/Service Name</th>
                                 <th>Submit Id</th>
                                 <th>Tag</th>
-                                <th>Event Date</th>
+                                <th style="background-color: rgba(255, 55, 199, 0.95)">Event Date</th>
+
+                                <th>Total Price</th>
+                                <th>Advance</th>
+                                <th>Discount</th>
+                                <th>Cash Payment:</th>
+                                <th>Total Paid:</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -207,7 +273,6 @@
                             $sl = 1;
                             @endphp
                             @foreach ($vendors as $vendor)
-
                                 <tr>
                                     <td>{{$sl}}</td>
                                     <td>{{$vendor->id}}</td>
@@ -215,8 +280,37 @@
                                     <td>{{$vendor->vendors->title}}</td>
                                     <td>{{$vendor->submit_id}}</td>
                                     <td>{{$vendor->tag}}</td>
-                                    <td>{{$vendor->event_date}}</td>
+                                    <td>{{date_format(date_create($vendor->event_date),'d-M/Y')}}</td>
+                                    <td>
+                                        <input  type="number" class="text-center total_price" name="total_price" disabled="disabled" id="total_price" onchange="accounts()">
+                                    </td>
+                                     <td>
+                                        <input type="number" class="text-center" name="advance" disabled="disabled">
+                                    </td>
+                                     <td>
+                                        <input type="number" class="text-center" name="discount" disabled="disabled">
+                                    </td>
+                                     <td>
+                                        <input type="number" class="text-center" name="cash_payment" disabled="disabled">
+                                    </td>
+                                     <td>
+                                         <span>BDT. </span> {{$vendor->payment}} Tk
+                                    </td>
 
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <a href="javascript:void(0)" class="btn-edit">
+                                                    <i class="fa fa-edit" style="font-size:36px"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="javascript:void(0)">
+                                                    <i class="fa fa-save" style="font-size:36px;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @php
                                 $sl++;
@@ -292,6 +386,23 @@
             dataType: 'text'
         });
     }
+
+    function accounts(){
+
+        //console.log(document.getElementById("total_price").value);
+        prices = document.getElementsByClassName("total_price");
+
+        total_price = 0;
+        prices.forEach(function(price) {
+            total_price += parseInt(price.value);
+        });
+
+        console.log(total_price);
+    }
+
+    $(".btn-edit").on("click", function(){
+        $(this).closest('tr').find('input,button').prop('disabled', false);
+    });
 
 
 </script>

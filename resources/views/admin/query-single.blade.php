@@ -176,28 +176,39 @@
                 <!-- /.box -->
 
             </div>
-            {{-- <div class="col-md-4" style="margin-top:2rem;">
-              <div class="box box-info">
-                <div class="box-body">
-                  <div class="deatils">
-                    <p>
-                      Notify Client for this query update using email.
-                    </p>
+            <div class="col-md-4" style="margin-top:2rem;">
+                {{--<div class="box box-info">
+                    <div class="box-body">
+                        <div class="deatils">
+                            <p>
+                                Notify Client for this query update using email.
+                            </p>
 
-                      @if ($emails->first()->is_mailed == 0)
+                            @if ($emails->first()->is_mailed == 0)
 
-                        {!! Form::open(['method' => 'POST','route'=> ['notify-client',$emails->first()->user_id,], 'style' => 'display:inline']) !!}
-                        {!! Form::button('<span class="fa fa-envelope" aria-hidden="true"> Send Mail</span>',['class'=> 'btn btn-success a-btn-slide-text','type' => 'submit','data-toggle'=>'tooltip', 'data-placement'=>'bottom', 'title'=>'Send notification to client']) !!}
-                        {!! Form::close()!!}
+                                {!! Form::open(['method' => 'POST','route'=> ['notify-client',$emails->first()->user_id,], 'style' => 'display:inline']) !!}
+                                {!! Form::button('<span class="fa fa-envelope" aria-hidden="true"> Send Mail</span>',['class'=> 'btn btn-success a-btn-slide-text','type' => 'submit','data-toggle'=>'tooltip', 'data-placement'=>'bottom', 'title'=>'Send notification to client']) !!}
+                                {!! Form::close()!!}
 
-                      @else
-                        <p>Client Notified</p>
-                      @endif
+                            @else
+                                <p>Client Notified</p>
+                            @endif
 
-                  </div>
+                        </div>
+                    </div>
+                </div>--}}
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="deatils">
+                            <p>
+                                Add New Query For this User.
+                            </p>
+                            <a href="{{route('specific-client',$datas->id)}}" class="btn btn-success a-btn-slide-text"><span class="fa fa-plus" aria-hidden="true" style="padding-right: 5px"></span>Add Query</a>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div> --}}
+            </div>
+
 
             {{-- Vendor Query --}}
             <div class="col-md-12" style="margin-top:2rem;">
@@ -286,7 +297,8 @@
                                             </div>
                                             @if($vendor->status == "Booked")
                                                 <div class="col-sm-6 ">
-                                                        <a class="" href="{{route('showInvoiceAdmin',[$datas->id,$vendor->submit_id])}}">
+                                                    <a class=""
+                                                       href="{{route('showInvoiceAdmin',[$datas->id,$vendor->submit_id])}}">
                                                         <img class="invoice_image"
                                                              src="{{asset('img/icons/invoice.png')}}">
                                                         {{--Get Invoice--}}
@@ -386,11 +398,11 @@
                                         @endswitch
                                     @endif
                                     <td>
-                                       {{-- <button class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modal_details"
-                                                onclick=setDetailsModalWithData('{{json_encode($service->id)}}')>
-                                            Details
-                                        </button>--}}
+                                        {{-- <button class="btn btn-primary" data-toggle="modal"
+                                                 data-target="#modal_details"
+                                                 onclick=setDetailsModalWithData('{{json_encode($service->id)}}')>
+                                             Details
+                                         </button>--}}
                                         <div class="row" id="#invoice_btn">
                                             <div class="col-sm-6 ">
                                                 <button class="btn btn-primary" data-toggle="modal"
@@ -401,7 +413,8 @@
                                             </div>
                                             @if($service->status == "Booked")
                                                 <div class="col-sm-6 ">
-                                                    <a class="" href="{{route('showInvoiceAdmin',[$datas->id,$service->submit_id])}}">
+                                                    <a class=""
+                                                       href="{{route('showInvoiceAdmin',[$datas->id,$service->submit_id])}}">
                                                         <img class="invoice_image"
                                                              src="{{asset('img/icons/invoice.png')}}">
                                                         {{--Get Invoice--}}
