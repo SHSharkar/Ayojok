@@ -35,7 +35,10 @@ class ClientController extends Controller
     //return $vendors;
 
 
+    /**Merging array*/
+    $vendors = $vendors->merge($services);
 
+    //return $vendors;
 
 
     return view('admin.client-single', compact('data','addresses','vendors', 'services'));
