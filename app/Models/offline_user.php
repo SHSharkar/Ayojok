@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,8 @@ class offline_user extends Model
 
     protected $fillable = ['name','phone','email','address'];
 
-    public function custom_order(){
-      return $this->hasMany('App\Models\custom_order','user_id');
+    public function custom_order()
+    {
+        return $this->hasMany('App\Models\custom_order', 'user_id');
     }
 }
