@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2019-07-12 21:26:30.
+    * Generated on 2019-07-29 08:37:17.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -38,6 +38,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -190,6 +191,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -342,6 +344,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -494,6 +497,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -646,6 +650,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -798,6 +803,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -950,6 +956,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
@@ -1102,6 +1109,7 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
         'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'agent' => \Jenssegers\Agent\Agent::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
         'auth.password' => \Illuminate\Auth\Passwords\PasswordBrokerManager::class,
