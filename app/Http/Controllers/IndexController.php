@@ -14,9 +14,13 @@ class IndexController extends Controller
 {
     public function index()
     {
+        //$vendors = catagory::all()->where('status', 1)->where('is_service', '=', 1);
+        //$services = catagory::all()->where('status', 1)->where('is_service', '=', 0);
 
-        $vendors = catagory::all()->where('status', 1)->where('is_service', '=', 1);
-        $services = catagory::all()->where('status', 1)->where('is_service', '=', 0);
+        // Only query ID & Name instead of entire table columns
+        $vendors = catagory::whereStatus(1)->whereIsService(1)->select('id', 'name')->get();
+
+        $services = catagory::whereStatus(1)->whereIsService(0)->select('id', 'name')->get();
 
         $feed = Feeds::make(['https://ayojok.com/ideas-and-stories/feed'], 6, true); // if RSS Feed has invalid mime types, force to read
 
@@ -24,22 +28,22 @@ class IndexController extends Controller
 
         $articles = $feed->get_items();
 
-        $datas = array(
+        $datas = [
             'items' => $feed->get_items(),
-        );
+        ];
 
 
         //dd($link,$sentence,$urls[0]);
         //dd($datas['items'][0]->get_description());
 
-       // $sentence = $datas['items'][0]->get_description();
+        // $sentence = $datas['items'][0]->get_description();
 
-       /* preg_match_all('~<img .*?src=["\']+(.*?)["\']+~', $sentence, $urls, PREG_SET_ORDER);
-        print_r($urls);
-        $urls = $urls[0][1];
-        echo $urls;*/
+        /* preg_match_all('~<img .*?src=["\']+(.*?)["\']+~', $sentence, $urls, PREG_SET_ORDER);
+         print_r($urls);
+         $urls = $urls[0][1];
+         echo $urls;*/
 
-       // exit;
+        // exit;
         /*foreach($datas as $data){
             dd($data[0]) ;
             exit;
