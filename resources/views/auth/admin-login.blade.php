@@ -18,7 +18,7 @@
 
 <div class="container mt-5">
     <div class="col-lg-12 text-center">
-        <img src="{{asset('img/logo_final.png')}}" alt="Ayojok Logo" style="height:8rem;">
+        <img src="{{ asset('img/logo_final.png') }}" alt="Ayojok Logo" style="height:8rem;">
     </div>
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">

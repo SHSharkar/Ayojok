@@ -5,32 +5,20 @@
 
     <!-- Masthead -->
     <header class="masthead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
-        <!-- <div class="container h-100">
-        <div class="row h-100">
-        <div class="col-12 my-auto text-center text-white">
-        <img class="masthead-img img-fluid mb-3" src="img/profile.png" alt="">
-      </div>
-      </div>
-      </div> -->
-    <!-- {{-- <div class="scroll-down">
-<a class="btn js-scroll-trigger" href="#values">
-<i class="fa fa-angle-down fa-fw"></i>
-</a>
-</div> --}} -->
         <div class="scroll-down">
-            <div class="logos">
-                <img class="logo" src="{{ asset('img/logo_final.png') }}">
+            <div class="logos pt-4">
+                <img class="logo" src="{{ asset('img/logo_final.png') }}" alt="">
 
                 <p class="tagline" style="">Bangladesh's first & biggest online event booking service</p>
             </div>
 
-            <div class="row">
+            <div class="row pb-3">
                 <div class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-4 offset-md-4 text-center">
 
                     <div class="mb-3">
                         {{ Form::open(['route'=>'find', 'method' => 'post'])}}
                         <div class="input-group index-top-search-bar">
-                            <select name="catagory" id="catagory" class="selectpicker" data-live-search="true" title="I am looking">
+                            <select name="catagory" id="catagory" class="selectpicker" data-live-search="true" data-width="75%" title="I am looking">
                                 @unless (empty($vendors))
                                     @foreach ($vendors as $vendor)
                                         <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
@@ -67,7 +55,6 @@
                 </div>
             </div>
         </div>
-
     </header>
 
     <!-- /End FB Profile Style -->

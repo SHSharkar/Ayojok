@@ -173,8 +173,8 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
 <script>
 
 
-	function vanishErrorMessage(ob) {
-		//alert("ok");
-		ob.style.display = 'none';
-	}
+    function vanishErrorMessage(ob) {
+        //alert("ok");
+        ob.style.display = 'none';
+    }
 </script>
