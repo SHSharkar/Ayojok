@@ -25,16 +25,12 @@
             </div>
 
             <div class="row">
-                <div class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-4 offset-md-4">
+                <div class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-4 offset-md-4 text-center">
 
                     <div class="mb-3">
                         {{ Form::open(['route'=>'find', 'method' => 'post'])}}
                         <div class="input-group index-top-search-bar">
-                            <div class="input-group-append">
-                                <span class="input-group-text looking-for">I am looking</span>
-                            </div>
-
-                            <select name="catagory" id="catagory" class="form-control select-dropdown">
+                            <select name="catagory" id="catagory" class="selectpicker" data-live-search="true" title="I am looking">
                                 @unless (empty($vendors))
                                     @foreach ($vendors as $vendor)
                                         <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
@@ -47,8 +43,9 @@
                                     @endforeach
                                 @endunless
                             </select>
-
-                            <input class="btn search-button" type="submit" value="Go">
+                            <div class="input-group-append">
+                                <input class="btn search-button" type="submit" value="Go">
+                            </div>
                         </div>
                         {{ Form::close() }}
                     </div>
