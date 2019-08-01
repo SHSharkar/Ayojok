@@ -15,11 +15,7 @@ require('../vendor/datetimepicker/js/bootstrap-datetimepicker.js');
 require('../vendor/contact_me.js');
 require('../vendor/jqBootstrapValidation.js');
 require('../vendor/vitality.js');
-require('select2/dist/js/select2.min');
-
-$(document).ready(() => {
-    $('.js-example-basic-single').select2();
-});
+require('bootstrap-select/dist/js/bootstrap-select.min');
 
 $('.dropdown').hover(
     function() {

@@ -438,6 +438,10 @@ theme_color="#ff7e29">
 
 <script src="{{ mix('/js/primary.js') }}"></script>
 
+<script>
+    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+</script>
+
 @stack('scripts')
 
 </body>
