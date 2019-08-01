@@ -31,6 +31,19 @@ new WOW().init();
 
 require('../vendor/web-animations.min');
 
+const onResize = function() {
+    // apply dynamic padding at the top of the body according to the fixed navbar height
+    $('body').css('padding-top', $('.fixed-top').height());
+};
+
+// attach the function to the window resize event
+$(window).resize(onResize);
+
+// call it also when the page is ready after load or reload
+$(() => {
+    onResize();
+});
+
 $('.dropdown').hover(
     function() {
         $('.dropdown-menu', this)
@@ -65,7 +78,7 @@ jQuery('#levnumber').click(e => {
         }
     });
     jQuery.ajax({
-        url: "{{ url('/save-phn') }}",
+        url: '{{ url(\'/save-phn\') }}',
         method: 'post',
         data: {
             number: jQuery('#num').val()

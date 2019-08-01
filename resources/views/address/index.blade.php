@@ -10,7 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 my-auto text-center text-white">
-          <img class="pagehead-img img-fluid mb-3" src="img/logo_final.png" alt="">
+          <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
         </div>
       </div>
     </div>

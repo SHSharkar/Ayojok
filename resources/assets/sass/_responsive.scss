@@ -1,47 +1,21 @@
 @media screen and (max-width: 576px) {
   header {
     &.masthead {
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      -webkit-background-size: cover;
-      background-attachment: scroll;
       background-color: #222222;
-      background-size: cover;
-      margin-top: 1rem;
-      padding-bottom: 20px;
-      padding-top: 50px;
-      position: relative;
     }
 
     &.pagehead {
-      //position: relative;
-      //padding-top: 150px;
-      //padding-bottom: 150px;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: contain;
-      background-attachment: scroll;
-    }
-
-    &.masthead .masthead-img {
-      //max-width: 150px;
-      //max-height: 150px;
-    }
-
-    &.pagehead .pagehead-img {
-      //max-width: 150px;
-      //max-height: 150px;
-      //margin-top: 60px;
+      .pagehead-img {
+        max-width: 150px;
+      }
     }
 
     &.masthead .masthead-title,
     &.pagehead .pagehead-title {
+      font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 4rem;
-      line-height: 4rem;
-      font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial,
-      sans-serif;
       font-weight: 900;
+      line-height: 4rem;
       text-transform: uppercase;
     }
 
@@ -49,13 +23,6 @@
     &.pagehead .pagehead-subtitle {
       font-size: 1.5rem;
       line-height: 1.5rem;
-    }
-
-    &.masthead .scroll-down {
-      //position: absolute;
-      //bottom: 7%;
-      //width: 100%;
-      //text-align: center;
     }
 
     &.pagehead .scroll-down {
@@ -103,7 +70,7 @@
     text-align: center;
 
     .logo {
-      max-width: 250px;
+      max-width: 150px;
     }
   }
 
@@ -284,38 +251,7 @@
 @media screen and (min-width: 577px) and (max-width: 767px) {
   header {
     &.masthead {
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      -webkit-background-size: cover;
-      //padding-bottom: 15%;
-      background-attachment: scroll;
       background-color: #222222;
-      background-size: cover;
-      padding-top: 50px;
-      position: relative;
-      margin-top: 1rem;
-    }
-
-    &.pagehead {
-      //position: relative;
-      //padding-top: 150px;
-      //padding-bottom: 150px;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: contain;
-      background-attachment: scroll;
-    }
-
-    &.masthead .masthead-img {
-      //max-width: 150px;
-      //max-height: 150px;
-    }
-
-    &.pagehead .pagehead-img {
-      //max-width: 150px;
-      //max-height: 150px;
-      //margin-top: 60px;
     }
 
     &.masthead .masthead-title,
@@ -332,13 +268,6 @@
     &.pagehead .pagehead-subtitle {
       font-size: 1.5rem;
       line-height: 1.5rem;
-    }
-
-    &.masthead .scroll-down {
-      //position: absolute;
-      //bottom: 7%;
-      //width: 100%;
-      //text-align: center;
     }
 
     &.pagehead .scroll-down {
@@ -386,7 +315,7 @@
     text-align: center;
 
     .logo {
-      max-width: 250px;
+      max-width: 150px;
     }
   }
 
@@ -553,37 +482,7 @@
 @media screen and (max-width: 768px) and (min-width: 577px) {
   header {
     &.masthead {
-      position: relative;
-      padding-top: 150px;
-      padding-bottom: 15%;
       background-color: #222222;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-      background-attachment: scroll;
-    }
-
-    &.pagehead {
-      position: relative;
-      padding-top: 150px;
-      padding-bottom: 150px;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: contain;
-      background-attachment: scroll;
-    }
-
-    &.masthead .masthead-img {
-      max-width: 150px;
-      max-height: 150px;
-    }
-
-    &.pagehead .pagehead-img {
-      max-width: 150px;
-      max-height: 150px;
-      margin-top: 60px;
     }
 
     &.masthead .masthead-title,
@@ -691,7 +590,7 @@
     text-align: center;
 
     .logo {
-      max-width: 250px;
+      max-width: 200px;
     }
   }
 
@@ -905,14 +804,6 @@
   }
 
   header {
-    &.pagehead {
-      height: 16vh;
-      min-height: 160px;
-      padding-top: 0;
-      padding-bottom: 0;
-      background-size: contain;
-    }
-
     &.masthead .scroll-down {
       position: relative;
       bottom: 0;
@@ -967,7 +858,6 @@
 
       .masthead-img {
         max-width: 250px;
-        max-height: 250px;
       }
 
       .masthead-title {
@@ -982,18 +872,6 @@
     }
 
     &.pagehead {
-      height: 13vh;
-      min-height: 200px;
-      padding-top: 0;
-      padding-bottom: 0;
-      background-size: contain;
-
-      .pagehead-img {
-        max-width: 180px;
-        max-height: 220px;
-        margin-top: 60px;
-      }
-
       .pagehead-title {
         font-size: 5rem;
         line-height: 5rem;
@@ -1010,7 +888,7 @@
     text-align: center;
 
     .logo {
-      max-width: 250px;
+      max-width: 200px;
     }
   }
 
@@ -1127,17 +1005,6 @@
 }
 
 @media screen and (max-width: 1200px) and (min-width: 993px) {
-  header {
-    &.masthead {
-      margin-top: 3rem;
-    }
-
-    &.pagehead {
-      background-attachment: fixed;
-      background-size: contain;
-    }
-  }
-
   .scroll-down {
     text-align: center;
 

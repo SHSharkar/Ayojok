@@ -235,13 +235,6 @@ h3 {
   }
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1360px) and (-webkit-min-device-pixel-ratio: 2) {
-  header.pagehead {
-    background-attachment: scroll;
-    background-size: contain;
-  }
-}
-
 .header-write {
   font-size: 14px;
   color: #ffffff;
@@ -303,11 +296,6 @@ h3 {
 @media (min-width: 1320px) {
   header {
     &.masthead {
-      height: 38vh;
-      min-height: 320px;
-      padding-top: 0;
-      padding-bottom: 0;
-      margin-top: 2.5rem;
       background-color: #ffffff;
 
       .masthead-img {
@@ -327,16 +315,8 @@ h3 {
     }
 
     &.pagehead {
-      height: 25vh;
-      min-height: 240px;
-      padding-top: 0;
-      padding-bottom: 0;
-      background-size: contain;
-
       .pagehead-img {
         max-width: 220px;
-        max-height: 220px;
-        margin-top: 60px;
       }
 
       .pagehead-title {
@@ -355,8 +335,6 @@ h3 {
 @media (min-width: 2000px) {
   header.pagehead .pagehead-img {
     max-width: 220px;
-    max-height: 220px;
-    margin-top: 5rem;
   }
 }
 
@@ -520,7 +498,7 @@ header.video {
   }
 
   .media-body {
-    min-width: none;
+    min-width: initial;
     padding-left: 15px;
 
     h3 {
