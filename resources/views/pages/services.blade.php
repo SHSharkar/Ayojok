@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-auto text-center text-white">
-                    <img class="pagehead-img img-responsive mb-3" src="{{asset('img/logo_final.png')}}" alt="">
+                    <img class="pagehead-img img-fluid mb-3" src="{{asset('img/logo_final.png')}}" alt="">
                 </div>
             </div>
         </div>
@@ -20,21 +20,22 @@
 
     <!-- Blank section -->
 
-    <section class="page-section services">
+    <section class="page-section services mt-3">
         <div class="container">
-            <div class="wow fadeIn text-center">
+            <div class="wow fadeIn text-center mb-4">
                 <h3 id="service-name">{{ $catagorydata->name }}  </h3>
                 <hr class="colored">
             </div>
 
             <div class="row">
-
-                <ul class="breadcrumb">
-                    <li><a href="{{route('mainhome')}}">Home</a></li>
-                    {{-- <li><a href="{{route('our-service')}}">Ayojok Service</a></li> --}}
-                    <li class="active" style="text-transform: capitalize;"> {{ $catagorydata->name }}</li>
-                </ul>
-
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('mainhome') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" style="text-transform: capitalize;">{{ $catagorydata->name }}</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
 
         @if ($catagorydata->layout == 1)
@@ -104,14 +105,7 @@
         {{-- <div class="row mt-4"> --}}
 
         <!-- Vendor Listing -->
-            <div class="portfolio-grid vendor-list clearfix">
-
-                <!-- Grid Item -->
-
-                @include('extra.product-list')
-
-                {{-- </div> --}}
-            </div>
+            @include('extra.product-list')
         </div>
     </section>
 @endsection
@@ -179,5 +173,11 @@
             window.location.reload();
         }
 
+    </script>
+
+    <script>
+        $(function() {
+            $('.vendor-product-list').matchHeight();
+        });
     </script>
 @endpush

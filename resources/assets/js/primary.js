@@ -4,18 +4,32 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+const WOW = require('wow.js');
+
 require('./bootstrap');
 
 require('../vendor/jquery.easing/jquery.easing.min.js');
 require('../vendor/owl-carousel/owl.carousel.js');
 require('../vendor/magnific-popup/jquery.magnific-popup.min.js');
 require('../vendor/vide/jquery.vide.min.js');
-require('../vendor/wowjs/wow.min.js');
 require('../vendor/datetimepicker/js/bootstrap-datetimepicker.js');
 require('../vendor/contact_me.js');
 require('../vendor/jqBootstrapValidation.js');
 require('../vendor/vitality.js');
 require('bootstrap-select/dist/js/bootstrap-select.min');
+require('jquery-match-height');
+
+// eslint-disable-next-line no-unused-vars
+window.wow = new WOW({
+    boxClass: 'wow',
+    animateClass: 'animated',
+    offset: 0,
+    live: true
+});
+
+new WOW().init();
+
+require('../vendor/web-animations.min');
 
 $('.dropdown').hover(
     function() {
@@ -51,7 +65,7 @@ jQuery('#levnumber').click(e => {
         }
     });
     jQuery.ajax({
-        url: '{{ url(\'/save-phn\') }}',
+        url: "{{ url('/save-phn') }}",
         method: 'post',
         data: {
             number: jQuery('#num').val()

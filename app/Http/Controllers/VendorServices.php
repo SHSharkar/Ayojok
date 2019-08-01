@@ -39,7 +39,7 @@ class VendorServices extends Controller
         //echo "ok".$catagorydata->feature_table;
         //exit;
 
-        $model = '\App\Models\\' . $catagorydata->feature_table;
+        $model = '\App\Models\\'.$catagorydata->feature_table;
         //dd($model);
 
         $datas = new $model;
@@ -50,34 +50,34 @@ class VendorServices extends Controller
             $view = 'extra.product-list';
             switch ($request->cat) {
                 case (9):
-                    include(app_path() . '/filter-function/venue-filter.php');
+                    include(app_path().'/filter-function/venue-filter.php');
                     break;
                 case (10):
-                    include(app_path() . '/filter-function/dj-filter.php');
+                    include(app_path().'/filter-function/dj-filter.php');
                     break;
                 case (11):
-                    include(app_path() . '/filter-function/catering-filter.php');
+                    include(app_path().'/filter-function/catering-filter.php');
                     break;
                 case (18):
-                    include(app_path() . '/filter-function/kazi-filter.php');
+                    include(app_path().'/filter-function/kazi-filter.php');
                     break;
                 case (14):
-                    include(app_path() . '/filter-function/invitation-filter.php');
+                    include(app_path().'/filter-function/invitation-filter.php');
                     break;
                 case (16):
-                    include(app_path() . '/filter-function/bakeries-filter.php');
+                    include(app_path().'/filter-function/bakeries-filter.php');
                     break;
                 case (17):
-                    include(app_path() . '/filter-function/mehedi-filter.php');
+                    include(app_path().'/filter-function/mehedi-filter.php');
                     break;
                 case (12):
-                    include(app_path() . '/filter-function/photo-filter.php');
+                    include(app_path().'/filter-function/photo-filter.php');
                     break;
                 case (13):
-                    include(app_path() . '/filter-function/decor-filter.php');
+                    include(app_path().'/filter-function/decor-filter.php');
                     break;
                 case (15):
-                    include(app_path() . '/filter-function/makeup-filter.php');
+                    include(app_path().'/filter-function/makeup-filter.php');
                     break;
             }
 
@@ -116,7 +116,7 @@ class VendorServices extends Controller
             //$reviews = rating::where('vendor_id', $vendor)->with('user')->orderBy('id', 'DESC')->limit(6)->get();
             $reviews = rating::where('vendor_id', 10)->with('user')->orderBy('id', 'DESC')->limit(6)->get();
 
-            $model = 'App\Models\\' . $catagorydata->feature_table;
+            $model = 'App\Models\\'.$catagorydata->feature_table;
 
             $fdetails = $model::where('vendor_id', $vendor)->first();
             //dd($fdetails);
@@ -129,9 +129,9 @@ class VendorServices extends Controller
             for ($a = 1; $a <= 5; $a++) {
                 $rating = rating::where('vendor_id', $vendor)->where('rating', $a)->count();
                 if ($rating > 0) {
-                    $array['rate' . $a] = intval($rating / $ratings->count() * 100);
+                    $array['rate'.$a] = intval($rating / $ratings->count() * 100);
                 } else {
-                    $array['rate' . $a] = 0;
+                    $array['rate'.$a] = 0;
                 }
             }
 
@@ -216,7 +216,7 @@ class VendorServices extends Controller
          * generate Submit_id for all queries in same submit click event
          */
         $userid = Auth::user()->id;
-        $submit_id = (int) $userid . rand(1000, 100000);
+        $submit_id = (int) $userid.rand(1000, 100000);
 
         $i = 1;
         foreach ($dates as $v_date) {
@@ -229,7 +229,7 @@ class VendorServices extends Controller
             //$queryid = $queryadd->id;
             $queryadd = Query::create([
                 'user_id' => $userid, 'category_id' => $catagoryid, 'vendor_id' => $vendor, 'event_date' => $date, 'message' => $mess,
-                'status' => 'Query Submitted'
+                'status' => 'Query Submitted',
             ]);
 
             $queryid = $queryadd->id;

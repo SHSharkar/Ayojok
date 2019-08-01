@@ -459,7 +459,7 @@
         <div class="col-md-3 wow fadeIn event-sec" data-wow-delay=".2s">
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
-              <img class="img-responsive" src="img/service1.jpg" alt="">
+              <img class="img-fluid" src="img/service1.jpg" alt="">
 
               <div class="overlay">
                 <h2>Checking</h2>
@@ -470,7 +470,7 @@
         <div class="col-md-3 wow fadeIn" data-wow-delay=".2s">
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
-              <img class="img-responsive" src="img/service2.jpg" alt="">
+              <img class="img-fluid" src="img/service2.jpg" alt="">
               <div class="overlay">
                 <h2>Monitoring</h2>
               </div>
@@ -496,7 +496,7 @@
         <div class="col-md-3 wow fadeIn" data-wow-delay=".2s" >
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
-              <img class="img-responsive" src="img/service3.jpg" alt="">
+              <img class="img-fluid" src="img/service3.jpg" alt="">
               <div class="overlay">
                 <h2>Assuring</h2>
               </div>

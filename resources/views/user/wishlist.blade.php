@@ -10,7 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 my-auto text-center text-white">
-          <img class="pagehead-img img-responsive mb-3" src="img/logo_final.png" alt="">
+          <img class="pagehead-img img-fluid mb-3" src="img/logo_final.png" alt="">
         </div>
       </div>
     </div>
@@ -60,10 +60,10 @@
                         <div class="productThumb">
                           @if (isset($wishlist->vendors_id))
 
-                            <img src="{{$wishlist->vendor->profile_img}}" alt="{{$wishlist->vendor->title}}" class="img-responsive">
+                            <img src="{{$wishlist->vendor->profile_img}}" alt="{{$wishlist->vendor->title}}" class="img-fluid">
                           @else
 
-                            <img src="{{$wishlist->product->image}}" alt="{{$wishlist->product->title}}" class="img-responsive">
+                            <img src="{{$wishlist->product->image}}" alt="{{$wishlist->product->title}}" class="img-fluid">
                           @endif
 
                         </div>
