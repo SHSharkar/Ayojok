@@ -1,19 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-
-/*nir test rough*/
-
 use App\Query;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +15,7 @@ Route::get('/test2', function () {
     $userid = Auth::user()->id;
     $datTime = date('d-y-m');
     $datTime = time($datTime);
-    $submit_id = $userid.$datTime.rand(100,1000);
+    $submit_id = $userid.$datTime.rand(100, 1000);
 
     echo $submit_id;
 });
@@ -87,7 +73,6 @@ Route::post('/partners', 'IndexController@savePartner')->name('savePartner');
 Route::get('/services/{catagory}', 'OurServices@CatProducts')->name('CatProducts');
 Route::get('/services/{catagory}/{product}', 'OurServices@Services')->name('Services');
 Route::post('/services/{catagory}/{product}', 'OurServices@product');
-
 
 Route::get('/vendors/{catagory}', 'VendorServices@Services')->name('Vendors');
 Route::get('/vendors/{catagory}/{vendor}', 'VendorServices@vendor')->name('single-vendor');
@@ -169,8 +154,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/timeout-status/{qid}', 'MyQueryController@changeTimeOutStatus')->name('changeTimeOutStatus');
 
 
-
-    Route::get('/load-query-detals/{ids}','MyQueryController@loadQueryDetails')->name('load_query_details');
+    Route::get('/load-query-detals/{ids}', 'MyQueryController@loadQueryDetails')->name('load_query_details');
 
 
     /*End of add for my query: 15-5-2019*/
@@ -268,14 +252,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/rating', 'VendorServices@rating')->name('rating');
 
 
-    Route::get('/invoice/{q_id}','InvoiceController@index')->name('showInvoice');
+    Route::get('/invoice/{q_id}', 'InvoiceController@index')->name('showInvoice');
 
 });
 
 Route::group(['middleware' => ['auth:admin']], function () {
 
 
-    Route::get('/admin/invoice/{user_id}/{q_id}','InvoiceController@invoiceFromAdmin')->name('showInvoiceAdmin');
+    Route::get('/admin/invoice/{user_id}/{q_id}', 'InvoiceController@invoiceFromAdmin')->name('showInvoiceAdmin');
 
 
     Route::get('/admin', 'AdminController@index')->name('adminhome');
@@ -397,8 +381,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     //edited by frank
 
-    Route::get('/load-query-details-admin/{ids}','MyQueryController@loadQueryDetailsAdmin')->name('load_query_details_admin');
-    Route::post('/admin/update-query-details/','QueryController@updateQueryDetails')->name('update_query_details');
+    Route::get('/load-query-details-admin/{ids}', 'MyQueryController@loadQueryDetailsAdmin')->name('load_query_details_admin');
+    Route::post('/admin/update-query-details/', 'QueryController@updateQueryDetails')->name('update_query_details');
     Route::get('/admin/dashboard/google', 'AdminAnalyticsController@selectAnalyticsDate')->name('admindash');
     Route::post('/admin/dashboard/google', 'AdminAnalyticsController@showVisitorAnalytics')->name('admindashdate');
     Route::get('/admin/timeout', 'QueryController@timeout')->name('timeout');

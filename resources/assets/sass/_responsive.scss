@@ -253,6 +253,32 @@
       max-height: 30px !important;
     }
   }
+
+  // Services vendor products list
+  .vendors-index-wrapper {
+    a {
+      .card {
+        .card-body {
+          background: #222222;
+          color: white;
+          cursor: pointer;
+          padding: .9rem .7rem;
+
+          .card-title {
+            font-size: 16px;
+            font-weight: 100;
+            text-transform: initial;
+          }
+
+          .card-text {
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 577px) and (max-width: 767px) {
@@ -494,6 +520,32 @@
 
     .social {
       max-height: 30px !important;
+    }
+  }
+
+  // Services vendor products list
+  .vendors-index-wrapper {
+    a {
+      .card {
+        .card-body {
+          background: #222222;
+          color: white;
+          cursor: pointer;
+          padding: .9rem .7rem;
+
+          .card-title {
+            font-size: 16px;
+            font-weight: 100;
+            text-transform: initial;
+          }
+
+          .card-text {
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+          }
+        }
+      }
     }
   }
 }
@@ -759,6 +811,32 @@
       max-height: 35px;
     }
   }
+
+  // Services vendor products list
+  .vendors-index-wrapper {
+    a {
+      .card {
+        .card-body {
+          background: #222222;
+          color: white;
+          cursor: pointer;
+          padding: .9rem .7rem;
+
+          .card-title {
+            font-size: 16px;
+            font-weight: 100;
+            text-transform: initial;
+          }
+
+          .card-text {
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 992px) and (min-width: 769px) {
@@ -1020,6 +1098,32 @@
       max-height: 35px;
     }
   }
+
+  // Services vendor products list
+  .vendors-index-wrapper {
+    a {
+      .card {
+        .card-body {
+          background: #222222;
+          color: white;
+          cursor: pointer;
+          padding: .9rem .7rem;
+
+          .card-title {
+            font-size: 16px;
+            font-weight: 100;
+            text-transform: initial;
+          }
+
+          .card-text {
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1200px) and (min-width: 993px) {
@@ -1144,6 +1248,32 @@
       max-height: 35px;
     }
   }
+
+  // Services vendor products list
+  .vendors-index-wrapper {
+    a {
+      .card {
+        .card-body {
+          background: #222222;
+          color: white;
+          cursor: pointer;
+          padding: .9rem .7rem;
+
+          .card-title {
+            font-size: 16px;
+            font-weight: 100;
+            text-transform: initial;
+          }
+
+          .card-text {
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -1255,6 +1385,32 @@
 
     .social {
       max-height: 35px;
+    }
+  }
+
+  // Services vendor products list
+  .vendors-index-wrapper {
+    a {
+      .card {
+        .card-body {
+          background: #222222;
+          color: white;
+          cursor: pointer;
+          padding: .9rem .7rem;
+
+          .card-title {
+            font-size: 16px;
+            font-weight: 100;
+            text-transform: initial;
+          }
+
+          .card-text {
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+          }
+        }
+      }
     }
   }
 }

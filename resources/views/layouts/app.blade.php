@@ -63,7 +63,8 @@
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i> Menu
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
 
@@ -398,13 +399,13 @@
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 social-media-icons text-center">
                 <ul>
                     <li>
-                        <a href="https://www.facebook.com/ayojokevents" target="_blank"><img class="img-fluid img-responsive social" src="{{asset('img/social/facebook.png')}}" alt=""></a>
+                        <a href="https://www.facebook.com/ayojokevents" target="_blank"><img class="img-fluid img-fluid social" src="{{asset('img/social/facebook.png')}}" alt=""></a>
                     </li>
                     <li>
-                        <a href="https://www.instagram.com/ayojokevents/" target="_blank"><img class="img-fluid img-responsive social" src="{{asset('img/social/instagram.png')}}" alt=""></a>
+                        <a href="https://www.instagram.com/ayojokevents/" target="_blank"><img class="img-fluid img-fluid social" src="{{asset('img/social/instagram.png')}}" alt=""></a>
                     </li>
                     <li>
-                        <a href="https://www.youtube.com/channel/UC2Dn5jQAF8TV3_hPAoESk-Q" target="_blank"><img class="img-fluid img-responsive social" src="{{asset('img/social/youtube.png')}}" alt=""></a>
+                        <a href="https://www.youtube.com/channel/UC2Dn5jQAF8TV3_hPAoESk-Q" target="_blank"><img class="img-fluid img-fluid social" src="{{asset('img/social/youtube.png')}}" alt=""></a>
                     </li>
                 </ul>
             </div>

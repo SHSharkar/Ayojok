@@ -1,72 +1,20 @@
-<!-- Vendor Listing -->
-<div class="portfolio-grid vendor-list clearfix">
-
-    <!-- Grid Item -->
-    <div class="productList">
-
-        <?php
-
-
-
-        ?>
-
-        @foreach($datas as $data)
-            <div class="mix green">
-                <div class="portfolio-wrapper divclick">
-                    @php
-                    if(!empty($data->vendor->profile_img)) {
-                    $img = $data->vendor->profile_img;
-                    }
-                    else {
-                    $img = 'img/vendor-profile/default.png';
-                    }
-                    @endphp
-                    <a class="text-title"
-                       href="{{url('vendors/'.$catagory = $catagorydata->name.'/'.$vendor = $data->vendor->id)}}"
-                       target="_blank">
-
-                        <img src="{{asset($img)}}" alt="{{ $data->vendor->title }}">
-
-                        <div class="caption">
-                            <div class="caption-text pull-left">
-
-                                <?php
-
-                                $max_length = 20;
-                                $string = $data->vendor->title;
-
-                                $string = (strlen($string) > $max_length) ? substr($string, 0, $max_length) . '...' : $string;
-
-                                ?>
-
-
-                                {{ $string }}
-                                {{--{{ substr($data->vendor->title,0, 30) }}--}}
-
-
-                                <span class="text-category"
-                                      style="text-transform:uppercase;">{{ $catagorydata->name }} </span>
-
-                                    <?php
-                                        $price = 0;
-
-                                    $price = min($data->vendor->startingat_1_price,$data->vendor->startingat_2_price,$data->vendor->startingat_3_price);
-                                    ?>
-
-                                <span>
-                                    <strong>Starting at</strong>
-                                    <br>
-
-                                    {{$data->vendor->startingat_1_title}} : {{$data->vendor->startingat_1_price}} Tk
-
-                                </span>
-
-                            </div>
-                        </div>
-                    </a>
+<div class="row">
+    @foreach($datas as $data)
+        <div class="col-6 col-sm-3 col-md-3 col-lg-3 mb-3 vendors-index-wrapper" data-mh="vendor-product-list">
+            <a href="{{ url('vendors/'.$catagory = $catagorydata->name.'/'.$vendor = $data->vendor->id) }}">
+                <div class="card">
+                    @if(($data->vendor->profile_img !== null || !empty($data->vendor->profile_img)) && file_exists($data->vendor->profile_img))
+                        @php $img = $data->vendor->profile_img; @endphp
+                    @else
+                        @php $img = asset('img/vendor-profile/default.png'); @endphp
+                    @endif
+                    <img class="card-img-top" src="{{ asset($img) }}" alt="{{ $data->vendor->title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ Illuminate\Support\Str::limit($data->vendor->title, 20) }}</h5>
+                        <div class="card-text">{{ $catagorydata->name }} </div>
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
+            </a>
+        </div>
+    @endforeach
 </div>
-<!--/ End Vendor Listing -->

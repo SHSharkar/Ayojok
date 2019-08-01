@@ -729,10 +729,10 @@ header.video {
 }
 
 .portfolio-grid .mix {
-  float: left;
-  overflow: hidden;
-  width: 48%;
-  margin: 1%;
+  //float: left;
+  //overflow: hidden;
+  //width: 48%;
+  //margin: 1%;
 
   .portfolio-wrapper {
     position: relative !important;
@@ -791,8 +791,8 @@ header.video {
 
 @media (min-width: 768px) {
   .portfolio-grid .mix {
-    width: 23%;
-    margin: 1%;
+    //width: 23%;
+    //margin: 1%;
   }
 }
 
