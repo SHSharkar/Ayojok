@@ -10858,10 +10858,18 @@ a.text-dark:focus {
     max-height: 30px !important;
   }
 
-  .vendors-index-wrapper a .card .card-body {
+  .vendors-index-wrapper {
     background: #222222;
-    color: white;
     cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card .card-body {
+    color: white;
     padding: 0.9rem 0.7rem;
   }
 
@@ -10876,11 +10884,41 @@ a.text-dark:focus {
     font-weight: 300;
     text-transform: uppercase;
   }
+
+  .products-list-wrapper {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card .card-body {
+    font-size: 1rem;
+    padding: 0.9rem 0.7rem;
+  }
+
+  .products-list-wrapper .card .card-body .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .products-list-wrapper .card .card-body .card-cust-subtitle {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
 
 @media screen and (min-width: 577px) and (max-width: 767px) {
   header.masthead {
     background-color: #222222;
+  }
+
+  header.pagehead .pagehead-img {
+    max-width: 150px;
   }
 
   header.masthead .masthead-title,
@@ -11075,10 +11113,18 @@ a.text-dark:focus {
     max-height: 30px !important;
   }
 
-  .vendors-index-wrapper a .card .card-body {
+  .vendors-index-wrapper {
     background: #222222;
-    color: white;
     cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card .card-body {
+    color: white;
     padding: 0.9rem 0.7rem;
   }
 
@@ -11093,11 +11139,41 @@ a.text-dark:focus {
     font-weight: 300;
     text-transform: uppercase;
   }
+
+  .products-list-wrapper {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card .card-body {
+    font-size: 1rem;
+    padding: 0.9rem 0.7rem;
+  }
+
+  .products-list-wrapper .card .card-body .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .products-list-wrapper .card .card-body .card-cust-subtitle {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
 
 @media screen and (max-width: 768px) and (min-width: 577px) {
   header.masthead {
     background-color: #222222;
+  }
+
+  header.pagehead .pagehead-img {
+    max-width: 150px;
   }
 
   header.masthead .masthead-title,
@@ -11313,10 +11389,18 @@ a.text-dark:focus {
     max-height: 35px;
   }
 
-  .vendors-index-wrapper a .card .card-body {
+  .vendors-index-wrapper {
     background: #222222;
-    color: white;
     cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card .card-body {
+    color: white;
     padding: 0.9rem 0.7rem;
   }
 
@@ -11331,9 +11415,39 @@ a.text-dark:focus {
     font-weight: 300;
     text-transform: uppercase;
   }
+
+  .products-list-wrapper {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card .card-body {
+    font-size: 1rem;
+    padding: 0.9rem 0.7rem;
+  }
+
+  .products-list-wrapper .card .card-body .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .products-list-wrapper .card .card-body .card-cust-subtitle {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
 
 @media screen and (max-width: 992px) and (min-width: 769px) {
+  .pagehead .pagehead-img {
+    max-width: 200px;
+  }
+
   .menu_padding_3 {
     padding-right: 0;
     margin-left: 0 !important;
@@ -11559,10 +11673,18 @@ a.text-dark:focus {
     max-height: 35px;
   }
 
-  .vendors-index-wrapper a .card .card-body {
+  .vendors-index-wrapper {
     background: #222222;
-    color: white;
     cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card .card-body {
+    color: white;
     padding: 0.9rem 0.7rem;
   }
 
@@ -11576,10 +11698,40 @@ a.text-dark:focus {
     font-size: 11px;
     font-weight: 300;
     text-transform: uppercase;
+  }
+
+  .products-list-wrapper {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card .card-body {
+    font-size: 1.25rem;
+    padding: 0.9rem 0.7rem;
+  }
+
+  .products-list-wrapper .card .card-body .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .products-list-wrapper .card .card-body .card-cust-subtitle {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
   }
 }
 
 @media screen and (max-width: 1200px) and (min-width: 993px) {
+  .pagehead .pagehead-img {
+    max-width: 200px;
+  }
+
   .scroll-down {
     text-align: center;
   }
@@ -11684,10 +11836,18 @@ a.text-dark:focus {
     max-height: 35px;
   }
 
-  .vendors-index-wrapper a .card .card-body {
+  .vendors-index-wrapper {
     background: #222222;
-    color: white;
     cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card .card-body {
+    color: white;
     padding: 0.9rem 0.7rem;
   }
 
@@ -11701,10 +11861,40 @@ a.text-dark:focus {
     font-size: 11px;
     font-weight: 300;
     text-transform: uppercase;
+  }
+
+  .products-list-wrapper {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card .card-body {
+    font-size: 1.25rem;
+    padding: 0.9rem 0.7rem;
+  }
+
+  .products-list-wrapper .card .card-body .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .products-list-wrapper .card .card-body .card-cust-subtitle {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
   }
 }
 
 @media screen and (min-width: 1200px) {
+  .pagehead .pagehead-img {
+    max-width: 200px;
+  }
+
   .scroll-down {
     text-align: center;
   }
@@ -11809,10 +11999,18 @@ a.text-dark:focus {
     max-height: 35px;
   }
 
-  .vendors-index-wrapper a .card .card-body {
+  .vendors-index-wrapper {
     background: #222222;
-    color: white;
     cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .vendors-index-wrapper a .card .card-body {
+    color: white;
     padding: 0.9rem 0.7rem;
   }
 
@@ -11826,6 +12024,32 @@ a.text-dark:focus {
     font-size: 11px;
     font-weight: 300;
     text-transform: uppercase;
+  }
+
+  .products-list-wrapper {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card {
+    background: #222222;
+    cursor: pointer;
+  }
+
+  .products-list-wrapper .card .card-body {
+    font-size: 1.25rem;
+    padding: 0.9rem 0.7rem;
+  }
+
+  .products-list-wrapper .card .card-body .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .products-list-wrapper .card .card-body .card-cust-subtitle {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
   }
 }
 

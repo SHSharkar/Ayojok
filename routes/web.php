@@ -11,11 +11,11 @@ Route::get('testforurl', 'ProductController@getPath')->name("getPath");
 
 Route::get('/test', 'QueryController@test_rough');
 
-Route::get('/test2', function () {
+Route::get('/test2', static function () {
     $userid = Auth::user()->id;
     $datTime = date('d-y-m');
     $datTime = time($datTime);
-    $submit_id = $userid.$datTime.rand(100, 1000);
+    $submit_id = $userid.$datTime.random_int(100, 1000);
 
     echo $submit_id;
 });
@@ -82,17 +82,17 @@ Route::get('/all_vendors', 'VendorServices@all_vendors')->name('all_vendors');
 
 // Route::get('/vendors/{catagory}/{vendor}','VendorServices@getAddToQuery')->name('query-vendor');
 
-Route::get('/event-coordinator', function () {
+Route::get('/event-coordinator', static function () {
     return view('pages.event-coordinator');
 });
 
 // Route::get('/vendors/{catagory}/{vendor}','VendorServices@getAddToQuery')->name('query-vendor');
 
-Route::get('/event-coordinator', function () {
+Route::get('/event-coordinator', static function () {
     return view('pages.event-coordinator');
 })->name('event_coordinator');
 
-Route::get('/contact_us', function () {
+Route::get('/contact_us', static function () {
     return view('pages.contact_us');
 })->name('contact_us');
 

@@ -100,19 +100,23 @@ class VendorServices extends Controller
         return view($view, compact('datas', 'catagorydata'));
     }
 
+    /**
+     * @param $catagory
+     * @param $vendor
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function vendor($catagory, $vendor)
     {
-
-        $catagorydata = catagory::where('name', $catagory)->firstorFail();
+        $catagorydata = catagory::whereName($catagory)->firstOrFail();
         $catagoryid = $catagorydata->id;
         $catagorylayout = $catagorydata->layout;
         $catagorytype = $catagorydata->is_service;
 
 
         if ($catagorytype == '1') {
-
-            $datas = vendors::where('id', $vendor)->with('packages')->with('images')->first();
-            $ratings = rating::where('vendor_id', $vendor);
+            $datas = vendors::with(['packages', 'images'])->whereId($vendor)->first();
+            $ratings = rating::whereVendorId($vendor);
             //$reviews = rating::where('vendor_id', $vendor)->with('user')->orderBy('id', 'DESC')->limit(6)->get();
             $reviews = rating::where('vendor_id', 10)->with('user')->orderBy('id', 'DESC')->limit(6)->get();
 
