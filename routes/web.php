@@ -96,7 +96,6 @@ Route::get('/contact_us', static function () {
     return view('pages.contact_us');
 })->name('contact_us');
 
-
 Route::get('/about-us', function () {
     return view('pages.about-us');
 });
