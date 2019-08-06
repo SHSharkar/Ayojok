@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
-@push('css')
-
-@endpush
-
 @section('content')
+    @php $agent = new Jenssegers\Agent\Agent() @endphp
+
     <!-- Masthead -->
     <header class="pagehead" style="background-image: url({{asset('img/backgrounds/bg-footer.jpg')}});">
         <div class="container">
@@ -18,28 +16,32 @@
     <!-- Masthead End -->
 
     <!-- Blank section -->
-
-    <section class="page-section services mt-1">
+    <section class="page-section services">
         <div class="container">
             <!-- <div class="wow fadeIn">
             <h3>Wedding Mate</h3>
           </div> -->
 
-
-            <div class="row">
+            <div class="row mt-md-3">
                 <!-- Fetaure Image, video or 360 viewer place -->
                 <div class="col-lg-8">
 
                     <div id="myCarousel" class=" carousel slide vendor-carousel" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img class="d-block w-100" src="{{asset($datas->feature_image_1)}}" alt="{{$datas->title}}">
+                                @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists($datas->feature_image_1))
+                                    <img class="d-block w-100" src="{{ asset($datas->feature_image_1) }}" alt="First slide">
+                                @endif
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="{{asset($datas->feature_image_2)}}" alt="{{$datas->title}}">
+                                @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists($datas->feature_image_2))
+                                    <img class="d-block w-100" src="{{ asset($datas->feature_image_2) }}" alt="Second slide">
+                                @endif
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="{{asset($datas->feature_image_3)}}" alt="{{$datas->title}}">
+                                @if ((!empty($datas->feature_image_3) || $datas->feature_image_3 != null) && file_exists($datas->feature_image_3))
+                                    <img class="d-block w-100" src="{{ asset($datas->feature_image_3) }}" alt="Third slide">
+                                @endif
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -51,19 +53,24 @@
                             <span class="sr-only">Next</span>
                         </a>
                         <ul class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"><img
-                                        src="{{asset($datas->feature_image_1)}}"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"><img src="{{asset($datas->feature_image_2)}}">
-                            </li>
-                            <li data-target="#myCarousel" data-slide-to="2"><img src="{{asset($datas->feature_image_3)}}">
-                            </li>
+                            @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists($datas->feature_image_1))
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"><img src="{{asset($datas->feature_image_1)}}" alt=""></li>
+                            @endif
+
+                            @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists($datas->feature_image_2))
+                                <li data-target="#myCarousel" data-slide-to="1"><img src="{{asset($datas->feature_image_2)}}" alt=""></li>
+                            @endif
+
+                            @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists($datas->feature_image_2))
+                                <li data-target="#myCarousel" data-slide-to="2"><img src="{{asset($datas->feature_image_3)}}" alt=""></li>
+                            @endif
                         </ul>
                     </div>
 
                 </div>
                 <!--/End of Fetaure Image, video or 360 viewer place -->
 
-                <div class="col-lg-4 price-snippet">
+                <div class="col-lg-4 price-snippet @if($agent->isMobile()) mt-4 @endif">
                     <div class="startingprice">
                         <p class="price">Starting at :</p>
                         <table style="width:100%">
@@ -89,7 +96,7 @@
                     </div>
 
                     {{-- Leave Your Query --}}
-                    <div class="form-area">
+                    <div class="form-area @if($agent->isMobile()) mt-3 @endif">
                         <form role="form" id="queryForm">
                             <input type="hidden" id="catagory_id" value="{{$catagorydata->name}}">
                             <input type="hidden" id="vendor_id" value="{{$datas->id}}">
@@ -163,7 +170,7 @@
             </div>
 
             <!-- About us row with tabbed content -->
-            <div class="row mb-5 mt-3">
+            <div class="row mb-md-5 mt-3">
                 <div id="ajax-alert"></div>
                 <div class="col-lg-2 text-center">
                     @php
@@ -224,9 +231,9 @@
 
     <!-- Parallax section with all the other feature -->
     <section class="page-section pricing" style="background-image: url({{asset($catagorydata->layout_img)}});">
-        <div class="container wow fadeIn mt-5 mb-5 feature">
+        <div class="container wow fadeIn mt-4 mb-4 mt-sm-4 mb-sm-4 mt-md-5 mb-md-5 mt-lg-5 mb-lg-5 feature">
             <div class="row text-center">
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature1_img)}}" class="subservice" alt="Industry Experience">
                     </a>
@@ -235,7 +242,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_1}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature2_img)}}" class="subservice" alt="Location">
                     </a>
@@ -244,7 +251,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_2}} Years</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature3_img)}}" class="subservice" alt="Home Service">
                     </a>
@@ -253,7 +260,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_3}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature4_img)}}" class="subservice" alt="Booking Method">
                     </a>
@@ -262,7 +269,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_4}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature5_img)}}" class="subservice" alt="Book Before">
                     </a>
@@ -271,7 +278,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_5}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature6_img)}}" class="subservice" alt="Outside City Service">
                     </a>
@@ -280,7 +287,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_6}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature7_img)}}" class="subservice" alt="Service Type">
                     </a>
@@ -289,7 +296,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_7}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-5">
+                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature8_img)}}" class="subservice" alt="Service Time">
                     </a>
@@ -303,7 +310,7 @@
     </section>
 
     <!-- Package details Tabs -->
-    <section class="page-section services mt-2">
+    <section class="page-section services mt-md-3">
         <div class="container">
             <!-- Packages Details -->
             <div class="text-center wow fadeIn">
@@ -313,8 +320,7 @@
 
             <div class="row mt-4">
                 <!-- inner-row -->
-
-                <div class="col-lg-5">
+                <div class="col-lg-5 @if($agent->isMobile()) mb-3 @endif">
                     <!-- Accordian of Packages photography -->
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         @foreach ($datas->packages as $package)
@@ -341,7 +347,7 @@
                     </div>
                     <!-- /- End of Accordian of Packages - single -->
                 </div>
-                <div class="col-lg-7 mt-2">
+                <div class="col-lg-7">
                     <div class="row">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -385,11 +391,8 @@
                     </div>
 
                 </div>
-
-
             </div>
             <!-- / end package details -->
-
         </div>
         <!-- /End Container -->
     </section>
@@ -407,8 +410,7 @@
                 <!-- Gallery Start -->
                 <div class="img-gallery gal">
                     @foreach ($datas->images as $image)
-                        <a href="{{asset($image->image_locations)}}"><img src="{{asset($image->image_locations)}}"
-                                                                          alt=""></a>
+                        <a href="{{asset($image->image_locations)}}"><img src="{{asset($image->image_locations)}}" alt=""></a>
                     @endforeach
 
                 </div>
@@ -446,7 +448,7 @@
                 <hr class="colored">
             </div>
 
-            <div class="row mt-5">
+            <div class="row mt-md-5">
                 <!-- Rating Avarage -->
                 <div class="col-lg-6" id="review-bar">
                     <div class="card">
