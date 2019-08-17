@@ -95,17 +95,22 @@ class IndexController extends Controller
     //   return redirect()->back()->with('success', 'Thank You.. Ayojok team will call you very soon');
     // }
 
+    /**
+     * @param  \Illuminate\Http\Request  $r
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function open(Request $r)
     {
         $catid = $r->input('catagory');
         $cat = catagory::find($catid);
         $catname = $cat->name;
         //dd($cat);
-        if (is_null($cat->layout)) {
+        if ($cat->layout == null) {
             return redirect()->route('CatProducts', ['catagory' => $catname]);
-        } else {
-            return redirect()->route('Vendors', ['catagory' => $catname]);
         }
+
+        return redirect()->route('Vendors', ['catagory' => $catname]);
     }
 
     public function savePartner(Request $r)
