@@ -6,44 +6,64 @@ use Illuminate\Database\Eloquent\Model;
 
 class vendors extends Model
 {
-
-
+    /**
+     * @var string
+     */
     protected $table = 'vendors';
 
-    public function packages()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function packages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\packages', 'vendors_id', 'id');
+        return $this->hasMany(packages::class, 'vendors_id', 'id');
     }
 
-    public function images()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\vendor_image', 'vendors_id', 'id');
+        return $this->hasMany(vendor_image::class, 'vendors_id', 'id');
     }
 
-    public function features()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function features(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\vendor_features');
+        return $this->belongsTo(vendor_features::class);
     }
 
-    public function wishlist()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function wishlist(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\wishlist', 'vendors_id');
+        return $this->hasMany(wishlist::class, 'vendors_id');
     }
 
-    public function rating()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rating(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\rating');
+        return $this->hasMany(rating::class);
     }
 
-    public function custom_order()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function custom_order(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Models\custom_order', 'vendor_id');
+        return $this->hasMany(custom_order::class, 'vendor_id');
     }
 
-    public function catagory()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function catagory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\catagory', 'catagory_id');
+        return $this->belongsTo(catagory::class, 'catagory_id');
     }
-
-
 }

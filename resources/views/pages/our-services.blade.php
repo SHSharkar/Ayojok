@@ -10,7 +10,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 my-auto text-center text-white">
-        <img class="pagehead-img img-responsive mb-3" src="img/logo_final.png" alt="">
+        <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $vehiclehotproduct->name.'/'.$product = $vehiclehotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="{{url($vehiclehotproduct->image)}}" style="height:120px; width:120px;" alt="">
+                <img class="img-fluid" src="{{url($vehiclehotproduct->image)}}" style="height:120px; width:120px;" alt="">
                 <h6>{{$vehiclehotproduct->title}}</h6>
                 <p>BDT {{$vehiclehotproduct->price}}</p>
               </div>
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/promo/vehicle_ads.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/promo/vehicle_ads.jpg" alt=""></a>
       </div>
     </div>
 
@@ -73,7 +73,7 @@
   <div class="container">
     <div class="row catrow">
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/promo/light_sound_ads.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/promo/light_sound_ads.jpg" alt=""></a>
       </div>
 
       <div class="col-lg-6">
@@ -84,7 +84,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $lighthotproduct->name.'/'.$product = $lighthotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="{{url($lighthotproduct->image)}}" style="height:120px; width:120px;" alt="">
+                <img class="img-fluid" src="{{url($lighthotproduct->image)}}" style="height:120px; width:120px;" alt="">
                 <h6>{{$lighthotproduct->title}}</h6>
                 <p>BDT {{$lighthotproduct->price}}</p>
                 {{-- <div class="ratings">
@@ -134,7 +134,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $snackshotproduct->name.'/'.$product = $snackshotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="{{url($snackshotproduct->image)}}" style="height:120px; width:120px;" alt="">
+                <img class="img-fluid" src="{{url($snackshotproduct->image)}}" style="height:120px; width:120px;" alt="">
                 <h6>{{$snackshotproduct->title}}</h6>
                 <p>BDT {{$snackshotproduct->price}}</p>
                 {{-- <div class="ratings">
@@ -153,7 +153,7 @@
         </div>
       </div>
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/promo/holud_snacks_ads.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/promo/holud_snacks_ads.jpg" alt=""></a>
       </div>
     </div>
 
@@ -164,7 +164,7 @@
   <div class="container">
     <div class="row catrow">
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/promo/dalakula_ads.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/promo/dalakula_ads.jpg" alt=""></a>
       </div>
       <div class="col-lg-6">
         <!-- Product row -->
@@ -174,7 +174,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $dalashotproduct->name.'/'.$product = $dalashotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="{{url($dalashotproduct->image)}}" style="height:120px; width:120px;" alt="">
+                <img class="img-fluid" src="{{url($dalashotproduct->image)}}" style="height:120px; width:120px;" alt="">
                 <h6>{{$dalashotproduct->title}}</h6>
                 <p>BDT {{$dalashotproduct->price}}</p>
                 {{-- <div class="ratings">
@@ -227,7 +227,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $holudhotproduct->name.'/'.$product = $holudhotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="{{url($holudhotproduct->image)}}" style="height:120px; width:120px;" alt="">
+                <img class="img-fluid" src="{{url($holudhotproduct->image)}}" style="height:120px; width:120px;" alt="">
                 <h6>{{$holudhotproduct->title}}</h6>
                 <p>BDT {{$holudhotproduct->price}}</p>
                 {{-- <div class="ratings">
@@ -248,7 +248,7 @@
 
       </div>
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/promo/holud_accessories_ads.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/promo/holud_accessories_ads.jpg" alt=""></a>
       </div>
 
     </div>
@@ -261,7 +261,7 @@
   <div class="container">
     <div class="row catrow">
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/promo/wedding_accessories_ads.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/promo/wedding_accessories_ads.jpg" alt=""></a>
       </div>
 
       <div class="col-lg-6">
@@ -272,7 +272,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $weddinghotproduct->name.'/'.$product = $weddinghotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="{{url($weddinghotproduct->image)}}" style="height:120px; width:120px;" alt="">
+                <img class="img-fluid" src="{{url($weddinghotproduct->image)}}" style="height:120px; width:120px;" alt="">
                 <h6>{{$weddinghotproduct->title}}</h6>
                 <p>BDT {{$weddinghotproduct->price}}</p>
                 {{-- <div class="ratings">
@@ -322,7 +322,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $crafthotproduct->name.'/'.$product = $crafthotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="http://placehold.it/120x120" alt="">
+                <img class="img-fluid" src="http://placehold.it/120x120" alt="">
                 <h6>{{$crafthotproduct->title}}</h6>
                 <p>BDT {{$crafthotproduct->price}}</p>
               </div>
@@ -333,7 +333,7 @@
         <!-- /End Product Row -->
       </div>
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/cat-ads-placeholder.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/cat-ads-placeholder.jpg" alt=""></a>
       </div>
 
     </div>
@@ -346,7 +346,7 @@
   <div class="container">
     <div class="row catrow">
       <div class="col-lg-3 no-pad cat-ads">
-        <a href="#"><img class="img-responsive" src="img/cat-ads-placeholder.jpg" alt=""></a>
+        <a href="#"><img class="img-fluid" src="img/cat-ads-placeholder.jpg" alt=""></a>
       </div>
 
       <div class="col-lg-6">
@@ -357,7 +357,7 @@
           <div class="col-lg-4 col-sm-2 cat-product">
             <a href="{{url('services/'.$catagory = $flowershotproduct->name.'/'.$product = $flowershotproduct->id)}}">
               <div class="text-center">
-                <img class="img-responsive" src="http://placehold.it/120x120" alt="">
+                <img class="img-fluid" src="http://placehold.it/120x120" alt="">
                 <h6>{{$flowershotproduct->title}}</h6>
                 <p>BDT {{$flowershotproduct->price}}</p>
               </div>

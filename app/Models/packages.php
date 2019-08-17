@@ -6,22 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class packages extends Model
 {
-  protected $table = 'packages';
+    protected $table = 'packages';
 
-  protected $fillable = ['catagory_id','vendors_id','title','price','description','image'];
+    protected $fillable = ['catagory_id', 'vendors_id', 'title', 'price', 'description', 'image'];
 
-  public function catagory()
-  {
-      return $this->hasMany('App\Models\catagory');
-  }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function catagory(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(catagory::class);
+    }
 
-  public function vendors(){
-    return $this->belongsTo('Vendors');
-  }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function vendors(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(vendors::class);
+    }
 
-
-  // public function querycart(){
-  //   return $this->belongsTo('App\Models\querycart');
-  // }
-
+    /*public function querycart()
+    {
+        return $this->belongsTo('App\Models\querycart');
+    }*/
 }

@@ -77,6 +77,11 @@ class OurServices extends Controller
     //   return view('pages.our-services',compact('vehiclehotproducts','lighthotproducts','snackshotproducts','snackshotproducts','dalashotproducts','holudhotproducts','weddinghotproducts','crafthotproducts','flowershotproducts'));
     // }
 
+    /**
+     * @param $catagory
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function CatProducts($catagory)
     {
         $catagorydata = catagory::where('name', $catagory)->firstOrFail();
@@ -112,10 +117,16 @@ class OurServices extends Controller
         // }
 
         $datas = products::where('catagory_id', $catagoryid)->where('status', 0)->orderBy('id', 'desc')->get();
-        return view('pages.products', compact('datas', 'catagorydata'));
 
+        return view('pages.products', compact('datas', 'catagorydata'));
     }
 
+    /**
+     * @param $catagory
+     * @param $product
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function Services($catagory, $product)
     {
         $catagorydata = catagory::where('name', $catagory)->firstOrFail();
@@ -124,15 +135,18 @@ class OurServices extends Controller
 
         if ($singleproduct->is_sellable == "1") {
             return view('pages.ayojok-product', compact('singleproduct'));
-        } else {
-            return view('pages.ayojok-service', compact('singleproduct'));
         }
 
+        return view('pages.ayojok-service', compact('singleproduct'));
     }
 
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function product(Request $request)
     {
-
         $dates = explode(',', $request->date);
 
         $userid = Auth::user()->id;
@@ -145,14 +159,19 @@ class OurServices extends Controller
          * generate Submit_id for all queries in same submit click event
          */
         $userid = Auth::user()->id;
-        $submit_id = (int)$userid.rand(1000,100000);
+        try {
+            $submit_id = (int) $userid.random_int(1000, 100000);
+        } catch (\Exception $e) {
+        }
 
-        $i=1;
+        $i = 1;
         foreach ($dates as $v_date) {
             $date = date("Y-m-d", strtotime($v_date));
 
-            $queryadd = Query::create(['user_id' => $userid, 'category_id' => $catagory_id, 'product_id' => $product_id, 'event_date' => $date, 'message' => $mess, 'status' => 'Query Submitted']);
-
+            $queryadd = Query::create([
+                'user_id' => $userid, 'category_id' => $catagory_id, 'product_id' => $product_id, 'event_date' => $date, 'message' => $mess,
+                'status' => 'Query Submitted',
+            ]);
 
 
             $queryid = $queryadd->id;
@@ -162,9 +181,9 @@ class OurServices extends Controller
 
             $query = Query::find($queryid);
             //$query->queue_id = $queryid+1;
-            if($i < sizeof($dates)){
+            if ($i < sizeof($dates)) {
                 $query->queue_id = 1;
-            }else{
+            } else {
                 $query->queue_id = 0;
             }
             $query->save();
@@ -176,10 +195,9 @@ class OurServices extends Controller
 
         $querydata = inbox::where('user_id', $userid)->where('is_open', 0)->get();
         $totalinbox = $querydata->count();
+
         //Session::flash('flash_message','Added to your cart!');
         return response()->json(['totalinbox' => $totalinbox, 'flash_message' => 'Added to my queries!']);
 
     }
-
-
 }

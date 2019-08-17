@@ -39,7 +39,7 @@ class VendorServices extends Controller
         //echo "ok".$catagorydata->feature_table;
         //exit;
 
-        $model = '\App\Models\\' . $catagorydata->feature_table;
+        $model = '\App\Models\\'.$catagorydata->feature_table;
         //dd($model);
 
         $datas = new $model;
@@ -50,34 +50,34 @@ class VendorServices extends Controller
             $view = 'extra.product-list';
             switch ($request->cat) {
                 case (9):
-                    include(app_path() . '/filter-function/venue-filter.php');
+                    include(app_path().'/filter-function/venue-filter.php');
                     break;
                 case (10):
-                    include(app_path() . '/filter-function/dj-filter.php');
+                    include(app_path().'/filter-function/dj-filter.php');
                     break;
                 case (11):
-                    include(app_path() . '/filter-function/catering-filter.php');
+                    include(app_path().'/filter-function/catering-filter.php');
                     break;
                 case (18):
-                    include(app_path() . '/filter-function/kazi-filter.php');
+                    include(app_path().'/filter-function/kazi-filter.php');
                     break;
                 case (14):
-                    include(app_path() . '/filter-function/invitation-filter.php');
+                    include(app_path().'/filter-function/invitation-filter.php');
                     break;
                 case (16):
-                    include(app_path() . '/filter-function/bakeries-filter.php');
+                    include(app_path().'/filter-function/bakeries-filter.php');
                     break;
                 case (17):
-                    include(app_path() . '/filter-function/mehedi-filter.php');
+                    include(app_path().'/filter-function/mehedi-filter.php');
                     break;
                 case (12):
-                    include(app_path() . '/filter-function/photo-filter.php');
+                    include(app_path().'/filter-function/photo-filter.php');
                     break;
                 case (13):
-                    include(app_path() . '/filter-function/decor-filter.php');
+                    include(app_path().'/filter-function/decor-filter.php');
                     break;
                 case (15):
-                    include(app_path() . '/filter-function/makeup-filter.php');
+                    include(app_path().'/filter-function/makeup-filter.php');
                     break;
             }
 
@@ -85,7 +85,8 @@ class VendorServices extends Controller
             if ($catagorydata->is_service == '1') {
                 $view = 'pages.services';
                 // $datas = vendors::where('catagory_id',$catagoryid)->inRandomOrder()->paginate(16);
-                $datas = $datas->where('status', 0)->inRandomOrder()->with('vendor')->get();                                                            /**random **/
+                $datas = $datas->where('status', 0)->inRandomOrder()->with('vendor')->get();
+                /**random **/
                 //$datas = $datas->where('status', 0)->with('vendor')->get();                                                            /** Ascending **/
                 //dd($datas);
                 //return view('pages.services',compact('datas','catagorydata'));
@@ -94,28 +95,32 @@ class VendorServices extends Controller
             }
         }
 
-       //return $datas;
+        //return $datas;
 
         return view($view, compact('datas', 'catagorydata'));
     }
 
+    /**
+     * @param $catagory
+     * @param $vendor
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function vendor($catagory, $vendor)
     {
-
-        $catagorydata = catagory::where('name', $catagory)->firstorFail();
+        $catagorydata = catagory::whereName($catagory)->firstOrFail();
         $catagoryid = $catagorydata->id;
         $catagorylayout = $catagorydata->layout;
         $catagorytype = $catagorydata->is_service;
 
 
         if ($catagorytype == '1') {
-
-            $datas = vendors::where('id', $vendor)->with('packages')->with('images')->first();
-            $ratings = rating::where('vendor_id', $vendor);
+            $datas = vendors::with(['packages', 'images'])->whereId($vendor)->first();
+            $ratings = rating::whereVendorId($vendor);
             //$reviews = rating::where('vendor_id', $vendor)->with('user')->orderBy('id', 'DESC')->limit(6)->get();
             $reviews = rating::where('vendor_id', 10)->with('user')->orderBy('id', 'DESC')->limit(6)->get();
 
-            $model = 'App\Models\\' . $catagorydata->feature_table;
+            $model = 'App\Models\\'.$catagorydata->feature_table;
 
             $fdetails = $model::where('vendor_id', $vendor)->first();
             //dd($fdetails);
@@ -123,18 +128,18 @@ class VendorServices extends Controller
             $features = vendor_features::where('catagory_id', $catagoryid)->first();
 
             $array['total'] = $ratings->count();
-            $array['avgtotal'] = (float)$ratings->avg('rating');
+            $array['avgtotal'] = (float) $ratings->avg('rating');
 
             for ($a = 1; $a <= 5; $a++) {
                 $rating = rating::where('vendor_id', $vendor)->where('rating', $a)->count();
                 if ($rating > 0) {
-                    $array['rate' . $a] = intval($rating / $ratings->count() * 100);
+                    $array['rate'.$a] = intval($rating / $ratings->count() * 100);
                 } else {
-                    $array['rate' . $a] = 0;
+                    $array['rate'.$a] = 0;
                 }
             }
 
-            $opinion = (object)$array;
+            $opinion = (object) $array;
             //dd($reviews);
 
             switch ($catagorylayout) {
@@ -179,11 +184,11 @@ class VendorServices extends Controller
 
     public function vendorQuery(Request $request)
     {
-        $dates = explode(',',$request->date);
+        $dates = explode(',', $request->date);
 
         //return $dates;
 
-        $this->validate($request, ['date' => 'required','num' => 'required']);
+        $this->validate($request, ['date' => 'required', 'num' => 'required']);
 
         $userid = Auth::user()->id;
         $catagory = $request->input('catagory');
@@ -195,7 +200,7 @@ class VendorServices extends Controller
         /*code for contact number*/
         $user = User::find(Auth::user()->id);
 
-        if(!isset($user->contact)){
+        if (!isset($user->contact)) {
             $user->contact = $num;
             $user->save();
         }
@@ -208,17 +213,17 @@ class VendorServices extends Controller
         $catagoryid = $catagorydata->id;
 
 
-       /* $max_submitId = Query::max('submit_id');
-        $submit_id = $max_submitId+1;*/
+        /* $max_submitId = Query::max('submit_id');
+         $submit_id = $max_submitId+1;*/
 
         /**
          * generate Submit_id for all queries in same submit click event
          */
         $userid = Auth::user()->id;
-        $submit_id = (int)$userid.rand(1000,100000);
+        $submit_id = (int) $userid.rand(1000, 100000);
 
-        $i=1;
-        foreach($dates as $v_date){
+        $i = 1;
+        foreach ($dates as $v_date) {
 
             $date = date("Y-m-d", strtotime($v_date));
 
@@ -226,7 +231,10 @@ class VendorServices extends Controller
             // if (empty($checkvendor)) {
             //$queryadd = querycart::create(['user_id' => $userid, 'catagory_id' => $catagoryid, 'vendors_id' => $vendor, 'date' => $date, 'mess' => $mess, 'phn' => $num]);
             //$queryid = $queryadd->id;
-            $queryadd = Query::create(['user_id' => $userid, 'category_id' => $catagoryid, 'vendor_id' => $vendor, 'event_date' => $date, 'message' => $mess, 'status' => 'Query Submitted']);
+            $queryadd = Query::create([
+                'user_id' => $userid, 'category_id' => $catagoryid, 'vendor_id' => $vendor, 'event_date' => $date, 'message' => $mess,
+                'status' => 'Query Submitted',
+            ]);
 
             $queryid = $queryadd->id;
 
@@ -239,9 +247,9 @@ class VendorServices extends Controller
 
             $query = Query::find($queryid);
             //$query->queue_id = $queryid+1;
-            if($i < sizeof($dates)){
+            if ($i < sizeof($dates)) {
                 $query->queue_id = 1;
-            }else{
+            } else {
                 $query->queue_id = 0;
             }
             $query->save();
@@ -281,19 +289,12 @@ class VendorServices extends Controller
 
     }
 
-
     /*all vendors*/
     public function all_vendors()
     {
         $view = view('layouts.app');
         $sub_view = view('pages.all_vendors');
+
         return $view->with('content', $sub_view);
     }
-
-
-
-
 }
-
-
-

@@ -1,5 +1,5 @@
 <!-- Sorting and Filter -->
-<div class="row mt-4 mb-4">
+<div class="row mt-2 mb-4">
 
 
 {{-- It will be use later when city filter needed --}}

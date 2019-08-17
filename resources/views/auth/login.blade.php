@@ -90,94 +90,91 @@ include(app_path().'\Http\Controllers\Auth\google_login_setup\settings.php');
 
 <!-- Login Modal HTML -->
 <div id="myModal" class="modal fade">
-  <div class="modal-dialog modal-login">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Sign In To Ayojok</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="{{ route('login') }}">
-        {{ csrf_field() }}
-
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus >
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sign In To Ayojok</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-          </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('login') }}">
+                    {{ csrf_field() }}
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-              <input input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                        </div>
+                    </div>
 
-              @if ($errors->has('password'))
-                  <span class="invalid-feedback" onclick="vanishErrorMessage(this)">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            <input input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback" onclick="vanishErrorMessage(this)">
                       <strong>{{ $errors->first('password') }}</strong>
                   </span>
-              @endif
-            </div>
-          </div>
+                            @endif
+                        </div>
+                    </div>
 
 
-            @if ($errors->has('email'))
-            <div class="form-group row">
-                <div class="col-md-12 offset-md-4">
-                    <div class="checkbox">
+                    @if ($errors->has('email'))
+                        <div class="form-group row">
+                            <div class="col-md-12 offset-md-4">
+                                <div class="checkbox">
                         <span class="error_msg" id="error" onclick="vanishErrorMessage(this)">
                         <strong>
                             {{ $errors->first('email') }}
                         </strong>
                      </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Sign In') }}</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" data-toggle="modal" href="#registerModal">Register Now</button>
+                    </div>
+                    <div class="text-center">
+                        {{--<a href="{{url('login/google')}}" class="btn google"><i class="fa fa-google"></i> Google</a>--}}
+
+                        {{--<a href="{{url('https://accounts.google.com/o/oauth2/auth?scope=' . urlencode('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email') . '&redirect_uri=' . urlencode(CLIENT_REDIRECT_URL) . '&response_type=code&client_id=' . CLIENT_ID . '&access_type=online')}}" class="btn google"><i class="fa fa-google"></i> Google</a>--}}
+                        <a href="{{url('login/facebook')}}" class="btn fb fa-fw"><i class="fa fa-facebook"></i> Facebook</a>
+                    </div>
+
+                    {{--<div class="text-center mt-2">
+                      <p style="font-size:0.8rem; color:#f47f20;">Don't want to Register?</p>
+                      <button type="submit" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" data-toggle="modal" href="#levnum">Leave Your Number</button>
+                    </div>--}}
+                </form>
             </div>
-            @endif
-
-          <div class="form-group row">
-              <div class="col-md-6 offset-md-4">
-                  <div class="checkbox">
-                      <label>
-                          <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                      </label>
-                  </div>
-              </div>
-          </div>
-
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Sign In') }}</button>
-            <button type="submit" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" data-toggle="modal" href="#registerModal">Register Now</button>
-          </div>
-          <div class="text-center">
-            {{--<a href="{{url('login/google')}}" class="btn google"><i class="fa fa-google"></i> Google</a>--}}
-
-              {{--<a href="{{url('https://accounts.google.com/o/oauth2/auth?scope=' . urlencode('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email') . '&redirect_uri=' . urlencode(CLIENT_REDIRECT_URL) . '&response_type=code&client_id=' . CLIENT_ID . '&access_type=online')}}" class="btn google"><i class="fa fa-google"></i> Google</a>--}}
-            <a href="{{url('login/facebook')}}" class="btn fb fa-fw"><i class="fa fa-facebook"></i> Facebook</a>
-          </div>
-
-          {{--<div class="text-center mt-2">
-            <p style="font-size:0.8rem; color:#f47f20;">Don't want to Register?</p>
-            <button type="submit" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" data-toggle="modal" href="#levnum">Leave Your Number</button>
-          </div>--}}
-        </form>
-      </div>
-      <div class="modal-footer"><p class="hint-text"><a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a></p></div>
+            <div class="modal-footer"><p class="hint-text">
+                    <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a></p></div>
+        </div>
     </div>
-  </div>
 </div>
 <!--Login Modal HTML-->
-
-
-
-
 
 
 <script>
 
 
-    function vanishErrorMessage(ob){
+    function vanishErrorMessage(ob) {
         //alert("ok");
-        ob.style.display = "none";
+        ob.style.display = 'none';
     }
 </script>

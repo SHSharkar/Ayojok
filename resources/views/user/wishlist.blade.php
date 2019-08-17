@@ -6,11 +6,11 @@
 
 @section('content')
   <!-- Masthead -->
-  <header class="pagehead" style="background-image: url('img/backgrounds/header_bg_index.jpg');">
+  <header class="pagehead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
     <div class="container">
       <div class="row">
         <div class="col-12 my-auto text-center text-white">
-          <img class="pagehead-img img-responsive mb-3" src="img/logo_final.png" alt="">
+          <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
         </div>
       </div>
     </div>
@@ -60,10 +60,10 @@
                         <div class="productThumb">
                           @if (isset($wishlist->vendors_id))
 
-                            <img src="{{$wishlist->vendor->profile_img}}" alt="{{$wishlist->vendor->title}}" class="img-responsive">
+                            <img src="{{$wishlist->vendor->profile_img}}" alt="{{$wishlist->vendor->title}}" class="img-fluid">
                           @else
 
-                            <img src="{{$wishlist->product->image}}" alt="{{$wishlist->product->title}}" class="img-responsive">
+                            <img src="{{$wishlist->product->image}}" alt="{{$wishlist->product->title}}" class="img-fluid">
                           @endif
 
                         </div>

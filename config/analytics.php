@@ -5,15 +5,13 @@ return [
     /*
      * The view id of which you want to display data.
      */
-    //edited by frank
-    'view_id' => '190235388',
+    'view_id' => env('ANALYTICS_VIEW_ID', '190235388'),
 
     /*
      * Path to the client secret json file. Take a look at the README of this package
      * to learn how to get this file. You can also pass the credentials as an array
      * instead of a file path.
      */
-    //edited by frank
     'service_account_credentials_json' => app_path('analytics/service-account-credentials.json'),
 
     /*

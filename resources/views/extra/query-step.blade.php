@@ -1,9 +1,9 @@
 <!-- Leave Phone Modal -->
 <div class="modal fade" id="query-step" role="dialog">
   <div class="modal-dialog modal-lg">
-
+`
     <!-- Leave Phone Modal-->
-    <div class="modal-content" style=" background-image: url('{{asset('img/backgrounds/header_bg_index.jpg')}}'); background-repeat: no-repeat; background-size: cover;">
+    <div class="modal-content" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
 
       {{-- <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color:#ffff;">&times;</button>

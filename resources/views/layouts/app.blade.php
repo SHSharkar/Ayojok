@@ -1,327 +1,256 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134833729-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-134833729-1');
-    </script>
-
-
-
-
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-
-    <!-- CSRF Token -->
+    {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     {{--<title>{{ config('app.name', 'Ayojok | One Stop Solution for you event') }}</title>--}}
-
     <title>Ayojok | One Stop Solution for your event</title>
-
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-
-    <!-- Custom fonts for this theme -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,600,500,700,800,900' rel='stylesheet'
-          type='text/css'>
-
-    <!-- Plugin CSS -->
-    <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/owl-carousel/owl.theme.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/owl-carousel/owl.transitions.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('vendor/datetimepicker/css/bootstrap-datetimepicker.css') }}" rel="stylesheet" type="text/css">
-
-
-    <!-- Styles -->
-    <link href="{{ asset('css/home.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/modal.css') }}" rel="stylesheet" type="text/css">
-
-    <link rel="icon" href="{{asset('img/logo_final.png')}}" type="image/x-icon">
-
-
-    {{--Date Picker--}}
-    <link rel="stylesheet" type="text/css" href="{{asset('vendor/keith_wood_datepicker/')}}/css/jquery.datepick.css">
-
-    <style>
-        .error_msg{
-
-            margin-top:.25rem;
-            font-size:.875rem;
-            color:#dc3545
-        }
-        .badge_q{
-           /* position: absolute;*/
-            top: 0;
-            right: 0;
-            display: inline-block;
-            min-width: 10px;
-            padding: 3px 7px;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1;
-            color: #fff;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            background-color: rgba(244, 127, 32, 0.5);
-            border-radius: 10px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="{{ mix('/css/primary.css') }}">
+    <link rel="icon" href="{{ asset('img/logo_final.png') }}" type="image/x-icon">
     @stack('css')
 
+    {{-- Google Analytics --}}
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments);
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
+        ga('create', 'UA-134833729-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    {{-- End Google Analytics --}}
 
-
-
+    {{-- Google Tag Manager --}}
+    <script>(function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js',
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K2GSM38');</script>
+    {{-- End Google Tag Manager --}}
 </head>
 <body>
 
-
-
+{{-- Google Tag Manager (noscript) --}}
 <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2GSM38" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2GSM38" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
+{{-- End Google Tag Manager (noscript) --}}
 
-
-
-<!-- Load Facebook SDK for JavaScript -->
+{{-- Load Facebook SDK for JavaScript --}}
 <div id="fb-root"></div>
 <script>
     window.fbAsyncInit = function() {
         FB.init({
-            xfbml            : true,
-            version          : 'v3.2'
+            xfbml: true,
+            version: 'v3.2',
         });
     };
-
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
+        js = d.createElement(s);
+        js.id = id;
         js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
-<!-- Your customer chat code -->
-<div class="fb-customerchat"
-     attribution=setup_tool
-     page_id="718944784960805"
-     theme_color="#e5b15b">
-</div>
+{{-- Your customer chat code --}}
+<div class="fb-customerchat" attribution=setup_tool page_id="718944784960805" theme_color="#e5b15b"></div>
 
-<div id="page-top">
-    @include('auth.login')
-    @include('auth.register')
-    @include('extra.leavenum')
-    @include('extra.thankyou')
+{{-- Navigation --}}
+<nav class="navbar navbar-expand-lg navbar-expand-md fixed-top" id="mainNav">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
 
-
-            <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-        <div class="container">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-                Menu
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-
-                <!-- Top Menu -updated -->
-                <ul class="nav navbar-nav ">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}">{{--Home--}} <img class="logo_as_home"
-                                                                                  src="{{asset('img/logo_final.png')}}">
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('how-it-works')}}">How it Works</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        {{-- <a class="nav-link" href="{{url('our-services')}}">Ayojok Services</a> --}}
-                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
-                        <ul class="megamenu dropdown-menu scrollable-menu " id="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <div class="row">
-                                    <div class="col-lg-3 menu_padding">
-                                        <ul>
-                                            <li><a href="{{url('services/'.$catagory ='vehicle')}}"> {{--<img
+            {{-- Top Menu -updated --}}
+            <ul class="nav navbar-nav ">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/')}}">{{--Home--}} <img class="logo_as_home" src="{{ asset('img/logo_final.png') }}" alt=""></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('how-it-works')}}">How it Works</a>
+                </li>
+                <li class="nav-item dropdown">
+                    {{-- <a class="nav-link" href="{{url('our-services')}}">Ayojok Services</a> --}}
+                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
+                    <ul class="megamenu dropdown-menu scrollable-menu " id="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-3 menu_padding">
+                                    <ul>
+                                        <li><a href="{{url('services/'.$catagory ='vehicle')}}"> {{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/car.png')}}">--}} Vehicle</a></li>
-                                            <li><a href="{{url('services/'.$catagory ='light_&_sound')}}">{{--<img
+                                        <li><a href="{{url('services/'.$catagory ='light_&_sound')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/light.png')}}">--}} Light & Sound</a>
-                                            </li>
-                                            <li><a href="{{url('services/'.$catagory ='holud_snacks')}}">{{--<img
+                                        </li>
+                                        <li><a href="{{url('services/'.$catagory ='holud_snacks')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/holud_snacks.png')}}">--}} Holud
-                                                    Snacks</a></li>
-                                            <li><a href="{{url('services/'.$catagory ='dala_kula')}}">{{--<img
+                                                Snacks</a></li>
+                                        <li><a href="{{url('services/'.$catagory ='dala_kula')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/car.png')}}">--}} Dala Kula</a></li>
-                                            {{--Secend edit--}}
-                                            <li><a href="{{url('services/'.$catagory ='holud')}}"> {{--<img
+                                        {{--Secend edit--}}
+                                        <li><a href="{{url('services/'.$catagory ='holud')}}"> {{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/car.png')}}">--}} Holud
-                                                    Accessories</a>
-                                            </li>
+                                                Accessories</a>
+                                        </li>
 
-                                        </ul>
-                                    </div>
+                                    </ul>
+                                </div>
 
 
-                                    <div class="col-lg-3 menu_padding">
-                                        <ul>
+                                <div class="col-lg-3 menu_padding">
+                                    <ul>
 
-                                            <li><a href="{{url('services/'.$catagory ='wedding')}}">{{--<img
+                                        <li><a href="{{url('services/'.$catagory ='wedding')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/wedding.png')}}">--}} Wedding
-                                                    Accessories</a>
-                                            </li>
+                                                Accessories</a>
+                                        </li>
 
-                                            {{--<li><a href="{{url('services/'.$catagory ='building lights')}}"> --}}{{--<img
-                                                            class="logo_as_megamenu"
-                                                            src="{{asset('img/menu/car.png')}}">--}}{{-- Building Lights </a></li>--}}
+                                        {{--<li><a href="{{url('services/'.$catagory ='building lights')}}"> --}}{{--<img
+                                                        class="logo_as_megamenu"
+                                                        src="{{asset('img/menu/car.png')}}">--}}{{-- Building Lights </a></li>--}}
 
-                                            <li><a href="{{url('services/'.$catagory ='alpona')}}"> {{--<img
+                                        <li><a href="{{url('services/'.$catagory ='alpona')}}"> {{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/car.png')}}">--}} Alpona </a></li>
-                                            <li><a href="{{url('services/'.$catagory ='Choreography')}}">{{--<img
+                                        <li><a href="{{url('services/'.$catagory ='Choreography')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/light.png')}}">--}} Choreography </a>
-                                            </li>
-                                            <li><a href="{{url('services/'.$catagory ='holud_dress')}}">{{--<img
+                                        </li>
+                                        <li><a href="{{url('services/'.$catagory ='holud_dress')}}">{{--<img
                                                             class="logo_as_megamenu"
-                                                            src="{{asset('img/menu/holud_snacks.png')}}">--}} Holud Dresses </a></li>
-                                        </ul>
-                                    </div>
+                                                            src="{{asset('img/menu/holud_snacks.png')}}">--}} Holud Dresses </a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                                    {{--<div class="col-lg-6">
-                                      <ul>
-                                        <li><a href="{{url('services/'.$catagory ='holud')}}"><img class="logo_as_megamenu" src="{{asset('img/menu/car.png')}}"> Holud Accessories</a></li>
-                                        <li><a href="{{url('services/'.$catagory ='wedding')}}"><img class="logo_as_megamenu" src="{{asset('img/menu/car.png')}}"> Wedding Accessories</a></li>
-                                      </ul>
-                                    </div>--}}
-
-
-                                    <div class="vl"></div>
+                                {{--<div class="col-lg-6">
+                                  <ul>
+                                    <li><a href="{{url('services/'.$catagory ='holud')}}"><img class="logo_as_megamenu" src="{{asset('img/menu/car.png')}}"> Holud Accessories</a></li>
+                                    <li><a href="{{url('services/'.$catagory ='wedding')}}"><img class="logo_as_megamenu" src="{{asset('img/menu/car.png')}}"> Wedding Accessories</a></li>
+                                  </ul>
+                                </div>--}}
 
 
-                                    <div class="col-lg-3">
+                                <div class="vl"></div>
 
-                                        <ul>
-                                            <li><a href="{{url('vendors/'.$catagory ='venue')}}">{{--<img
+
+                                <div class="col-lg-3">
+
+                                    <ul>
+                                        <li><a href="{{url('vendors/'.$catagory ='venue')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/venue.png')}}">--}} Venue</a></li>
-                                            <li><a href="{{url('vendors/'.$catagory ='catering')}}">{{--<img
+                                        <li><a href="{{url('vendors/'.$catagory ='catering')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/catering.png')}}">--}} Catering</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{url('vendors/'.$catagory ='photography_and_cinematography')}}">{{--<img
+                                        </li>
+                                        <li>
+                                            <a href="{{url('vendors/'.$catagory ='photography_and_cinematography')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/photo.png')}}">--}} Photography</a>
-                                            </li>
-                                            <li><a href="{{url('vendors/'.$catagory ='decoration')}}">{{--<img
+                                        </li>
+                                        <li><a href="{{url('vendors/'.$catagory ='decoration')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/decoration.png')}}">--}}
-                                                    Decoration</a>
-                                            </li>
-                                            <li><a href="{{url('vendors/'.$catagory ='invitation_cards')}}">{{--<img
+                                                Decoration</a>
+                                        </li>
+                                        <li><a href="{{url('vendors/'.$catagory ='invitation_cards')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/invitation_card.png')}}">--}}
-                                                    Invitation
-                                                    Cards</a>
-                                            </li>
+                                                Invitation
+                                                Cards</a>
+                                        </li>
 
-                                            <li><a href="{{url('vendors/'.$catagory ='bridal_outfit')}}">{{--<img
+                                        <li><a href="{{url('vendors/'.$catagory ='bridal_outfit')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/invitation_card.png')}}">--}}
-                                                    Bridal Outfit</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-3 menu_padding_3">
-                                        <ul>
-                                            <li><a href="{{url('vendors/'.$catagory ='dj')}}">{{--<img
+                                                Bridal Outfit</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-3 menu_padding_3">
+                                    <ul>
+                                        <li><a href="{{url('vendors/'.$catagory ='dj')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/dj.png')}}">--}} DJ</a></li>
-                                            <li><a href="{{url('vendors/'.$catagory ='makeup_artist')}}">{{--<img
+                                        <li><a href="{{url('vendors/'.$catagory ='makeup_artist')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/makeup.png')}}">--}} Makeup
-                                                    Artist</a>
-                                            </li>
-                                            <li><a href="{{url('vendors/'.$catagory ='bakeries')}}">{{--<img
+                                                Artist</a>
+                                        </li>
+                                        <li><a href="{{url('vendors/'.$catagory ='bakeries')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/bakeries.png')}}">--}} Bakeries</a>
-                                            </li>
-                                            <li><a href="{{url('vendors/'.$catagory ='mehedi')}}">{{--<img
+                                        </li>
+                                        <li><a href="{{url('vendors/'.$catagory ='mehedi')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/car.png')}}">--}} Mehedi</a></li>
-                                            <li><a href="{{url('vendors/'.$catagory ='kazi')}}">{{--<img
+                                        <li><a href="{{url('vendors/'.$catagory ='kazi')}}">{{--<img
                                                             class="logo_as_megamenu"
                                                             src="{{asset('img/menu/car.png')}}">--}} Kazi</a></li>
 
-                                            {{--<li><a href="{{url('vendors/'.$catagory ='jewellery')}}">--}}{{--<img
-                                                            class="logo_as_megamenu"
-                                                            src="{{asset('img/menu/car.png')}}">--}}{{-- Jewellery</a></li>--}}
-                                        </ul>
-                                    </div>
-
+                                        {{--<li><a href="{{url('vendors/'.$catagory ='jewellery')}}">--}}{{--<img
+                                                        class="logo_as_megamenu"
+                                                        src="{{asset('img/menu/car.png')}}">--}}{{-- Jewellery</a></li>--}}
+                                    </ul>
                                 </div>
-                            </li>
-                        </ul>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('event-coordinator')}}">Event Coordinator</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://ayojok.com/ideas-and-stories/" target="_blank">Ideas and Stories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('contact_us')}}" >Contact Us</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    @if (Route::has('login'))
-                        @auth
+                            </div>
+                        </li>
+                    </ul>
+                </li>
 
-
-                        <li class="nav-item">
-
-                            <a class="nav-link" href="{{route('my_query')}}">My queries <span class="badge_q badge-light" id="cartCount">@include('extra.cart')</span> </a>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('event-coordinator')}}">Event Coordinator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://ayojok.com/ideas-and-stories/" target="_blank">Ideas and Stories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('contact_us')}}">Contact Us</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @if (Route::has('login'))
+                    @auth
+                        <li class="nav-item"><a class="nav-link" href="{{route('my_query')}}">My queries
+                                <span class="badge_q badge-light" id="cartCount">@include('extra.cart')</span> </a>
                         </li>
 
-
                         <li class="nav-item dropdown loggeduser mr-5">
-                            <a class="nav-link dropdown-toggle disabled" id="navbarDropdown"
-                               href="{{url('my-account')}}" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
+                            <a class="nav-link dropdown-toggle disabled" id="navbarDropdown" href="{{url('my-account')}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 {{--<small>Hello,</small>--}}
                                 @if ((Auth::user()->fname) == "")
@@ -330,8 +259,7 @@
                                     {{Auth::user()->fname}} {{--<span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}
                                 @endif
                             </a>
-                            <ul class="megamenu dropdown-menu scrollable-menu" id="dropdown-menu"
-                                aria-labelledby="navbarDropdown">
+                            <ul class="megamenu dropdown-menu scrollable-menu" id="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                 <li>
                                     <div class="row">
@@ -339,9 +267,11 @@
                                             <ul>
                                                 {{--<li><a href="{{route('my-account')}}">My Account</a></li>--}}
                                                 <li><a href="{{route('wishlist.index')}}">My Wishlist</a></li>
-                                                <li><a href="{{route('myvendors', Auth::user()->id)}}">My Vendors</a>
+                                                <li>
+                                                    <a href="{{route('myvendors', Auth::user()->id)}}">My Vendors</a>
                                                 </li>
-                                                <li><a href="{{route('mychecklist',Auth::user()->id)}}">My Checklist</a>
+                                                <li>
+                                                    <a href="{{route('mychecklist',Auth::user()->id)}}">My Checklist</a>
                                                 </li>
                                                 <li><a href="{{route('mybudget')}}">My Budget</a></li>
                                                 <li><a title="Personal information"
@@ -354,7 +284,9 @@
                                         <div class="col-sm-6">
                                             <ul>
                                                 {{--<li><a href="{{route('my-account')}}">My Account</a></li>--}}
-                                                <li><a href="{{route('User.Message')}}"> Inbox (<span id="inboxmess">@include('extra.mess')</span>)</a></li>
+                                                <li>
+                                                    <a href="{{route('User.Message')}}"> Inbox (<span id="inboxmess">@include('extra.mess')</span>)</a>
+                                                </li>
 
                                                 {{--<li><a href="{{route('my_query')}}">My queries (<span id="query_cart">@include('extra.cart')</span>)</a></li>
                                                 <li><a href="{{route('client-orderlist', Auth::user()->id)}}">Booking List</a>
@@ -390,242 +322,140 @@
                             </form>
                         </li>
                         {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Confirmed Query ">--}}
-                            {{--<a class="counter nav-link" href="{{route('confirm-query')}}">--}}
-                                {{--<i class="fa fa-bell" aria-hidden="true"></i><span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}
-                            {{--</a>--}}
+                        {{--<a class="counter nav-link" href="{{route('confirm-query')}}">--}}
+                        {{--<i class="fa fa-bell" aria-hidden="true"></i><span class="badge badge-light" id="cartCount">@include('extra.query_cart')</span>--}}
+                        {{--</a>--}}
                         {{--</li>--}}
                     @else
-                        <li class="nav-item"><a class="nav-link" data-toggle="modal" href="#myModal">Login/Registration</a></li>
-                        @endauth
-                    @endif
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="modal" href="#myModal">Login/Registration</a></li>
+                    @endauth
+                @endif
 
 
 
 
 
-                    {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Wishlist">
-                        <a class="counter nav-link" href="{{url('wishlist')}}">
-                            <i class="fa fa-heart" aria-hidden="true"></i><span class="badge badge-light"
-                                                                                id="wishlistCount">@include('extra.wishlist')</span>
-                        </a>
-                    </li>--}}
+                {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Wishlist">
+                    <a class="counter nav-link" href="{{url('wishlist')}}">
+                        <i class="fa fa-heart" aria-hidden="true"></i><span class="badge badge-light"
+                                                                            id="wishlistCount">@include('extra.wishlist')</span>
+                    </a>
+                </li>--}}
 
 
-                    {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Cart">
-                        <a class="counter nav-link" href="{{url('cart')}}">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="badge badge-light"
-                                                                                        id="cartCount">@include('extra.cart')</span>
-                        </a>
-                    </li>--}}
+                {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Cart">
+                    <a class="counter nav-link" href="{{url('cart')}}">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="badge badge-light"
+                                                                                    id="cartCount">@include('extra.cart')</span>
+                    </a>
+                </li>--}}
 
 
-                    {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Query Cart">
-                      <a class="counter nav-link" href="{{url('query-cart')}}">
-                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i><span class="badge badge-light" id="queryCount">--}}{{--@include('extra.query')--}}{{--</span>
-                      </a>
-                    </li>--}}
+                {{--<li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Query Cart">
+                  <a class="counter nav-link" href="{{url('query-cart')}}">
+                    <i class="fa fa-cart-arrow-down" aria-hidden="true"></i><span class="badge badge-light" id="queryCount">--}}{{--@include('extra.query')--}}{{--</span>
+                  </a>
+                </li>--}}
 
 
-                </ul>
-                <!-- /End Top menu updated -->
-            </div>
-        </div>
-    </nav>
-</div>
-
-
-@yield('content')
-
-
-        <!-- Footer -->
-<footer class="footer" style="background-image: url({{asset('img/backgrounds/bg-footer_new.png')}});background-size: auto;">
-    <div class="container footer_padding">
-        <!-- Row Contact -->
-        <div class="row text-center">
-            <div class="col-lg-1"></div>
-            <div class=" col-lg-3 footer-contact-details">
-                <h4>{{--<i class="fa fa-phone"></i>--}} Call</h4>
-
-                <p>+880-1959 555 666</p>
-            </div>
-            <div class="col-lg-4 footer-contact-details">
-                <h4>{{--<i class="fa fa-map-marker"></i>--}} Visit</h4>
-
-                <p> H 52/1,Floor 5,Rd 3/A,Dhanmondi
-                    <br>Dhaka - 1209 Bangladesh
-                </p>
-            </div>
-            <div class="col-lg-3 footer-contact-details">
-                <h4>{{--<i class="fa fa-envelope"></i>--}} Email</h4>
-
-                <p>
-                    <a href="mailto:info@ayojok.com">info@ayojok.com</a>
-                </p>
-            </div>
-        </div>
-
-
-        {{--middle paragraph--}}
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <a href="{{route('partners')}}"><p class="footer_text_3">Enlist with us, and become our valued partner.
-                        Learn more.</p></a>
-            </div>
-        </div>
-        {{--Nir Edit--}}
-
-
-        <!-- Row Social and Menu -->
-        <div class="row">
-            <!-- Footer Menu -->
-            <div class="col-lg-8 mb-4 mt-2" style="display: inherit;">
-        <span class="footer-menu">
-          <a href="{{url('about-us')}}">About Us</a>
-        </span>
-        <span class="footer-menu">
-          <a href="{{url('terms-condition')}}">Terms and Condition</a>
-        </span>
-        <span class="footer-menu">
-          <a href="{{url('privacy')}}">Privacy Policy</a>
-        </span>
-                {{--<span class="footer-menu">
-                  <a href="{{route('partners')}}">Be Our Partner</a>
-                </span>--}}
-            </div>
-            <!-- Footer Social -->
-
-            <div class="col-lg-4 " style="display:inline; padding:0px;text-align:center">
-
-
-
-        <span>
-          <a href="https://www.facebook.com/ayojokevents" target="_blank">
-              <img class="img-fluid img-responsive social" src="{{asset('img/social/facebook.png')}}" alt="">
-          </a>
-        </span>
-
-        <span>
-          <a href="https://www.instagram.com/ayojokevents/" target="_blank">
-              <img class="img-fluid img-responsive social" src="{{asset('img/social/instagram.png')}}" alt="">
-
-          </a>
-        </span>
-
-        <span>
-          <a href="https://www.youtube.com/channel/UC2Dn5jQAF8TV3_hPAoESk-Q" target="_blank">
-              <img class="img-fluid img-responsive social" src="{{asset('img/social/youtube.png')}}" alt="">
-          </a>
-        </span>
-
-            </div>
-        </div>
-
-
-        <!-- Footer Copyright -->
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <p class="copyright">Copyright <?php echo date("Y") ?> Ayojok</p>
-            </div>
+            </ul>
+            {{-- /End Top menu updated --}}
         </div>
     </div>
-</footer>
+</nav>
 
-<!-- Footer End-->
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12" id="page-top">
+        @yield('content')
 
-<!-- Date Picker [http://keith-wood.name/datepick.html] -->
+        {{-- Footer --}}
 
-<!-- End of Date Picker -->
+        <div class="footer footer-section pt-4 pb-1" style="background-image:url({{ asset('img/backgrounds/bg-footer_new.png') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover;">
+            <div class="container">
+                <div class="row text-center mb-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <h4>Call</h4>
+                        <p>+880-1959 555 666</p>
+                    </div>
 
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <h4>Visit</h4>
+                        <p>H 52/1, Floor 5, Rd 3/A, Dhanmondi <br>Dhaka - 1209 Bangladesh</p>
+                    </div>
 
-<!-- Bootstrap core JavaScript -->
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/popper/popper.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@ayojok.com">info@ayojok.com</a></p>
+                    </div>
+                </div>
 
-<!-- Plugin JavaScript -->
-<script src="{{ asset('vendor/jquery.easing/jquery.easing.min.js') }}"></script>
-<script src="{{ asset('vendor/owl-carousel/owl.carousel.js') }}"></script>
-<script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('vendor/vide/jquery.vide.min.js') }}"></script>
+                <div class="row text-center mb-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 enlist-with-us">
+                        <p><a href="{{ route('partners') }}">Enlist with us, and become our valued partner. Learn more.</a></p>
+                    </div>
+                </div>
 
-<script src="{{ asset('vendor/wowjs/wow.min.js') }}"></script>
-<script src="{{ asset('vendor/datetimepicker/js/bootstrap-datetimepicker.js') }}"></script>
+                <div class="row text-center footer-menu-section">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 footer-navbar">
+                        <ul>
+                            <li class="footer-menu"><a href="{{ url('about-us') }}">About Us</a></li>
+                            <li class="footer-menu"><a href="{{ url('terms-condition') }}">Terms and Condition</a></li>
+                            <li class="footer-menu"><a href="{{ url('privacy') }}">Privacy Policy</a></li>
+                        </ul>
+                    </div>
 
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 social-media-icons text-center">
+                        <ul>
+                            <li>
+                                <a href="https://www.facebook.com/ayojokevents" target="_blank"><img class="img-fluid img-fluid social" src="{{asset('img/social/facebook.png')}}" alt=""></a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/ayojokevents/" target="_blank"><img class="img-fluid img-fluid social" src="{{asset('img/social/instagram.png')}}" alt=""></a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/channel/UC2Dn5jQAF8TV3_hPAoESk-Q" target="_blank"><img class="img-fluid img-fluid social" src="{{asset('img/social/youtube.png')}}" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-<!-- Contact form JavaScript -->
-<script src="{{ asset('js/contact_me.js') }}"></script>
-<script src="{{ asset('js/jqBootstrapValidation.js') }}"></script>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                        <p class="copyright">Copyright {{ date('Y') }} Ayojok</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- Custom scripts for this theme -->
-<script src="{{ asset('js/vitality.js') }}"></script>
+        @include('auth.login')
+        @include('auth.register')
+        @include('extra.leavenum')
+        @include('extra.thankyou')
 
-<script type="text/javascript">
-    $(".dropdown").hover(
-            function () {
-                $('.dropdown-menu', this).stop().fadeIn("fast");
-            },
-            function () {
-                $('.dropdown-menu', this).stop().fadeOut("fast");
-            });
+        {{-- Date Picker [http://keith-wood.name/datepick.html] --}}
 
-    $('.modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        button.one('focus', function (event) {
-            $(this).blur();
-        });
-    });
+        {{-- <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
-    // $('.dropdown-toggle').click(function() {
-    //     var location = $(this).attr('href');
-    //     window.location.href = location;
-    //     return false;
-    // });
+        {{-- Your customer chat code --}}
+        <div class="fb-customerchat" attribution=setup_tool page_id="718944784960805" theme_color="#ff7e29"></div>
+    </div>
+</div>
 
-    jQuery('#levnumber').click(function (e) {
-        e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-        jQuery.ajax({
-            url: "{{ url('/save-phn') }}",
-            method: 'post',
-            data: {
-                number: jQuery('#num').val(),
-            },
-            success: function (result) {
-                // $("#levnum .close").click();
-                $("#levnum").modal('hide');
-                $("#thanks").modal('show');
-            }
-        });
-    });
+<script src="{{ mix('/js/primary.js') }}"></script>
 
+<script>
+    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 </script>
-<!-- Load Facebook SDK for JavaScript -->
-{{-- <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
-<!-- Your customer chat code -->
-<div class="fb-customerchat"
-attribution=setup_tool
-page_id="718944784960805"
-theme_color="#ff7e29">
-</div> --}}
-
-
-<script type="text/javascript" src="{{asset('vendor/keith_wood_datepicker/')}}/js/jquery.plugin.js"></script>
-<script type="text/javascript" src="{{asset('vendor/keith_wood_datepicker/')}}/js/jquery.datepick.js"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('vendor/jquery-countdown/css/jquery.countdown.css')}}">
-<script type="text/javascript" src="{{asset('vendor/jquery-countdown/js/jquery.plugin.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendor/jquery-countdown/js/jquery.countdown.js')}}"></script>
 @stack('scripts')
+
 </body>
 </html>

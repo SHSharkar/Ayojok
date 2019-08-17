@@ -6,11 +6,11 @@
 
 @section('content')
   <!-- Masthead -->
-  <header class="pagehead" style="background-image: url('img/backgrounds/header_bg_index.jpg');">
+  <header class="pagehead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
     <div class="container">
       <div class="row">
         <div class="col-12 my-auto text-center text-white">
-          <img class="pagehead-img img-responsive mb-3" src="img/logo_final.png" alt="">
+          <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
                   <tr>
                     <td style="width:10%;">
                       <div class="productThumb">
-                      <a href="{{url('services/'.$catagory = $item->catagory->name.'/'.$product = $item->product->id)}}"><img src="{{asset($item->product->image)}}" alt="" class="img-responsive"></a>
+                      <a href="{{url('services/'.$catagory = $item->catagory->name.'/'.$product = $item->product->id)}}"><img src="{{asset($item->product->image)}}" alt="" class="img-fluid"></a>
                       </div>
                     </td>
                     <td>

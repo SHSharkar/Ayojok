@@ -1,318 +1,295 @@
 @extends('layouts.app')
 
 @section('content')
-        <!-- Masthead -->
-<header class="masthead" style="background-image: url('img/backgrounds/header_bg_index.jpg');background-size: cover;">
-        <!-- <div class="container h-100">
-        <div class="row h-100">
-        <div class="col-12 my-auto text-center text-white">
-        <img class="masthead-img img-fluid mb-3" src="img/profile.png" alt="">
-      </div>
-      </div>
-      </div> -->
-    <!-- {{-- <div class="scroll-down">
-<a class="btn js-scroll-trigger" href="#values">
-<i class="fa fa-angle-down fa-fw"></i>
-</a>
-</div> --}} -->
-    <div>
+    @php $agent = new Jenssegers\Agent\Agent() @endphp
+
+    <!-- Masthead -->
+    <header class="masthead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
         <div class="scroll-down">
-            <div class="logos">
-                <img class="logo" src="img/logo_final.png">
+            <div class="logos pt-4">
+                <img class="logo" src="{{ asset('img/logo_final.png') }}" alt="">
 
                 <p class="tagline" style="">Bangladesh's first & biggest online event booking service</p>
             </div>
-            {{ Form::open(['route'=>'find', 'method' => 'post'])}}
-            <div style="text-align:center;" class="catagory input-group">
-                <div class="col-lg-4 prefix">
-                    <span>I am looking for</span>
-                </div>
-                <div class="col-lg-7 search-cat">
-                    <select class="form-control" name="catagory">
-                        @foreach ($vendors as $vendor)
-                            <option value="{{$vendor->id}}"
-                                    style="text-transform: capitalize;">{{$vendor->name}}</option>
-                        @endforeach
-                        @foreach ($services as $service)
-                            <option value="{{$service->id}}"
-                                    style="text-transform: capitalize;">{{$service->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-lg-1 findbtn">
-                    {{ Form::button('Go',['class'=>'btn btn-search','type'=>'submit'])}}
-                </div>
-            </div>
-            {{ Form::close() }}
-            <div class="mobile_view abc">
-                <div class="col-lg-4">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    <span class="header-write">Find services</span>
-                </div>
-                <div class="col-lg-4">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    <span class="header-write">Fast and Easy</span>
-                </div>
-                <div class="col-lg-4">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    <span class="header-write">Zero Hassle</span>
-                </div>
-            </div>
-        </div>
 
-    </div>
-</header>
+            <div class="row pb-3">
+                <div class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-4 offset-md-4 text-center">
 
-<!-- /End FB Profile Style -->
-<section class=" bg-white">
-    <div class="container-fluid">
+                    <div class="mb-3">
+                        {{ Form::open(['route'=>'find', 'method' => 'post'])}}
+                        <div class="input-group index-top-search-bar">
+                            <select name="catagory" id="catagory" class="selectpicker" data-live-search="true" data-width="75%" title="I am looking">
+                                @unless (empty($vendors))
+                                    @foreach ($vendors as $vendor)
+                                        <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+                                    @endforeach
+                                @endunless
 
-        <div class="row row pt-2 pb-3">
-
-            <div class="col-lg-12 text-center">
-                <div class="fb-profile-text" style="text-align:center;">
-                    <p class="fb-profile-text1">Ayojok brings wide selection of trusted event service providers for your
-                        desired budget and occasion.<br>
-                        Save time & money as you browse all kinds of event related services anywhere, anytime.</p>
-
-                    <p class="tag1">How it works? Simple, easy <span class="andSymbl">&</span> fast!</p>
-
-                    <div class="row scroll-down" style="text-allign:center;">
-                        <div class="col-lg-4">
-                            <div class="content_ico">
-
-                                <a href="https://www.ayojok.com/how-it-works">
-                                    <img class="icon1" src="{{asset('img/icons/mouse.png')}}">
-                                    <span class="how_it_works_icon">Choose services</span>
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <div class="content_ico2">
-                                <a href="https://www.ayojok.com/how-it-works">
-
-                                    <img class="icon" src="{{asset('img/icons/phone.png')}}">
-                                    <span class="how_it_works_icon">Get notified about availability</span>
-                                </a>
-
+                                @unless (empty($services))
+                                    @foreach ($services as $service)
+                                        <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                    @endforeach
+                                @endunless
+                            </select>
+                            <div class="input-group-append">
+                                <input class="btn search-button" type="submit" value="Go">
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        {{ Form::close() }}
+                    </div>
 
-                            <div class="content_ico3">
-                                <a href="https://www.ayojok.com/how-it-works">
-
-                                    <img class="icon" src="{{asset('img/icons/calender_v2.png')}}">
-                                    <span class="how_it_works_icon">Confirm</span>
-                                </a>
-
-                            </div>
+                    <div class="row">
+                        <div class="col-4 col-lg-4">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <span class="header-write">Find Services</span>
+                        </div>
+                        <div class="col-4 col-lg-4">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <span class="header-write">Fast and Easy</span>
+                        </div>
+                        <div class="col-4 col-lg-4">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <span class="header-write">Zero Hassle</span>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</section>
+    </header>
 
-<!-- /End FB Profile Style -->
+    <!-- /End FB Profile Style -->
+    <section class="bg-white pt-3">
+        <div class="container-fluid">
+            <div class="row row pt-3 pb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <div class="fb-profile-text" style="text-align:center;">
+                        <p class="fb-profile-text1">Ayojok brings wide selection of trusted event service providers for your desired budget and occasion.<br>Save time & money as you browse all kinds of event related services anywhere, anytime.
+                        </p>
 
-<!-- Values Section -->
+                        <p class="tag1">How it works? Simple, easy <span class="andSymbl">&</span> fast!</p>
 
+                        <div class="row scroll-down" style="text-align:center;">
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <div class="content_ico">
+                                    <a href="https://www.ayojok.com/how-it-works">
+                                        <img class="icon1" src="{{asset('img/icons/mouse.png')}}">
+                                        <span class="how_it_works_icon">Choose services</span>
+                                    </a>
+                                </div>
+                            </div>
 
-<!-- Our Service -->
-<section class="page-section pricing">
-    <div class="container wow fadeIn mb-4">
-        <div class="text-center wow fadeIn">
-            <p style="color:black; font-size:26px;">Find services for your every budget</p>
+                            <div class="col-12 col-sm-4 col-lg-4">
 
-            <p style="color:black; font-size:18px;">Venues, catering, decoration, photographers & more</p>
-        </div>
-        <div class="row text-center justify-content-md-center">
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
+                                <div class="content_ico2">
+                                    <a href="https://www.ayojok.com/how-it-works">
 
-                    <a href="{{url('vendors/'.$catagory ='venue')}}">
+                                        <img class="icon" src="{{asset('img/icons/phone.png')}}">
+                                        <span class="how_it_works_icon">Get notified about availability</span>
+                                    </a>
 
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Venue</h4>
-                            <img src="{{asset('img/final/Venue.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <div class="content_ico3">
+                                    <a href="https://www.ayojok.com/how-it-works">
+                                        <img class="icon" src="{{asset('img/icons/calender_v2.png')}}">
+                                        <span class="how_it_works_icon">Confirm</span>
+                                    </a>
+
+                                </div>
+                            </div>
                         </div>
-                    </a>
-
+                    </div>
                 </div>
 
-            </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
-
-                    <a href="{{url('vendors/'.$catagory ='catering')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Catering</h4>
-                            <img src="{{asset('img/final/catering.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
-{{--
-                    <a href="{{url('vendors/'.$catagory ='photography & cinematography')}}"></a>
---}}
-                </div>
-            </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
-
-                    <a href="{{url('vendors/'.$catagory ='photography_and_cinematography')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Photography</h4>
-                            <img src="{{asset('img/final/Photography.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
-
-                    <a href="{{url('vendors/'.$catagory ='decoration')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Decoration</h4>
-                            <img src="{{asset('img/final/Decoration.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Sub Service Start-->
-        <div class="row text-center mt-4">
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
+    <!-- /End FB Profile Style -->
 
-                    <a href="{{url('vendors/'.$catagory ='invitation_cards')}}">
+    <!-- Values Section -->
 
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Invitation Cards</h4>
-                            <img src="{{asset('img/final/invitation card.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
-                </div>
+    <!-- Our Service -->
+    <section class="page-section pricing mt-3">
+        <div class="wow container fadeIn mb-4">
+            <div class="text-center wow fadeIn">
+                <p style="color:black; font-size:26px;">Find services for your every budget</p>
+
+                <p style="color:black; font-size:18px;">Venues, catering, decoration, photographers & more</p>
             </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
-
-                    <a href="{{url('vendors/'.$catagory ='dj')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">DJ</h4>
-                            <img src="{{asset('img/final/DJ.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
+            <div class="row text-center justify-content-md-center">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+                        <a href="{{url('vendors/'.$catagory ='venue')}}">
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Venue</h4>
+                                <img src="{{asset('img/final/Venue.jpg')}}" class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
-
-                    <a href="{{url('vendors/'.$catagory ='makeup_artist')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Makeup Artist</h4>
-                            <img src="{{asset('img/final/Make UP.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+                        <a href="{{url('vendors/'.$catagory ='catering')}}">
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Catering</h4>
+                                <img src="{{asset('img/final/catering.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                        {{--
+                                            <a href="{{url('vendors/'.$catagory ='photography & cinematography')}}"></a>
+                        --}}
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
 
-                    <a href="{{url('vendors/'.$catagory ='bakeries')}}">
+                        <a href="{{url('vendors/'.$catagory ='photography_and_cinematography')}}">
 
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Bakeries</h4>
-                            <img src="{{asset('img/final/Bakeries.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Photography</h4>
+                                <img src="{{asset('img/final/Photography.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
 
-        <div class="row text-center mt-4">
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
+                        <a href="{{url('vendors/'.$catagory ='decoration')}}">
 
-                    <a href="{{url('vendors/'.$catagory ='mehedi')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Mehedi</h4>
-                            <img src="{{asset('img/final/Mehedi.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
-
-                    <a href="{{url('vendors/'.$catagory ='kazi')}}">
-
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Kazi</h4>
-                            <img src="{{asset('img/final/Kazi.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Decoration</h4>
+                                <img src="{{asset('img/final/Decoration.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
+            <!-- Sub Service Start-->
+            <div class="row text-center">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
 
-            {{--Services start--}}
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
+                        <a href="{{url('vendors/'.$catagory ='invitation_cards')}}">
 
-                    <a href="{{url('services/'.$catagory ='vehicle')}}">
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Invitation Cards</h4>
+                                <img src="{{asset('img/final/invitation card.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
 
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">Vehicle</h4>
-                            <img src="{{asset('img/final/Vehicle.jpg')}}"
-                                 class="img-fluid mx-auto zoom" alt="">
-                        </div>
-                    </a>
+                        <a href="{{url('vendors/'.$catagory ='dj')}}">
+
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">DJ</h4>
+                                <img src="{{asset('img/final/DJ.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+
+                        <a href="{{url('vendors/'.$catagory ='makeup_artist')}}">
+
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Makeup Artist</h4>
+                                <img src="{{asset('img/final/Make UP.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+
+                        <a href="{{url('vendors/'.$catagory ='bakeries')}}">
+
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Bakeries</h4>
+                                <img src="{{asset('img/final/Bakeries.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-xs-6 col-lg-3">
-                <div class="item">
+            <div class="row text-center">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
 
-                    <a href="{{url('services/'.$catagory ='light_&_sound')}}">
+                        <a href="{{url('vendors/'.$catagory ='mehedi')}}">
 
-                        <div class="img-wrapper">
-                            <h4 class="fontOverImage">light & sound</h4>
-                            <img src="{{asset('img/final/Lighting.jpg')}}"
-                                 class="img-fluid mx-auto zoom " alt="">
-                        </div>
-                    </a>
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Mehedi</h4>
+                                <img src="{{asset('img/final/Mehedi.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
                 </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+
+                        <a href="{{url('vendors/'.$catagory ='kazi')}}">
+
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Kazi</h4>
+                                <img src="{{asset('img/final/Kazi.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                {{--Services start--}}
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+
+                        <a href="{{url('services/'.$catagory ='vehicle')}}">
+
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">Vehicle</h4>
+                                <img src="{{asset('img/final/Vehicle.jpg')}}"
+                                     class="img-fluid mx-auto zoom" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
+                    <div class="item">
+
+                        <a href="{{url('services/'.$catagory ='light_&_sound')}}">
+
+                            <div class="img-wrapper">
+                                <h4 class="fontOverImage">light & sound</h4>
+                                <img src="{{asset('img/final/Lighting.jpg')}}"
+                                     class="img-fluid mx-auto zoom " alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
-        </div>
 
-
-
-            <div class="row text-center justify-content-md-center mt-4" id="hidden_row" style=" display: none">
-                <div class="col-xs-6 col-lg-3">
+            <div class="row text-center justify-content-md-center" id="hidden_row" style=" display: none">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='holud_snacks')}}">
@@ -327,7 +304,7 @@
                     </div>
 
                 </div>
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='dala_kula')}}">
@@ -340,8 +317,7 @@
                         </a>
                     </div>
                 </div>
-
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='holud')}}">
@@ -354,7 +330,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='wedding')}}">
@@ -369,8 +345,8 @@
                 </div>
             </div>
 
-            <div class="row text-center justify-content-md-center mt-4"  id="hidden_row2" style="display: none;">
-                <div class="col-xs-6 col-lg-3">
+            <div class="row text-center justify-content-md-center" id="hidden_row2" style="display: none;">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='alpona')}}">
@@ -385,7 +361,7 @@
                     </div>
 
                 </div>
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='Choreography')}}">
@@ -398,11 +374,7 @@
                         </a>
                     </div>
                 </div>
-
-
-
-
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
                         <a href="{{url('vendors/'.$catagory ='jewellery')}}">
                             <div class="img-wrapper">
@@ -413,9 +385,7 @@
                         </a>
                     </div>
                 </div>
-
-
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
                         <a href="{{url('vendors/'.$catagory ='bridal_outfit')}}">
                             <div class="img-wrapper">
@@ -427,21 +397,21 @@
                     </div>
                 </div>
 
-               {{-- <div class="col-xs-6 col-lg-3">
-                    <div class="item">
+                {{-- <div class="col-6 col-sm-6 col-md-3 mb-3">
+                     <div class="item">
 
-                        <a href="{{url('services/'.$catagory ='holud_dress')}}">
+                         <a href="{{url('services/'.$catagory ='holud_dress')}}">
 
-                            <div class="img-wrapper">
-                                <h4 class="fontOverImage">Holud Dresses</h4>
-                                <img src="{{asset('img/final/Holud.jpg')}}"
-                                     class="img-fluid mx-auto zoom" alt="">
-                            </div>
-                        </a>
-                    </div>
-                </div>--}}
+                             <div class="img-wrapper">
+                                 <h4 class="fontOverImage">Holud Dresses</h4>
+                                 <img src="{{asset('img/final/Holud.jpg')}}"
+                                      class="img-fluid mx-auto zoom" alt="">
+                             </div>
+                         </a>
+                     </div>
+                 </div>--}}
 
-                {{--<div class="col-xs-6 col-lg-3">
+                {{--<div class="col-6 col-sm-6 col-md-3 mb-3">
                     <div class="item">
 
                         <a href="{{url('services/'.$catagory ='wedding')}}">
@@ -457,29 +427,26 @@
             </div>
 
 
+            <!-- ./Sub Service Ends-->
+            {{--<center><a href="{{url('all_vendors')}}" class="btn btn-danger rounded btn-sm custom-btn mt-3"
+                       style="color: white;padding: 1% 5%;text-transform: none;background-color: #810D28">Load more</a>
+            </center>--}}
 
+            <div class="text-center">
+                <a href="javascript:void(0);" class="btn btn-danger rounded btn-sm custom-btn mt-3" style="color: white;padding: 1% 5%;text-transform: none;background-color: #810d28" onclick="makeDisplayBlock()" id="btn_loadMore">More</a>
+            </div>
+        </div>
 
-        <!-- ./Sub Service Ends-->
-        {{--<center><a href="{{url('all_vendors')}}" class="btn btn-danger rounded btn-sm custom-btn mt-3"
-                   style="color: white;padding: 1% 5%;text-transform: none;background-color: #810D28">Load more</a>
-        </center>--}}
-        <center><a href="javascript:void(0);" class="btn btn-danger rounded btn-sm custom-btn"
-                   style="color: white;padding: 1% 5%;text-transform: none;background-color: #810d28"
-                   onclick="makeDisplayBlock()" id="btn_loadMore">More</a></center>
+    </section>
 
-
-    </div>
-
-</section>
-
-<!-- Event Section -->
-<!-- <section class="page-section bg-light">
+    <!-- Event Section -->
+    <!-- <section class="page-section bg-light">
     <div class="container text-center wow fadeIn mt-4 mb-4">
       <div class="row mt-4">
-        <div class="col-lg-3 wow fadeIn event-sec" data-wow-delay=".2s">
+        <div class="col-md-3 wow fadeIn event-sec" data-wow-delay=".2s">
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
-              <img class="img-responsive" src="img/service1.jpg" alt="">
+              <img class="img-fluid" src="img/service1.jpg" alt="">
 
               <div class="overlay">
                 <h2>Checking</h2>
@@ -487,17 +454,17 @@
             </div>
           </a>
         </div>
-        <div class="col-lg-3 wow fadeIn" data-wow-delay=".2s">
+        <div class="col-md-3 wow fadeIn" data-wow-delay=".2s">
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
-              <img class="img-responsive" src="img/service2.jpg" alt="">
+              <img class="img-fluid" src="img/service2.jpg" alt="">
               <div class="overlay">
                 <h2>Monitoring</h2>
               </div>
             </div>
           </a>
         </div>
-        <div class="col-lg-3 mb-3 wow fadeIn" data-wow-delay=".2s">
+        <div class="col-md-3 mb-3 wow fadeIn" data-wow-delay=".2s">
 
           <div class="event-dec">
             <div style="text-align:center;">
@@ -513,10 +480,10 @@
           <a href="{{url('event-coordinator')}}" class="btn btn-proceed mt-5">Learn More</a>
 
         </div>
-        <div class="col-lg-3 wow fadeIn" data-wow-delay=".2s" >
+        <div class="col-md-3 wow fadeIn" data-wow-delay=".2s" >
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
-              <img class="img-responsive" src="img/service3.jpg" alt="">
+              <img class="img-fluid" src="img/service3.jpg" alt="">
               <div class="overlay">
                 <h2>Assuring</h2>
               </div>
@@ -527,17 +494,17 @@
     </div>
   </section> -->
 
-<!-- Hours Section - Repurposed from Pricing Table -->
-<!-- <section class="page-section pricing" id="hours" style="background-image: url('img/backgrounds/bg-pricing.jpg')">
-  <div class="container wow fadeIn mt-4 mb-4">
-    <div class="text-center">
-      <h2>Planning Tools</h2>
-      <hr class="colored">
-      <p>Plan your wedding the right way with our effective planning tools</p>
-    </div>
-    <div class="row"> -->
-<!-- Pricing Table 1 -->
-<!-- <div class="col-md-4">
+    <!-- Hours Section - Repurposed from Pricing Table -->
+    <!-- <section class="page-section pricing" id="hours" style="background-image: url('img/backgrounds/bg-pricing.jpg')">
+      <div class="container wow fadeIn mt-4 mb-4">
+        <div class="text-center">
+          <h2>Planning Tools</h2>
+          <hr class="colored">
+          <p>Plan your wedding the right way with our effective planning tools</p>
+        </div>
+        <div class="row"> -->
+    <!-- Pricing Table 1 -->
+    <!-- <div class="col-md-4">
           <div class="pricing-item">
             @if (Auth::check())
         <a href="{{route('mychecklist',Auth::user()->id)}}">
@@ -551,10 +518,10 @@
         </a>
         @endif
 
-        </div>
-      </div> -->
-<!-- Pricing Table 2 -->
-<!-- <div class="col-md-4">
+            </div>
+          </div> -->
+    <!-- Pricing Table 2 -->
+    <!-- <div class="col-md-4">
           <div class="pricing-item">
             @if (Auth::check())
         <a href="{{ route('myvendors', Auth::user()->id) }}">
@@ -567,10 +534,10 @@
           <h4 class="mb-5">My Vendors</h4>
         </a>
         @endif
-        </div>
-      </div> -->
-<!-- Pricing Table 3 -->
-<!-- <div class="col-md-4">
+            </div>
+          </div> -->
+    <!-- Pricing Table 3 -->
+    <!-- <div class="col-md-4">
           <div class="pricing-item">
             @if (Auth::check())
         <a href="{{route('mybudget')}}">
@@ -583,236 +550,272 @@
           <h4 class="mb-5">Budget Manager</h4>
         </a>
         @endif
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section> -->
-<!-- plaaning tools new UI -->
-<section class="page-section pricing" id="hours" style="background-color: white;color: #323232">
+    </section> -->
+    <!-- plaaning tools new UI -->
+    <section class="page-section pricing" id="hours" style="background-color: white;color: #323232">
+        <div class="container wow fadeIn @if($agent->isMobile()) mt-3 @else mt-5 @endif">
+            <div class="row">
+                <!-- Pricing Table 1 -->
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="pricing-item_1 plan_tool_rectangle">
+                        {{--<img class="photo plan_tool_rectangle" src="">--}}
 
+                        <div class="pricing_content">
+                            <h4 class="pricing_title"> Save time & money<br> and be stress free </h4>
 
-    <div class="container wow fadeIn mt-5 mb-5">
-
-        <div class="row">
-            <!-- Pricing Table 1 -->
-            <div class="col-lg-6">
-
-                <div class="pricing-item_1 plan_tool_rectangle">
-                    {{--<img class="photo plan_tool_rectangle" src="">--}}
-
-                    <div class="pricing_content">
-                        <h4 style="" class="pricing_title"> Save time & money<br> and be stress free </h4>
-
-                        <p class="pricing_para" style="text-transform: none">Our Event Coordinator <br>
-                            gives you control <br>
-                            and supervision over <br>
-                            your events without<br>
-                            hassle and stress. </p>
-                        <a href="{{route('event_coordinator')}}" class="btn btn-danger rounded btn-sm custom-btn"
-                           style="color: white;padding: 1% 5%;text-transform: none;background-color: #810D28">Learn more</a>
+                            <p class="pricing_para" style="text-transform: none">Our Event Coordinator <br>
+                                gives you control <br>
+                                and supervision over <br>
+                                your events without<br>
+                                hassle and stress. </p>
+                            <a href="{{route('event_coordinator')}}" class="btn btn-danger rounded btn-sm custom-btn" style="color: white;padding: 1% 5%;text-transform: none;background-color: #810D28">Learn more</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="pricing-item_2 plan_tool_rectangle pricing_item_2">
+                        {{--<img class="photo plan_tool_rectangle" src="">--}}
 
-            <div class="col-lg-6 ">
-                <div class="pricing-item_2 plan_tool_rectangle pricing_item_2">
-                    {{--<img class="photo plan_tool_rectangle" src="">--}}
+                        <div class="pricing_content">
+                            <h4 class="pricing_title" @if ($agent->isMobile()) style="font-size:18px;padding:6px;border-radius:3px;font-weight:600;text-align:center!important;background:rgba(255, 255, 255, .85);" @endif> @if($agent->isMobile()) Easy Planning with easy tools @else Easy Planning
+                                <br> with easy tools @endif</h4>
 
-                    <div class="pricing_content">
-                        <h4 style="" class="pricing_title"> Easy Planning<br> with easy tools </h4>
+                            <p class="pricing_para" style="text-transform: none; @if ($agent->isMobile()) font-size:16px;padding:6px;border-radius:3px;font-weight:500;background:rgba(255, 255, 255, .85); @endif">Plan your wedding the right way
+                                <br>
+                                with our effective free planning tools. <br>
+                                Manage checklists, vendors,<br>
+                                budgets and more.<br>
+                            </p>
 
-                        <p class="pricing_para" style="text-transform: none">Plan your wedding the right way <br>
-                            with our effective free planning tools. <br>
-                            Manage checklists, vendors,<br>
-                            budgets and more.<br>
-                        </p>
+                            {{--<a href="#" class="btn btn-danger rounded btn-sm custom-btn"
+                               style="color: white;padding: 1% 2%;text-transform: none;background-color: #810D28">Take me to
+                                tools</a>--}}
 
-                        {{--<a href="#" class="btn btn-danger rounded btn-sm custom-btn"
-                           style="color: white;padding: 1% 2%;text-transform: none;background-color: #810D28">Take me to
-                            tools</a>--}}
+                            @if ($agent->isMobile())
+                                <div class="row easy-planning-with-easy-tools text-left">
+                                    @if (Auth::check())
+                                        <div class="col-6 col-sm-6 mb-3">
+                                            <div class="custom-bg">
+                                                <a href="{{route('mychecklist',Auth::user()->id)}}">
+                                                    <img class="icon2" src="{{asset('img/planning-tools/my-checklist.png')}}"> My Checklist
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-6 col-sm-6 mb-3">
+                                            <div class="custom-bg">
+                                                <a href="#myModal" data-toggle="modal">
+                                                    <img class="icon2" src="{{asset('img/planning-tools/my-checklist.png')}}"> My Checklist
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
 
-                        <div class="row planning_tools_icons center-block" style="">
+                                    @if (Auth::check())
+                                        <div class="col-6 col-sm-6 mb-3">
+                                            <div class="custom-bg">
+                                                <a href="{{ route('myvendors', Auth::user()->id) }}">
+                                                    <img class="icon2" src="{{asset('img/planning-tools/my-vendor.png')}}"> My Vendors
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-6 col-sm-6 mb-3">
+                                            <div class="custom-bg">
+                                                <a href="#myModal" data-toggle="modal">
+                                                    <img class="icon2" src="{{asset('img/planning-tools/my-vendor.png')}}"> My Vendors
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
 
-                            {{--<div class="col-sm-6">
-                            </div>--}}
-
-
-                            @if (Auth::check())
-                                <div class="col-sm-4 planning_tools_icon">
-                                    <a href="{{route('mychecklist',Auth::user()->id)}}">
-                                        <img class="icon2" src="{{asset('img/planning-tools/my-checklist.png')}}">
-
-                                        <p class="mt-3">My <br> Checklist</p>
-                                    </a>
+                                    @if (Auth::check())
+                                        <div class="col-6 col-sm-6 mb-3">
+                                            <div class="custom-bg">
+                                                <a href="{{route('mybudget')}}">
+                                                    <img class="icon2" src="{{asset('img/planning-tools/budget-manager.png')}}"> My Budget
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-6 col-sm-6 mb-3">
+                                            <div class="custom-bg">
+                                                <a href="#myModal" data-toggle="modal">
+                                                    <img class="icon2" src="{{asset('img/planning-tools/budget-manager.png')}}"> My Budget
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
+                                {{-- End of Mobile Version --}}
                             @else
-                                <div class="col-sm-4 planning_tools_icon">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <img class="icon2" src="{{asset('img/planning-tools/my-checklist.png')}}">
+                                <div class="row planning_tools_icons center-block">
+                                    @if (Auth::check())
+                                        <div class="col-sm-4 planning_tools_icon">
+                                            <a href="{{route('mychecklist',Auth::user()->id)}}">
+                                                <img class="icon2" src="{{asset('img/planning-tools/my-checklist.png')}}">
 
-                                        <p class="mt-3">My <br> Checklist</p>
-                                    </a>
+                                                <p class="mt-3">My <br> Checklist</p>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-4 planning_tools_icon">
+                                            <a href="#myModal" data-toggle="modal">
+                                                <img class="icon2" src="{{asset('img/planning-tools/my-checklist.png')}}">
+
+                                                <p class="mt-3">My <br> Checklist</p>
+                                            </a>
+                                        </div>
+                                    @endif
+
+                                    @if (Auth::check())
+                                        <div class="col-sm-4 planning_tools_icon">
+                                            <a href="{{ route('myvendors', Auth::user()->id) }}">
+                                                <img class="icon2" src="{{asset('img/planning-tools/my-vendor.png')}}">
+
+                                                <p class="mt-3">My <br> Vendors</p>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-4 planning_tools_icon">
+                                            <a href="#myModal" data-toggle="modal">
+                                                <img class="icon2" src="{{asset('img/planning-tools/my-vendor.png')}}">
+
+                                                <p class="mt-3">My <br> Vendors</p>
+                                            </a>
+                                        </div>
+                                    @endif
+
+                                    @if (Auth::check())
+                                        <div class="col-sm-4 planning_tools_icon">
+                                            <a href="{{route('mybudget')}}">
+                                                <img class="icon2" src="{{asset('img/planning-tools/budget-manager.png')}}">
+
+                                                <p class="mt-3">My <br> Budget</p>
+
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-4 planning_tools_icon">
+                                            <a href="#myModal" data-toggle="modal">
+                                                <img class="icon2" src="{{asset('img/planning-tools/budget-manager.png')}}">
+
+                                                <p class="mt-3">My <br> Budget </p>
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             @endif
-
-
-
-                            @if (Auth::check())
-                                <div class="col-sm-4 planning_tools_icon">
-                                    <a href="{{ route('myvendors', Auth::user()->id) }}">
-                                        <img class="icon2" src="{{asset('img/planning-tools/my-vendor.png')}}">
-
-                                        <p class="mt-3">My <br> Vendors</p>
-                                    </a>
-                                </div>
-                            @else
-                                <div class="col-sm-4 planning_tools_icon">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <img class="icon2" src="{{asset('img/planning-tools/my-vendor.png')}}">
-
-                                        <p class="mt-3">My <br> Vendors</p>
-                                    </a>
-                                </div>
-                            @endif
-
-
-
-                            @if (Auth::check())
-                                <div class="col-sm-4 planning_tools_icon">
-                                    <a href="{{route('mybudget')}}">
-                                        <img class="icon2" src="{{asset('img/planning-tools/budget-manager.png')}}">
-
-                                        <p class="mt-3">My <br> Budget</p>
-
-                                    </a>
-                                </div>
-                            @else
-                                <div class="col-sm-4 planning_tools_icon">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <img class="icon2" src="{{asset('img/planning-tools/budget-manager.png')}}">
-
-                                        <p class="mt-3">My <br> Budget </p>
-                                    </a>
-                                </div>
-                            @endif
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <!--End of new planning tools  -->
+
+    <!-- Menu Gallery -->
+    <section class="page-section mt-3" id="menu">
+        <div class="container wow fadeIn mb-4">
+            <div class="text-center">
+                <p>
+                    <span style="transform: scale(2, 1.3);font-size: 25px;font-weight: 200;font-family: 'Source Sans Pro', sans-serif;">Ideas and stories</span><br>Get your creative inspiration from current trend and tips.
+                </p>
+            </div>
+
+            <div class="portfolio-gallery">
+                @foreach ($items as $item)
+                    <div class="item">
+
+                        <div class="image">
+                            <a href="{{ $item->get_link() }}" title="{{ $item->get_title() }}">
 
 
-    </div>
+                                <div>
 
-</section>
-<!--End of new planning tools  -->
-<!-- Menu Gallery -->
-<section class="page-section" id="menu">
-    <div class="container wow fadeIn  mb-4">
-        <div class="text-center">
-            <p class="" style="">
-                <span style="transform: scale(2, 1.3);font-size: 25px;font-weight: 200;font-family: 'Source Sans Pro', sans-serif;">Ideas and stories</span>
-                <br>
-                Get your creative inspiration from current trend and tips.</p>
-        </div>
-
-        <div class="portfolio-gallery">
-            @foreach ($items as $item)
-                <div class="item">
-
-                    <div class="image">
-                        <a href="{{ $item->get_link() }}" title="{{ $item->get_title() }}">
+                                    <?php
+                                    $sentence = $item->get_description();
 
 
-                            <div>
+                                    //echo $sentence;
+                                    preg_match_all('~<img .*?src=["\']+(.*?)["\']+~', $sentence, $urls, PREG_SET_ORDER);
+                                    if (isset($urls[0][1])) {
+                                        $urls = $urls[0][1];
+                                    } else {
+                                        $urls = "https://www.blubirdinteractive.com/assets/img/image-not-found.jpg";
+                                    }
 
-                                <?php
-                                $sentence = $item->get_description();
+                                    //echo $urls;
+                                    ?>
+                                    <img src="{{$urls}}" class="img-fluid  photo_rectangle photo_idea_stories" alt="">
+                                </div>
+                            </a>
 
-
-                                //echo $sentence;
-                                preg_match_all('~<img .*?src=["\']+(.*?)["\']+~', $sentence, $urls, PREG_SET_ORDER);
-                                if (isset($urls[0][1])) {
-                                    $urls = $urls[0][1];
-                                }else{
-                                    $urls = "https://www.blubirdinteractive.com/assets/img/image-not-found.jpg";
-                                }
-
-                                //echo $urls;
-                                ?>
-                                <img src="{{$urls}}" class="img-fluid  photo_rectangle photo_idea_stories" alt="">
-                            </div>
-                        </a>
-
+                        </div>
+                        <p style="width:100%;" class="text-center txt">{{ $item->get_title() }}</p>
                     </div>
-                    <p style="width:100%;" class="text-center txt">{{ $item->get_title() }}</p>
 
 
-                </div>
+                @endforeach
+                {{--
+                  <div class="item">
+                    <a href="#" class="gallery-link" title="Mini Croissants">
+                      <div>
+                        <h4>S2</h4>
+                        <img src="img/stories/2.jpg" class="img-fluid mx-auto" alt="">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="#" class="gallery-link" title="Gourmet Sweet Cakes">
+                      <div>
+                        <h4>S3</h4>
+                        <img src="img/stories/3.jpg" class="img-fluid mx-auto" alt="">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="#" class="gallery-link" title="Traditional Honey Cake">
+                      <div>
+                        <h4>S4</h4>
+                        <img src="img/stories/4.jpg" class="img-fluid mx-auto" alt="">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="#" class="gallery-link" title="Rosemary Breadsticks and Salami Rolls">
+                      <div>
+                        <h4>S5</h4>
+                        <img src="img/stories/5.jpg" class="img-fluid mx-auto" alt="">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="#" class="gallery-link" title="Mini Croissants">
+                      <div>
+                        <h4>S6</h4>
+                        <img src="img/stories/6.jpg" class="img-fluid mx-auto" alt="">
+                      </div>
+                    </a>
+                  </div> --}}
+            </div>
 
-
-            @endforeach
-            {{--
-              <div class="item">
-                <a href="#" class="gallery-link" title="Mini Croissants">
-                  <div>
-                    <h4>S2</h4>
-                    <img src="img/stories/2.jpg" class="img-fluid mx-auto" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="item">
-                <a href="#" class="gallery-link" title="Gourmet Sweet Cakes">
-                  <div>
-                    <h4>S3</h4>
-                    <img src="img/stories/3.jpg" class="img-fluid mx-auto" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="item">
-                <a href="#" class="gallery-link" title="Traditional Honey Cake">
-                  <div>
-                    <h4>S4</h4>
-                    <img src="img/stories/4.jpg" class="img-fluid mx-auto" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="item">
-                <a href="#" class="gallery-link" title="Rosemary Breadsticks and Salami Rolls">
-                  <div>
-                    <h4>S5</h4>
-                    <img src="img/stories/5.jpg" class="img-fluid mx-auto" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="item">
-                <a href="#" class="gallery-link" title="Mini Croissants">
-                  <div>
-                    <h4>S6</h4>
-                    <img src="img/stories/6.jpg" class="img-fluid mx-auto" alt="">
-                  </div>
-                </a>
-              </div> --}}
         </div>
-
-    </div>
-</section>
-
-
-
-
+    </section>
 @endsection
 
 @push('scripts')
-<script>
-    function makeDisplayBlock() {
-        document.getElementById('hidden_row').style.display = "flex";
-        document.getElementById('hidden_row2').style.display = "flex";
+    <script>
+        function makeDisplayBlock() {
+            document.getElementById('hidden_row').style.display = 'flex';
+            document.getElementById('hidden_row2').style.display = 'flex';
 
-        $('#btn_loadMore').hide();
-    }
-</script>
+            $('#btn_loadMore').hide();
+        }
+    </script>
 @endpush

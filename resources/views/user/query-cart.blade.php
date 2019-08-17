@@ -7,11 +7,11 @@
 @section('content')
 
   <!-- Masthead -->
-  <header class="pagehead" style="background-image: url('img/backgrounds/header_bg_index.jpg');">
+  <header class="pagehead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
     <div class="container">
       <div class="row">
         <div class="col-12 my-auto text-center text-white">
-          <img class="pagehead-img img-responsive mb-3" src="img/logo_final.png" alt="">
+          <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
         </div>
       </div>
     </div>
@@ -58,9 +58,9 @@
                     <td>
                       <div class="productThumb">
                         @if ($querydata->vendors_id == '0')
-                          <img src="{{asset($querydata->product->image)}}" alt="" class="img-responsive">
+                          <img src="{{asset($querydata->product->image)}}" alt="" class="img-fluid">
                         @else
-                          <img src="{{asset($querydata->vendors->logo)}}" alt="" class="img-responsive">
+                          <img src="{{asset($querydata->vendors->logo)}}" alt="" class="img-fluid">
                         @endif
 
                       </div>

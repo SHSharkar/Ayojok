@@ -28,7 +28,7 @@ class MyQueryController extends Controller
     public function go()
     {
         $datas = User::all();
-        $v = array();
+        $v = [];
 
 
         $i = 0;
@@ -38,22 +38,38 @@ class MyQueryController extends Controller
             ];
             $i++;
         }
+
         return $v;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $user = Auth::user()->id;
         $vendors = Query::where('user_id', $user)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
         $services = Query::where('user_id', $user)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
-        $vendor_arr = array();
-        $service_arr = array();
-        $query_arr = array();
-        $query_arr1 = array();
-        $qs=array();$ir=array();$av=array();$na=array();
-        $b=array();$cr=array();$to=array();
-        $not_qs=0;$not_ir=0;$not_av=0;$not_na=0;$not_b=0;$not_cr=0;$not_to=0;$not_total=0;
-        $up_at="";
+        $vendor_arr = [];
+        $service_arr = [];
+        $query_arr = [];
+        $query_arr1 = [];
+        $qs = [];
+        $ir = [];
+        $av = [];
+        $na = [];
+        $b = [];
+        $cr = [];
+        $to = [];
+        $not_qs = 0;
+        $not_ir = 0;
+        $not_av = 0;
+        $not_na = 0;
+        $not_b = 0;
+        $not_cr = 0;
+        $not_to = 0;
+        $not_total = 0;
+        $up_at = '';
 
         foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
@@ -65,157 +81,145 @@ class MyQueryController extends Controller
                 $tag_id = null;
             }
 
-            $q = array(
-                "query_id" => $vendor->id,
-                "query_tag" => $tag_title,
-                "query_tag_id" => $tag_id,
-                "event_date" => $vendor->event_date,
-                "shift" => $vendor->shift,
-                "total_payment" => $vendor->total,
-                "advance_payment" => $vendor->advance,
-                "discount" => $vendor->discount,
-                "total_paid" => $vendor->payment,
-                "status" => $vendor->status,
-                "in_cart" => $vendor->in_cart
-            );
+            $q = [
+                'query_id' => $vendor->id,
+                'query_tag' => $tag_title,
+                'query_tag_id' => $tag_id,
+                'event_date' => $vendor->event_date,
+                'shift' => $vendor->shift,
+                'total_payment' => $vendor->total,
+                'advance_payment' => $vendor->advance,
+                'discount' => $vendor->discount,
+                'total_paid' => $vendor->payment,
+                'status' => $vendor->status,
+                'in_cart' => $vendor->in_cart,
+            ];
 
-            if($up_at=="")
-            {
-                $up_at=$vendor->updated_at->format('Y-m-d H:i:s');
-            }
-            elseif (strtotime($up_at) < strtotime($vendor->updated_at->format('Y-m-d H:i:s')))
-            {
-                $up_at=$vendor->updated_at->format('Y-m-d H:i:s');
+            if ($up_at == '') {
+                $up_at = $vendor->updated_at->format('Y-m-d H:i:s');
+            } elseif (strtotime($up_at) < strtotime($vendor->updated_at->format('Y-m-d H:i:s'))) {
+                $up_at = $vendor->updated_at->format('Y-m-d H:i:s');
             }
 
-            switch($vendor->status)
-            {
+            switch ($vendor->status) {
                 case 'Query Submitted':
                 {
-                    array_push($qs,$q);
+                    array_push($qs, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_qs=$not_qs+1;
+                    if ($vendor->is_open == 0) {
+                        $not_qs = $not_qs + 1;
                     }
 
                     break;
                 }
                 case 'In Review':
                 {
-                    array_push($ir,$q);
+                    array_push($ir, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_ir=$not_ir+1;
+                    if ($vendor->is_open == 0) {
+                        $not_ir = $not_ir + 1;
                     }
 
                     break;
                 }
                 case 'Available':
                 {
-                    array_push($av,$q);
+                    array_push($av, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_av=$not_av+1;
+                    if ($vendor->is_open == 0) {
+                        $not_av = $not_av + 1;
                     }
 
                     break;
                 }
                 case 'Not Available':
                 {
-                    array_push($na,$q);
+                    array_push($na, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_na=$not_na+1;
+                    if ($vendor->is_open == 0) {
+                        $not_na = $not_na + 1;
                     }
 
                     break;
                 }
                 case 'Booked':
                 {
-                    array_push($b,$q);
+                    array_push($b, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_b=$not_b+1;
+                    if ($vendor->is_open == 0) {
+                        $not_b = $not_b + 1;
                     }
 
                     break;
                 }
                 case 'Cash Requested':
                 {
-                    array_push($cr,$q);
+                    array_push($cr, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_cr=$not_cr+1;
+                    if ($vendor->is_open == 0) {
+                        $not_cr = $not_cr + 1;
                     }
 
                     break;
                 }
                 case 'Timeout':
                 {
-                    array_push($to,$q);
+                    array_push($to, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_to=$not_to+1;
+                    if ($vendor->is_open == 0) {
+                        $not_to = $not_to + 1;
                     }
 
                     break;
                 }
             }
 
-            if ($vendor->queue_id == 0)
-            {
-                if(!empty($qs))
-                {
-                    array_push($query_arr,array(
+            if ($vendor->queue_id == 0) {
+                if (!empty($qs)) {
+                    array_push($query_arr, [
                         "display_status" => "Query Submitted",
-                        "query_details" => $qs));
+                        "query_details" => $qs,
+                    ]);
 
                 }
-                if(!empty($ir))
-                {
-                    array_push($query_arr,array(
+                if (!empty($ir)) {
+                    array_push($query_arr, [
                         "display_status" => "In Review",
-                        "query_details" => $ir));
+                        "query_details" => $ir,
+                    ]);
                 }
-                if(!empty($av))
-                {
-                    array_push($query_arr,array(
+                if (!empty($av)) {
+                    array_push($query_arr, [
                         "display_status" => "Available",
-                        "query_details" => $av));
+                        "query_details" => $av,
+                    ]);
                 }
-                if(!empty($na))
-                {
-                    array_push($query_arr,array(
+                if (!empty($na)) {
+                    array_push($query_arr, [
                         "display_status" => "Not Available",
-                        "query_details" => $na));
+                        "query_details" => $na,
+                    ]);
                 }
-                if(!empty($b))
-                {
-                    array_push($query_arr,array(
+                if (!empty($b)) {
+                    array_push($query_arr, [
                         "display_status" => "Booked",
-                        "query_details" => $b));
+                        "query_details" => $b,
+                    ]);
                 }
-                if(!empty($cr))
-                {
-                    array_push($query_arr,array(
+                if (!empty($cr)) {
+                    array_push($query_arr, [
                         "display_status" => "Cash Requested",
-                        "query_details" => $cr));
+                        "query_details" => $cr,
+                    ]);
                 }
-                if(!empty($to))
-                {
-                    array_push($query_arr,array(
+                if (!empty($to)) {
+                    array_push($query_arr, [
                         "display_status" => "Timeout",
-                        "query_details" => $to));
+                        "query_details" => $to,
+                    ]);
                 }
 
-                $v = array(
+                $v = [
                     "category_id" => $vendor->catagory->id,
                     "category_name" => $vendor->catagory->name,
                     "vendor_id" => $vendor->vendors->id,
@@ -226,11 +230,18 @@ class MyQueryController extends Controller
                     "expiry_time" => $vendor->expiry_time,
                     "query_list" => $query_arr,
                     "query_tag" => $tag_title,
-                    "updated_at" => $up_at
-                );
+                    "updated_at" => $up_at,
+                ];
                 array_push($vendor_arr, $v);
-                $query_arr = array();$qs=array();$ir=array();$av=array();$na=array();
-                $b=array();$cr=array();$to=array();$up_at="";
+                $query_arr = [];
+                $qs = [];
+                $ir = [];
+                $av = [];
+                $na = [];
+                $b = [];
+                $cr = [];
+                $to = [];
+                $up_at = "";
             }
         }
         /*echo "<pre>";
@@ -251,7 +262,7 @@ class MyQueryController extends Controller
 
             }
 
-            $q = array(
+            $q = [
                 "query_id" => $service->id,
                 "query_tag" => $tag_title,
                 "query_tag_id" => $tag_id,
@@ -263,92 +274,81 @@ class MyQueryController extends Controller
                 "total_paid" => $service->payment,
                 "status" => $service->status,
                 "in_cart" => $service->in_cart,
-            );
+            ];
 
-            if($up_at=="")
-            {
-                $up_at=$service->updated_at->format('Y-m-d H:i:s');
-            }
-            elseif (strtotime($up_at) < strtotime($service->updated_at->format('Y-m-d H:i:s')))
-            {
-                $up_at=$service->updated_at->format('Y-m-d H:i:s');
+            if ($up_at == "") {
+                $up_at = $service->updated_at->format('Y-m-d H:i:s');
+            } elseif (strtotime($up_at) < strtotime($service->updated_at->format('Y-m-d H:i:s'))) {
+                $up_at = $service->updated_at->format('Y-m-d H:i:s');
             }
 
-            switch($service->status)
-            {
+            switch ($service->status) {
                 case 'Query Submitted':
                 {
-                    array_push($qs,$q);
+                    array_push($qs, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_qs=$not_qs+1;
+                    if ($service->is_open == 0) {
+                        $not_qs = $not_qs + 1;
                     }
 
                     break;
                 }
                 case 'In Review':
                 {
-                    array_push($ir,$q);
+                    array_push($ir, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_ir=$not_ir+1;
+                    if ($service->is_open == 0) {
+                        $not_ir = $not_ir + 1;
                     }
 
                     break;
                 }
                 case 'Available':
                 {
-                    array_push($av,$q);
+                    array_push($av, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_av=$not_av+1;
+                    if ($service->is_open == 0) {
+                        $not_av = $not_av + 1;
                     }
 
                     break;
                 }
                 case 'Not Available':
                 {
-                    array_push($na,$q);
+                    array_push($na, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_na=$not_na+1;
+                    if ($service->is_open == 0) {
+                        $not_na = $not_na + 1;
                     }
 
                     break;
                 }
                 case 'Booked':
                 {
-                    array_push($b,$q);
+                    array_push($b, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_b=$not_b+1;
+                    if ($service->is_open == 0) {
+                        $not_b = $not_b + 1;
                     }
 
                     break;
                 }
                 case 'Cash Requested':
                 {
-                    array_push($cr,$q);
+                    array_push($cr, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_cr=$not_cr+1;
+                    if ($service->is_open == 0) {
+                        $not_cr = $not_cr + 1;
                     }
 
                     break;
                 }
                 case 'Timeout':
                 {
-                    array_push($to,$q);
+                    array_push($to, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_to=$not_to+1;
+                    if ($service->is_open == 0) {
+                        $not_to = $not_to + 1;
                     }
 
                     break;
@@ -357,50 +357,50 @@ class MyQueryController extends Controller
 
             if ($service->queue_id == 0) {
 
-                if(!empty($qs))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($qs)) {
+                    array_push($query_arr1, [
                         "display_status" => "Query Submitted",
-                        "query_details" => $qs));
+                        "query_details" => $qs,
+                    ]);
                 }
-                if(!empty($ir))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($ir)) {
+                    array_push($query_arr1, [
                         "display_status" => "In Review",
-                        "query_details" => $ir));
+                        "query_details" => $ir,
+                    ]);
                 }
-                if(!empty($av))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($av)) {
+                    array_push($query_arr1, [
                         "display_status" => "Available",
-                        "query_details" => $av));
+                        "query_details" => $av,
+                    ]);
                 }
-                if(!empty($na))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($na)) {
+                    array_push($query_arr1, [
                         "display_status" => "Not Available",
-                        "query_details" => $na));
+                        "query_details" => $na,
+                    ]);
                 }
-                if(!empty($b))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($b)) {
+                    array_push($query_arr1, [
                         "display_status" => "Booked",
-                        "query_details" => $b));
+                        "query_details" => $b,
+                    ]);
                 }
-                if(!empty($cr))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($cr)) {
+                    array_push($query_arr1, [
                         "display_status" => "Cash Requested",
-                        "query_details" => $cr));
+                        "query_details" => $cr,
+                    ]);
                 }
-                if(!empty($to))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($to)) {
+                    array_push($query_arr1, [
                         "display_status" => "Timeout",
-                        "query_details" => $to));
+                        "query_details" => $to,
+                    ]);
                 }
 
-                $v = array(
+                $v = [
                     "category_id" => $service->catagory->id,
                     "category_name" => $service->catagory->name,
                     "vendor_id" => $service->product->id,
@@ -411,12 +411,19 @@ class MyQueryController extends Controller
                     "expiry_time" => $service->expiry_time,
                     "query_list" => $query_arr1,
                     "query_tag" => $tag_title,
-                    "updated_at" => $up_at
-                );
+                    "updated_at" => $up_at,
+                ];
 
                 array_push($service_arr, $v);
-                $query_arr1 = array();$qs=array();$ir=array();$av=array();$na=array();
-                $b=array();$cr=array();$to=array();$up_at="";
+                $query_arr1 = [];
+                $qs = [];
+                $ir = [];
+                $av = [];
+                $na = [];
+                $b = [];
+                $cr = [];
+                $to = [];
+                $up_at = "";
             }
         }
 
@@ -431,26 +438,24 @@ class MyQueryController extends Controller
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
         $expire = 0;
-        $not_total=$not_qs+$not_ir+$not_av+$not_na+$not_b+$not_cr+$not_to;
+        $not_total = $not_qs + $not_ir + $not_av + $not_na + $not_b + $not_cr + $not_to;
 
-        $not_arr=array(
-            "Query Submitted" => $not_qs,
-            "In Review" => $not_ir,
-            "Available" => $not_av,
-            "Not Available" => $not_na,
-            "Booked" => $not_b,
-            "Cash Requested" => $not_cr,
-            "Timeout" => $not_to,
-            "Total" => $not_total
-        );
+        $not_arr = [
+            'Query Submitted' => $not_qs,
+            'In Review' => $not_ir,
+            'Available' => $not_av,
+            'Not Available' => $not_na,
+            'Booked' => $not_b,
+            'Cash Requested' => $not_cr,
+            'Timeout' => $not_to,
+            'Total' => $not_total,
+        ];
 
+        $vendor_arr = array_merge($service_arr, $vendor_arr);
+        $service_arr = [];
 
-        $vendor_arr=array_merge($service_arr,$vendor_arr);
-        $service_arr=array();
-
-        $sort = array();
-        foreach ($vendor_arr as $key => $row)
-        {
+        $sort = [];
+        foreach ($vendor_arr as $key => $row) {
             $sort[$key] = $row['updated_at'];
         }
         array_multisort($sort, SORT_DESC, $vendor_arr);
@@ -461,8 +466,9 @@ class MyQueryController extends Controller
         //return $vendor_arr;
 
 
-        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events', 'expire', 'not_arr'));
     }
+
     public function expired_query()
     {
         $user = Auth::user()->id;
@@ -472,13 +478,25 @@ class MyQueryController extends Controller
 
         //return $services;
 
-        $vendor_arr = array();
-        $service_arr = array();
-        $query_arr = array();
-        $query_arr1 = array();
-        $qs=array();$ir=array();$av=array();$na=array();
-        $b=array();$cr=array();$to=array();
-        $not_qs=0;$not_ir=0;$not_av=0;$not_na=0;$not_b=0;$not_cr=0;$not_to=0;$not_total=0;
+        $vendor_arr = [];
+        $service_arr = [];
+        $query_arr = [];
+        $query_arr1 = [];
+        $qs = [];
+        $ir = [];
+        $av = [];
+        $na = [];
+        $b = [];
+        $cr = [];
+        $to = [];
+        $not_qs = 0;
+        $not_ir = 0;
+        $not_av = 0;
+        $not_na = 0;
+        $not_b = 0;
+        $not_cr = 0;
+        $not_to = 0;
+        $not_total = 0;
 
         foreach ($vendors as $vendor) {
             //return $vendor->tag->title;
@@ -490,7 +508,7 @@ class MyQueryController extends Controller
                 $tag_id = null;
             }
 
-            $q = array(
+            $q = [
                 "query_id" => $vendor->id,
                 "query_tag" => $tag_title,
                 "query_tag_id" => $tag_id,
@@ -501,137 +519,128 @@ class MyQueryController extends Controller
                 "discount" => $vendor->discount,
                 "total_paid" => $vendor->payment,
                 "status" => $vendor->status,
-                "in_cart" => $vendor->in_cart
-            );
+                "in_cart" => $vendor->in_cart,
+            ];
 
-            switch($vendor->status)
-            {
+            switch ($vendor->status) {
                 case 'Query Submitted':
                 {
-                    array_push($qs,$q);
+                    array_push($qs, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_qs=$not_qs+1;
+                    if ($vendor->is_open == 0) {
+                        $not_qs = $not_qs + 1;
                     }
 
                     break;
                 }
                 case 'In Review':
                 {
-                    array_push($ir,$q);
+                    array_push($ir, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_ir=$not_ir+1;
+                    if ($vendor->is_open == 0) {
+                        $not_ir = $not_ir + 1;
                     }
 
                     break;
                 }
                 case 'Available':
                 {
-                    array_push($av,$q);
+                    array_push($av, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_av=$not_av+1;
+                    if ($vendor->is_open == 0) {
+                        $not_av = $not_av + 1;
                     }
 
                     break;
                 }
                 case 'Not Available':
                 {
-                    array_push($na,$q);
+                    array_push($na, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_na=$not_na+1;
+                    if ($vendor->is_open == 0) {
+                        $not_na = $not_na + 1;
                     }
 
                     break;
                 }
                 case 'Booked':
                 {
-                    array_push($b,$q);
+                    array_push($b, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_b=$not_b+1;
+                    if ($vendor->is_open == 0) {
+                        $not_b = $not_b + 1;
                     }
 
                     break;
                 }
                 case 'Cash Requested':
                 {
-                    array_push($cr,$q);
+                    array_push($cr, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_cr=$not_cr+1;
+                    if ($vendor->is_open == 0) {
+                        $not_cr = $not_cr + 1;
                     }
 
                     break;
                 }
                 case 'Timeout':
                 {
-                    array_push($to,$q);
+                    array_push($to, $q);
 
-                    if($vendor->is_open==0)
-                    {
-                        $not_to=$not_to+1;
+                    if ($vendor->is_open == 0) {
+                        $not_to = $not_to + 1;
                     }
 
                     break;
                 }
             }
 
-            if ($vendor->queue_id == 0)
-            {
-                if(!empty($qs))
-                {
-                    array_push($query_arr,array(
+            if ($vendor->queue_id == 0) {
+                if (!empty($qs)) {
+                    array_push($query_arr, [
                         "display_status" => "Query Submitted",
-                        "query_details" => $qs));
+                        "query_details" => $qs,
+                    ]);
 
                 }
-                if(!empty($ir))
-                {
-                    array_push($query_arr,array(
+                if (!empty($ir)) {
+                    array_push($query_arr, [
                         "display_status" => "In Review",
-                        "query_details" => $ir));
+                        "query_details" => $ir,
+                    ]);
                 }
-                if(!empty($av))
-                {
-                    array_push($query_arr,array(
+                if (!empty($av)) {
+                    array_push($query_arr, [
                         "display_status" => "Available",
-                        "query_details" => $av));
+                        "query_details" => $av,
+                    ]);
                 }
-                if(!empty($na))
-                {
-                    array_push($query_arr,array(
+                if (!empty($na)) {
+                    array_push($query_arr, [
                         "display_status" => "Not Available",
-                        "query_details" => $na));
+                        "query_details" => $na,
+                    ]);
                 }
-                if(!empty($b))
-                {
-                    array_push($query_arr,array(
+                if (!empty($b)) {
+                    array_push($query_arr, [
                         "display_status" => "Booked",
-                        "query_details" => $b));
+                        "query_details" => $b,
+                    ]);
                 }
-                if(!empty($cr))
-                {
-                    array_push($query_arr,array(
+                if (!empty($cr)) {
+                    array_push($query_arr, [
                         "display_status" => "Cash Requested",
-                        "query_details" => $cr));
+                        "query_details" => $cr,
+                    ]);
                 }
-                if(!empty($to))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($to)) {
+                    array_push($query_arr1, [
                         "display_status" => "Timeout",
-                        "query_details" => $to));
+                        "query_details" => $to,
+                    ]);
                 }
 
-                $v = array(
+                $v = [
                     "category_id" => $vendor->catagory->id,
                     "category_name" => $vendor->catagory->name,
                     "vendor_id" => $vendor->vendors->id,
@@ -642,10 +651,16 @@ class MyQueryController extends Controller
                     "expiry_time" => $vendor->expiry_time,
                     "query_list" => $query_arr,
                     "query_tag" => $tag_title,
-                );
+                ];
                 array_push($vendor_arr, $v);
-                $query_arr = array();$qs=array();$ir=array();$av=array();$na=array();
-                $b=array();$cr=array();$to=array();
+                $query_arr = [];
+                $qs = [];
+                $ir = [];
+                $av = [];
+                $na = [];
+                $b = [];
+                $cr = [];
+                $to = [];
             }
         }
         /*echo "<pre>";
@@ -663,7 +678,7 @@ class MyQueryController extends Controller
 
             }
 
-            $q = array(
+            $q = [
                 "query_id" => $service->id,
                 "query_tag" => $tag_title,
                 "query_tag_id" => $tag_id,
@@ -674,40 +689,36 @@ class MyQueryController extends Controller
                 "discount" => $service->discount,
                 "total_paid" => $service->payment,
                 "status" => $service->status,
-                "in_cart" => $service->in_cart
-            );
+                "in_cart" => $service->in_cart,
+            ];
 
-            switch($service->status)
-            {
+            switch ($service->status) {
                 case 'Query Submitted':
                 {
-                    array_push($qs,$q);
+                    array_push($qs, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_qs=$not_qs+1;
+                    if ($service->is_open == 0) {
+                        $not_qs = $not_qs + 1;
                     }
 
                     break;
                 }
                 case 'In Review':
                 {
-                    array_push($ir,$q);
+                    array_push($ir, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_ir=$not_ir+1;
+                    if ($service->is_open == 0) {
+                        $not_ir = $not_ir + 1;
                     }
 
                     break;
                 }
                 case 'Available':
                 {
-                    array_push($av,$q);
+                    array_push($av, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_av=$not_av+1;
+                    if ($service->is_open == 0) {
+                        $not_av = $not_av + 1;
                     }
 
                     break;
@@ -715,11 +726,10 @@ class MyQueryController extends Controller
                 case 'Not Available':
                 {
 
-                    array_push($na,$q);
+                    array_push($na, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_na=$not_na+1;
+                    if ($service->is_open == 0) {
+                        $not_na = $not_na + 1;
                     }
 
                     break;
@@ -727,33 +737,30 @@ class MyQueryController extends Controller
                 case 'Booked':
                 {
 
-                    array_push($b,$q);
+                    array_push($b, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_b=$not_b+1;
+                    if ($service->is_open == 0) {
+                        $not_b = $not_b + 1;
                     }
 
                     break;
                 }
                 case 'Cash Requested':
                 {
-                    array_push($cr,$q);
+                    array_push($cr, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_cr=$not_cr+1;
+                    if ($service->is_open == 0) {
+                        $not_cr = $not_cr + 1;
                     }
 
                     break;
                 }
                 case 'Timeout':
                 {
-                    array_push($to,$q);
+                    array_push($to, $q);
 
-                    if($service->is_open==0)
-                    {
-                        $not_to=$not_to+1;
+                    if ($service->is_open == 0) {
+                        $not_to = $not_to + 1;
                     }
 
                     break;
@@ -762,50 +769,50 @@ class MyQueryController extends Controller
 
             if ($service->queue_id == 0) {
 
-                if(!empty($qs))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($qs)) {
+                    array_push($query_arr1, [
                         "display_status" => "Query Submitted",
-                        "query_details" => $qs));
+                        "query_details" => $qs,
+                    ]);
                 }
-                if(!empty($ir))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($ir)) {
+                    array_push($query_arr1, [
                         "display_status" => "In Review",
-                        "query_details" => $ir));
+                        "query_details" => $ir,
+                    ]);
                 }
-                if(!empty($av))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($av)) {
+                    array_push($query_arr1, [
                         "display_status" => "Available",
-                        "query_details" => $av));
+                        "query_details" => $av,
+                    ]);
                 }
-                if(!empty($na))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($na)) {
+                    array_push($query_arr1, [
                         "display_status" => "Not Available",
-                        "query_details" => $na));
+                        "query_details" => $na,
+                    ]);
                 }
-                if(!empty($b))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($b)) {
+                    array_push($query_arr1, [
                         "display_status" => "Booked",
-                        "query_details" => $b));
+                        "query_details" => $b,
+                    ]);
                 }
-                if(!empty($cr))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($cr)) {
+                    array_push($query_arr1, [
                         "display_status" => "Cash Requested",
-                        "query_details" => $cr));
+                        "query_details" => $cr,
+                    ]);
                 }
-                if(!empty($to))
-                {
-                    array_push($query_arr1,array(
+                if (!empty($to)) {
+                    array_push($query_arr1, [
                         "display_status" => "Timeout",
-                        "query_details" => $to));
+                        "query_details" => $to,
+                    ]);
                 }
 
-                $v = array(
+                $v = [
                     "category_id" => $service->catagory->id,
                     "category_name" => $service->catagory->name,
                     "vendor_id" => $service->product->id,
@@ -817,11 +824,17 @@ class MyQueryController extends Controller
                     "query_list" => $query_arr1,
                     "query_tag" => $tag_title,
 
-                );
+                ];
 
                 array_push($service_arr, $v);
-                $query_arr1 = array();$qs=array();$ir=array();$av=array();$na=array();
-                $b=array();$cr=array();$to=array();
+                $query_arr1 = [];
+                $qs = [];
+                $ir = [];
+                $av = [];
+                $na = [];
+                $b = [];
+                $cr = [];
+                $to = [];
             }
         }
         //print_r($service_arr);
@@ -831,9 +844,9 @@ class MyQueryController extends Controller
         /*Event list as user specific*/
         $events = Tag::where('user_id', $user_id)->get();
         $expire = 0;
-        $not_total=$not_qs+$not_ir+$not_av+$not_na+$not_b+$not_cr+$not_to;
+        $not_total = $not_qs + $not_ir + $not_av + $not_na + $not_b + $not_cr + $not_to;
 
-        $not_arr=array(
+        $not_arr = [
             "Query Submitted" => $not_qs,
             "In Review" => $not_ir,
             "Available" => $not_av,
@@ -841,11 +854,11 @@ class MyQueryController extends Controller
             "Booked" => $not_b,
             "Cash Requested" => $not_cr,
             "Timeout" => $not_to,
-            "Total" => $not_total
-        );
+            "Total" => $not_total,
+        ];
 
         //return $not_arr;
-        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events','expire','not_arr'));
+        return view('user.my_query', compact('vendor_arr', 'service_arr', 'events', 'expire', 'not_arr'));
 
     }
 
@@ -862,16 +875,16 @@ class MyQueryController extends Controller
             $query = Query::find($id);
 
             $query->status = "Query Submitted";
-            if($query->is_open == 0 ){
+            if ($query->is_open == 0) {
                 $query->is_open = 1;
             }
 
             $query->save();
         }
+
         return Redirect::back();
         //return "Delete SuccessFully";
     }
-
 
 
     public function delete($query_ids)
@@ -886,9 +899,11 @@ class MyQueryController extends Controller
 
             $query->delete();
         }
+
         return Redirect::back();
         //return "Delete SuccessFully";
     }
+
     public function softDelete($query_ids)
     {
 
@@ -905,19 +920,18 @@ class MyQueryController extends Controller
         $que_id = 1;
 
 
-
         foreach ($query_ids as $id) {
 
 
-            if(end($query_ids) == $id){
+            if (end($query_ids) == $id) {
                 $que_id = 0;
-            }else{
+            } else {
                 $que_id = 1;
             }
 
 
             $query = Query::find($id);
-            
+
             /*New Code for replicating*/
             $expired_query = new ExpireQuery();
 
@@ -947,19 +961,19 @@ class MyQueryController extends Controller
 
             $expired_query->save();
             /*End of -> New Code for replicating*/
-            
+
             $query->delete();
         }
 
 
-        $queries = Query::where('submit_id',$submit_id)->get();
-        $i=0;
-        foreach($queries as $q){
-            if(count($queries)-1 == $i){
+        $queries = Query::where('submit_id', $submit_id)->get();
+        $i = 0;
+        foreach ($queries as $q) {
+            if (count($queries) - 1 == $i) {
                 $q->queue_id = 0;
                 $q->save();
             }
-                $i++;
+            $i++;
         }
 
         return Redirect::back();
@@ -967,8 +981,8 @@ class MyQueryController extends Controller
     }
 
 
-
-    public function cashPayments($cart_query_ids,$cart_query_amounts){
+    public function cashPayments($cart_query_ids, $cart_query_amounts)
+    {
         $cart_query_ids = explode(',', $cart_query_ids);
         $cart_query_amounts = explode(',', $cart_query_amounts);
         $cart_comb = array_combine($cart_query_ids, $cart_query_amounts);
@@ -982,24 +996,25 @@ class MyQueryController extends Controller
             $query->in_cart = 0;
 
 
-            if($query->is_open == 0 ){
+            if ($query->is_open == 0) {
                 $query->is_open = 1;
             }
 
 
             $query->save();
 
-            $tt=new TempTransaction;
-            $tt->user_id=Auth::user()->id;
-            $tt->query_id=$id;
-            $tt->amount=$cart_comb[$id];
+            $tt = new TempTransaction;
+            $tt->user_id = Auth::user()->id;
+            $tt->query_id = $id;
+            $tt->amount = $cart_comb[$id];
             $tt->save();
         }
         //return Redirect::to('/my-query');
     }
 
 
-    public function showDates($query_ids,$status){
+    public function showDates($query_ids, $status)
+    {
         //return $query_ids;
         $query_ids = explode(',', $query_ids);
 
@@ -1009,25 +1024,25 @@ class MyQueryController extends Controller
             ->where('status',$status)
             ->get();*/
 
-        $queries =  Query::whereIn("id",$query_ids)->with('catagory')->with('vendors')->with('product')->get();
+        $queries = Query::whereIn("id", $query_ids)->with('catagory')->with('vendors')->with('product')->get();
 
         $vendor_title = "";
-        if(isset($queries[0]['product'])){
+        if (isset($queries[0]['product'])) {
             $vendor_title = $queries[0]['product']['title'];
-        }else{
+        } else {
             $vendor_title = $queries[0]['vendors']['title'];
         }
 
         //return $vendor_title;
 
         $same_details = [
-            'category' =>  $queries[0]['catagory']['name'],
-            'vendor_name' =>  $vendor_title,
+            'category' => $queries[0]['catagory']['name'],
+            'vendor_name' => $vendor_title,
         ];
 
-        return  view('user.extra.dates')
-            ->with('queries',$queries)
-            ->with('same_details',$same_details);
+        return view('user.extra.dates')
+            ->with('queries', $queries)
+            ->with('same_details', $same_details);
 
     }
 
@@ -1039,12 +1054,11 @@ class MyQueryController extends Controller
         foreach ($query_ids as $id) {
             $query = Query::find($id);
 
-            if($query->is_open == 0 ){
+            if ($query->is_open == 0) {
                 $query->is_open = 1;
             }
 
-            if($query->total > ($query->discount+$query->payment))
-            {
+            if ($query->total > ($query->discount + $query->payment)) {
                 $query->in_cart = 1;
                 $query->save();
             }
@@ -1119,7 +1133,7 @@ class MyQueryController extends Controller
         $query = Query::find($id);
         $query->in_cart = 0;
 
-        if($query->is_open == 0 ){
+        if ($query->is_open == 0) {
             $query->is_open = 1;
         }
 
@@ -1132,32 +1146,33 @@ class MyQueryController extends Controller
     public function loadCart()
     {
         $user_id = Auth::user()->id;
-        $vendors = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('vendors')->where('vendor_id', '!=', 0)->orderBy('submit_id')->get();
-        $services = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('product')->where('product_id', '!=', 0)->orderBy('submit_id')->get();
-        $vendor_arr = array();
+        $vendors = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('vendors')->where('vendor_id', '!=',
+            0)->orderBy('submit_id')->get();
+        $services = Query::where('user_id', $user_id)->where('in_cart', 1)->with('catagory')->with('product')->where('product_id', '!=',
+            0)->orderBy('submit_id')->get();
+        $vendor_arr = [];
 
         foreach ($vendors as $vendor) {
 
             $ed = $vendor->event_date;
             $event_date = date("M d", strtotime($ed));
 
-            $due=($vendor->total)-($vendor->discount)-($vendor->payment);
-            $amount=0;$min=0;$max=0;
+            $due = ($vendor->total) - ($vendor->discount) - ($vendor->payment);
+            $amount = 0;
+            $min = 0;
+            $max = 0;
 
-            if(strtolower($vendor->status)=="booked" && $due!=0)
-            {
-                $amount=$due;
-                $min=$due;
-                $max=$due;
-            }
-            else
-            {
-                $amount=$vendor->advance;
-                $min=$vendor->advance;
-                $max=$due;
+            if (strtolower($vendor->status) == "booked" && $due != 0) {
+                $amount = $due;
+                $min = $due;
+                $max = $due;
+            } else {
+                $amount = $vendor->advance;
+                $min = $vendor->advance;
+                $max = $due;
             }
 
-            $v = array(
+            $v = [
                 "query_id" => $vendor->id,
                 "event_date" => $event_date,
                 "category_name" => $vendor->catagory->name,
@@ -1168,8 +1183,8 @@ class MyQueryController extends Controller
                 "total_paid" => $vendor->payment,
                 "amount" => $amount,
                 "min" => $min,
-                "max" => $max
-            );
+                "max" => $max,
+            ];
             array_push($vendor_arr, $v);
         }
 
@@ -1178,23 +1193,22 @@ class MyQueryController extends Controller
             $ed = $service->event_date;
             $event_date = date("M d", strtotime($ed));
 
-            $due=($service->total)-($service->discount)-($service->payment);
-            $amount=0;$min=0;$max=0;
+            $due = ($service->total) - ($service->discount) - ($service->payment);
+            $amount = 0;
+            $min = 0;
+            $max = 0;
 
-            if(strtolower($service->status)=="booked" && $due!=0)
-            {
-                $amount=$due;
-                $min=$due;
-                $max=$due;
-            }
-            else
-            {
-                $amount=$service->advance;
-                $min=$service->advance;
-                $max=$due;
+            if (strtolower($service->status) == "booked" && $due != 0) {
+                $amount = $due;
+                $min = $due;
+                $max = $due;
+            } else {
+                $amount = $service->advance;
+                $min = $service->advance;
+                $max = $due;
             }
 
-            $s = array(
+            $s = [
                 "query_id" => $service->id,
                 "event_date" => $event_date,
                 "category_name" => $service->catagory->name,
@@ -1205,26 +1219,26 @@ class MyQueryController extends Controller
                 "total_paid" => $service->payment,
                 "amount" => $amount,
                 "min" => $min,
-                "max" => $max
-            );
+                "max" => $max,
+            ];
             array_push($vendor_arr, $s);
         }
+
         return view('user.extra.cart', compact('vendor_arr'));
     }
 
     public function changeTimeOutStatus($qid)
     {
         //echo $qid;
-        $querys=Query::where('submit_id',$qid)->get();
-        foreach($querys as $query)
-        {
-            if($query->status=="Available")
-            {
-                $query->status="Timeout";
-                $query->in_cart=0;
+        $querys = Query::where('submit_id', $qid)->get();
+        foreach ($querys as $query) {
+            if ($query->status == "Available") {
+                $query->status = "Timeout";
+                $query->in_cart = 0;
                 $query->save();
             }
         }
+
         //return $query;
         return redirect()->back();
     }
@@ -1255,6 +1269,7 @@ class MyQueryController extends Controller
 
         $user_id = Auth::user()->id;
         $events = Tag::where('user_id', $user_id)->get();
+
         return view('user.extra.event_list')
             ->with('events', $events)
             ->with('tag_id', $event_tag_id);
@@ -1331,12 +1346,12 @@ class MyQueryController extends Controller
         $query_ids = explode(',', $query_ids);
         $queries = Query::whereIn('id', $query_ids)->with('catagory')->with('vendors')->with('product')->get();
 
-       // return $queries;
+        // return $queries;
 
-        $details = array();
-        $requested_dates = array();
-        $available_dates = array();
-        $booked_dates = array();
+        $details = [];
+        $requested_dates = [];
+        $available_dates = [];
+        $booked_dates = [];
 
         // return $queries;
 
@@ -1362,10 +1377,9 @@ class MyQueryController extends Controller
         $i = 0;
         $counter_for_availabe = 0;
         $counter_for_booked = 0;
-        foreach ($queries as $query)
-        {
+        foreach ($queries as $query) {
 
-            if($query->is_open == 0 ){
+            if ($query->is_open == 0) {
                 $query->is_open = 1;
                 $query->save();
             }
@@ -1375,31 +1389,36 @@ class MyQueryController extends Controller
             /*Select Status*/
             if (strtolower($query->status) == "booked") {
                 $status = "Booked";
-            } else if (strtolower($status) != "booked" && strtolower($query->status) == "available") {
-                $status = "Available";
-            }
-            else if(strtolower($status) != "booked" && strtolower($status) != "available"){
-                $status = $query->status;
+            } else {
+                if (strtolower($status) != "booked" && strtolower($query->status) == "available") {
+                    $status = "Available";
+                } else {
+                    if (strtolower($status) != "booked" && strtolower($status) != "available") {
+                        $status = $query->status;
+                    }
+                }
             }
 
 
             if ($query->vendors != null) {
                 $title = $query->vendors->title;
                 $image = $query->vendors->profile_img;
-            } else if ($query->product != null) {
-                $title = $query->product->title;
-                $image = $query->product->image;
+            } else {
+                if ($query->product != null) {
+                    $title = $query->product->title;
+                    $image = $query->product->image;
+                }
             }
             $category = $query->catagory->name;
 
-            if( strtolower($query->status) == 'available'){
+            if (strtolower($query->status) == 'available') {
                 $available_dates[$counter_for_availabe] = [
-                  'event_date' => $query->event_date,
-                  'shift' => $query->shift,
-                  'total' => $query->total,
-                  'advance' => $query->advance,
-                  'discount' => $query->discount,
-                  'payment' => $query->payment,
+                    'event_date' => $query->event_date,
+                    'shift' => $query->shift,
+                    'total' => $query->total,
+                    'advance' => $query->advance,
+                    'discount' => $query->discount,
+                    'payment' => $query->payment,
                 ];
 
                 /*Calculate price details for available dates*/
@@ -1409,7 +1428,7 @@ class MyQueryController extends Controller
                 $discount_available += $query->discount;
                 $counter_for_availabe++;
             }
-            if(  strtolower($query->status) == 'booked'){
+            if (strtolower($query->status) == 'booked') {
                 $booked_dates[$counter_for_booked] = [
                     'event_date' => $query->event_date,
                     'shift' => $query->shift,
@@ -1428,9 +1447,9 @@ class MyQueryController extends Controller
                 $counter_for_booked++;
             }
 
-            if(  strtolower($query->status) == 'cash requested'){
+            if (strtolower($query->status) == 'cash requested') {
 
-               // return "cash";
+                // return "cash";
 
                 /*Calculate price details for available dates*/
                 $total_available += $query->total;
@@ -1453,7 +1472,6 @@ class MyQueryController extends Controller
 
         $due_available = $total_available - ($total_paid_available + $discount_available);
         $due_booked = $total_booked - ($total_paid_booked + $discount_booked);
-
 
 
         $details = [
@@ -1485,29 +1503,24 @@ class MyQueryController extends Controller
         ];
 
         //return $details;
-        return view('user.extra.query_details')->with('details',$details);
+        return view('user.extra.query_details')->with('details', $details);
     }
 
     /*Load query details in a modal- Ajax*/
     public function loadQueryDetailsAdmin($query_ids)
     {
-        $query = Query::where('id',$query_ids)->with('catagory')->with('vendors')->with('product')->get();
+        $query = Query::where('id', $query_ids)->with('catagory')->with('vendors')->with('product')->get();
         //print_r($query);
-        foreach($query as $q)
-        {
-            $am=TempTransaction::where('query_id',$q->id)->first();
+        foreach ($query as $q) {
+            $am = TempTransaction::where('query_id', $q->id)->first();
 
-            if(isset($am))
-            {
-                $cramount=$am->amount;
-            }
-            else
-            {
-                $cramount=0;
+            if (isset($am)) {
+                $cramount = $am->amount;
+            } else {
+                $cramount = 0;
             }
             //print_r($q->category);
-            if($q->product_id==null)
-            {
+            if ($q->product_id == null) {
                 $details = [
                     'id' => $q->id,
                     'title' => $q->vendors->title,
@@ -1523,31 +1536,31 @@ class MyQueryController extends Controller
                     'expiry_time' => $q->expiry_time,
                     'admin_message' => $q->admin_message,
                     'status' => $q->status,
-                    'cramount' => $cramount
+                    'cramount' => $cramount,
                 ];
-            }
-
-            else if($q->vendor_id==null)
-            {
-                $details = [
-                    'id' => $q->id,
-                    'title' => $q->product->title,
-                    'category' => $q->catagory->name,
-                    'image_url' => $q->product->image,
-                    'event_date' => $q->event_date,
-                    'shift' => $q->shift,
-                    'total' => $q->total,
-                    'advance' => $q->advance,
-                    'discount' => $q->discount,
-                    'payment' => $q->payment,
-                    'expiry_date' => $q->expiry_date,
-                    'expiry_time' => $q->expiry_time,
-                    'admin_message' => $q->admin_message,
-                    'status' => $q->status,
-                    'cramount' => $cramount
-                ];
+            } else {
+                if ($q->vendor_id == null) {
+                    $details = [
+                        'id' => $q->id,
+                        'title' => $q->product->title,
+                        'category' => $q->catagory->name,
+                        'image_url' => $q->product->image,
+                        'event_date' => $q->event_date,
+                        'shift' => $q->shift,
+                        'total' => $q->total,
+                        'advance' => $q->advance,
+                        'discount' => $q->discount,
+                        'payment' => $q->payment,
+                        'expiry_date' => $q->expiry_date,
+                        'expiry_time' => $q->expiry_time,
+                        'admin_message' => $q->admin_message,
+                        'status' => $q->status,
+                        'cramount' => $cramount,
+                    ];
+                }
             }
         }
-        return view('user.extra.query_details_admin')->with('details',$details);
+
+        return view('user.extra.query_details_admin')->with('details', $details);
     }
 }
