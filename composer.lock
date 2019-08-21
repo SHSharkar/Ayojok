@@ -665,16 +665,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.109",
+            "version": "v0.110",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "1e1e05ed1320573f9c3c364ea87302abba748874"
+                "reference": "9d9e0a4e180cf09a52ab04535ca4f669031f8c54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/1e1e05ed1320573f9c3c364ea87302abba748874",
-                "reference": "1e1e05ed1320573f9c3c364ea87302abba748874",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/9d9e0a4e180cf09a52ab04535ca4f669031f8c54",
+                "reference": "9d9e0a4e180cf09a52ab04535ca4f669031f8c54",
                 "shasum": ""
             },
             "require": {
@@ -698,7 +698,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2019-08-10T00:23:38+00:00"
+            "time": "2019-08-17T00:23:23+00:00"
         },
         {
             "name": "google/auth",
@@ -1146,16 +1146,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.32",
+            "version": "v5.8.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ee16d719516dfd77ed6c9538000bca49ded284e2"
+                "reference": "58b81842cbdcfbbd8302790ac0f98119ea1c56e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ee16d719516dfd77ed6c9538000bca49ded284e2",
-                "reference": "ee16d719516dfd77ed6c9538000bca49ded284e2",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/58b81842cbdcfbbd8302790ac0f98119ea1c56e5",
+                "reference": "58b81842cbdcfbbd8302790ac0f98119ea1c56e5",
                 "shasum": ""
             },
             "require": {
@@ -1289,7 +1289,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-08-13T14:11:52+00:00"
+            "time": "2019-08-20T15:45:17+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -1813,16 +1813,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.23.0",
+            "version": "2.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "97a08830a22ce0b69549a4966773c0eae900468d"
+                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/97a08830a22ce0b69549a4966773c0eae900468d",
-                "reference": "97a08830a22ce0b69549a4966773c0eae900468d",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/767617a047e5b8b8b3b0b6023a2650847ed7df02",
+                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02",
                 "shasum": ""
             },
             "require": {
@@ -1876,7 +1876,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-12T17:19:41+00:00"
+            "time": "2019-08-17T13:57:34+00:00"
         },
         {
             "name": "nikic/php-parser",

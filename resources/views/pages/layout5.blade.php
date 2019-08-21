@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-auto text-center text-white">
-                    <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
+                    <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -42,11 +42,11 @@
                         </div>
                         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
+
                         </a>
                         <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
+
                         </a>
                         <ul class="carousel-indicators">
                             @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists($datas->feature_image_1))
@@ -365,12 +365,12 @@
                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                                data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
+
                             </a>
                             <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
                                data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
+
                             </a>
                         </div>
 

@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-auto text-center text-white">
-                    <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
+                    <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -15,9 +15,9 @@
 
     <section class="page-section services">
         <div class="container">
-            <div class="row mb-2">
+            <div class="row mb-md-1 mb-lg-1">
                 <div class="col-12 col-sm-12 col-md-12">
-                    <div class="wow fadeIn mt-md-2 mb-3">
+                    <div class="wow fadeIn mt-md-2 mt-lg-2 mt-1 mb-2">
                         <h3>{{ $catagorydata->name }}</h3>
                     </div>
                     <!-- /.wow fadeIn -->
@@ -31,7 +31,7 @@
                 </div>
                 <!-- /.col-12 col-sm-12 col-md-12 -->
             </div>
-            <!-- /.row mb-2 -->
+            <!-- /.row mb-1 -->
 
             <!-- Sorting and Filter -->
         {{-- <div class="row sub-controls mt-2 mb-2">

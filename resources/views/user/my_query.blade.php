@@ -480,9 +480,7 @@
 
     </style>
 
-
     {{--Time--}}
-
     <style>
         .is-countdown {
             border: 0 !important;
@@ -1199,884 +1197,798 @@
 @endpush
 
 @section('content')
+    @php $agent = new Jenssegers\Agent\Agent() @endphp
     <!-- Masthead -->
     <header class="pagehead" style="background-image: url({{asset('img/backgrounds/page_header.png')}});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover;">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt">
-                    <div class="mb-3"><a href="{{ route('my_query') }}" class="btn btn-danger btn-lg">My Queries</a></div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-5">
+                    <div class="mb-3">
+                        <div class="btn-group">
+                            <a href="{{ route('my_query') }}" class="btn btn-danger btn-lg">My Queries</a>
+
+                            <div class="dropdown">
+                                <button class="btn btn-events btn-lg ml-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span id="event_title">My Events</span>
+                                    <span style="float: right;display: none" onclick="event_filter_showAll('My Events')" id="my_event_cross">&times;</span>
+                                </button>
+
+                                <div class="dropdown-menu event_dropdown" aria-labelledby="dropdownMenuButton">
+                                    @foreach($events as $event)
+                                        <a class="dropdown-item" href="#" onclick="event_filter('{{str_replace(' ','_',$event->title)}}','{{$event->title}}')">{{$event->title}}</a>
+                                    @endforeach
+                                    {{--<a class="dropdown-item" href="#" onclick="event_filter_showAll('All')">All</a>--}}
+                                    <a class="dropdown-item" href="#" onclick="event_filter('not_set','Not Set')">Not Set</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col-12 col-sm-12 col-md-12 col-lg-12 -->
             </div>
             <!-- /.row -->
-
-            <div class="row ">
-
-                <div class="col-sm-2 mt">
-
-                    <div class="dropdown">
-                        <button class="btn btn_events" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id="event_title">My Events</span>
-                            <span style="float: right;display: none" onclick="event_filter_showAll('My Events')" id="my_event_cross">&times;</span>
-                        </button>
-
-                        <div class="dropdown-menu event_dropdown" aria-labelledby="dropdownMenuButton">
-                            @foreach($events as $event)
-
-                                <a class="dropdown-item" href="#"
-                                   onclick="event_filter('{{str_replace(' ','_',$event->title)}}','{{$event->title}}')">{{$event->title}}</a>
-                            @endforeach
-                            {{--<a class="dropdown-item" href="#" onclick="event_filter_showAll('All')">All</a>--}}
-                            <a class="dropdown-item" href="#" onclick="event_filter('not_set','Not Set')">Not Set</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4 mt">
-                    {{--<div class="dropdown " style="float: right" id="drop_down">
-                        <button class="btn_filter add_event_shadow dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id="filter_title">Filter</span>
-                            <span style="float: right" onclick="filter_showAll('Filter')">&times;</span>
-                        </button>
-                        <div class="dropdown-menu filter" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="javascript:void(0)"
-                               onclick="filter('Query_Submitted','Query Submitted')">Query Submitted</a>
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="filter('In_Review','In Review')">In
-                                Review</a>
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Available','Available')">Available</a>
-                            <a class="dropdown-item" href="javascript:void(0)"
-                               onclick="filter('Not_Available','Not Available')">Not Available</a>
-                            <a class="dropdown-item" href="javascript:void(0)"
-                               onclick="filter('Booked','Booked')">Booked</a>
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="filter('Time_Out','Time Out')">Time
-                                Out</a>
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="filter_showAll('All')">All</a>
-                        </div>
-                    </div>--}}
-                </div>
-            </div>
-
         </div>
     </header>
 
     <!-- My Query Section -->
-    <section class="page-section mt-3 mb-3" style="min-height: 40%">
-        <div class="row container">
-            <div class="col-sm-12">
-                <div class="tab">
-                    <button class="tablinks" onclick="filter_showAll(event, 'All')">All</button>
-                    <button class="tablinks" onclick="filter(event, 'Query_Submitted','Query Submitted')">
-                        Query Submitted
-                        @if($not_arr['Query Submitted'] != 0)<span class="badge_q badge-light"
-                                                                   id="cartCount">{{$not_arr['Query Submitted']}}</span>@endif
-                    </button>
-                    <button class="tablinks" onclick="filter(event, 'In_Review','In Review')">
-                        In Review
-                        @if($not_arr['In Review'] != 0)<span class="badge_q badge-light"
-                                                             id="cartCount">{{$not_arr['In Review']}}</span>@endif
-                    </button>
-                    <button class="tablinks" onclick="filter(event, 'Available','Available')">
-                        Available
-                        @if($not_arr['Available'] != 0)<span class="badge_q badge-light"
-                                                             id="cartCount">{{$not_arr['Available']}}</span>@endif
-                    </button>
-                    <button class="tablinks" onclick="filter(event, 'Not_Available','Not Available')">
-                        Not Available
-                        @if($not_arr['Not Available'] != 0)<span class="badge_q badge-light"
-                                                                 id="cartCount">{{$not_arr['Not Available']}}</span>@endif
-                    </button>
-                    <button class="tablinks" onclick="filter(event, 'Booked','Booked')">
-                        Booked
-                        @if($not_arr['Booked'] != 0)<span class="badge_q badge-light"
-                                                          id="cartCount">{{$not_arr['Booked']}}</span>@endif
-                    </button>
-                    <button class="tablinks" onclick="filter(event, 'Timeout','Time Out')">
-                        Time Out
-                        @if($not_arr['Timeout'] != 0)<span class="badge_q badge-light"
-                                                           id="cartCount">{{$not_arr['Timeout']}}</span>@endif
+    <section class="page-section mt-3 mb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab">
+                        <button class="tablinks" onclick="filter_showAll(event, 'All')">All</button>
+                        <button class="tablinks" onclick="filter(event, 'Query_Submitted','Query Submitted')">Query Submitted @if($not_arr['Query Submitted'] != 0)
+                                <span class="badge_q badge-light" id="cartCount">{{$not_arr['Query Submitted']}}</span>@endif
+                        </button>
+                        <button class="tablinks" onclick="filter(event, 'In_Review','In Review')">
+                            In Review
+                            @if($not_arr['In Review'] != 0)<span class="badge_q badge-light"
+                                                                 id="cartCount">{{$not_arr['In Review']}}</span>@endif
+                        </button>
+                        <button class="tablinks" onclick="filter(event, 'Available','Available')">
+                            Available
+                            @if($not_arr['Available'] != 0)<span class="badge_q badge-light"
+                                                                 id="cartCount">{{$not_arr['Available']}}</span>@endif
+                        </button>
+                        <button class="tablinks" onclick="filter(event, 'Not_Available','Not Available')">
+                            Not Available
+                            @if($not_arr['Not Available'] != 0)<span class="badge_q badge-light"
+                                                                     id="cartCount">{{$not_arr['Not Available']}}</span>@endif
+                        </button>
+                        <button class="tablinks" onclick="filter(event, 'Booked','Booked')">
+                            Booked
+                            @if($not_arr['Booked'] != 0)<span class="badge_q badge-light"
+                                                              id="cartCount">{{$not_arr['Booked']}}</span>@endif
+                        </button>
+                        <button class="tablinks" onclick="filter(event, 'Timeout','Time Out')">
+                            Time Out
+                            @if($not_arr['Timeout'] != 0)<span class="badge_q badge-light"
+                                                               id="cartCount">{{$not_arr['Timeout']}}</span>@endif
 
-                    </button>
-                    <button class="tablinks" onclick="filter(event, 'Cash_Requested','Cash Requested')">
-                        Cash Requested
-                        @if($not_arr['Cash Requested'] != 0)<span class="badge_q badge-light"
-                                                                  id="cartCount">{{$not_arr['Cash Requested']}}</span>@endif
-                    </button>
+                        </button>
+                        <button class="tablinks" onclick="filter(event, 'Cash_Requested','Cash Requested')">
+                            Cash Requested
+                            @if($not_arr['Cash Requested'] != 0)<span class="badge_q badge-light"
+                                                                      id="cartCount">{{$not_arr['Cash Requested']}}</span>@endif
+                        </button>
+                    </div>
                 </div>
+                <!-- /.col-12 -->
             </div>
+            <!-- /.row -->
         </div>
-        <div class="row container">
-            {{--Nirjhor Code For Query per submitted--}}
-            <div class="col-sm-12 query_table_div" id="main1">
-                <table class="table">
-                    <tbody>
-                    <?php
-                    $check = 1;
-                    ?>
-                    @if(sizeof($vendor_arr) > 0)
-                        @foreach($vendor_arr as $vendor)
-                            <?php $check = 1; ?>
+        <!-- /.container -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
                             <?php
-
-                            $circle_background_color = "#ffffff";
-                            $status_var = 0;
-                            $padding_top = "35%";
-
-                            $date_name = "Request";
-                            $price = 0;
-                            $advance = 0;
-                            $due = 0;
-                            $already_paid = 0;
-                            $discount = 0;
-
-                            $query_ids = array();
-                            //print_r($query_ids);
-
-                            $event_title = $vendor['query_tag'];
-                            if ($event_title == null) {
-                                $event_title = "not_set";
-                            }
-                            $event_title = str_replace(' ', '_', $event_title);
-
-
-
-
-                            /**
-                             * New Code [ V.02 Api ]
-                             */
+                            $check = 1;
                             ?>
+                            @if(sizeof($vendor_arr) > 0)
+                                @foreach($vendor_arr as $vendor)
+                                    <?php $check = 1; ?>
+                                    <?php
+                                    $circle_background_color = '#ffffff';
+                                    $status_var = 0;
+                                    $padding_top = '35%';
 
-                            @foreach($vendor['query_list'] as $queries)
-
-
-                                <?php
-                                $status = $queries['display_status'];
-
-
-
-
-                                //Making class name from status
-                                $className = str_replace(' ', '_', $status);
-
-                                if (strtolower($status) == "query submitted") {
-                                    $circle_background_color = "#47DBC3";
-                                    $padding_top = "25%";
-                                    $status_var = 1;
-                                    $price = "(Depend on Discussion)";
-                                } elseif (strtolower($status) == "in review") {
-                                    $circle_background_color = "#FF8A45";
-                                    $padding_top = "35%";
-                                    $status_var = 2;
-                                    $price = "(Depend on Discussion)";
-                                } elseif (strtolower($status) == "available") {
-                                    $circle_background_color = "#89CB3E";
-                                    $padding_top = "35%";
-                                    $status_var = 3;
-                                    $date_name = $status;
+                                    $date_name = 'Request';
                                     $price = 0;
-                                } elseif (strtolower($status) == "not available") {
-                                    $circle_background_color = "#ADADAD";
-                                    $padding_top = "35%";
-                                    $status_var = 4;
-                                    $price = "(Depend on Discussion)";
-                                } elseif (strtolower($status) == "booked") {
-                                    $circle_background_color = "#FFC63C";
-                                    $padding_top = "35%";
-                                    $status_var = 5;
-                                    $date_name = $status;
-                                    $price = 0;
-                                } elseif (strtolower($status) == "cash requested") {
-                                    $circle_background_color = "#1B83B8";
-                                    $padding_top = "25%";
-                                    $status_var = 6;
-                                    $date_name = $status;
-                                    $price = 0;
-                                } elseif (strtolower($status) == "timeout") {
-                                    $circle_background_color = "#EF4E4A";
-                                    $padding_top = "35%";
-                                    $status_var = 7;
-                                    $date_name = $status;
-                                    $price = 0;
-                                }
-                                ?>
+                                    $advance = 0;
+                                    $due = 0;
+                                    $already_paid = 0;
+                                    $discount = 0;
 
-                                <tr class="{{$className}} {{$event_title}} hideAll">
-                                    <td>
-                                        <div class="circle"
-                                             style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
-                                            <span>{{$status}}</span></div>
-                                    </td>
-                                    <td>
-                                        <p class="title">{{$vendor['vendor_name']}}</p>
+                                    $query_ids = array();
+                                    //print_r($query_ids);
 
-                                        <p class="detail">
-                                            <span>{{$vendor['category_name']}}</span>
-                                            |
-                                            {{$date_name}} Date:
+                                    $event_title = $vendor['query_tag'];
+                                    if ($event_title == null) {
+                                        $event_title = 'not_set';
+                                    }
+                                    $event_title = str_replace(' ', '_', $event_title);
 
-                                            <?php
-                                            $date_name = "Request";
+                                    /**
+                                     * New Code [ V.02 Api ]
+                                     */
+                                    ?>
+
+                                    @foreach($vendor['query_list'] as $queries)
+
+
+                                        <?php
+                                        $status = $queries['display_status'];
+
+                                        //Making class name from status
+                                        $className = str_replace(' ', '_', $status);
+
+                                        if (strtolower($status) == "query submitted") {
+                                            $circle_background_color = "#47DBC3";
+                                            $padding_top = "25%";
+                                            $status_var = 1;
+                                            $price = "(Depend on Discussion)";
+                                        } elseif (strtolower($status) == "in review") {
+                                            $circle_background_color = '#FF8A45';
+                                            $padding_top = "35%";
+                                            $status_var = 2;
+                                            $price = "(Depend on Discussion)";
+                                        } elseif (strtolower($status) == "available") {
+                                            $circle_background_color = '#89CB3E';
+                                            $padding_top = "35%";
+                                            $status_var = 3;
+                                            $date_name = $status;
                                             $price = 0;
-                                            $advance = 0;
-                                            $due = 0;
-                                            $already_paid = 0;
-                                            $discount = 0;
-                                            $query_ids = array();
-                                            ?>
+                                        } elseif (strtolower($status) == "not available") {
+                                            $circle_background_color = '#ADADAD';
+                                            $padding_top = "35%";
+                                            $status_var = 4;
+                                            $price = "(Depend on Discussion)";
+                                        } elseif (strtolower($status) == "booked") {
+                                            $circle_background_color = '#FFC63C';
+                                            $padding_top = "35%";
+                                            $status_var = 5;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        } elseif (strtolower($status) == "cash requested") {
+                                            $circle_background_color = '#1B83B8';
+                                            $padding_top = '25%';
+                                            $status_var = 6;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        } elseif (strtolower($status) == "timeout") {
+                                            $circle_background_color = '#EF4E4A';
+                                            $padding_top = '35%';
+                                            $status_var = 7;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        }
+                                        ?>
 
-                                            @foreach($queries['query_details'] as $query)
+                                        <tr class="{{$className}} {{$event_title}} hideAll">
+                                            <td>
+                                                <div class="circle" style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
+                                                    <span>{{$status}}</span></div>
+                                            </td>
+                                            <td>
+                                                <p class="title">{{$vendor['vendor_name']}}</p>
+
+                                                <p class="detail">
+                                                    <span>{{$vendor['category_name']}}</span>
+                                                    |
+                                                    {{$date_name}} Date:
+
+                                                    <?php
+                                                    $date_name = "Request";
+                                                    $price = 0;
+                                                    $advance = 0;
+                                                    $due = 0;
+                                                    $already_paid = 0;
+                                                    $discount = 0;
+                                                    $query_ids = array();
+                                                    ?>
+
+                                                    @foreach($queries['query_details'] as $query)
 
 
 
-                                                @if($query == reset($queries['query_details'])) {{--For Showing 1st date's month--}}
-                                                <span class="button button2">{{date_format(date_create($query['event_date']),"M")}}</span>
+                                                        @if($query == reset($queries['query_details'])) {{--For Showing 1st date's month--}}
+                                                        <span class="button button2">{{date_format(date_create($query['event_date']),"M")}}</span>
+                                                        @endif
+                                                        <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
+
+                                                        <?php
+                                                        array_push($query_ids, $query['query_id']);
+
+                                                        $event_title = "";
+                                                        $event_tag_id = null;
+                                                        $event_background = "#ffffff";
+                                                        if (isset($query['query_tag'])) {
+                                                            $event_title = $query['query_tag'];
+                                                            $event_tag_id = $query['query_tag_id'];
+                                                            $event_background = "#0B98FF";
+                                                            $event_txt_color = "#ffffff";
+                                                        } else {
+                                                            $event_title = "Add To Event";
+                                                            $event_background = "#F2F2F2";
+                                                            $event_txt_color = "#0B98FF";
+                                                        }
+                                                        if (is_numeric($price)) {
+                                                            $price += $query['total_payment'];
+                                                            $advance += $query['advance_payment'];
+                                                            $already_paid += $query['total_paid'];
+                                                            $discount += $query['discount'];
+
+
+                                                            $due = $price - ($already_paid + $discount);
+                                                        }
+                                                        ?>
+                                                    @endforeach
+                                                </p>
+
+                                                @if($discount <= 0)
+                                                    <p class="detail price"> Price:
+                                                        <span>{{$price}}</span></p>
+                                                @else
+                                                    <p class="detail price">
+                                                        <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
+                                                        <span class="discount_price">Discount Price: <span>{{ ($price - $discount)}}</span></span>
+                                                    </p>
                                                 @endif
-                                                <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
+                                                <p class="detail">
+                                                    {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
+                                                    @if($expire != 1)
+                                                        <button class="btn btn-outline-events btn-lg" data-toggle="modal" data-target="#modal_details" onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>Details</button>
+                                                    @endif
 
-                                                <?php
-                                                array_push($query_ids, $query['query_id']);
-
-                                                $event_title = "";
-                                                $event_tag_id = null;
-                                                $event_background = "#ffffff";
-                                                if (isset($query['query_tag'])) {
-                                                    $event_title = $query['query_tag'];
-                                                    $event_tag_id = $query['query_tag_id'];
-                                                    $event_background = "#0B98FF";
-                                                    $event_txt_color = "#ffffff";
-                                                } else {
-                                                    $event_title = "Add To Event";
-                                                    $event_background = "#F2F2F2";
-                                                    $event_txt_color = "#0B98FF";
-                                                }
-                                                if (is_numeric($price)) {
-                                                    $price += $query['total_payment'];
-                                                    $advance += $query['advance_payment'];
-                                                    $already_paid += $query['total_paid'];
-                                                    $discount += $query['discount'];
+                                                    <button class="btn btn-blue btn-lg" style="background-color: {{$event_background}};color: {{$event_txt_color}}" data-toggle="modal" data-target="#modal_event" onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                                        {{--<span>
+                                                            <img src="{{asset('img/icons/myquery/Add to events.png')}}">
+                                                        </span>--}}
+                                                        {{$event_title}}
+                                                    </button>
+                                                </p>
+                                            </td>
 
 
-                                                    $due = $price - ($already_paid + $discount);
-                                                }
-                                                ?>
-                                            @endforeach
-                                        </p>
+                                            {{--Icons for Invoices--}}
 
-                                        @if($discount <= 0)
-                                            <p class="detail price"> Price:
-                                                <span>{{$price}}</span></p>
-                                        @else
-                                            <p class="detail price">
-                                                <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
-                                                <span class="discount_price">Discount Price: <span>{{ ($price - $discount)}}</span></span>
-                                            </p>
-                                        @endif
-                                        <p class="detail">
-                                            {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
-                                            @if($expire != 1)
-                                                <button class="details details_shadow" data-toggle="modal"
-                                                        data-target="#modal_details"
-                                                        onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
-                                                    Details
-                                                </button>
-                                            @endif
+                                            <td>
+                                                {{--{{json_encode($query_ids)}}--}}
+                                                @if($status_var == 5) <!- booked ->
+                                                <div class="row" id="#invoice_btn" style="margin-bottom: 30%;">
 
-                                            <button class="add_event add_event_shadow"
-                                                    style="background-color: {{$event_background}};color: {{$event_txt_color}}"
-                                                    data-toggle="modal" data-target="#modal_event"
-                                                    onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
-                                                {{--<span>
-                                                    <img src="{{asset('img/icons/myquery/Add to events.png')}}">
-                                                </span>--}}
-                                                <span style="font-size: 22px">{{$event_title}}</span>
-                                            </button>
-                                        </p>
-                                    </td>
+                                                    <div class="col-sm-12">
+                                                        <p></p>
 
+                                                        {{--<a href="{{route('showInvoice',implode(',',$query_ids))}}" class="invoice invoice_shadow"> Get Invoice </a>--}}
 
-                                    {{--Icons for Invoices--}}
+                                                        <a href="{{route('showInvoice',implode(',',$query_ids))}}" type="button"
+                                                           class="btn btn-info"> Get Invoice </a>
+                                                        {{-- <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}">
+                                                             <img class="invoice_image" src="{{asset('img/icons/invoice2.png')}}">
+                                                             <span class="tooltiptext">Get Invoice</span>
+                                                         </a>--}}
+                                                        <p class="duePrice"></p>
+                                                    </div>
+                                                </div>
 
-                                    <td>
-                                        {{--{{json_encode($query_ids)}}--}}
-                                        @if($status_var == 5) <!- booked ->
-                                        <div class="row" id="#invoice_btn" style="margin-bottom: 30%;">
+                                                {{--<div class="row " id="invoice">
+                                                    <div class="col-sm-4 invoice_tab">
+                                                        <a href="{{route('showInvoice',implode(',',$query_ids))}}">
+                                                            <i class="fa fa-download icons"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-4 invoice_tab">
+                                                        <a href="#">
+                                                            <i class="fa fa-envelope icons"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-4 invoice_tab">
+                                                        <a href="#">
+                                                            <i class="fa fa-print icons"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>--}}
+                                                @endif
 
-                                            <div class="col-sm-12">
+                                            </td>
+
+                                            @if($status_var == 1)   <!- query submitted ->
+                                            <td class="column_3">
                                                 <p></p>
 
-                                                {{--<a href="{{route('showInvoice',implode(',',$query_ids))}}" class="invoice invoice_shadow"> Get Invoice </a>--}}
-
-                                                <a href="{{route('showInvoice',implode(',',$query_ids))}}" type="button"
-                                                   class="btn btn-info"> Get Invoice </a>
-                                                {{-- <a class="" href="{{route('showInvoice',implode(',',$query_ids))}}">
-                                                     <img class="invoice_image" src="{{asset('img/icons/invoice2.png')}}">
-                                                     <span class="tooltiptext">Get Invoice</span>
-                                                 </a>--}}
-                                                <p class="duePrice"></p>
-                                            </div>
-                                        </div>
-
-                                        {{--<div class="row " id="invoice">
-                                            <div class="col-sm-4 invoice_tab">
-                                                <a href="{{route('showInvoice',implode(',',$query_ids))}}">
-                                                    <i class="fa fa-download icons"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-4 invoice_tab">
-                                                <a href="#">
-                                                    <i class="fa fa-envelope icons"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-4 invoice_tab">
-                                                <a href="#">
-                                                    <i class="fa fa-print icons"></i>
-                                                </a>
-                                            </div>
-                                        </div>--}}
-                                        @endif
-
-                                    </td>
-
-
-                                    @if($status_var == 1)   <!- query submitted ->
-                                    <td class="column_3">
-                                        <p></p>
-
-                                        @if($expire != 1)
-                                            <p class="remove remove_shadow"
-                                               onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
-                                        @endif
-                                    </td>
-
-                                    @elseif($status_var == 2) <!- In Review ->
-                                    <td class="column_3">
-                                    </td>
-
-                                    @elseif($status_var == 3) <!- Available ->
-                                    <td class="column_3">
-                                        <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
-                                               value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
-
-                                        <div class="remain_time">
-                                            {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                            <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
-
-                                            </p>
-                                        </div>
-
-                                        {{-- <button class="paybook paybook_shadow"
-                                                 onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
-                                                 data-toggle="modal" data-target="#modal_multipledates">
-                                             Pay & Book
-                                         </button>--}}
-
-                                        @if(count($query_ids) <=1)
-                                            <button class="paybook paybook_shadow"
-                                                    onclick="showAvailableDates('{{json_encode($query_ids)}}','Available'),openNav()"
-                                                    data-toggle="modal" data-target="">
-                                                Pay & Book
-                                            </button>
-                                        @else
-                                            <button class="paybook paybook_shadow"
-                                                    onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
-                                                    data-toggle="modal" data-target="#modal_multipledates">
-                                                Pay & Book
-                                            </button>
-                                        @endif
-
-
-                                        {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
-                                        <p class="advance">Min. Advance: BDT {{$advance}}</p>
-                                    </td>
-
-                                    @elseif($status_var == 4) <!- Not Availabe ->
-                                    <td class="column_3">
-                                        <p></p>
-
-                                        @if($expire != 1)
-                                            <p class="remove remove_shadow"
-                                               onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
-                                        @endif
-                                    </td>
-
-                                    @elseif($status_var == 5 ) <!- Booked ->
-
-
-                                    @if($due > 0)
-                                        <td class="column_3">
-                                            <p></p>
-                                            @if(count($query_ids) <=1)
-                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
-                                                        data-toggle="modal" data-target=""> Pay Rest
-                                                </button>
-                                            @else
-                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                                </button>
-                                            @endif
-                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                            <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                                        </td>
-                                    @else
-                                        <td class="column_3">
-                                            <p></p>
-                                            <button class="paybook_complete paybook_complete_shadow"
-                                                    style="padding: 5px 52px"
-                                                    onclick="/*openNav()*/"
-                                                    data-toggle="modal" disabled> Payment Complete
-                                            </button>
-                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                            <p class="duePrice"> Due amount: BDT {{$due}}
-
-
-                                            </p>
-                                        </td>
-                                    @endif
-
-                                    @elseif($status_var == 7 ) <!- timeout ->
-                                    <td class="column_3">
-                                        <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
-                                               value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
-
-                                        <div class="remain_time">
-                                            {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                            <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
-
-                                            </p>
-                                        </div>
-
-                                        <button class="re_request re_request_shadow"
-                                                onclick="re_request('{{json_encode($query_ids)}}')">
-                                            Re-request
-                                        </button>
-
-
-                                        {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
-                                        <p class="advance">Min. Advance: BDT {{$advance}}</p>
-                                    </td>
-                                    @else
-                                        <td>
-
-                                        </td>
-                                    @endif
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    @else
-                        <?php $check = 0; ?>
-                    @endif
-
-                    @if(sizeof($service_arr) > 0)
-
-                        @foreach($service_arr as $vendor)
-                            <?php $check = 1; ?>
-                            <?php
-
-                            $circle_background_color = "#ffffff";
-                            $status_var = 0;
-                            $padding_top = "35%";
-
-                            $date_name = "Request";
-                            $price = 0;
-                            $advance = 0;
-                            $due = 0;
-                            $already_paid = 0;
-                            $discount = 0;
-
-
-
-                            $event_title = $vendor['query_tag'];
-                            if ($event_title == null) {
-                                $event_title = "not_set";
-                            }
-                            $event_title = str_replace(' ', '_', $event_title);
-
-
-                            /**
-                             * New Code [ V.02 Api ]
-                             */
-
-
-                            ?>
-
-                            @foreach($vendor['query_list'] as $queries)
-
-
-                                <?php
-                                $status = $queries['display_status'];
-
-
-
-                                //Making class name from status
-                                $className = str_replace(' ', '_', $status);
-
-                                if (strtolower($status) == "query submitted") {
-                                    $circle_background_color = "#47DBC3";
-                                    $padding_top = "25%";
-                                    $status_var = 1;
-                                    $price = "(Depend on Discussion)";
-                                } elseif (strtolower($status) == "in review") {
-                                    $circle_background_color = "#FF8A45";
-                                    $padding_top = "35%";
-                                    $status_var = 2;
-                                    $price = "(Depend on Discussion)";
-                                } elseif (strtolower($status) == "available") {
-                                    $circle_background_color = "#89CB3E";
-                                    $padding_top = "35%";
-                                    $status_var = 3;
-                                    $date_name = $status;
-                                    $price = 0;
-                                } elseif (strtolower($status) == "not available") {
-                                    $circle_background_color = "#ADADAD";
-                                    $padding_top = "35%";
-                                    $status_var = 4;
-                                    $price = "(Depend on Discussion)";
-                                } elseif (strtolower($status) == "booked") {
-                                    $circle_background_color = "#FFC63C";
-                                    $padding_top = "35%";
-                                    $status_var = 5;
-                                    $date_name = $status;
-                                    $price = 0;
-                                } elseif (strtolower($status) == "cash requested") {
-                                    $circle_background_color = "#1B83B8";
-                                    $padding_top = "25%";
-                                    $status_var = 6;
-                                    $date_name = $status;
-                                    $price = 0;
-                                } elseif (strtolower($status) == "timeout") {
-                                    $circle_background_color = "#EF4E4A";
-                                    $padding_top = "35%";
-                                    $status_var = 7;
-                                    $date_name = $status;
-                                    $price = 0;
-                                }
-
-                                $query_ids = array();
-                                //print_r($query_ids);
-
-                                ?>
-
-                                <tr class="{{$className}} {{$event_title}} hideAll">
-                                    <td>
-                                        <div class="circle"
-                                             style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
-                                            <span>{{$status}}</span></div>
-                                    </td>
-
-
-                                    <td>
-                                        <p class="title">{{$vendor['vendor_name']}}</p>
-
-                                        <p class="detail">
-                                            <span>{{$vendor['category_name']}}</span>
-                                            |
-                                            {{$date_name}} Date:
-                                            @foreach($queries['query_details'] as $query)
-
-
-
-                                                @if($query == reset($queries['query_details'])) {{--For Showing 1st date's month--}}
-                                                <span class="button button2">{{date_format(date_create($query['event_date']),"M")}}</span>
+                                                @if($expire != 1)
+                                                    <p class="btn btn-outline-danger btn-lg" onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
                                                 @endif
-                                                <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
+                                            </td>
 
-                                                <?php
-                                                array_push($query_ids, $query['query_id']);
+                                            @elseif($status_var == 2) <!- In Review ->
+                                            <td class="column_3">
+                                            </td>
 
-                                                $event_title = "";
-                                                $event_tag_id = null;
-                                                $event_background = "#ffffff";
-                                                if (isset($query['query_tag'])) {
-                                                    $event_title = $query['query_tag'];
-                                                    $event_tag_id = $query['query_tag_id'];
-                                                    $event_background = "#0B98FF";
-                                                    $event_txt_color = "#ffffff";
-                                                } else {
-                                                    $event_title = "Add To Event";
-                                                    $event_background = "#F2F2F2";
-                                                    $event_txt_color = "#0B98FF";
-                                                }
-                                                if (is_numeric($price)) {
-                                                    $price += $query['total_payment'];
-                                                    $advance += $query['advance_payment'];
-                                                    $already_paid += $query['total_paid'];
-                                                    $discount += $query['discount'];
+                                            @elseif($status_var == 3) <!- Available ->
+                                            <td class="column_3">
+                                                <input type="hidden" id="{{$vendor['submit_id']}}" class="expire" value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
 
-                                                    $due = $price - ($already_paid + $discount);
-                                                }
-                                                ?>
-                                            @endforeach
-                                        </p>
+                                                <div class="remain_time">
+                                                    {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}"></p>
+                                                </div>
 
-                                        @if($discount <= 0)
-                                            <p class="detail price"> Price:
-                                                <span>{{$price}}</span></p>
-                                        @else
-                                            <p class="detail price">
-                                                <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
-                                                <span class="discount_price">Discount Price: <span>{{ ($price - $discount)}}</span></span>
-                                            </p>
-                                        @endif
-                                        <p class="detail">
-                                            {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
-                                            @if($expire != 1)
-                                                <button class="details details_shadow" data-toggle="modal"
-                                                        data-target="#modal_details"
-                                                        onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>
-                                                    Details
-                                                </button>
-                                            @endif
+                                                {{-- <button class="paybook paybook_shadow"
+                                                         onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
+                                                         data-toggle="modal" data-target="#modal_multipledates">
+                                                     Pay & Book
+                                                 </button>--}}
 
-                                            <button class="add_event add_event_shadow"
-                                                    style="background-color: {{$event_background}};color: {{$event_txt_color}}"
-                                                    data-toggle="modal" data-target="#modal_event"
-                                                    onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
-                                                {{--<span>
-                                                    <img src="{{asset('img/icons/myquery/Add to events.png')}}">
-                                                </span>--}}
-                                                <span style="font-size: 22px">{{$event_title}}</span>
-                                            </button>
-                                        </p>
-                                    </td>
+                                                @if(count($query_ids) <=1)
+                                                    <button class="paybook paybook_shadow" onclick="showAvailableDates('{{json_encode($query_ids)}}','Available'),openNav()" data-toggle="modal" data-target="">Pay & Book</button>
+                                                @else
+                                                    <button class="paybook paybook_shadow" onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')" data-toggle="modal" data-target="#modal_multipledates">Pay & Book</button>
+                                                @endif
 
 
-                                    {{--Icons for Invoices--}}
+                                                {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                                <p class="advance">Min. Advance: BDT {{$advance}}</p>
+                                            </td>
 
-                                    <td>
-                                        @if($status_var == 5) <!- booked ->
-                                        <div class="row" id="#invoice_btn">
-                                            <div class="col-sm-12 " style="text-align: center">
-                                                <a class="btn btn-default paybook paybook_shadow"
-                                                   href="{{route('showInvoice',implode(',',$query_ids))}}">Get Invoice</a>
-                                            </div>
-                                        </div>
-                                        {{--<div class="row " id="invoice">
-                                            <div class="col-sm-4 invoice_tab">
-                                                <a href="{{route('showInvoice',implode(',',$query_ids))}}">
-                                                    <i class="fa fa-download icons"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-4 invoice_tab">
-                                                <a href="#">
-                                                    <i class="fa fa-envelope icons"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-4 invoice_tab">
-                                                <a href="#">
-                                                    <i class="fa fa-print icons"></i>
-                                                </a>
-                                            </div>
-                                        </div>--}}
-                                        @endif
-                                    </td>
+                                            @elseif($status_var == 4) <!- Not Availabe ->
+                                            <td class="column_3">
+                                                <p></p>
+
+                                                @if($expire != 1)
+                                                    <p class="btn btn-outline-danger btn-lg" onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                                @endif
+                                            </td>
+
+                                            @elseif($status_var == 5 ) <!- Booked ->
 
 
-                                    @if($status_var == 1)   <!- query submitted ->
-                                    <td class="column_3">
-                                        <p></p>
-
-                                        @if($expire != 1)
-                                            <p class="remove remove_shadow"
-                                               onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
-                                        @endif
-                                    </td>
-
-                                    @elseif($status_var == 2) <!- In Review ->
-                                    <td class="column_3">
-
-                                    </td>
-
-                                    @elseif($status_var == 3) <!- Available ->
-                                    <td class="column_3">
-                                        <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
-                                               value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
-
-                                        <div class="remain_time">
-                                            {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                            <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
-
-                                            </p>
-                                        </div>
-
-                                        {{-- <button class="paybook paybook_shadow"
-                                                 onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
-                                                 data-toggle="modal" data-target="#modal_multipledates">
-                                             Pay & Book
-                                         </button>--}}
-
-                                        @if(count($query_ids) <=1)
-                                            <button class="paybook paybook_shadow"
-                                                    onclick="showAvailableDates('{{json_encode($query_ids)}}','Available'),openNav()"
-                                                    data-toggle="modal" data-target="">
-                                                Pay & Book
-                                            </button>
-                                        @else
-                                            <button class="paybook paybook_shadow"
-                                                    onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
-                                                    data-toggle="modal" data-target="#modal_multipledates">
-                                                Pay & Book
-                                            </button>
-                                        @endif
-
-
-                                        {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
-                                        <p class="advance">Min. Advance: BDT {{$advance}}</p>
-                                    </td>
-
-                                    @elseif($status_var == 4) <!- Not Availabe ->
-                                    <td class="column_3">
-                                        <p></p>
-
-                                        @if($expire != 1)
-                                            <p class="remove remove_shadow"
-                                               onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
-                                        @endif
-                                    </td>
-
-                                    @elseif($status_var == 5 ) <!- Booked ->
-                                    @if($due > 0)
-                                        <td class="column_3">
-                                            <p></p>
-                                            @if(count($query_ids) <=1)
-                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
-                                                        data-toggle="modal" data-target=""> Pay Rest
-                                                </button>
+                                            @if($due > 0)
+                                                <td class="column_3">
+                                                    <p></p>
+                                                    @if(count($query_ids) <=1)
+                                                        <button class="paybook paybook_shadow" style="padding: 5px 52px" onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()" data-toggle="modal" data-target=""> Pay Rest
+                                                        </button>
+                                                    @else
+                                                        <button class="paybook paybook_shadow" style="padding: 5px 52px" onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')" data-toggle="modal" data-target="#modal_multipledates"> Pay Rest</button>
+                                                    @endif
+                                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                                </td>
                                             @else
-                                                <button class="paybook paybook_shadow" style="padding: 5px 52px"
-                                                        onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
-                                                        data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
-                                                </button>
+                                                <td class="column_3">
+                                                    <p></p>
+                                                    <button class="paybook_complete paybook_complete_shadow" style="padding: 5px 52px" onclick="/*openNav()*/" data-toggle="modal" disabled> Payment Complete
+                                                    </button>
+                                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                                    <p class="duePrice"> Due amount: BDT {{$due}}</p>
+                                                </td>
                                             @endif
-                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                            <p class="duePrice"> Due amount: BDT {{$due}} </p>
-                                        </td>
-                                    @else
-                                        <td class="column_3">
-                                            <p></p>
-                                            <button class="paybook_complete paybook_complete_shadow"
-                                                    style="padding: 5px 52px"
-                                                    onclick="openNav()"
-                                                    data-toggle="modal"> Payment Complete
-                                            </button>
-                                            {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
-                                            <p class="duePrice_0"> Due amount: BDT {{$due}}
+
+                                            @elseif($status_var == 7 ) <!- timeout ->
+                                            <td class="column_3">
+                                                <input type="hidden" id="{{$vendor['submit_id']}}" class="expire" value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                                <div class="remain_time">
+                                                    {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}"></p>
+                                                </div>
+
+                                                <button class="re_request re_request_shadow" onclick="re_request('{{json_encode($query_ids)}}')">Re-request</button>
 
 
-                                            </p>
-                                        </td>
-                                    @endif
-                                    @elseif($status_var == 7 ) <!- timeout ->
-                                    <td class="column_3">
-                                        <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
-                                               value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+                                                {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                                <p class="advance">Min. Advance: BDT {{$advance}}</p>
+                                            </td>
+                                            @else
+                                                <td>
 
-                                        <div class="remain_time">
-                                            {{--<img src="{{asset('img/icons/time.png')}}">--}}
-                                            <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @else
+                                <?php $check = 0; ?>
+                            @endif
 
-                                            </p>
-                                        </div>
+                            @if(sizeof($service_arr) > 0)
+                                @foreach($service_arr as $vendor)
+                                    <?php $check = 1; ?>
+                                    <?php
 
-                                        <button class="re_request re_request_shadow"
-                                                onclick="re_request('{{json_encode($query_ids)}}')">
-                                            Re-request
-                                        </button>
+                                    $circle_background_color = "#ffffff";
+                                    $status_var = 0;
+                                    $padding_top = "35%";
 
-                                        {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
-                                        <p class="advance">Min. Advance: BDT {{$advance}}</p>
-                                    </td>
-                                    @endif
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    @endif
-                    @if($check <= 0)
-                        <h1>No Data found</h1>
-                    @endif
-                </table>
-            </div>
-            <div class="cart-img" onclick="openNav(),loadCart()">
-                <img src="{{asset('img/cart/cart.png')}}">
-            </div>
-            <div id="mySidebar" class="sidebar">
-                <div class="row" style="padding-left: 30%">
-                    <label class="cart-head"><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a
-                            href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                </div>
-                <div class="row">
-                    <label class="cart-subhead">Amount</label>
-                </div>
-                <div id="div-cart">
+                                    $date_name = "Request";
+                                    $price = 0;
+                                    $advance = 0;
+                                    $due = 0;
+                                    $already_paid = 0;
+                                    $discount = 0;
 
-                </div>
-                <div class="cart-line"></div>
-                <div><label class="cart-total">Total: </label> <label class="cart-total cart-total-value"
-                                                                      id="total"></label>
-                </div>
-                <button id="pbtn" class="cart-paybtn cart-paybtn-shadow"
-                        data-toggle="modal" data-target="#modal_payment" onclick="setTotal()">Payment
-                </button>
-            </div>
-            <script>
-                function openNav() {
-                    document.getElementById('mySidebar').style.width = '20%';
-                    document.getElementById('main1').className = 'col-sm-10';
+                                    $event_title = $vendor['query_tag'];
+                                    if ($event_title == null) {
+                                        $event_title = "not_set";
+                                    }
+                                    $event_title = str_replace(' ', '_', $event_title);
 
-                }
 
-                function closeNav() {
-                    document.getElementById('mySidebar').style.width = '0';
-                    document.getElementById('main1').className = 'col-sm-12';
+                                    /**
+                                     * New Code [ V.02 Api ]
+                                     */
 
-                }
+                                    ?>
 
-                function addTotal($len) {
-                    //alert($len);
+                                    @foreach($vendor['query_list'] as $queries)
 
-                    var query_current_amount = [];
-                    var i = 0;
-                    var flag = 0;
-                    var total = 0;
-                    for (i = 0; i < $len; i++) {
-                        //alert(document.getElementById(i).value);
-                        //alert(document.getElementById(i).getAttribute('max'));
-                        total = total + parseInt(document.getElementById(i).value);
-                        query_current_amount[i] = parseInt(document.getElementById(i).value);
+                                        <?php
+                                        $status = $queries['display_status'];
 
-                        if (parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) ||
-                            parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max'))) {
-                            document.getElementById(i).style.border = '2px solid #c9302c';
-                            document.getElementById(i).style.color = '#c9302c';
-                            var ep = 'ep' + i;
-                            document.getElementById(ep).innerHTML = 'Min: ' + parseInt(document.getElementById(i).getAttribute('min')) + ' and Max: ' +
-                                parseInt(document.getElementById(i).getAttribute('max'));
-                            flag = 1;
-                        } else {
-                            document.getElementById(i).style.border = '1px solid #DFA449';
-                            document.getElementById(i).style.color = '#495057';
-                            var ep = 'ep' + i;
-                            document.getElementById(ep).innerHTML = '';
+                                        //Making class name from status
+                                        $className = str_replace(' ', '_', $status);
+
+                                        if (strtolower($status) == "query submitted") {
+                                            $circle_background_color = '#47DBC3';
+                                            $padding_top = "25%";
+                                            $status_var = 1;
+                                            $price = "(Depend on Discussion)";
+                                        } elseif (strtolower($status) == "in review") {
+                                            $circle_background_color = '#FF8A45';
+                                            $padding_top = "35%";
+                                            $status_var = 2;
+                                            $price = "(Depend on Discussion)";
+                                        } elseif (strtolower($status) == "available") {
+                                            $circle_background_color = '#89CB3E';
+                                            $padding_top = "35%";
+                                            $status_var = 3;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        } elseif (strtolower($status) == "not available") {
+                                            $circle_background_color = '#ADADAD';
+                                            $padding_top = "35%";
+                                            $status_var = 4;
+                                            $price = "(Depend on Discussion)";
+                                        } elseif (strtolower($status) == "booked") {
+                                            $circle_background_color = '#FFC63C';
+                                            $padding_top = "35%";
+                                            $status_var = 5;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        } elseif (strtolower($status) == "cash requested") {
+                                            $circle_background_color = '#1B83B8';
+                                            $padding_top = "25%";
+                                            $status_var = 6;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        } elseif (strtolower($status) == "timeout") {
+                                            $circle_background_color = '#EF4E4A';
+                                            $padding_top = "35%";
+                                            $status_var = 7;
+                                            $date_name = $status;
+                                            $price = 0;
+                                        }
+
+                                        $query_ids = array();
+                                        //print_r($query_ids);
+
+                                        ?>
+
+                                        <tr class="{{$className}} {{$event_title}} hideAll">
+                                            <td>
+                                                <div class="circle" style="background-color: {{$circle_background_color}};padding-top: {{$padding_top}};">
+                                                    <span>{{$status}}</span></div>
+                                            </td>
+
+
+                                            <td>
+                                                <p class="title">{{$vendor['vendor_name']}}</p>
+
+                                                <p class="detail">
+                                                    <span>{{$vendor['category_name']}}</span>
+                                                    |
+                                                    {{$date_name}} Date:
+                                                    @foreach($queries['query_details'] as $query)
+
+
+
+                                                        @if($query == reset($queries['query_details'])) {{--For Showing 1st date's month--}}
+                                                        <span class="button button2">{{date_format(date_create($query['event_date']),"M")}}</span>
+                                                        @endif
+                                                        <span class="date button2">{{date_format(date_create($query['event_date']),"d")}}</span>
+
+                                                        <?php
+                                                        array_push($query_ids, $query['query_id']);
+
+                                                        $event_title = "";
+                                                        $event_tag_id = null;
+                                                        $event_background = "#ffffff";
+                                                        if (isset($query['query_tag'])) {
+                                                            $event_title = $query['query_tag'];
+                                                            $event_tag_id = $query['query_tag_id'];
+                                                            $event_background = "#0B98FF";
+                                                            $event_txt_color = "#ffffff";
+                                                        } else {
+                                                            $event_title = "Add To Event";
+                                                            $event_background = "#F2F2F2";
+                                                            $event_txt_color = "#0B98FF";
+                                                        }
+                                                        if (is_numeric($price)) {
+                                                            $price += $query['total_payment'];
+                                                            $advance += $query['advance_payment'];
+                                                            $already_paid += $query['total_paid'];
+                                                            $discount += $query['discount'];
+
+                                                            $due = $price - ($already_paid + $discount);
+                                                        }
+                                                        ?>
+                                                    @endforeach
+                                                </p>
+
+                                                @if($discount <= 0)
+                                                    <p class="detail price"> Price:
+                                                        <span>{{$price}}</span></p>
+                                                @else
+                                                    <p class="detail price">
+                                                        <span class="regular_price">Regular Price: <span>{{$price}}</span></span>
+                                                        <span class="discount_price">Discount Price: <span>{{ ($price - $discount)}}</span></span>
+                                                    </p>
+                                                @endif
+                                                <p class="detail">
+                                                    {{--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_event">Open Modal</button>--}}
+                                                    @if($expire != 1)
+                                                        <button class="btn btn-outline-events btn-lg" data-toggle="modal" data-target="#modal_details" onclick=setDetailsModalWithData('{{json_encode($query_ids)}}')>Details</button>
+                                                    @endif
+
+                                                    <button class="btn btn-blue btn-lg" style="background-color: {{$event_background}};color: {{$event_txt_color}}" data-toggle="modal" data-target="#modal_event" onclick=setModalWithData('{{json_encode($query_ids)}}','{{$event_tag_id}}')>
+                                                        {{--<span>
+                                                            <img src="{{asset('img/icons/myquery/Add to events.png')}}">
+                                                        </span>--}}
+                                                        {{$event_title}}
+                                                    </button>
+                                                </p>
+                                            </td>
+
+
+                                            {{--Icons for Invoices--}}
+
+                                            <td>
+                                                @if($status_var == 5) <!- booked ->
+                                                <div class="row" id="#invoice_btn">
+                                                    <div class="col-sm-12 " style="text-align: center">
+                                                        <a class="btn btn-default paybook paybook_shadow"
+                                                           href="{{route('showInvoice',implode(',',$query_ids))}}">Get Invoice</a>
+                                                    </div>
+                                                </div>
+                                                {{--<div class="row " id="invoice">
+                                                    <div class="col-sm-4 invoice_tab">
+                                                        <a href="{{route('showInvoice',implode(',',$query_ids))}}">
+                                                            <i class="fa fa-download icons"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-4 invoice_tab">
+                                                        <a href="#">
+                                                            <i class="fa fa-envelope icons"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-sm-4 invoice_tab">
+                                                        <a href="#">
+                                                            <i class="fa fa-print icons"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>--}}
+                                                @endif
+                                            </td>
+
+
+                                            @if($status_var == 1)   <!- query submitted ->
+                                            <td class="column_3">
+                                                <p></p>
+
+                                                @if($expire != 1)
+                                                    <p class="btn btn-outline-danger btn-lg" onclick="remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                                @endif
+                                            </td>
+
+                                            @elseif($status_var == 2) <!- In Review ->
+                                            <td class="column_3">
+
+                                            </td>
+
+                                            @elseif($status_var == 3) <!- Available ->
+                                            <td class="column_3">
+                                                <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
+                                                       value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                                <div class="remain_time">
+                                                    {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+
+                                                    </p>
+                                                </div>
+
+                                                {{-- <button class="paybook paybook_shadow"
+                                                         onclick="addToCart('{{json_encode($query_ids)}}'),openNav()"
+                                                         data-toggle="modal" data-target="#modal_multipledates">
+                                                     Pay & Book
+                                                 </button>--}}
+
+                                                @if(count($query_ids) <=1)
+                                                    <button class="paybook paybook_shadow"
+                                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available'),openNav()"
+                                                            data-toggle="modal" data-target="">
+                                                        Pay & Book
+                                                    </button>
+                                                @else
+                                                    <button class="paybook paybook_shadow"
+                                                            onclick="showAvailableDates('{{json_encode($query_ids)}}','Available')"
+                                                            data-toggle="modal" data-target="#modal_multipledates">
+                                                        Pay & Book
+                                                    </button>
+                                                @endif
+
+
+                                                {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                                <p class="advance">Min. Advance: BDT {{$advance}}</p>
+                                            </td>
+
+                                            @elseif($status_var == 4) <!- Not Availabe ->
+                                            <td class="column_3">
+                                                <p></p>
+
+                                                @if($expire != 1)
+                                                    <p class="btn btn-outline-danger btn-lg" onclick="soft_remove_query('{{json_encode($query_ids)}}')"> Remove </p>
+                                                @endif
+                                            </td>
+
+                                            @elseif($status_var == 5 ) <!- Booked ->
+                                            @if($due > 0)
+                                                <td class="column_3">
+                                                    <p></p>
+                                                    @if(count($query_ids) <=1)
+                                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked'),openNav()"
+                                                                data-toggle="modal" data-target=""> Pay Rest
+                                                        </button>
+                                                    @else
+                                                        <button class="paybook paybook_shadow" style="padding: 5px 52px"
+                                                                onclick="showAvailableDates('{{json_encode($query_ids)}}','Booked')"
+                                                                data-toggle="modal" data-target="#modal_multipledates"> Pay Rest
+                                                        </button>
+                                                    @endif
+                                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                                    <p class="duePrice"> Due amount: BDT {{$due}} </p>
+                                                </td>
+                                            @else
+                                                <td class="column_3">
+                                                    <p></p>
+                                                    <button class="paybook_complete paybook_complete_shadow"
+                                                            style="padding: 5px 52px"
+                                                            onclick="openNav()"
+                                                            data-toggle="modal"> Payment Complete
+                                                    </button>
+                                                    {{--<p class="advance">Min. Advance: BDT 5000</p>--}}
+                                                    <p class="duePrice_0"> Due amount: BDT {{$due}}
+
+
+                                                    </p>
+                                                </td>
+                                            @endif
+                                            @elseif($status_var == 7 ) <!- timeout ->
+                                            <td class="column_3">
+                                                <input type="hidden" id="{{$vendor['submit_id']}}" class="expire"
+                                                       value="{{$vendor['expiry_date'].'T'.date('H:i', strtotime($vendor['expiry_time']))}}">
+
+                                                <div class="remain_time">
+                                                    {{--<img src="{{asset('img/icons/time.png')}}">--}}
+                                                    <p class="time" id="defaultCountdown{{$vendor['submit_id']}}">
+
+                                                    </p>
+                                                </div>
+
+                                                <button class="re_request re_request_shadow"
+                                                        onclick="re_request('{{json_encode($query_ids)}}')">
+                                                    Re-request
+                                                </button>
+
+                                                {{--<a href="#" class="btn btn-success" onclick="cart('{{$status_id}}','{{$status_id}}','{{$title_id}}' ,'{{$category_id}}' , '{{$month_id}}' ,'{{$date1_id}}' , '{{$date2_id}}' , '{{$date3_id}}' ,'{{$totalPrice_id}}' )">Payand book</a>--}}
+                                                <p class="advance">Min. Advance: BDT {{$advance}}</p>
+                                            </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endif
+                            @if($check <= 0)
+                                <h1>No Data found</h1>
+                            @endif
+                            </tbody>
+                        </table>
+                        <!-- /.table-striped table-bordered -->
+                    </div>
+                    <!-- /.table-responsive -->
+                    <div class="cart-img" onclick="openNav(),loadCart()">
+                        <img src="{{asset('img/cart/cart.png')}}">
+                    </div>
+                    <div id="mySidebar" class="sidebar mt-4">
+                        <div class="row" style="padding-left: 30%">
+                            <label class="cart-head"><img src="{{asset('img/cart/cart.png')}}"> My Booking List</label><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        </div>
+                        <div class="row">
+                            <label class="cart-subhead">Amount</label>
+                        </div>
+                        <div id="div-cart">
+
+                        </div>
+                        <div class="cart-line"></div>
+                        <div><label class="cart-total">Total: </label> <label class="cart-total cart-total-value" id="total"></label></div>
+                        <button id="pbtn" class="cart-paybtn cart-paybtn-shadow" data-toggle="modal" data-target="#modal_payment" onclick="setTotal()">Payment
+                        </button>
+                    </div>
+                    <script>
+                        function openNav() {
+                            document.getElementById('mySidebar').style.width = '@if(!$agent->isMobile()) 20% @else 75% @endif';
+                            document.getElementById('main1').className = 'col-sm-10';
                         }
-                    }
 
-                    if (flag == 1) {
-                        $('#pbtn').attr('disabled', 'disabled');
-                        $('#pbtn').attr('style', 'background-color : #dec49c');
-                    } else {
-                        $('#pbtn').removeAttr('disabled');
-                        $('#pbtn').attr('style', 'background-color : #E2AD5B');
-                    }
+                        function closeNav() {
+                            document.getElementById('mySidebar').style.width = '0';
+                            document.getElementById('main1').className = 'col-sm-12';
+                        }
 
-                    document.getElementById('total').innerHTML = total;
-                    document.getElementById('cart_current_amounts').value = query_current_amount;
-                }
-            </script>
+                        function addTotal($len) {
+                            //alert($len);
+
+                            var query_current_amount = [];
+                            var i = 0;
+                            var flag = 0;
+                            var total = 0;
+                            for (i = 0; i < $len; i++) {
+                                //alert(document.getElementById(i).value);
+                                //alert(document.getElementById(i).getAttribute('max'));
+                                total = total + parseInt(document.getElementById(i).value);
+                                query_current_amount[i] = parseInt(document.getElementById(i).value);
+
+                                if (parseInt(document.getElementById(i).value) < parseInt(document.getElementById(i).getAttribute('min')) ||
+                                    parseInt(document.getElementById(i).value) > parseInt(document.getElementById(i).getAttribute('max'))) {
+                                    document.getElementById(i).style.border = '2px solid #c9302c';
+                                    document.getElementById(i).style.color = '#c9302c';
+                                    var ep = 'ep' + i;
+                                    document.getElementById(ep).innerHTML = 'Min: ' + parseInt(document.getElementById(i).getAttribute('min')) + ' and Max: ' +
+                                        parseInt(document.getElementById(i).getAttribute('max'));
+                                    flag = 1;
+                                } else {
+                                    document.getElementById(i).style.border = '1px solid #DFA449';
+                                    document.getElementById(i).style.color = '#495057';
+                                    var ep = 'ep' + i;
+                                    document.getElementById(ep).innerHTML = '';
+                                }
+                            }
+
+                            if (flag == 1) {
+                                $('#pbtn').attr('disabled', 'disabled');
+                                $('#pbtn').attr('style', 'background-color : #dec49c');
+                            } else {
+                                $('#pbtn').removeAttr('disabled');
+                                $('#pbtn').attr('style', 'background-color : #E2AD5B');
+                            }
+
+                            document.getElementById('total').innerHTML = total;
+                            document.getElementById('cart_current_amounts').value = query_current_amount;
+                        }
+                    </script>
+                </div>
+                <!-- /.col-12 -->
+            </div>
+            <!-- /.row -->
         </div>
-
+        <!-- /.container -->
 
         {{--Modals--}}
         {{--Events modal--}}
@@ -2089,8 +2001,7 @@
                         <div class="modal-header modal_header">
 
                             <h4 class="modal-title modal_title">MY EVENTS</h4>
-                            <button type="button" class="close" data-dismiss="modal" id="close"
-                                    onclick="close()">&times;
+                            <button type="button" class="close" data-dismiss="modal" id="close" onclick="close()">&times;
                             </button>
                         </div>
                         <div class="modal-body modal_body" id="event_list">
@@ -2100,11 +2011,9 @@
 
                                 @foreach($events as $event)
                                     <label class="radio_container">{{$event->title}}
-                                        <input type="radio" id="{{$event->id}}" name="radio" value="{{$event->id}}"
-                                               onclick="add_event_to_query('{{$event->id}}')">
+                                        <input type="radio" id="{{$event->id}}" name="radio" value="{{$event->id}}" onclick="add_event_to_query('{{$event->id}}')">
                                         <span class="checkmark"></span>
-                                        <a href="javascript:void(0)" style="float: right"
-                                           onclick="remove_event_from_query('{{$event->id}}')">&times;</a>
+                                        <a href="javascript:void(0)" style="float: right" onclick="remove_event_from_query('{{$event->id}}')">&times;</a>
                                     </label>
                                 @endforeach
                                 <label class="radio_container">Not Set
@@ -2125,8 +2034,7 @@
                             <form role="form" id="eventForm" class="form modal_form">
                                 {{csrf_field()}}
                                 <div class="form-group">
-                                    <input type="text" class="form-control form_event_input" id="event_name"
-                                           placeholder="New Event Name">
+                                    <input type="text" class="form-control form_event_input" id="event_name" placeholder="New Event Name">
                                 </div>
                                 <button type="submit" class="btn form_event_button" id="event_submit">Create</button>
                             </form>
@@ -2158,8 +2066,7 @@
                     <div class="modal-content modal_content">
                         <div class="modal-header modal_header">
 
-                            <button type="button" class="close" data-dismiss="modal" id="close"
-                                    onclick="close()">&times;
+                            <button type="button" class="close" data-dismiss="modal" id="close" onclick="close()">&times;
                             </button>
                         </div>
                         <div class="modal-body modal_body" id="available_date_list">
@@ -2178,7 +2085,6 @@
             </div>
         </div>
 
-
         {{--Payment Type modal--}}
         <div class="container payment">
             <!-- Modal -->
@@ -2187,19 +2093,14 @@
                     <!-- Modal content-->
                     <div class="modal-content modal_content">
                         <div class="modal-header modal_header">
-                            <button type="button" class="close" data-dismiss="modal" id="close"
-                                    onclick="close()">&times;
+                            <button type="button" class="close" data-dismiss="modal" id="close" onclick="close()">&times;
                             </button>
                         </div>
                         <p>Select Payment Method</p>
 
                         <div class="modal-body modal_body" id="available_date_list">
                             <div class="buttons">
-                                <a href="javascript:void(0)" class="btn btn_paymentBook" id=""
-                                   onclick="cashPayment()">
-                                    <img src="{{asset('img/icons/query/pay.svg')}}">
-                                    Cash Payment
-                                </a>
+                                <a href="javascript:void(0)" class="btn btn_paymentBook" id="" onclick="cashPayment()"><img src="{{asset('img/icons/query/pay.svg')}}"> Cash Payment</a>
 
                                 <form method="post" action="{{route('sslpay')}}">
                                     {{csrf_field()}}
@@ -2229,8 +2130,8 @@
         </div>
     </section>
 @endsection
-@push('scripts')
 
+@push('scripts')
     <script>
         $(document).ready(function() {
             loadCart();

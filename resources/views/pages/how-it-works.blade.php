@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-auto text-center text-white">
-                    <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
+                    <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
 
     <!-- How it works section -->
     <section class="page-section pricing" style="color: black; background-color: white">
-        <div class="row wow fadeIn text-center mt-md-3 mt-lg-3">
+        <div class="row wow fadeIn text-center pt-3">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <h3 class="pagetitle" style="color: #e5b15b">How It Works</h3>
                 <!-- /.pagetitle -->
@@ -26,7 +26,7 @@
         <!-- /.row wow fadeIn text-center -->
 
         <div class="container wow fadeIn mb-2">
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-justify mb-3">
                     <p>
                         <strong>Ayojok.com</strong> is a platform where you can browse and pick your desired event service providers. We are here to save your time and money while keeping you trending by delivering quality services for your events from Ayojok itself.
@@ -36,16 +36,16 @@
                 </div>
                 <!-- /.col-12 col-sm-12 col-md-12 col-lg-12 -->
             </div>
-            <!-- /.row -->
+            <!-- /.row mb-3 -->
 
-            <div class="row mb-4">
-                <div class="col-12 col-sm-2 col-md-1 col-lg-1 @if($agent->isMobile()) text-center @endif">
+            <div class="row mb-5">
+                <div class="col-12 col-sm-2 col-md-1 col-lg-1 @if($agent->isMobile()) text-center mb-2 @endif">
                     <img src="{{ asset('img/icons/icon-23.png') }}" alt="Search Icon" width="75">
                 </div>
                 <!-- /.col-4 col-sm-3 col-md-2 col-lg-2 -->
 
                 <div class="col-12 col-sm-10 col-md-11 col-lg-11">
-                    <h3 class="@if($agent->isMobile()) text-center mt-2 @endif" style="font-weight: 400;">Search</h3>
+                    <h3 class="@if($agent->isMobile()) text-center mt-2 mb-3 @endif" style="font-weight: 400;">Search</h3>
 
                     <ul style="padding: 0; margin: 0 0 0 15px; line-height: 1.8rem; font-size: 16px;">
                         <li>Conveniently seek out the perfect service provider using our location filter.</li>
@@ -55,16 +55,16 @@
                 </div>
                 <!-- /.col-8 col-sm-9 col-md-10 col-lg-10 -->
             </div>
-            <!-- /.row mb-4 -->
+            <!-- /.row mb-5 -->
 
-            <div class="row mb-4">
-                <div class="col-12 col-sm-2 col-md-1 col-lg-1 @if($agent->isMobile()) text-center @endif">
+            <div class="row mb-5">
+                <div class="col-12 col-sm-2 col-md-1 col-lg-1 @if($agent->isMobile()) text-center mb-2 @endif">
                     <img src="{{ asset('img/icons/booking.png') }}" alt="Booking Icon" width="75">
                 </div>
                 <!-- /.col-4 col-sm-3 col-md-2 col-lg-2 -->
 
                 <div class="col-12 col-sm-10 col-md-11 col-lg-11">
-                    <h3 class="@if($agent->isMobile()) text-center mt-2 @endif" style="font-weight: 400;">Availability & Booking</h3>
+                    <h3 class="@if($agent->isMobile()) text-center mt-2 mb-3 @endif" style="font-weight: 400;">Availability & Booking</h3>
 
                     <p>Your wedding, your way! Choose your preferred services and send the booking request for desired service providers right away.
                         <br>You can contact the service provider directly for maximum transparency and to make a better informed decision.</p>
@@ -82,16 +82,16 @@
                 </div>
                 <!-- /.col-8 col-sm-9 col-md-10 col-lg-10 -->
             </div>
-            <!-- /.row mb-4 -->
+            <!-- /.row mb-5 -->
 
             <div class="row">
-                <div class="col-12 col-sm-2 col-md-1 col-lg-1 @if($agent->isMobile()) text-center @endif">
+                <div class="col-12 col-sm-2 col-md-1 col-lg-1 @if($agent->isMobile()) text-center mb-2 @endif">
                     <img src="{{ asset('img/icons/icon-25.png') }}" alt="Confirmation Icon" width="75">
                 </div>
                 <!-- /.col-4 col-sm-3 col-md-2 col-lg-2 -->
 
                 <div class="col-12 col-sm-10 col-md-11 col-lg-11">
-                    <h3 class="@if($agent->isMobile()) text-center mt-2 @endif" style="font-weight: 400;">Confirmation</h3>
+                    <h3 class="@if($agent->isMobile()) text-center mt-2 mb-3 @endif" style="font-weight: 400;">Confirmation</h3>
 
                     <p class="text-justify">Upon completion of the booking process, the client will be contacted by our team with confirmation. The client will either receive an email or a physical copy of the billing information.</p>
 

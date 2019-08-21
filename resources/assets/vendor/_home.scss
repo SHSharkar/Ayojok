@@ -26,15 +26,15 @@ hr {
 }
 
 section.page-section {
-  padding: 2px 0;
+  //padding: 2px 0;
   background-color: #f2f2f2;
 }
 
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
   section.page-section {
-    padding: 20px 0;
+    padding: 10px 0;
   }
-}
+}*/
 
 ::-webkit-input-placeholder,
 :-moz-placeholder,
@@ -1303,36 +1303,6 @@ header.pagehead .fb-profile-text {
   line-height: 25px;
 }
 
-.subservice {
-  width: 70px;
-
-  &:hover {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1.05);
-    -moz-transform: scale(1.04);
-    -ms-transform: scale(1.05);
-    -o-transform: translatZ(0) scale(1.05);
-    transform: translatZ(0) scale(1.05);
-  }
-}
-
-.subservice-title {
-  font-size: 16px;
-  font-weight: 400;
-  padding-top: 15px;
-}
-
-.vendor-point-title {
-  padding-top: 15px;
-  font-weight: 500;
-}
-
-.vendor-point-subtitle {
-  font-size: 17px;
-  font-weight: 400;
-}
-
 .hovereffect {
   width: 100%;
   height: 100%;
@@ -1892,18 +1862,23 @@ ul.pack-tabs > li {
 }
 
 .contact-placeholder {
+  font-weight: 100 !important;
+
   &::-webkit-input-placeholder {
     color: #f6f6f6;
+    font-weight: 100 !important;
   }
 
   &:-moz-placeholder,
   &::-moz-placeholder {
     color: #f6f6f6;
     opacity: 1;
+    font-weight: 100 !important;
   }
 
   &:-ms-input-placeholder {
     color: #f6f6f6;
+    font-weight: 100 !important;
   }
 }
 
@@ -1948,7 +1923,8 @@ ul.pack-tabs > li {
 .vendor-carousel .carousel-indicators,
 .service-carousel .carousel-indicators {
   position: absolute;
-  height: 60px;
+  height: auto;
+  bottom: -1.8rem;
 
   li {
     text-indent: 0;
@@ -2252,8 +2228,8 @@ ul.pack-tabs > li {
   .vendor-carousel .carousel-indicators,
   .service-carousel .carousel-indicators {
     position: absolute;
-    bottom: -1.2rem;
-    height: 3rem;
+    bottom: -1.8rem;
+    height: auto;
 
     li {
       text-indent: 0;

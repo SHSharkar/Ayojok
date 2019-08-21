@@ -1,5 +1,6 @@
+@php $agent = new Jenssegers\Agent\Agent() @endphp
 <!-- Sorting and Filter -->
-<div class="row mb-3">
+<div class="row mb-2 mb-sm-2 mb-md-3 mb-lg-3">
     {{-- It will be use later when city filter needed --}}
     {{-- Filter City Area --}}
     {{-- <div class="col-lg-3">
@@ -13,8 +14,8 @@
     {{-- Filter City End --}}
 
     {{-- Filter City Area --}}
-    <div class="col-12 col-sm-4 col-md-4 col-lg-4 mt-3">
-        <select class="selectpicker area" data-live-search="true" data-width="100%" id="area" title="Area In The City"> <!-- id="area" -->
+    <div class="col-12 col-sm-4 col-md-4 col-lg-4 mt-2 mt-sm-2 mt-md-3 mt-lg-3">
+        <select class="selectpicker area" data-live-search="true" data-width="100%" id="area" title="Area In The City">
             {{--<option class="option" value="Destination Wedding">Destination Wedding</option>--}}
             <option class="option" value="uttara">Uttara</option>
             <option class="option" value="Baridhara-Bosundhara">Baridhara-Bosundhara</option>
@@ -40,7 +41,7 @@
     {{-- Filter City Area End --}}
 
     {{-- Filter Capacity --}}
-    <div class="col-12 col-sm-4 col-md-4 col-lg-4 mt-3">
+    <div class="col-12 col-sm-4 col-md-4 col-lg-4 mt-2 mt-sm-2 mt-md-3 mt-lg-3">
         <select class="selectpicker" data-live-search="true" data-width="100%" id="capacity" title="Capacity"> <!-- id="capacity" -->
             <option class="option" value="<100">Less then 100</option>
             <option class="option" value="100-200">100-200</option>
@@ -52,9 +53,9 @@
     {{-- Filter Capacity End --}}
 
     {{-- Filter Price --}}
-    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+    <div class="col-12 col-sm-4 col-md-4 col-lg-4 @if($agent->isMobile()) mt-2 @endif">
         <div class="form-group">
-            <input type="hidden" id="price" name="example_name" value=""/>
+            <input type="hidden" id="price" name="price" value=""/>
         </div>
     </div>
     {{-- Filter Price --}}

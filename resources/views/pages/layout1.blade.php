@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-auto text-center text-white">
-                    <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
+                    <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <h3>Wedding Mate</h3>
           </div> -->
 
-            <div class="row mt-md-3">
+            <div class="row pt-3">
                 <!-- Fetaure Image, video or 360 viewer place -->
                 <div class="col-lg-8">
 
@@ -46,11 +46,11 @@
                         </div>
                         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
+
                         </a>
                         <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
+
                         </a>
                         <ul class="carousel-indicators">
                             @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists($datas->feature_image_1))
@@ -97,29 +97,29 @@
 
                     {{-- Leave Your Query --}}
                     <div class="form-area @if($agent->isMobile()) mt-3 @endif">
-                        <form role="form" id="queryForm">
-                            <input type="hidden" id="catagory_id" value="{{$catagorydata->name}}">
-                            <input type="hidden" id="vendor_id" value="{{$datas->id}}">
-                            <h5 style="margin-top: 5px; text-align: center; color:white;">Booking Query</h5>
+                        <h5 style="margin-top: 5px; text-align: center; color:white;">Booking Query</h5>
+                        <p class="text-center" style="font-size:0.9rem;font-weight:500;padding:0;">Please leave your details and let us take care of the rest</p>
 
-                            <p class="text-center" style="font-size:0.8rem;font-weight:500;padding:0;">Please leave your
-                                details and let us take care of the rest</p>
+                        <div class="row">
+                            <div id="ajax-alert" class="col-12"></div>
+                        </div>
+
+                        <form role="form" id="queryForm">
+                            {!! Form::hidden('catagory_id', $catagorydata->name, ['id' => 'catagory_id']) !!}
+                            {!! Form::hidden('vendor_id', $datas->id, ['id' => 'vendor_id']) !!}
 
                             <div class="form-group">
                                 @guest
-                                    <input type="text" data-toggle="modal" href="#myModal" class="form-control query_layout_date" {{--id="date"--}} name="date" placeholder="Date" required
-                                           readonly>
+                                    <input type="text" data-toggle="modal" href="#myModal" class="form-control query_layout_date" {{--id="date"--}} name="date" placeholder="Date" required readonly>
                                 @endguest
                                 @auth
-                                    <input type="text" class="form-control query_layout_date" id="date" name="date" placeholder="Date" required
-                                           readonly>
+                                    <input type="text" class="form-control query_layout_date" id="date" name="date" placeholder="Date" required readonly>
                                 @endauth
 
                             </div>
                             <div class="form-group">
                                 @guest
-                                    <input type="number" data-toggle="modal" href="#myModal" class="form-control query_layout_num" name="phn" placeholder="Mobile Number" required
-                                           readonly>
+                                    <input type="number" data-toggle="modal" href="#myModal" class="form-control query_layout_num" name="phn" placeholder="Mobile Number" required readonly>
                                 @endguest
                                 @auth
                                     <input type="number" class="form-control query_layout_num" name="phn" id="phn" placeholder="Mobile Number" required value="{{Auth::user()->contact}}">
@@ -127,22 +127,33 @@
                             </div>
                             <div class="form-group">
                                 @guest
-                                    <textarea data-toggle="modal" href="#myModal" class="form-control query_layout_detail" type="textarea" id="message"
-                                              placeholder="Details of your requirments" maxlength="500" readonly></textarea>
+                                    <textarea data-toggle="modal" href="#myModal" class="form-control query_layout_detail" type="textarea" id="message" placeholder="Details of your requirments" maxlength="500" readonly></textarea>
                                 @endguest
                                 @auth
-                                    <textarea class="form-control query_layout_detail" type="textarea" id="message"
-                                              placeholder="Details of your requirments" maxlength="500"></textarea>
+                                    <textarea class="form-control query_layout_detail" type="textarea" id="message" placeholder="Details of your requirments" maxlength="500"></textarea>
                                 @endauth
 
-                                <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the
-                                    limit</p></span>
-                            </div>
-                            <div align="center">
-                                <button type="button" id="submit" name="submit" class="btn btn-primary">Send for query & Get a Call
-                                </button>
+                                <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
                             </div>
                         </form>
+
+                        <div class="text-center">
+                            <button type="button" id="submit" name="submit" form="queryForm" class="btn btn-primary">Send for query & Get a Call</button>
+
+                            <button type="button" name="button" class="btn btn-danger ml-1" onclick="event.preventDefault();document.getElementById('wishlist').submit();">
+                                <img src="{{ asset('img/heart.png') }}" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Add to Wish List">
+                            </button>
+                        </div>
+                        <!-- /.text-center -->
+
+                        {!! Form::open(['url' => route('wishlist.store'), 'method' => 'post', 'id' => 'wishlist']) !!}
+                        @if (auth()->check())
+                            {!! Form::hidden('user_id', auth()->id(), ['id' => 'user_id']) !!}
+                        @endif
+
+                        {!! Form::hidden('catagory_id', $datas->catagory_id, ['id' => 'catagory_id']) !!}
+                        {!! Form::hidden('vendor_id', $datas->id, ['id' => 'vendor_id']) !!}
+                        {!! Form::close() !!}
                     </div>
 
                     {{-- Leave Your Number --}}
@@ -165,67 +176,75 @@
                 </div>
             </div>
 
-            <div class="row ">
-                <div id="ajax-alert" class="col-lg-12"></div>
-            </div>
-
+        @if ($agent->isMobile())
             <!-- About us row with tabbed content -->
-            <div class="row mb-md-5 mt-3">
-                <div id="ajax-alert"></div>
-                <div class="col-lg-2 text-center">
-                    @php
-                        if(empty($datas->logo)){
-                        $vendor_logo = 'img/vendor-logo/vendor_logo_default.jpg';
-                        }else{
-                        $vendor_logo = $datas->logo;
-                        }
-                    @endphp
-                    <div class="avatar">
-                        <img alt="" src="{{asset($vendor_logo)}}">
+                <div class="row mb-md-5 mt-3">
+                    <div id="ajax-alert"></div>
+                    <div class="col-4">
+                        @if ((!empty($datas->logo) || $datas->logo != null) && file_exists($datas->logo))
+                            <div class="avatar">
+                                <img alt="" src="{{ asset($datas->logo) }}" class="img-fluid">
+                            </div>
+                        @else
+                            <div class="avatar">
+                                <img src="{{ asset('img/vendor-logo/vendor_logo_default.jpg') }}" alt="" class="img-fluid">
+                            </div>
+                            <!-- /.avatar -->
+                        @endif
+                    </div>
+
+                    <div class="col-8">
+                        <div style="font-size: 20px; font-weight: 500; text-transform: uppercase;">{{ $datas->title }}
+                            <small style="font-size: 14px; font-weight: 100;">| About Us</small>
+                        </div>
+
+                        @if (empty($datas->about_us))
+                            <div class="text-justify">
+                                {{ $datas->title }} has been in the event industry for a long time. They have been providing quality products and services with many positive reviews from satisfied customers. Their experience in the industry and professionalism is what sets them apart and makes them a top service provider in their respective category.
+                            </div>
+                            <!-- /.text-justify -->
+                        @else
+                            <div class="text-justify">
+                                {!! $datas->about_us !!}
+                            </div>
+                            <!-- /.text-justify -->
+                        @endif
                     </div>
                 </div>
+            @else
+                <div id="ajax-alert"></div>
+                <!-- About us row with tabbed content -->
+                <div class="row mb-md-5 mt-3">
+                    <div class="col-2 text-center">
+                        @if ((!empty($datas->logo) || $datas->logo != null) && file_exists($datas->logo))
+                            <div class="avatar">
+                                <img alt="" src="{{ asset($datas->logo) }}">
+                            </div>
+                        @else
+                            <div class="avatar">
+                                <img src="{{ asset('img/vendor-logo/vendor_logo_default.jpg') }}" alt="">
+                            </div>
+                            <!-- /.avatar -->
+                        @endif
+                    </div>
 
-                <div class="col-lg-10 vendor-summary row" style="padding-right:0;">
-                    <div class="col-lg-10">
+                    <div class="col-10 vendor-summary">
                         <h3>{{$datas->title}}
                             <small> | About Us</small>
                         </h3>
                         <div id="summary">
                             <p class="collapse text-justify" id="collapseSummary">
-                                @php
-                                    if (empty($datas->about_us)) {
-                                    echo $about_us = $datas->title .' has been in the event industry for a long time. They have
-                                    been providing quality products and services with many positive reviews from satisfied
-                                    customers. Their experience in the industry and professionalism is what sets them apart and
-                                    makes them a top service provider in their respective category.';
-                                    }else{
-                                    echo $datas->about_us;
-                                    }
-                                @endphp
+                                @if (empty($datas->about_us))
+                                    {{ $datas->title }} has been in the event industry for a long time. They have been providing quality products and services with many positive reviews from satisfied customers. Their experience in the industry and professionalism is what sets them apart and makes them a top service provider in their respective category.
+                                @else
+                                    {!! $datas->about_us !!}
+                                @endif
                             </p>
-                            <a class="collapsed" data-toggle="collapse" href="#collapseSummary" aria-expanded="false"
-                               aria-controls="collapseSummary"></a>
+                            <a class="collapsed" data-toggle="collapse" href="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary"></a>
                         </div>
-
-                    </div>
-                    <div class="col-lg-2 text-center">
-                        <button type="button" name="button" class="btn" style="background-color:#f2f2f2"
-                                onclick="event.preventDefault();document.getElementById('wishlist').submit();"><img
-                                    src="{{asset('img/icons/ayojok_bookmark.png')}}" alt="" style="width:6rem;"
-                                    class="btn pull-right" data-toggle="tooltip" data-placement="top"
-                                    title="Add to wish list"></button>
-                        <form id="wishlist" action="{{route('wishlist.store')}}" method="post">
-                            {{csrf_field()}}
-                            @if (Auth::check())
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            @endif
-                            <input type="hidden" name="catagory_id" value="{{$datas->catagory_id}}">
-                            <input type="hidden" name="vendor_id" value="{{$datas->id}}">
-                        </form>
                     </div>
                 </div>
-            </div>
-
+            @endif
         </div>
     </section>
 
@@ -233,7 +252,7 @@
     <section class="page-section pricing" style="background-image: url({{asset($catagorydata->layout_img)}});">
         <div class="container wow fadeIn mt-4 mb-4 mt-sm-4 mb-sm-4 mt-md-5 mb-md-5 mt-lg-5 mb-lg-5 feature">
             <div class="row text-center">
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature1_img)}}" class="subservice" alt="Industry Experience">
                     </a>
@@ -242,7 +261,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_1}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature2_img)}}" class="subservice" alt="Location">
                     </a>
@@ -251,7 +270,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_2}} Years</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature3_img)}}" class="subservice" alt="Home Service">
                     </a>
@@ -260,7 +279,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_3}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature4_img)}}" class="subservice" alt="Booking Method">
                     </a>
@@ -269,7 +288,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_4}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature5_img)}}" class="subservice" alt="Book Before">
                     </a>
@@ -278,7 +297,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_5}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature6_img)}}" class="subservice" alt="Outside City Service">
                     </a>
@@ -287,7 +306,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_6}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature7_img)}}" class="subservice" alt="Service Type">
                     </a>
@@ -296,7 +315,7 @@
 
                     <p class="vendor-point-subtitle">{{$fdetails->feature_7}}</p>
                 </div>
-                <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
                         <img src="{{asset($features->feature8_img)}}" class="subservice" alt="Service Time">
                     </a>
@@ -310,7 +329,7 @@
     </section>
 
     <!-- Package details Tabs -->
-    <section class="page-section services mt-md-3">
+    <section class="page-section services mt-md-2">
         <div class="container">
             <!-- Packages Details -->
             <div class="text-center wow fadeIn">
@@ -318,7 +337,7 @@
                 <hr class="colored">
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-3">
                 <!-- inner-row -->
                 <div class="col-lg-5 @if($agent->isMobile()) mb-3 @endif">
                     <!-- Accordian of Packages photography -->
@@ -327,14 +346,12 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="photopack">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                           href="{{'#'.$package->id}}" aria-expanded="true" aria-controls="collapseOne">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#'.$package->id}}" aria-expanded="true" aria-controls="collapseOne">
                                             {{$package->title}} - BDT {{$package->price}}
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="{{$package->id}}" class="panel-collapse collapse in" role="tabpanel"
-                                     aria-labelledby="photopack">
+                                <div id="{{$package->id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="photopack">
                                     <div class="panel-body">
                                         <p>
                                             {!! nl2br(e($package->description)) !!}
@@ -353,8 +370,7 @@
                             <ol class="carousel-indicators">
                                 @foreach ($datas->packages as $package)
                                     @if ($loop->first)
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="{{$package->id}}"
-                                            class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="{{$package->id}}" class="active"></li>
                                     @else
                                         <li data-target="#carouselExampleIndicators" data-slide-to="{{$package->id}}"></li>
                                     @endif
@@ -364,26 +380,20 @@
                                 @foreach ($datas->packages as $package)
                                     @if ($loop->first)
                                         <div class="carousel-item active">
-                                            <img class="d-block w-100" src="{{asset($package->image)}}"
-                                                 alt="{{$package->title}}">
+                                            <img class="d-block w-100" src="{{asset($package->image)}}" alt="{{$package->title}}">
                                         </div>
                                     @else
                                         <div class="carousel-item">
-                                            <img class="d-block w-100" src="{{asset($package->image)}}"
-                                                 alt="{{$package->title}}">
+                                            <img class="d-block w-100" src="{{asset($package->image)}}" alt="{{$package->title}}">
                                         </div>
                                     @endif
                                 @endforeach
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                               data-slide="prev">
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                               data-slide="next">
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
                             </a>
                         </div>
 
@@ -399,7 +409,7 @@
     <!-- / end of package section -->
 
     <!-- Image Gallery -->
-    <section class="page-section services mt-2">
+    <section class="page-section services pt-3">
         <div class="container">
             <div class="text-center wow fadeIn">
                 <h3>Our Gallery</h3>
@@ -407,14 +417,16 @@
             </div>
 
             <div class="row mt-2">
-                <!-- Gallery Start -->
-                <div class="img-gallery gal">
-                    @foreach ($datas->images as $image)
-                        <a href="{{asset($image->image_locations)}}"><img src="{{asset($image->image_locations)}}" alt=""></a>
-                    @endforeach
-
+                <div class="col-12">
+                    <!-- Gallery Start -->
+                    <div class="img-gallery gal">
+                        @foreach ($datas->images as $image)
+                            <a href="{{asset($image->image_locations)}}"><img src="{{asset($image->image_locations)}}" alt="" class="img-fluid"></a>
+                        @endforeach
+                    </div>
+                    <!--/ Gallery Ends -->
                 </div>
-                <!--/ Gallery Ends -->
+                <!-- /.col-12 -->
             </div>
 
         </div>
@@ -441,14 +453,14 @@
     <!-- End Youtube Gallery -->
 
     <!-- Review Rating -->
-    <section class="page-section">
+    <section class="page-section mt-3 mt-md-4 mt-lg-4">
         <div class="container">
             <div class="text-center wow fadeIn">
                 <h3>Your Opinion</h3>
                 <hr class="colored">
             </div>
 
-            <div class="row mt-md-5">
+            <div class="row mt-md-4">
                 <!-- Rating Avarage -->
                 <div class="col-lg-6" id="review-bar">
                     <div class="card">

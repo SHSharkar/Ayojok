@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-auto text-center text-white">
-                    <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}" alt="">
+                    <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -15,8 +15,8 @@
     <!-- Form for query section -->
     <section class="page-section" id="contact" style="background-image: url('img/backgrounds/bg-service.jpg');">
         <div class="container wow fadeIn">
-            <div class="text-center contact-header mt-md-2 mt-lg-2">
-                <h2 class="font-weight-light">Contact Us</h2>
+            <div class="text-center contact-header pt-2">
+                <h2 class="font-weight-lighter">Contact Us</h2>
                 <hr class="colored">
                 <p>We are interested in being a part of organizing your events so feel free to contact us anytime for our assistance.</p>
             </div>

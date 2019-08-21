@@ -567,6 +567,8 @@ namespace App\Models{
  * @property-read int|null $products_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\querycart[] $querycart
  * @property-read int|null $querycart_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\products[] $vendors
+ * @property-read int|null $vendors_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\wishlist[] $wishlist
  * @property-read int|null $wishlist_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\catagory newModelQuery()

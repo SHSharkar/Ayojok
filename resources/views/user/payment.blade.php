@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 my-auto text-center text-white">
-                <img class="pagehead-img img-fluid mt-5 mb-5" src="{{ asset('img/logo_final.png') }}"
+                <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}"
                      alt=""/>
             </div>
         </div>
