@@ -47,7 +47,7 @@ class OrderController extends Controller
             $open->is_openForPayment = 1;
             $open->save();
         }
-        $datas = order::where('user_id', $userid)->with('product')->with('vendor')/*->where('payment_type', '>', 0)*/->orderBy('id', 'desc')->get();
+        $datas = order::where('user_id', $userid)->with('product')->with('vendor')/*->where('payment_type', '>', 0)*/ ->orderBy('id', 'desc')->get();
         //dd($datas);
 
         // $usershipping = order::where('order_set',$orderid)->where('user_id',$userid)->firstOrFail()->shipping_id;
@@ -73,6 +73,7 @@ class OrderController extends Controller
             $update->is_paid = 1;
             $update->save();
         }
+
         return redirect()->back();
     }
 
@@ -83,6 +84,7 @@ class OrderController extends Controller
             $update->is_delivered = 1;
             $update->save();
         }
+
         return redirect()->back();
     }
 
@@ -102,7 +104,9 @@ class OrderController extends Controller
         $datas = order::where('user_id', Auth::user()->id)->with('vendor')->with('catagory')->where('payment_type', '=', 0)->with('product')->get();
         //dd($datas);
         // $temporders = tempayment::where('user_id', Auth::user()->id)->with('order')->with('vendor')->with('product')->get();
-        $temporders = order::where('user_id', Auth::user()->id)->where('temp_add', '=', 1)->where('payment_type', '=', 0)->with('vendor')->with('catagory')->with('product')->get();
+        $temporders = order::where('user_id', Auth::user()->id)->where('temp_add', '=', 1)->where('payment_type', '=',
+            0)->with('vendor')->with('catagory')->with('product')->get();
+
         //dd($temporders);
         return view('user.payment', compact('datas', 'temporders'));
     }
@@ -121,6 +125,7 @@ class OrderController extends Controller
     public function tempDel($id)
     {
         order::where('id', "=", $id)->update(['temp_add' => 0]);
+
         return redirect()->back();
     }
 
@@ -128,6 +133,7 @@ class OrderController extends Controller
     {
         $pay = order::find($id);
         $pay->delete();
+
         return redirect()->back();
     }
 
@@ -135,8 +141,10 @@ class OrderController extends Controller
     {
         $pay = order::find($id);
         $pay->update(['payment_type' => 2]);
+
         return redirect()->back();
     }
+
     public function confirmManualPayment($id)
     {
         $pay = order::find($id);
@@ -151,17 +159,21 @@ class OrderController extends Controller
         if ($pay->vendors_id > 0) {
             $product = vendors::find($pay->vendors_id);
             $product_service = "vendor";
-        } else if ($pay->products_id > 0) {
-            $product = products::find($pay->products_id);
-            $product_service = "service";
+        } else {
+            if ($pay->products_id > 0) {
+                $product = products::find($pay->products_id);
+                $product_service = "service";
+            }
         }
 
         $customer = User::find($pay->user_id);
 
         //echo $product->title;
-        $message = "Payment Confirmation for Customer ($customer->email) :: $product_service ( $product->title -> $catagorydata->name  ) by " . Auth::user()->name;
-        $this->saveChangeLog($product_service, null, "confirmorder", $pay->id, $message, null, "confirm_payment"); //($vendor_service,$package_gallery,$table_name,$table_id,$message,$action,$order_action)
+        $message = "Payment Confirmation for Customer ($customer->email) :: $product_service ( $product->title -> $catagorydata->name  ) by ".Auth::user()->name;
+        $this->saveChangeLog($product_service, null, "confirmorder", $pay->id, $message, null,
+            "confirm_payment"); //($vendor_service,$package_gallery,$table_name,$table_id,$message,$action,$order_action)
         //exit;
+
         /**Change Logs- End*/
 
 
@@ -180,7 +192,10 @@ class OrderController extends Controller
 
     public function myvendors(Request $r)
     {
-        $datas = my_vendors::where('user_id', $r->id)->get();
+        //$datas = my_vendors::where('user_id', $r->id)->get();
+
+        $datas = my_vendors::whereUserId(\request()->segment(2))->orderByDesc('created_at')->get();
+
         //dd($datas);
         return view('user.my-vendors', compact('datas'));
     }
@@ -200,6 +215,7 @@ class OrderController extends Controller
         $createMyVendor->advance_payment = $r->advance;
         $createMyVendor->due_payment = $r->due;
         $createMyVendor->save();
+
         return redirect()->back();
     }
 
@@ -217,6 +233,7 @@ class OrderController extends Controller
             'advance_payment' => $r->advance,
             'due_payment' => $r->due,
         ]);
+
         return redirect()->back();
     }
 
@@ -224,6 +241,7 @@ class OrderController extends Controller
     {
         $del = my_vendors::find($id);
         $del->delete();
+
         return redirect()->back();
     }
 
@@ -232,6 +250,7 @@ class OrderController extends Controller
         $user = Auth::user();
         $del = my_vendors::where('user_id', $id);
         $del->delete();
+
         return redirect()->back();
     }
 
@@ -239,6 +258,7 @@ class OrderController extends Controller
     public function confirmList()
     {
         $datas = order::where('payment_type', 0)->groupBy('user_id')->with('user')->get();
+
         //dd($datas);
         return view('admin.confirm', compact('datas'));
     }
@@ -246,8 +266,8 @@ class OrderController extends Controller
     /** Confirm list single in admin section  **/
     public function confirmSingle($id)
     {
-       // echo "ok";
-       //exit;
+        // echo "ok";
+        //exit;
 
         $datas = order::where('payment_type', 0)
             ->where('user_id', $id)
@@ -264,6 +284,7 @@ class OrderController extends Controller
         // return $datas[0]->user;
         $vendors = order::where('payment_type', 0)->where('user_id', $id)->where('vendors_id', '!=', 0)->with('vendor')->with('catagory')->get();
         $products = order::where('payment_type', 0)->where('user_id', $id)->where('products_id', '!=', 0)->with('product')->with('catagory')->get();
+
         //dd($vendors);
 
 
@@ -271,7 +292,8 @@ class OrderController extends Controller
     }
 
     /*nir code*/
-    public function confirmOrder($confirm_id){
+    public function confirmOrder($confirm_id)
+    {
         //echo $confirm_id;
         $order = order::find($confirm_id);
 
@@ -287,22 +309,28 @@ class OrderController extends Controller
         if ($order->vendors_id > 0) {
             $product = vendors::find($order->vendors_id);
             $product_service = "vendor";
-        } else if ($order->products_id > 0) {
-            $product = products::find($order->products_id);
-            $product_service = "service";
+        } else {
+            if ($order->products_id > 0) {
+                $product = products::find($order->products_id);
+                $product_service = "service";
+            }
         }
 
         $customer = User::find($order->user_id);
 
         //echo $product->title;
-        $message = "Confirm-Booking for Customer ($customer->email) :: $product_service ( $product->title -> $catagorydata->name  ) by " . Auth::user()->name;
-        $this->saveChangeLog($product_service, null, "confirmorder", $order->id, $message, null, "confirm_booking"); //($vendor_service,$package_gallery,$table_name,$table_id,$message,$action,$order_action)
+        $message = "Confirm-Booking for Customer ($customer->email) :: $product_service ( $product->title -> $catagorydata->name  ) by ".Auth::user()->name;
+        $this->saveChangeLog($product_service, null, "confirmorder", $order->id, $message, null,
+            "confirm_booking"); //($vendor_service,$package_gallery,$table_name,$table_id,$message,$action,$order_action)
         //exit;
+
         /**Change Logs- End*/
 
         return Redirect::back();
     }
-    public function deleteOrder($confirm_id){
+
+    public function deleteOrder($confirm_id)
+    {
         $order = order::find($confirm_id);
 
         $order->isconfirmed = -1;
@@ -317,25 +345,36 @@ class OrderController extends Controller
         if ($order->vendors_id > 0) {
             $product = vendors::find($order->vendors_id);
             $product_service = "vendor";
-        } else if ($order->products_id > 0) {
-            $product = products::find($order->products_id);
-            $product_service = "service";
+        } else {
+            if ($order->products_id > 0) {
+                $product = products::find($order->products_id);
+                $product_service = "service";
+            }
         }
 
         $customer = User::find($order->user_id);
 
         //echo $product->title;
-        $message = "Booking Deleted for Customer ($customer->email) :: $product_service ( $product->title -> $catagorydata->name  ) by " . Auth::user()->name;
-        $this->saveChangeLog($product_service, null, "confirmorder", $order->id, $message, null, "delete_booking"); //($vendor_service,$package_gallery,$table_name,$table_id,$message,$action,$order_action)
+        $message = "Booking Deleted for Customer ($customer->email) :: $product_service ( $product->title -> $catagorydata->name  ) by ".Auth::user()->name;
+        $this->saveChangeLog($product_service, null, "confirmorder", $order->id, $message, null,
+            "delete_booking"); //($vendor_service,$package_gallery,$table_name,$table_id,$message,$action,$order_action)
         //exit;
+
         /**Change Logs- End*/
 
         return Redirect::back();
 
     }
 
-    public function saveChangeLog($vendor_service = null, $package_gallery = null, $table_name = null, $table_id = null, $message = null, $action = null, $order_action = null)
-    {
+    public function saveChangeLog(
+        $vendor_service = null,
+        $package_gallery = null,
+        $table_name = null,
+        $table_id = null,
+        $message = null,
+        $action = null,
+        $order_action = null
+    ) {
         $changeLog = new ChangeLog();
         $changeLog->admin_id = Auth::user()->id;
         $changeLog->vendor_service = $vendor_service;

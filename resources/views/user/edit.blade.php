@@ -1,126 +1,138 @@
 @extends('layouts.app')
 
 @push('css')
-<link href="{{asset('css/account.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/account.css')}}" rel="stylesheet" type="text/css">
 @endpush
 
 @section('content')
-  <header class="pagehead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 my-auto text-center text-white">
-          <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
+    <header class="pagehead" style="background-image:url({{ asset('img/backgrounds/header_bg_index.jpg') }});height:auto;background-position:center;background-repeat:no-repeat;background-size:cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 my-auto text-center text-white">
+                    <img class="pagehead-img img-fluid mt-4 mb-2 mb-sm-3 mb-md-4 mb-lg-4" src="{{ asset('img/logo_final.png') }}" alt="">
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
-  <!-- FB Profile Style -->
+    </header>
+    <!-- FB Profile Style -->
 
-  <!-- Blank section -->
+    <section class="page-section">
+        <div class="container">
+            <div class="row pt-3 mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('mainhome') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Personal Information</li>
+                        </ol>
+                    </nav>
 
-  <section class="page-section mt-3 mb-5">
-    <div class="container">
+                    <div class="wow fadeIn">
+                        <h3><i class="fa fa-user fa-lg"></i> My Personal Information</h3>
+                    </div>
+                </div>
+                <!-- /.col-12 col-sm-12 col-md-12 col-lg-12 -->
+            </div>
+            <!-- /.row pt-3 mb-3 -->
 
-      <div class="col-lg-12 row">
-        <ul class="breadcrumb">
-          <li><a href="{{route('mainhome')}}">Home</a></li>
-          {{--<li><a href="{{route('my-account')}}">My Account</a></li>--}}
-          <li class="active"> Personal Information</li>
-        </ul>
-      </div>
+            <div class="row mb-3">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <p>Please be sure to update your personal information if it has changed</p>
 
-      <div class="wow fadeIn mt-4">
-        <h3><i class="fa fa-user fa-lg" style="margin-right:1rem;"></i>  My Personal Information</h3>
-      </div>
-      <div class="mt-4">
-        <div class="my-account">
-          <p>PLEASE BE SURE TO UPDATE YOUR PERSONAL INFORMATION IF IT HAS CHANGED.</p>
+                            {!! Form::open(['url' => route('personal-info.update', ['personal_info' => $user->id]), 'method' => 'put']) !!}
+                            <div class="row">
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::label('fname', 'First Name') !!}
+                                    {!! Form::text('fname', $user->fname, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::label('lname', 'Last Name') !!}
+                                    {!! Form::text('lname', $user->lname, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::label('email', 'Email Address') !!}
+                                    {!! Form::text('email', $user->email, ['class' => 'form-control']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::label('contact', 'Contact Number') !!}
+                                    {!! Form::text('contact', $user->contact, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::label('password', 'New Password') !!}
+                                    {!! Form::password('password', ['class' => 'form-control']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::label('address', 'Address') !!}
+                                    {!! Form::textarea('address', $user->address, ['class' => 'form-control', 'rows' => '3']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+
+                                <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+                                    {!! Form::submit('Update', ['class' => 'btn btn-events']) !!}
+                                </div>
+                                <!-- /.form-group col-12 col-sm-12 col-md-12 col-lg-12 -->
+                            </div>
+                            <!-- /.row -->
+                            {!! Form::close() !!}
+                        </div>
+                        <!-- /.col-12 col-sm-12 col-md-6 col-lg-6 -->
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <h5>My Information</h5>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{$user->fname}} {{$user->lname}} ({{$user->name}})</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>{{$user->email}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Contact Number</td>
+                                        <td>{{$user->contact}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>{{$user->address}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!-- /.table table-striped -->
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.col-12 col-sm-12 col-md-6 col-lg-6 -->
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="text-right mb-3">
+                        <a href="{{route('mainhome')}}" class="btn btn-events"><i class="fa fa-home" style="color: white;"></i> Go to Home</a>
+                        <!-- /.btn btn-events -->
+                    </div>
+                    <!-- /.text-right mb-3 -->
+                </div>
+                <!-- /.col-12 col-sm-12 col-md-12 col-lg-12 -->
+            </div>
+            <!-- /.row mb-3 -->
         </div>
-        <p class="required"><sup>*</sup> Required field</p>
-      </div>
-
-      <div class="col-lg-12 row">
-        <div class="col-lg-6">
-        {!! Form::model($users, ['method' => 'PATCH', 'route' => ['personal-info.update', $users->id]]) !!}
-            <div class="form-group required">
-              <label for="InputName">First Name <sup>*</sup> </label>
-              {{-- <input required type="text" class="form-control" placeholder="First Name"> --}}
-              {!! Form::text('fname', null, array('class' =>'form-control required', 'placeholder' => 'First Name')) !!}
-            </div>
-            <div class="form-group required">
-              <label for="InputLastName">Last Name <sup>*</sup> </label>
-              {{-- <input required type="text" class="form-control" placeholder="Last Name"> --}}
-              {!! Form::text('lname', null, array('class' =>'form-control required', 'placeholder' => 'Last Name')) !!}
-            </div>
-            <div class="form-group">
-              <label for="InputEmail"> Email </label>
-              {{-- <input type="email" class="form-control" placeholder="gtanim@gmail.com"> --}}
-              {!! Form::text('email', null, array('class' =>'form-control required', 'placeholder' => 'Your Email')) !!}
-            </div>
-            <div class="form-group required">
-              <label>Contact Number <sup>*</sup></label>
-              {{-- <input required type="email" class="form-control" placeholder="xxxx-xxxxxxx"> --}}
-              {!! Form::number('contact', null, array('class' =>'form-control required', 'placeholder' => 'Your Contact Number')) !!}
-            </div>
-            <div class="form-group">
-              <label for="InputPasswordnew"> New Password </label>
-              {{-- <input type="password" name="InputPasswordnew" class="form-control"> --}}
-              {!! Form::password('password', array('class' =>'form-control required', 'placeholder' => 'Your New Password')) !!}
-            </div>
-            <div class="form-group">
-              <label for="InputEmail"> Address </label>
-              {{-- <input type="email" class="form-control" placeholder="gtanim@gmail.com"> --}}
-              {!! Form::textarea('address', null, array('class' =>'form-control required', 'placeholder' => 'Your Address','rows'=>'3')) !!}
-            </div>
-
-            <button type="submit" class="btn btn-success" style="background-color:#f47f20; border-color:#f47f20;"><i class="fa fa-save" style="color: white"></i> &nbsp; Update</button>
-
-          {!! Form::close() !!}
-        </div>
-        <div class="col-lg-6 user-info">
-
-          <div class="card">
-            <div class="card-header text-center">
-              <h5>Your Information</h5>
-            </div>
-            <div class="card-body">
-              <table style="width:100%">
-                <tr>
-                  <th colspan="6">Name</th>
-                  <td colspan="6">{{$users->fname}} {{$users->lname}} ({{$users->name}})</td>
-                </tr>
-                <tr>
-                  <th colspan="6">Email</th>
-                  <td colspan="6">{{$users->email}}</td>
-                </tr>
-                <tr>
-                  <th colspan="6">Contact Number</th>
-                  <td colspan="6">{{$users->contact}}</td>
-                </tr>
-                <tr>
-                  <th colspan="6">Address</th>
-                  <td colspan="6">{{$users->address}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-
-      <ul class="pager">
-        {{--<li class="previous pull-left"><a href="{{route('my-account')}}"> &larr; Back to My Account </a></li>--}}
-        <li class="next pull-right"><a href="{{route('mainhome')}}"> <i class="fa fa-home"></i> Go to Home</a></li>
-      </ul>
-
-
-
-
-    </div>
-  </section>
+    </section>
 @endsection
-
-@push('scripts')
-
-@endpush

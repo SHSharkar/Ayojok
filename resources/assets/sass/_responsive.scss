@@ -1753,3 +1753,16 @@
     color: #0b98dd;
   }
 }
+
+.wishlist-table-design {
+  .wishlist-product-logo {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  html, body {
+    width: auto !important;
+    overflow-x: hidden !important;
+  }
+}

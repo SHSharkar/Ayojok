@@ -10,10 +10,11 @@
                             @php $img = asset('img/vendor-profile/default.png'); @endphp
                         @endif
                         <img class="card-img-top" src="{{ asset($img) }}" alt="{{ $data->vendor->title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ Illuminate\Support\Str::limit($data->vendor->title, 20) }}</h5>
-                            <div class="card-text">{{ $catagorydata->name }} </div>
+                        <div class="card-body" style="padding: .5rem .7rem;">
+                            <h5 class="card-title mb-0">{{ Illuminate\Support\Str::limit($data->vendor->title, 35) }}</h5>
+
                         </div>
+                        <div style="padding: 0 .7rem .2rem .7rem; color: #ffffff; text-transform: uppercase; font-size: 12px;">{{ str_replace('_',' ', $catagorydata->name) }} </div>
                     </div>
                 </a>
             </div>

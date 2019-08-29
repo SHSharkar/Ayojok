@@ -278,9 +278,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('/admin/client/query', 'ClientController@query_submit')->name('admin.user.query');
 
 
-
-
-
     Route::get('/admin/order', 'OrderController@show')->name('order');
     Route::get('/admin/order/{userid}', 'OrderController@showsingle')->name('specific-order');
 

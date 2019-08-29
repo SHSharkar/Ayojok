@@ -10,23 +10,21 @@ use Illuminate\Support\Facades\Redirect;
 
 class PersonalInfoController extends Controller
 {
-
-
-
-    public function test_get_method(){
-
-        $pattern ="/.com/";
+    public function test_get_method()
+    {
+        $pattern = '/.com/';
         echo $server_name = $_SERVER['SERVER_NAME'];
-        if(preg_match($pattern,$server_name)){
+        if (preg_match($pattern, $server_name)) {
             $path = base_path();
-        }else{
+        } else {
             $path = public_path();
         }
 
-        echo "<be> path after condition: ".$path;
-
+        echo '<be> path after condition: '.$path;
     }
-    public function test_post_method(){
+
+    public function test_post_method()
+    {
 
     }
 
@@ -53,31 +51,38 @@ class PersonalInfoController extends Controller
         //
     }
 
-
-    public function edit($id)
+    /**
+     * @param  \App\User  $user
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($personal_info)
     {
-        $users = User::find($id);
+        //$users = User::find($id);
         //$address = address::where('user_id',$id)->pluck('addressName','id');
-      //$mines = address::where('id',$users->address_id)->get();
+        //$mines = address::where('id',$users->address_id)->get();
         //dd($mines);
-        return view('user.edit',compact('users'));
-    }
 
+        $user = User::whereId($personal_info)->firstOrFail();
+
+        return view('user.edit', compact('user'));
+    }
 
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user -> fname = request('fname');
-        $user -> lname = request('lname');
-        $user -> email = request('email');
-        $user -> contact = request('contact');
-        $user -> address = request('address');
-        if (is_null(request('password'))) {
-          $user->update();
-        }else{
-        $user -> password = bcrypt(request('password'));
-        $user->update();
+        $user->fname = request('fname');
+        $user->lname = request('lname');
+        $user->email = request('email');
+        $user->contact = request('contact');
+        $user->address = request('address');
+        if (request('password') == null) {
+            $user->update();
+        } else {
+            $user->password = bcrypt(request('password'));
+            $user->update();
         }
+
         return Redirect::back();
     }
 

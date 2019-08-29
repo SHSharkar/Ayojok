@@ -38,20 +38,41 @@
                         {{ Form::close() }}
                     </div>
 
-                    <div class="row">
-                        <div class="col-4 col-lg-4">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <span class="header-write">Find Services</span>
+                    @if ($agent->isMobile())
+                        <div class="row">
+                            <div class="col-4 col-lg-4">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <span class="header-write">Find Services</span>
+                            </div>
+                            <div class="col-4 col-lg-4">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <span class="header-write">Fast and Easy</span>
+                            </div>
+                            <div class="col-4 col-lg-4">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                <span class="header-write">Zero Hassle</span>
+                            </div>
                         </div>
-                        <div class="col-4 col-lg-4">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <span class="header-write">Fast and Easy</span>
+                    @else
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <ul style="padding: 0; margin: 0; list-style: none; display: flex;">
+                                        <li style="margin-right: 65px;"><i class="fa fa-check" aria-hidden="true"></i>
+                                            <span class="header-write">Find Services</span>
+                                        </li>
+                                        <li style="margin-right: 65px;"><i class="fa fa-check" aria-hidden="true"></i>
+                                            <span class="header-write">Fast and Easy</span>
+                                        </li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i> <span class="header-write">Zero Hassle</span></li>
+                                    </ul>
+                                </div>
+                                <!-- /.text-center -->
+                            </div>
+                            <!-- /.col-12 -->
                         </div>
-                        <div class="col-4 col-lg-4">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <span class="header-write">Zero Hassle</span>
-                        </div>
-                    </div>
+                        <!-- /.row -->
+                    @endif
                 </div>
             </div>
         </div>

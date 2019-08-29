@@ -9,40 +9,38 @@ use Illuminate\Support\Facades\Redirect;
 
 class ChecklistController extends Controller
 {
-
-
+    /**
+     * ChecklistController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function show(Request $r, $id)
+    public function show(Request $r)
     {
+        $id = auth()->id();
 
-        $id = \Illuminate\Support\Facades\Auth::user()->id;
-
-
-
-        $datas = checklist::where('user_id', $id)->get();
+        $datas = checklist::whereUserId($id)->get();
 
         //return count($datas);
-        if(count($datas) == 0){
+        if (count($datas) == 0) {
             $this->uploadFirstChecklist($id);
             $datas = checklist::where('user_id', $id)->get();
         }
 
-
         return view('user.my-checklist', compact('datas'));
     }
 
-    public function resetChecklist(Request $request){
+    public function resetChecklist(Request $request)
+    {
         //echo "ok";
 
         $userId = \Illuminate\Support\Facades\Auth::user()->id;
 
-        $totals = checklist::where('user_id',$userId)->get();
+        $totals = checklist::where('user_id', $userId)->get();
 
-        foreach($totals as $check){
+        foreach ($totals as $check) {
             $check->delete();
         }
 
@@ -60,7 +58,7 @@ class ChecklistController extends Controller
         $add->section = $r->section;
         $add->details = $r->details;
 
-        if(isset($r->estimated_time)){
+        if (isset($r->estimated_time)) {
             $add->time = $r->estimated_time;
         }
 
@@ -82,7 +80,7 @@ class ChecklistController extends Controller
     }
 
 
-    public function checkChecklist($id,$status)
+    public function checkChecklist($id, $status)
     {
         //return "$id checked $status";
 
@@ -90,6 +88,7 @@ class ChecklistController extends Controller
 
         //echo $status = $r->status;
         $add = checklist::find($id)->update(['status' => $status]);
+
         return "Updated";
 
     }
@@ -105,7 +104,7 @@ class ChecklistController extends Controller
         $set_1 = [
             "Fix your event dates",
             "Create guest list.",
-            "Fix your budget"
+            "Fix your budget",
         ];
 
         $time_1 = [
@@ -119,7 +118,7 @@ class ChecklistController extends Controller
             "Look up wedding and holud venues within budget",
             "Finalize selection of event venue.",
             "Complete booking payment of the venue.",
-            "Visit venue for reassuring everything."
+            "Visit venue for reassuring everything.",
         ];
         $time_2 = [
             "8 months",
@@ -142,7 +141,7 @@ class ChecklistController extends Controller
             " Discuss theme, decoration, lighting and make up with photographer",
             " Discuss preferred song for cinematic trailer",
             " Done your pre-wedding shoot if you have any plan",
-            " Send someone at the venue on event day to assure the progress."
+            " Send someone at the venue on event day to assure the progress.",
         ];
         $time_3 = [
             "4 months",
@@ -167,7 +166,7 @@ class ChecklistController extends Controller
             " Create a list of clothes for relatives and in laws.",
             " Finish your shopping",
             " Tailoring of clothes",
-            " Check up with tailor for trial and fitting"
+            " Check up with tailor for trial and fitting",
         ];
         $time_4 = [
             "3 months",
@@ -185,7 +184,7 @@ class ChecklistController extends Controller
             " Try to hunt down your treasure jewellery as a blessing from your elders if you are the bride.",
             " Research online for trending types of jewelleries.",
             " Select jewelleries that matches your outfit and theme",
-            " Take help from someone experienced on jewellery shopping day "
+            " Take help from someone experienced on jewellery shopping day ",
         ];
         $time_5 = [
             "3 months",
@@ -202,7 +201,7 @@ class ChecklistController extends Controller
             " Book beauty parlor closer to home and venue ",
             " Discuss with makeup artists about your preference ",
             " Groom must get haircut & facial treatment. ",
-            " Start early for parlour and try to reach at venue 1 hour  scheduled time."
+            " Start early for parlour and try to reach at venue 1 hour  scheduled time.",
         ];
         $time_6 = [
             "3 months",
@@ -220,7 +219,7 @@ class ChecklistController extends Controller
             " Read our articles to find different poses or theme for your photos ",
             " Discuss theme, decoration, lighting and make up with photographer ",
             " Discuss preferred song for cinematic trailer ",
-            " Done your pre-wedding shoot if you have any plan "
+            " Done your pre-wedding shoot if you have any plan ",
         ];
         $time_7 = [
             "6 months",
@@ -237,7 +236,7 @@ class ChecklistController extends Controller
             " Double check the texts for card/order ",
             " Print required no. of cards ",
             " Send out or deliver invitation cards ",
-            " Create a Facebook event page and invite guests. "
+            " Create a Facebook event page and invite guests. ",
         ];
         $time_8 = [
             "2 months",
@@ -251,7 +250,7 @@ class ChecklistController extends Controller
         $set_9 = [
             " Select your food menus for different ceremonies. ",
             " Appoint preferred catering and discuss the menu. ",
-            " Make a list of relatives and in laws to distribute sweets/desserts "
+            " Make a list of relatives and in laws to distribute sweets/desserts ",
         ];
         $time_9 = [
             "2 months",
@@ -267,7 +266,7 @@ class ChecklistController extends Controller
             " Fix date, time and place for dance practice. ",
             " Book Choreographer from Ayojok.com if you need ",
             " Book sound system & lighting.",
-            " Discuss preferred songs with band/artist/DJ"
+            " Discuss preferred songs with band/artist/DJ",
         ];
         $time_10 = [
             "2 months",
@@ -282,7 +281,7 @@ class ChecklistController extends Controller
 
         $set_11 = [
             " Find a Wedding Officiant ",
-            " Gather necessary documents to file marriage license "
+            " Gather necessary documents to file marriage license ",
         ];
         $time_11 = [
             "1 month ",
@@ -293,7 +292,7 @@ class ChecklistController extends Controller
         $set_12 = [
             " Make a list of goodies that you will give as trousseau ",
             " Packing gifts for wedding and Ask relatives and friends for help ",
-            " Ensure a separate car to take the gifts to the venue "
+            " Ensure a separate car to take the gifts to the venue ",
         ];
         $time_12 = [
             "1 month",
@@ -307,7 +306,7 @@ class ChecklistController extends Controller
             " Rent cars for friends & family. ",
             " Make a schedule for car decoration and hire someone accordingly. (groom side) ",
             " Book hotels/guest houses for guests from outside towns. ",
-            " Book hotels or resorts for destination wedding "
+            " Book hotels or resorts for destination wedding ",
         ];
         $time_13 = [
             "2 weeks",
@@ -324,7 +323,7 @@ class ChecklistController extends Controller
             " Select honeymoon destination and fix travel date. ",
             " Search online for best tourism packages ",
             " Book hotels online via air bnb, tripadvisor etc ",
-            " Purchase plane tickets "
+            " Purchase plane tickets ",
         ];
         $time_14 = [
             "2 months",

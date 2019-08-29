@@ -64,6 +64,10 @@ $('.modal').on('show.bs.modal', event => {
     });
 });
 
+$('.navbar-nav>li>a').on('mouseout', () => {
+    $('.dropdown-toggle').collapse('hide');
+});
+
 // $('.dropdown-toggle').click(function() {
 //     var location = $(this).attr('href');
 //     window.location.href = location;
