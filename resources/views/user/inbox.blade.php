@@ -39,7 +39,7 @@
             </ul>
         </div>
 
-        <div class="wow fadeIn">
+        <div class="">
             <h3><i class="fa fa-envelope fa-lg" style="margin-right:1rem;"></i> My Inbox</h3>
         </div>
 

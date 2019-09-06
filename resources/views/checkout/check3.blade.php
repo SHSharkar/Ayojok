@@ -25,7 +25,7 @@
 
         <div class="row mb-4">
             <div class="col-lg-12">
-                <div class="wow fadeIn">
+                <div class="">
                     <h3><i class="fa fa-shopping-cart fa-lg" style="margin-right:1rem;"></i> PAYMENT METHOD</h3>
                 </div>
             </div>

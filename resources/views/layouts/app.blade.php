@@ -10,7 +10,12 @@
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     {{--<title>{{ config('app.name', 'Ayojok | One Stop Solution for you event') }}</title>--}}
     <title>Ayojok | One Stop Solution for your event</title>
-    <link rel="stylesheet" href="{{ mix('/css/primary.css') }}">
+    @if (App::environment(['local', 'staging']))
+        <link rel="stylesheet" href="{{ mix('/css/primary.s') }}">
+    @else
+        <link rel="stylesheet" href="{{ mix('/css/primary.s') }}">
+    @endif
+
     <link rel="icon" href="{{ asset('img/logo_final.png') }}" type="image/x-icon">
     @stack('css')
 
@@ -550,7 +555,11 @@
     </div>
 </div>
 
-<script src="{{ mix('/js/primary.js') }}"></script>
+@if (App::environment(['local', 'staging']))
+    <script src="{{ mix('/js/primary.s') }}"></script>
+@else
+    <script src="{{ mix('/js/primary.s') }}"></script>
+@endif
 
 <script>
     $.fn.selectpicker.Constructor.BootstrapVersion = '4';

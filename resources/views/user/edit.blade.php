@@ -27,7 +27,7 @@
                         </ol>
                     </nav>
 
-                    <div class="wow fadeIn">
+                    <div class="">
                         <h3><i class="fa fa-user fa-lg"></i> My Personal Information</h3>
                     </div>
                 </div>

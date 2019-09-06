@@ -15,15 +15,15 @@
 
         <!-- Our Service -->
 <section class="page-section pricing" style="margin-top: 5%;text-transform: none">
-    <div class="container wow fadeIn mb-5">
-        <div class="text-center wow fadeIn">
+    <div class="container  mb-5">
+        <div class="text-center ">
             <p style="color:black; font-size:26px;">Find vendors at every budget</p>
 
             <p style="color:black; font-size:18px;">Venues, catering, decoration, photographers & more</p>
         </div>
 
         {{--Ayojok Services--}}
-        <div class="wow fadeIn text-center mt-5" style="visibility: visible; animation-name: fadeIn;">
+        <div class=" text-center mt-5" style="visibility: visible; animation-name: fadeIn;">
             <h3 id="service-name" style="color: rgba(10, 10, 10, 0.91);text-transform: none">Ayojok Services</h3>
             <hr class="colored" style="max-width: 200px;">
         </div>
@@ -262,7 +262,7 @@
 
     {{--Ayojok Products --}}
 
-    {{--<div class="wow fadeIn text-center mt-5" style="visibility: visible; animation-name: fadeIn;">
+    {{--<div class=" text-center mt-5" style="visibility: visible; animation-name: fadeIn;">
         <h3 id="service-name" style="color: rgba(10, 10, 10, 0.91);text-transform: none">Products</h3>
         <hr class="colored">
     </div>

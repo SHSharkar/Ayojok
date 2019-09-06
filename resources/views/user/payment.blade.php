@@ -34,7 +34,7 @@
             </ul>
         </div>
 
-        <div class="wow fadeIn">
+        <div class="">
             <h3><i class="fa fa-money fa-lg" style="margin-right:1rem;"></i> Payment</h3>
         </div>
         <div class="mt-4 mb-5">

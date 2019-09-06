@@ -40,10 +40,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="wow fadeIn">
+                    <div class="">
                         <h3><i class="fa fa-map-marker fa-lg" style="margin-right:1rem;"></i> My Wishlist</h3>
                     </div>
-                    <!-- /.wow fadeIn -->
+                    <!-- /. -->
                 </div>
                 <!-- /.col-12 col-sm-12 col-md-12 col-lg-12 -->
             </div>

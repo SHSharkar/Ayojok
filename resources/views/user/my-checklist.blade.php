@@ -208,7 +208,7 @@
                         </ol>
                     </nav>
 
-                    <div class="wow fadeIn text-center">
+                    <div class=" text-center">
                         <h3 style="word-wrap: break-word;line-height: 1.3;">My Checklist</h3>
                         <hr class="colored mt-0 mb-0">
                     </div>

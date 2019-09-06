@@ -17,10 +17,10 @@
         <div class="container">
             <div class="row mb-md-1 mb-lg-1">
                 <div class="col-12 col-sm-12 col-md-12">
-                    <div class="wow fadeIn mt-md-2 mt-lg-2 mt-1 mb-2">
+                    <div class=" mt-md-2 mt-lg-2 mt-1 mb-2">
                         <h3>{{ $catagorydata->name }}</h3>
                     </div>
-                    <!-- /.wow fadeIn -->
+                    <!-- /. -->
 
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">

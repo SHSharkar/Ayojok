@@ -45,7 +45,7 @@
                                  </ul>
                              </div>--}}
 
-                            <div class="wow fadeIn mt-4" style="color: #04050a;">
+                            <div class=" mt-4" style="color: #04050a;">
                                 <h3><i class="fa fa-envelope fa-lg" style="margin-right:1rem;"></i>(User:  {{$user->name}} ) Query Inbox</h3>
                             </div>
 

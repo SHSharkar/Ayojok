@@ -65,7 +65,7 @@ if (preg_match($pattern, $server_name)) {
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="wow fadeIn">
+                <div class="">
                     <h3><i class="fa fa-shopping-cart fa-lg" style="margin-right:1rem; color: #E1AB59"></i> Booking List
                     </h3>
                 </div>

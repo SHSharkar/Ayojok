@@ -90,7 +90,7 @@
                         <p class="tag1">How it works? Simple, easy <span class="andSymbl">&</span> fast!</p>
 
                         <div class="row scroll-down" style="text-align:center;">
-                            <div class="col-12 col-sm-4 col-lg-4">
+                            <div class="col-12 col-sm-4 col-lg-4 @if(!$agent->isMobile()) text-right @endif">
                                 <div class="content_ico">
                                     <a href="https://www.ayojok.com/how-it-works">
                                         <img class="icon1" src="{{asset('img/icons/mouse.png')}}">
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-4 col-lg-4">
+                            <div class="col-12 col-sm-4 col-lg-4 @if(!$agent->isMobile()) text-left @endif">
                                 <div class="content_ico3">
                                     <a href="https://www.ayojok.com/how-it-works">
                                         <img class="icon" src="{{asset('img/icons/calender_v2.png')}}">
@@ -134,8 +134,8 @@
 
     <!-- Our Service -->
     <section class="page-section pricing mt-3">
-        <div class="wow container fadeIn mb-4">
-            <div class="text-center wow fadeIn">
+        <div class=" container  mb-4">
+            <div class="text-center ">
                 <p style="color:black; font-size:26px;">Find services for your every budget</p>
 
                 <p style="color:black; font-size:18px;">Venues, catering, decoration, photographers & more</p>
@@ -462,9 +462,9 @@
 
     <!-- Event Section -->
     <!-- <section class="page-section bg-light">
-    <div class="container text-center wow fadeIn mt-4 mb-4">
+    <div class="container text-center  mt-4 mb-4">
       <div class="row mt-4">
-        <div class="col-md-3 wow fadeIn event-sec" data-wow-delay=".2s">
+        <div class="col-md-3  event-sec" data-wow-delay=".2s">
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
               <img class="img-fluid" src="img/service1.jpg" alt="">
@@ -475,7 +475,7 @@
             </div>
           </a>
         </div>
-        <div class="col-md-3 wow fadeIn" data-wow-delay=".2s">
+        <div class="col-md-3 " data-wow-delay=".2s">
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
               <img class="img-fluid" src="img/service2.jpg" alt="">
@@ -485,7 +485,7 @@
             </div>
           </a>
         </div>
-        <div class="col-md-3 mb-3 wow fadeIn" data-wow-delay=".2s">
+        <div class="col-md-3 mb-3 " data-wow-delay=".2s">
 
           <div class="event-dec">
             <div style="text-align:center;">
@@ -501,7 +501,7 @@
           <a href="{{url('event-coordinator')}}" class="btn btn-proceed mt-5">Learn More</a>
 
         </div>
-        <div class="col-md-3 wow fadeIn" data-wow-delay=".2s" >
+        <div class="col-md-3 " data-wow-delay=".2s" >
           <a href="{{url('event-coordinator')}}">
             <div class="hovereffect" style="cursor: pointer;">
               <img class="img-fluid" src="img/service3.jpg" alt="">
@@ -517,7 +517,7 @@
 
     <!-- Hours Section - Repurposed from Pricing Table -->
     <!-- <section class="page-section pricing" id="hours" style="background-image: url('img/backgrounds/bg-pricing.jpg')">
-      <div class="container wow fadeIn mt-4 mb-4">
+      <div class="container  mt-4 mb-4">
         <div class="text-center">
           <h2>Planning Tools</h2>
           <hr class="colored">
@@ -578,7 +578,7 @@
     </section> -->
     <!-- plaaning tools new UI -->
     <section class="page-section pricing" id="hours" style="background-color: white;color: #323232">
-        <div class="container wow fadeIn @if($agent->isMobile()) mt-3 @else mt-5 @endif">
+        <div class="container  @if($agent->isMobile()) mt-3 @else mt-5 @endif">
             <div class="row">
                 <!-- Pricing Table 1 -->
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
@@ -742,7 +742,7 @@
 
     <!-- Menu Gallery -->
     <section class="page-section mt-3" id="menu">
-        <div class="container wow fadeIn mb-4">
+        <div class="container  mb-4">
             <div class="text-center">
                 <p>
                     <span style="transform: scale(2, 1.3);font-size: 25px;font-weight: 200;font-family: 'Source Sans Pro', sans-serif;">Ideas and stories</span><br>Get your creative inspiration from current trend and tips.

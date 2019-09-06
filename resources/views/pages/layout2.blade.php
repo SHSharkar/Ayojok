@@ -212,7 +212,7 @@
 
     <!-- Parallax section with all the other feature -->
     <section class="page-section pricing" style="background-image: url({{asset($catagorydata->layout_img)}});">
-        <div class="container wow fadeIn mt-4 mb-4 mt-sm-4 mb-sm-4 mt-md-5 mb-md-5 mt-lg-5 mb-lg-5 feature">
+        <div class="container  mt-4 mb-4 mt-sm-4 mb-sm-4 mt-md-5 mb-md-5 mt-lg-5 mb-lg-5 feature">
             <div class="row text-center">
                 <div class="col-xs-6 col-lg-3 mt-3 mt-sm-4 mt-md-5 mt-lg-5">
                     <a href="#">
@@ -283,7 +283,7 @@
     <section class="page-section services mt-md-3">
         <div class="container">
             <!-- Packages Details -->
-            <div class="text-center wow fadeIn">
+            <div class="text-center ">
                 <h3>Our Packages</h3>
                 <hr class="colored">
             </div>
@@ -364,7 +364,7 @@
     <!-- Image Gallery -->
     <section class="page-section services mt-2">
         <div class="container">
-            <div class="text-center wow fadeIn">
+            <div class="text-center ">
                 <h3>Our Gallery</h3>
                 <hr class="colored">
             </div>
@@ -388,7 +388,7 @@
     <!-- Review Rating -->
     <section class="page-section">
         <div class="container">
-            <div class="text-center wow fadeIn">
+            <div class="text-center ">
                 <h3>Your Opinion</h3>
                 <hr class="colored">
             </div>
@@ -564,7 +564,7 @@
     <!-- Suggested Product-->
     {{-- <section class="page-section mb-4">
     <div class="container">
-    <div class="text-center wow fadeIn">
+    <div class="text-center ">
     <h3>You May Also Like</h3>
     <hr class="colored">
     </div>

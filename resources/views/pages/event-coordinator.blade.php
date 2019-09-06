@@ -15,7 +15,7 @@
     <!-- Event Coordinator description section -->
     <section class="page-section pt-3">
         <div class="container">
-            <div class="wow fadeIn text-center">
+            <div class=" text-center">
                 <h3>Event Coordinator</h3>
                 <hr class="colored">
             </div>
@@ -43,7 +43,7 @@
 
     <!-- Form for query section -->
     <section class="page-section" id="contact" style="background-image: url('img/backgrounds/bg-service.jpg');">
-        <div class="container wow fadeIn">
+        <div class="container ">
             <div class="text-center contact-header pt-3">
                 <h2 class="font-weight-lighter">Contact Us</h2>
                 <hr class="colored">

@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+require('laravel-mix-versionhash');
+mix.versionHash();
 
 /*
  |--------------------------------------------------------------------------
@@ -16,15 +18,17 @@ mix.options({
 });
 
 mix.js('resources/assets/js/app.js', 'public/js').sass(
-	'resources/assets/sass/app.scss',
-	'public/css'
+    'resources/assets/sass/app.scss',
+    'public/css'
 );
 
 mix.js('resources/assets/js/primary.js', 'public/js').sass(
-	'resources/assets/sass/primary.scss',
-	'public/css'
+    'resources/assets/sass/primary.scss',
+    'public/css'
 );
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.options({
+        processCssUrls: false
+    });
 }

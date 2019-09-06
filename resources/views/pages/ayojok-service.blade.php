@@ -250,7 +250,7 @@
     {{-- Related Product --}}
     {{-- <section class="page-section">
     <div class="container text-center">
-    <div class="wow fadeIn">
+    <div class="">
     <h3>You May Also Like</h3>
     </div>
     <hr class="colored">

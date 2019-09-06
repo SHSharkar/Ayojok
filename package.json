@@ -21,7 +21,7 @@
         "popper.js": "^1.15",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.22.10",
-        "sass-loader": "^8.0.0",
+        "sass-loader": "7.*",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
     },
@@ -34,6 +34,7 @@
         "eslint-config-problems": "^3.0.1",
         "eslint-plugin-prettier": "^3.1.0",
         "jquery-match-height": "^0.7.2",
+        "laravel-mix-versionhash": "https://github.com/SHSharkar/laravel-mix-versionhash.git",
         "prettier": "^1.18.2",
         "sass-lint-auto-fix": "^0.17.0",
         "stylelint-config-standard": "^18.3.0",

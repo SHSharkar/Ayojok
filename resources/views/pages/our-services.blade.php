@@ -21,7 +21,7 @@
 
 <section class="mt-4 mb-4">
   <div class="container">
-    <div class="wow fadeIn text-center">
+    <div class=" text-center">
       <h3>Ayojok Services</h3>
       <hr class="colored">
     </div>

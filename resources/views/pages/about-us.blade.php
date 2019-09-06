@@ -16,7 +16,7 @@
     <!-- Blank section -->
     <section class="page-section services" style="background-image: url('img/backgrounds/texture-bg.png')">
         <div class="container pt-3 mb-md-1 mb-lg-1">
-            <div class="wow fadeIn text-center">
+            <div class=" text-center">
                 <h3>About Us</h3>
                 <hr class="colored">
             </div>

@@ -28,7 +28,7 @@
         </ul>
       </div>
 
-      <div class="wow fadeIn clearfix">
+      <div class=" clearfix">
         <img src="img/planning-tools/my-vendor.png" style="width:3rem;float:left;" alt=""><h3 style="padding:15px;margin-left:3rem;">My Budget</h3>
       </div>
 

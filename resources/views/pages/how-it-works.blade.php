@@ -16,16 +16,16 @@
 
     <!-- How it works section -->
     <section class="page-section pricing" style="color: black; background-color: white">
-        <div class="row wow fadeIn text-center pt-3">
+        <div class="row  text-center pt-3">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <h3 class="pagetitle" style="color: #e5b15b">How It Works</h3>
                 <!-- /.pagetitle -->
             </div>
             <!-- /.col-12 col-sm-12 col-md-12 col-lg-12 -->
         </div>
-        <!-- /.row wow fadeIn text-center -->
+        <!-- /.row  text-center -->
 
-        <div class="container wow fadeIn mb-2">
+        <div class="container  mb-2">
             <div class="row mb-3">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-justify mb-3">
                     <p>

@@ -40,7 +40,7 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <div class="wow fadeIn">
+          <div class="">
             <h3><i class="fa fa-map-marker fa-lg" style="margin-right:1rem;"></i>  Add Your Addresses</h3>
           </div>
         </div>

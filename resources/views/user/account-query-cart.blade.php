@@ -39,7 +39,7 @@
 
         <div class="row mb-4">
             <div class="col-lg-12">
-                <div class="wow fadeIn">
+                <div class="">
                     <h3><i class="fa fa-search fa-lg" style="margin-right:1rem;"></i> My Queries </h3>
                 </div>
             </div>

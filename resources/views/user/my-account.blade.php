@@ -28,7 +28,7 @@
       </ul>
     </div> --}}
 
-    <div class="wow fadeIn">
+    <div class="">
       <h3><i class="fa fa-unlock fa-lg" style="margin-right:1rem;"></i>  My Account</h3>
     </div>
     <div class="mt-4 mb-5">

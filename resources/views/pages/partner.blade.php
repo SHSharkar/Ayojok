@@ -18,7 +18,7 @@
 
     <!-- Form for query section -->
     <section class="page-section" id="contact" style="background-image: url('img/backgrounds/partner2.jpg');height:auto;background-position:center;background-repeat:no-repeat;background-size:cover;">
-        <div class="container wow fadeIn mt-md-3 mt-lg-3">
+        <div class="container  mt-md-3 mt-lg-3">
             <div class="text-center contact-header">
                 <h2 class="font-weight-normal">BE A PART OF OUR TEAM</h2>
                 <hr class="colored">

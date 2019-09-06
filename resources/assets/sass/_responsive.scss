@@ -1760,9 +1760,7 @@
   }
 }
 
-@media (max-width: 768px) {
-  html, body {
-    width: auto !important;
-    overflow-x: hidden !important;
-  }
+html, body {
+  width: auto !important;
+  overflow-x: hidden !important;
 }

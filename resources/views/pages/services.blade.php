@@ -21,13 +21,13 @@
     <!-- Blank section -->
     <section class="page-section services mt-2">
         <div class="container">
-            <div class="wow fadeIn text-center mb-3">
+            <div class=" text-center mb-3">
                 <h3 class="service-name" style="word-wrap: break-word;line-height: 1.3;">{{ str_replace('_',' ',$catagorydata->name) }}</h3>
                 <!-- /.service-name -->
                 <hr class="colored mt-0 mb-0">
                 <!-- /.colored mt-0 mb-0 -->
             </div>
-            <!-- /.wow fadeIn text-center mb-3 -->
+            <!-- /. text-center mb-3 -->
 
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">

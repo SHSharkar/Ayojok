@@ -29,7 +29,7 @@
                         </ol>
                     </nav>
 
-                    <div class="wow fadeIn">
+                    <div class="">
                         <h3><i class="fa fa-shopping-bag fa-lg" style="margin-right:1rem;color: #E3AE5B"></i> My Vendors</h3>
                     </div>
 

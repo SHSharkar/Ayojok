@@ -14,7 +14,7 @@
 
     <!-- Form for query section -->
     <section class="page-section" id="contact" style="background-image: url('img/backgrounds/bg-service.jpg');">
-        <div class="container wow fadeIn">
+        <div class="container ">
             <div class="text-center contact-header pt-2">
                 <h2 class="font-weight-lighter">Contact Us</h2>
                 <hr class="colored">
