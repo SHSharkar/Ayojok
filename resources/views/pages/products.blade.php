@@ -90,7 +90,7 @@
                             <div class="products-list-wrapper" data-mh="vendor-product-list">
                                 <a href="{{ url('services/'.$catagory = $catagorydata->name.'/'.$product = $data->id) }}">
                                     <div class="card">
-                                        @if(($data->image !== null || !empty($data->image)) && file_exists($data->image))
+                                        @if(($data->image !== null || !empty($data->image)) && file_exists(public_path($data->image)))
                                             @php $img = $data->image; @endphp
                                         @else
                                             @php $img = asset('img/vendor-profile/default.png'); @endphp

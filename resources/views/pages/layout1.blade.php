@@ -25,21 +25,20 @@
             <div class="row pt-3">
                 <!-- Fetaure Image, video or 360 viewer place -->
                 <div class="col-lg-8">
-
                     <div id="myCarousel" class=" carousel slide vendor-carousel" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists($datas->feature_image_1))
+                                @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists(public_path($datas->feature_image_1)))
                                     <img class="d-block w-100" src="{{ asset($datas->feature_image_1) }}" alt="First slide">
                                 @endif
                             </div>
                             <div class="carousel-item">
-                                @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists($datas->feature_image_2))
+                                @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists(public_path($datas->feature_image_2)))
                                     <img class="d-block w-100" src="{{ asset($datas->feature_image_2) }}" alt="Second slide">
                                 @endif
                             </div>
                             <div class="carousel-item">
-                                @if ((!empty($datas->feature_image_3) || $datas->feature_image_3 != null) && file_exists($datas->feature_image_3))
+                                @if ((!empty($datas->feature_image_3) || $datas->feature_image_3 != null) && file_exists(public_path($datas->feature_image_3)))
                                     <img class="d-block w-100" src="{{ asset($datas->feature_image_3) }}" alt="Third slide">
                                 @endif
                             </div>
@@ -53,15 +52,15 @@
 
                         </a>
                         <ul class="carousel-indicators">
-                            @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists($datas->feature_image_1))
+                            @if ((!empty($datas->feature_image_1) || $datas->feature_image_1 != null) && file_exists(public_path($datas->feature_image_1)))
                                 <li data-target="#myCarousel" data-slide-to="0" class="active"><img src="{{asset($datas->feature_image_1)}}" alt=""></li>
                             @endif
 
-                            @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists($datas->feature_image_2))
+                            @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists(public_path($datas->feature_image_2)))
                                 <li data-target="#myCarousel" data-slide-to="1"><img src="{{asset($datas->feature_image_2)}}" alt=""></li>
                             @endif
 
-                            @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists($datas->feature_image_2))
+                            @if ((!empty($datas->feature_image_2) || $datas->feature_image_2 != null) && file_exists(public_path($datas->feature_image_2)))
                                 <li data-target="#myCarousel" data-slide-to="2"><img src="{{asset($datas->feature_image_3)}}" alt=""></li>
                             @endif
                         </ul>
@@ -181,7 +180,7 @@
                 <div class="row mb-md-5 mt-3">
                     <div id="ajax-alert"></div>
                     <div class="col-4">
-                        @if ((!empty($datas->logo) || $datas->logo != null) && file_exists($datas->logo))
+                        @if ((!empty($datas->logo) || $datas->logo != null) && file_exists(public_path($datas->logo)))
                             <div class="avatar">
                                 <img alt="" src="{{ asset($datas->logo) }}" class="img-fluid">
                             </div>
@@ -216,7 +215,7 @@
                 <!-- About us row with tabbed content -->
                 <div class="row mb-md-5 mt-3">
                     <div class="col-2 text-center">
-                        @if ((!empty($datas->logo) || $datas->logo != null) && file_exists($datas->logo))
+                        @if ((!empty($datas->logo) || $datas->logo != null) && file_exists(public_path($datas->logo)))
                             <div class="avatar">
                                 <img alt="" src="{{ asset($datas->logo) }}">
                             </div>

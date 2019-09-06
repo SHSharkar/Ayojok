@@ -4,7 +4,7 @@
             <div class="vendors-index-wrapper" data-mh="vendor-product-list">
                 <a href="{{ url('vendors/'.$catagory = $catagorydata->name.'/'.$vendor = $data->vendor->id) }}">
                     <div class="card">
-                        @if(($data->vendor->profile_img !== null || !empty($data->vendor->profile_img)) && file_exists($data->vendor->profile_img))
+                        @if(($data->vendor->profile_img !== null || !empty($data->vendor->profile_img)) && file_exists(public_path($data->vendor->profile_img)))
                             @php $img = $data->vendor->profile_img; @endphp
                         @else
                             @php $img = asset('img/vendor-profile/default.png'); @endphp

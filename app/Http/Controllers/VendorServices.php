@@ -125,7 +125,7 @@ class VendorServices extends Controller
             $fdetails = $model::where('vendor_id', $vendor)->first();
             //dd($fdetails);
 
-            $features = vendor_features::where('catagory_id', $catagoryid)->first();
+            $features = vendor_features::whereCatagoryId($catagoryid)->first();
 
             $array['total'] = $ratings->count();
             $array['avgtotal'] = (float) $ratings->avg('rating');

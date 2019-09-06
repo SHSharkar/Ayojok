@@ -60,14 +60,14 @@
                                 <tr>
                                     <td>
                                         @if (isset($wishlist->vendors_id))
-                                            @if ($wishlist->vendor->profile_img != null && file_exists($wishlist->vendor->profile_img))
+                                            @if ($wishlist->vendor->profile_img != null && file_exists(public_path($wishlist->vendor->profile_img)))
                                                 <img src="{{ $wishlist->vendor->profile_img }}" alt="{{$wishlist->vendor->title}}" class="wishlist-product-logo">
                                             @else
                                                 <img src="{{ asset('img/vendor-profile/default.png') }}" alt="{{ $wishlist->vendor->title }}" class="wishlist-product-logo">
                                                 <!-- /.img-fluid -->
                                             @endif
                                         @else
-                                            @if ($wishlist->product->image != null && file_exists($wishlist->product->image))
+                                            @if ($wishlist->product->image != null && file_exists(public_path($wishlist->product->image)))
                                                 <img src="{{ $wishlist->product->image }}" alt="{{$wishlist->product->title}}" class="wishlist-product-logo">
                                             @else
                                                 <img src="{{ asset('img/vendor-profile/default.png') }}" alt="{{ $wishlist->vendor->title }}" class="wishlist-product-logo">
