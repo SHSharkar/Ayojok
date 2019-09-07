@@ -47,7 +47,8 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array $data
+     * @param  array  $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -63,24 +64,26 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
+     * @param  array  $data
+     *
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         $data['token'] = str_random(32);
-        $data['mail_template'] = "emails.user.email_to_new_user";
+        $data['mail_template'] = 'emails.user.email_to_new_user';
 
-        /*Mail Sending In queue*/
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->contact = $data['contact'];
+        $user->token = $data['token'];
+        $user->password = Hash::make($data['password']);
+        $user->save();
+
+        /* Mail Sending In queue */
         SendEmail::dispatch($data);
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'contact' => $data['contact'],
-            'token' => $data['token'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return $user;
     }
-
 }
